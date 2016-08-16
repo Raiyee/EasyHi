@@ -1,16 +1,21 @@
 #!/usr/bin/env bash
 
 set -e
+
+#build
+npm run build
+
 echo "Enter message: "
 read MESSAGE
 
 echo "Pushing $MESSAGE ..."
 
-#build
-npm run build
+git commit -a -m "$MESSAGE"
+git push
 
 # commit
 cd dist
+cp ../README.md .
 git init
 git add -A
 git commit -m "$MESSAGE"
