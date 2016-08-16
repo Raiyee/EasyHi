@@ -1,18 +1,24 @@
+#!/usr/bin/env bash
+
+npm run lint
+
 set -e
 echo "Enter message: "
 read MESSAGE
 
 echo "Pushing $MESSAGE ..."
 
-# run eslint
-npm run lint
+npm run clean
+npm run build
 
-# run unit tests
-npm run unit
+cd dist
+
+git init
 
 # commit
 git add -A
 git commit -m "$MESSAGE"
 
 # push
-git push
+git push --force --quiet git@github.com:raiyee/EasyHi.git master:gh-pages
+git push --force --quiet git@git.coding.net:Raiyee/EasyHi.git master:coding-pages

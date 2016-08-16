@@ -51,7 +51,7 @@
       }
     },
     "build": {
-      "command": "npm run lint && npm run unit && npm run clean && npm run compile",
+      "command": "npm run lint && npm run clean && npm run compile",
       "env": {
         "NODE_ENV": "production",
         "DEBUG": "koa*"
