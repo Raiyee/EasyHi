@@ -1,0 +1,291 @@
+@import "../common/style/hi-mixins.less";
+@import "../common/style/variables";
+
+@SLOGAN_TITLE_SIZE: 36 * @pr;
+@SLOGAN_TEXT_SIZE: 12 * @pr;
+@FOCUS_OUTLINE_COLOR: #79ffbc;
+
+.over-hidden {
+  overflow: hidden;
+}
+
+.pic {
+  position: absolute;
+
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  &.pic1 {
+    .image-2x("./img/member-index-01.png", cover);
+    background-size: cover;
+    animation: pic1 6s linear infinite;
+  }
+  &.pic2 {
+    .image-2x("./img/member-index-02.png", cover);
+    background-size: cover;
+    animation: pic2 6s linear infinite;
+  }
+}
+
+@keyframes pic1 {
+  from {
+    transform: scale(1.2);
+    .opacity(1);
+    z-index: 200;
+  }
+  40% {
+    transform: scale(1.04);
+    .opacity(1);
+    z-index: 200;
+  }
+  50% {
+    transform: scale(1);
+    .opacity(0);
+    z-index: 100;
+  }
+  90% {
+    transform: scale(1.25);
+    .opacity(0);
+    z-index: 100;
+  }
+  to {
+    transform: scale(1.2);
+    .opacity(1);
+    z-index: 200;
+  }
+}
+
+@keyframes pic2 {
+  from {
+    transform: scale(1);
+    .opacity(0);
+    z-index: 100;
+  }
+  40% {
+    transform: scale(1.25);
+    .opacity(0);
+    z-index: 100;
+  }
+  50% {
+    transform: scale(1.2);
+    .opacity(1);
+    z-index: 200;
+  }
+  90% {
+    transform: scale(1.04);
+    .opacity(1);
+    z-index: 200;
+  }
+  to {
+    transform: scale(1);
+    .opacity(0);
+    z-index: 100;
+  }
+}
+
+.wrap {
+  position: relative;
+  max-width: 750 * @pr;
+  margin-left: auto;
+  margin-right: auto;
+
+  .slogan {
+    position: absolute;
+    left: 50%;
+    top: 30%;
+    transform: translate3d(-50%, 0, 0);
+    text-align: center;
+    z-index: 300;
+
+    .slogan-header {
+      display: inline-block;
+    }
+
+    .slogan-title {
+      font-size: @SLOGAN_TITLE_SIZE;
+      transform: translate3d(0, 100%, 0);
+      animation: sloganTitle .6s forwards 2.6s;
+      max-height: 20 / 14 * @SLOGAN_TITLE_SIZE;
+      width: 288 * @pr;
+      border: none;
+      background: none;
+      text-align: center;
+      padding: 0;
+      resize: none;
+      outline: none;
+      .font-kai();
+      .over-hidden();
+
+      &:focus {
+        outline: 1px solid @FOCUS_OUTLINE_COLOR;
+      }
+    }
+
+    .line {
+      border-bottom: 1px solid black;
+      transform: translate3d(-100%, 0, 0);
+      animation: line 1s forwards 1.5s;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .slogan-body {
+      width: 164 * @pr;
+      margin-top: 8 * @pr;
+      transform: translate3d(-100%, 0, 0);
+      animation: sloganBody 1s forwards 3.3s;
+      .font-song();
+
+      .slogan-text {
+        font-size: @SLOGAN_TEXT_SIZE;
+        width: 100%;
+        text-align: center;
+        background: none;
+        resize: none;
+        border: none;
+        outline: none;
+        transform: translate3d(100%, 0, 0);
+        animation: sloganText 1s forwards 3.3s;
+
+        &:focus {
+          outline: 1px solid @FOCUS_OUTLINE_COLOR;
+        }
+      }
+    }
+
+  }
+  .member-menu {
+    position: absolute;
+    bottom: 17%;
+    z-index: 300;
+    left: 50%;
+    transform: translate3d(-50%, 0, 0);
+    width: 250 * @pr;
+    //width: calc(~\"11% + 210 * @pr\");
+
+    .outside-circle {
+
+      .opacity(0);
+      position: relative;
+      width: 105 * @pr;
+      height: 105 * @pr;
+      border: 2 * @pr solid #dfd28a;
+      border-radius: 101px;
+      backface-visibility: visible;
+      animation: showCircle 1s 0.5s;
+
+      .inside-circle {
+        width: 90 * @pr;
+        height: 90 * @pr;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        color: white;
+        transform: translate3d(-50%, -50%, 0);
+        border-radius: 90 * @pr;
+        background-color: #dfd28a;
+        text-align: center;
+        padding: 8 * @pr 0;
+
+        + .inside-circle-replace {
+          position: absolute;
+          top: 0;
+          width: 90 * @pr;
+          height: 90 * @pr;
+          background: white;
+          border-radius: 90 * @pr;
+          transform: scale(0);
+          z-index: 9999;
+          &.animated {
+            animation: replaceCircle 1s ease;
+          }
+        }
+
+        .menu-icon {
+          font-size: 24 * @pr;
+          display: block;
+          margin-top: 8 * @pr;
+          margin-bottom: 5 * @pr;
+        }
+
+        .menu-text {
+          font-size: 15 * @pr;
+        }
+      }
+    }
+  }
+
+  .edit {
+    width: 65 * @pr;
+    height: 33 * @pr;
+    line-height: 33 * @pr;
+    text-align: center;
+    position: absolute;
+    z-index: 200;
+    left: 0;
+    bottom: 4%;
+    border-bottom-right-radius: 33 * @pr;
+    border-top-right-radius: 33 * @pr;
+    background-color: #626262;
+    color: #fff;
+  }
+}
+
+@keyframes sloganTitle {
+  from {
+    transform: translate3d(0, 100%, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes sloganBody {
+  from {
+    transform: translate3d(-100%, 0, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes sloganText {
+  from {
+    transform: translate3d(100%, 0, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes line {
+  from {
+    transform: translate3d(-100%, 0, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes showCircle {
+  from {
+    transform: scale(0);
+    .opacity(0);
+  }
+  to {
+    transform: scale(1);
+    .opacity(1);
+  }
+}
+
+@keyframes replaceCircle {
+  from {
+    transform: scale(0);
+  }
+
+  to {
+    transform: scale(50);
+  }
+}
