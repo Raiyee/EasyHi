@@ -10,7 +10,7 @@ const router = new VueRouter({
   routes: [
     {
       path: '/',
-      component: resolve => require(['components/MemberIndex'], resolve)
+      component: resolve => require(['views/MemberIndex'], resolve)
     }
   ]
 });

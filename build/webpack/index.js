@@ -128,7 +128,7 @@ webpackConfig.plugins = [
     template: paths.src('index.ejs'),
     title: `${pkg.name} - ${pkg.description}`,
     // title: pkg.name,
-    // favicon: paths.src('static/favicon.ico'),
+    favicon: paths.src('static/favicon.ico'),
     hash: false,
     inject: true,
     minify: {

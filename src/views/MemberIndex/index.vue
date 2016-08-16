@@ -7,11 +7,11 @@
       <div class="pic pic2"></div>
       <div class="slogan">
         <div class="over-hidden slogan-header">
-          <input class="slogan-title" title="请输入标题" value="遇见瑜伽" readonly>
+          <input class="slogan-title" title="请输入标题" value="遇见瑜伽" disabled>
           <div class="line"></div>
         </div>
         <div class="over-hidden slogan-body center-block">
-          <textarea class="slogan-text" title="请输入内容" readonly>当心得到控制，平静下来时，剩下的便是灵魂</textarea>
+          <textarea class="slogan-text" title="请输入内容" disabled>当心得到控制，平静下来时，剩下的便是灵魂</textarea>
         </div>
       </div>
       <div class="member-menu">
