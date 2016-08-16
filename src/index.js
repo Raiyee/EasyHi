@@ -5,7 +5,7 @@ import 'bootstrap/less/bootstrap.less';
 import store from 'store';
 
 const documentEl = document.documentElement;
-documentEl.style.fontSize = documentEl.clientWidth / 375 * 16 + 'px';
+documentEl.style.fontSize = Math.min(documentEl.clientWidth, 375) / 375 * 16 + 'px';
 
 module.hot && module.hot.accept();
 
