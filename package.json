@@ -14,7 +14,6 @@
     "clean": "better-npm-run clean",
     "compile": "better-npm-run compile",
     "build": "better-npm-run build",
-    "docs": "bash build/bash/docs.sh",
     "push": "bash build/bash/push.sh"
   },
   "betterScripts": {
