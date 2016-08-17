@@ -3,8 +3,8 @@ import _debug from 'debug';
 import {argv} from 'yargs';
 
 // generate loader string to be used with extract text plugin
-function generateLoaders(loaders, options) {
-  const sourceLoaders = loaders.map(loader => {
+function generateLoaders(loader, loaders, options) {
+  const sourceLoaders = (loader ? loaders.concat(loader) : loaders).map(loader => {
     const hyphen = /\?/.test(loader) ? '&' : '?';
     return loader + (options.sourceMap ? hyphen + 'sourceMap' : '');
   }).join('!');
@@ -36,25 +36,24 @@ const debugPrefix = 'koa:webpack:';
 
 module.exports = {
   commonCssLoaders(options) {
-    // should change `baseLoaders` because `vueCssLoaders` will use the original `baseLoaders`
-    const baseLoader = Array.from(baseLoaders);
+    const [first, rest] = baseLoaders;
+    // should not change `baseLoaders` because `vueCssLoaders` will use the original `baseLoaders` too
+    // eslint-disable-next-line max-len
+    const baseLoader = [`${first}&camelCase&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]`].concat(rest);
+    const nodeModules = /node_modules/;
     const loader = [];
 
     for (const [key, value] of Object.entries(loaders)) {
-      loader.push({
-        test: new RegExp(`\\.${key}\$`),
-        loader: generateLoaders(value ? baseLoader.concat(value) : baseLoader, options),
-        include: /node_modules/
-      });
-    }
+      const regExp = new RegExp(`\\.${key}\$`);
 
-    baseLoader[0] += '&camelCase&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]';
-
-    for (let [key, value] of Object.entries(loaders)) {
       loader.push({
-        test: new RegExp(`\\.${key}\$`),
-        loader: generateLoaders(value ? baseLoader.concat(value) : baseLoader, options),
-        exclude: /node_modules/
+        test: regExp,
+        loader: generateLoaders(value, baseLoaders, options),
+        include: nodeModules
+      }, {
+        test: regExp,
+        loader: generateLoaders(value, baseLoader, options),
+        exclude: nodeModules
       });
     }
 
@@ -64,11 +63,10 @@ module.exports = {
   },
   vueCssLoaders: function (options = {}) {
     options = {...options, ...{vue: true}};
-    const baseLoader = Array.from(baseLoaders);
     const loader = {};
 
     for (const [key, value] of Object.entries(loaders)) {
-      loader[key] = generateLoaders(value ? baseLoader.concat(value) : baseLoader, options);
+      loader[key] = generateLoaders(value, baseLoaders, options);
     }
 
     debug && _debug(`${debugPrefix}vueLoaders`)(loader);

@@ -16,7 +16,7 @@
     "dev": "better-npm-run dev",
     "dev:mock": "better-npm-run dev -- --mock",
     "eslint": "eslint --max-warnings 10 --ext .js,.vue .",
-    "stylelint": "node build/bin/stylelint.js",
+    "stylelint": "better-npm-run stylelint",
     "lint": "npm run eslint && npm run stylelint",
     "lint:fix": "npm run lint -- --fix",
     "start": "better-npm-run start",
@@ -53,6 +53,12 @@
       "command": "nodemon build/bin/start",
       "env": {
         "NODE_ENV": "production",
+        "DEBUG": "koa*"
+      }
+    },
+    "stylelint": {
+      "command": "node build/bin/stylelint.js",
+      "env": {
         "DEBUG": "koa*"
       }
     }
