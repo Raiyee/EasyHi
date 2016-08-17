@@ -5,27 +5,32 @@
   "license": "GNU",
   "main": "index.js",
   "scripts": {
-    "start": "better-npm-run start",
-    "dev": "better-npm-run dev",
-    "dev:mock": "better-npm-run dev -- --mock",
-    "debug": "better-npm-run debug",
-    "lint": "eslint --max-warnings 10 --ext .js,.vue .",
-    "lint:fix": "npm run lint -- --fix",
+    "build": "better-npm-run build",
     "clean": "better-npm-run clean",
     "compile": "better-npm-run compile",
-    "build": "better-npm-run build",
+    "dev": "better-npm-run dev",
+    "dev:mock": "better-npm-run dev -- --mock",
+    "lint": "eslint --max-warnings 10 --ext .js,.vue .",
+    "lint:fix": "npm run lint -- --fix",
+    "start": "better-npm-run start",
     "push": "bash build/bash/push.sh"
   },
   "betterScripts": {
-    "compile": {
-      "command": "node build/bin/compile",
+    "build": {
+      "command": "npm run lint && npm run clean && npm run compile",
       "env": {
         "NODE_ENV": "production",
         "DEBUG": "koa*"
       }
     },
-    "start": {
-      "command": "nodemon build/bin/start",
+    "clean": {
+      "command": "node build/bin/clean",
+      "env": {
+        "DEBUG": "koa*"
+      }
+    },
+    "compile": {
+      "command": "node build/bin/compile",
       "env": {
         "NODE_ENV": "production",
         "DEBUG": "koa*"
@@ -37,20 +42,8 @@
         "DEBUG": "koa*"
       }
     },
-    "debug": {
-      "command": "nodemon --debug build/bin/start",
-      "env": {
-        "DEBUG": "koa*"
-      }
-    },
-    "clean": {
-      "command": "node build/bin/clean",
-      "env": {
-        "DEBUG": "koa*"
-      }
-    },
-    "build": {
-      "command": "npm run lint && npm run clean && npm run compile",
+    "start": {
+      "command": "nodemon build/bin/start",
       "env": {
         "NODE_ENV": "production",
         "DEBUG": "koa*"
@@ -72,7 +65,6 @@
     "babel-core": "^6.11.4",
     "babel-eslint": "^6.1.2",
     "babel-loader": "^6.2.4",
-    "babel-plugin-__coverage__": "^11.0.0",
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-transform-async-to-generator": "^6.8.0",
     "babel-plugin-transform-runtime": "^6.12.0",

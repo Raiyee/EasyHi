@@ -28,4 +28,4 @@ if (hasOverridesFile) {
   debug(`No configuration overrides found for NODE_ENV "${config.env}"`);
 }
 
-export default { ...config, ...overrides };
+export default {...config, ...overrides};

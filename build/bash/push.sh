@@ -17,7 +17,7 @@ git push
 cd dist
 cp ../README.md .
 git init
-git add -A
+git add -a
 git commit -m "$MESSAGE"
 
 # push

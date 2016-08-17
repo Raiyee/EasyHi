@@ -99,14 +99,13 @@ webpackConfig.module.loaders = [
     test: /\.vue$/,
     loader: 'vue'
   }
-].concat(utils.styleLoaders({
+].concat(utils.commonCssLoaders({
   sourceMap
 }));
 
 webpackConfig.vue = {
-  loaders: utils.cssLoaders({
-    sourceMap,
-    vue: true
+  loaders: utils.vueCssLoaders({
+    sourceMap
   }),
   autoprefixer: false
 };

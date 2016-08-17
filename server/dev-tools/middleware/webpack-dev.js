@@ -17,13 +17,13 @@ export default compiler => {
     stats: config.compiler_stats
   });
 
-  return async function koaWebpackDevMiddleware (ctx, next) {
+  return async function koaWebpackDevMiddleware(ctx, next) {
     /*eslint prefer-const: 0*/
     let hasNext = await applyExpressMiddleware(middleware, ctx.req, {
-      end (content) {
+      end(content) {
         ctx.body = content;
       },
-      setHeader () {
+      setHeader() {
         ctx.set.apply(ctx, arguments);
       }
     });

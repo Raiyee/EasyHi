@@ -20,13 +20,13 @@ const getters = {
 };
 
 const actions = {
-  setEnv ({ commit }, payload) {
+  setEnv({commit}, payload) {
     commit(SET_ENV, payload);
   }
 };
 
 const mutations = {
-  [SET_ENV] (state, payload) {
+  [SET_ENV](state, payload) {
     Object.assign(state, payload);
     persist.set(state);
   }

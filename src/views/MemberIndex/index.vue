@@ -42,7 +42,7 @@
 
   export default {
     name: 'app',
-    data () {
+    data() {
       const documentEl = document.documentElement;
       return {
         winHeight: documentEl.clientHeight,
@@ -68,7 +68,7 @@
         target.className.match(/(^| )animated($| )/) || (target.className += ' animated');
       }
     },
-    created () {
+    created() {
     },
     watch: {},
     components: {

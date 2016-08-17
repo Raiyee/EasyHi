@@ -21,7 +21,7 @@ const plugins = [
   }),
   store => {
     // 实现进度条、错误提示
-    store.subscribe(({ meta = {}, payload }) => {
+    store.subscribe(({meta = {}, payload}) => {
       switch (meta.promise) {
         case PROMISE_PENDING:
           store.dispatch('setProgress', 60);

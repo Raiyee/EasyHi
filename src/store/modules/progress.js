@@ -9,7 +9,7 @@ const getters = {
 };
 
 const actions = {
-  setProgress ({commit}, progress) {
+  setProgress({commit}, progress) {
     commit(SET_PROGRESS, progress);
     if (progress === 100) {
       setTimeout(() => {
@@ -20,7 +20,7 @@ const actions = {
 };
 
 const mutations = {
-  [SET_PROGRESS] (state, payload) {
+  [SET_PROGRESS](state, payload) {
     state.progress = payload;
   }
 };
