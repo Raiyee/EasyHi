@@ -4,7 +4,7 @@ import {argv} from 'yargs';
 
 // generate loader string to be used with extract text plugin
 function generateLoaders(loader, loaders, options) {
-  const sourceLoaders = (loader ? loaders.concat(loader) : loaders).map(loader => {
+  const sourceLoaders = (loader ? [...loaders, loader] : loaders).map(loader => {
     const hyphen = /\?/.test(loader) ? '&' : '?';
     return loader + (options.sourceMap ? hyphen + 'sourceMap' : '');
   }).join('!');
@@ -35,12 +35,13 @@ const debug = argv.debug;
 const debugPrefix = 'koa:webpack:';
 
 module.exports = {
-  commonCssLoaders(options) {
+  commonCssLoaders(options = {}) {
+    options.vue = false;
+
     const [first, rest] = baseLoaders;
     // should not change `baseLoaders` because `vueCssLoaders` will use the original `baseLoaders` too
-    // eslint-disable-next-line max-len
-    const baseLoader = [`${first}&camelCase&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]`].concat(rest);
-    const nodeModules = /node_modules/;
+    const baseLoader = [`${first}&camelCase&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]`, ...rest];
+    const nodeModules = /\bnode_modules\b/;
     const loader = [];
 
     for (const [key, value] of Object.entries(loaders)) {
@@ -62,7 +63,8 @@ module.exports = {
     return loader;
   },
   vueCssLoaders: function (options = {}) {
-    options = {...options, ...{vue: true}};
+    options.vue = true;
+
     const loader = {};
 
     for (const [key, value] of Object.entries(loaders)) {
