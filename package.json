@@ -1,8 +1,8 @@
 {
   "name": "easyhi-vue",
-  "version": "2.0.0-beta.2",
+  "version": "0.0.1",
   "description": "refactor EasyHi using vue, vuex, vue-router",
-  "license": "MIT",
+  "license": "GNU",
   "main": "index.js",
   "scripts": {
     "start": "better-npm-run start",
@@ -123,9 +123,5 @@
     "webpack-dev-middleware": "^1.6.1",
     "webpack-hot-middleware": "^2.12.2",
     "yargs": "^4.8.1"
-  },
-  "engines": {
-    "node": ">= 5.10.0 <= 5.12.0",
-    "npm": ">= 3.6.0 <= 3.8.6"
   }
 }
