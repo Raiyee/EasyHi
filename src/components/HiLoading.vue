@@ -27,6 +27,7 @@
     0% {
       transform: rotate(0deg);
     }
+
     to {
       transform: rotate(1turn);
     }

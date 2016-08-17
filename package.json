@@ -2,17 +2,22 @@
   "name": "easyhi-vue",
   "version": "0.0.1",
   "description": "refactor EasyHi using vue, vuex, vue-router",
-  "license": "GNU",
   "main": "index.js",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git@git.coding.net:Raiyee/EasyHi.git"
+  },
   "scripts": {
     "build": "better-npm-run build",
     "clean": "better-npm-run clean",
     "compile": "better-npm-run compile",
+    "debug": "better-npm-run dev -- --debug",
     "dev": "better-npm-run dev",
     "dev:mock": "better-npm-run dev -- --mock",
     "eslint": "eslint --max-warnings 10 --ext .js,.vue .",
-    "stylelint": "bash build/bash/stylelint.sh",
-    "lint": "npm run eslint",
+    "stylelint": "node build/bin/stylelint.js",
+    "lint": "npm run eslint && npm run stylelint",
     "lint:fix": "npm run lint -- --fix",
     "start": "better-npm-run start",
     "push": "bash build/bash/push.sh"

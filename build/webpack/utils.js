@@ -1,5 +1,6 @@
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
-import debug from 'debug';
+import _debug from 'debug';
+import {argv} from 'yargs';
 
 // generate loader string to be used with extract text plugin
 function generateLoaders(loaders, options) {
@@ -30,6 +31,7 @@ const loaders = {
   stylus: 'stylus'
 };
 
+const debug = argv.debug;
 const debugPrefix = 'koa:webpack:';
 
 module.exports = {
@@ -56,7 +58,7 @@ module.exports = {
       });
     }
 
-    debug(`${debugPrefix}commonLoaders`)(loader);
+    debug && _debug(`${debugPrefix}commonLoaders`)(loader);
 
     return loader;
   },
@@ -69,7 +71,7 @@ module.exports = {
       loader[key] = generateLoaders(value ? baseLoader.concat(value) : baseLoader, options);
     }
 
-    debug(`${debugPrefix}vueLoaders`)(loader);
+    debug && _debug(`${debugPrefix}vueLoaders`)(loader);
 
     return loader;
   }

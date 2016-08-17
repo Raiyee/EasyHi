@@ -37,8 +37,8 @@
 </template>
 <script>
   import {mapGetters, mapActions} from 'vuex';
-  import HiProgress from 'components/common/HiProgress';
-  import HiLoading from 'components/common/HiLoading';
+  import HiProgress from 'components/HiProgress';
+  import HiLoading from 'components/HiLoading';
 
   export default {
     name: 'app',
@@ -77,5 +77,4 @@
     }
   };
 </script>
-<style lang="less" src="./index.less">
-</style>
+<style lang="less" src="./index.less"/>
