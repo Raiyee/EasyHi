@@ -3,10 +3,11 @@ import {STATUS_CODES} from 'http';
 
 export default () => {
   // const debug = _debug('koa:tools:error')
-  return async (ctx, next) => {
+  return async(ctx, next) => {
     try {
       await next();
     } catch (err) {
+      console.log('err:', err);
       ctx.app.emit('error', err, ctx);
 
       ctx.status = ctx.status || 500;

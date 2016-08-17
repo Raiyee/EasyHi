@@ -21,6 +21,7 @@
     background-size: cover;
     animation: pic1 6s linear infinite;
   }
+
   &.pic2 {
     .image-2x("./img/member-index-02.png", cover);
     background-size: cover;
@@ -34,21 +35,25 @@
     .opacity(1);
     z-index: 200;
   }
+
   40% {
     transform: scale(1.04);
     .opacity(1);
     z-index: 200;
   }
+
   50% {
     transform: scale(1);
     .opacity(0);
     z-index: 100;
   }
+
   90% {
     transform: scale(1.25);
     .opacity(0);
     z-index: 100;
   }
+
   to {
     transform: scale(1.2);
     .opacity(1);
@@ -62,21 +67,25 @@
     .opacity(0);
     z-index: 100;
   }
+
   40% {
     transform: scale(1.25);
     .opacity(0);
     z-index: 100;
   }
+
   50% {
     transform: scale(1.2);
     .opacity(1);
     z-index: 200;
   }
+
   90% {
     transform: scale(1.04);
     .opacity(1);
     z-index: 200;
   }
+
   to {
     transform: scale(1);
     .opacity(0);
@@ -153,8 +162,8 @@
         }
       }
     }
-
   }
+
   .member-menu {
     position: absolute;
     bottom: 17%;
@@ -162,7 +171,6 @@
     left: 50%;
     transform: translate3d(-50%, 0, 0);
     width: 250 * @pr;
-    //width: calc(~\"11% + 210 * @pr\");
 
     .outside-circle {
 
@@ -173,7 +181,7 @@
       border: 2 * @pr solid #dfd28a;
       border-radius: 101px;
       backface-visibility: visible;
-      animation: showCircle 1s 0.5s;
+      animation: showCircle 1s .5s;
 
       .inside-circle {
         width: 90 * @pr;
@@ -197,6 +205,7 @@
           border-radius: 90 * @pr;
           transform: scale(0);
           z-index: 9999;
+
           &.animated {
             animation: replaceCircle 1s ease;
           }
@@ -236,6 +245,7 @@
   from {
     transform: translate3d(0, 100%, 0);
   }
+
   to {
     transform: translate3d(0, 0, 0);
   }
@@ -245,6 +255,7 @@
   from {
     transform: translate3d(-100%, 0, 0);
   }
+
   to {
     transform: translate3d(0, 0, 0);
   }
@@ -254,6 +265,7 @@
   from {
     transform: translate3d(100%, 0, 0);
   }
+
   to {
     transform: translate3d(0, 0, 0);
   }
@@ -263,6 +275,7 @@
   from {
     transform: translate3d(-100%, 0, 0);
   }
+
   to {
     transform: translate3d(0, 0, 0);
   }
@@ -273,6 +286,7 @@
     transform: scale(0);
     .opacity(0);
   }
+
   to {
     transform: scale(1);
     .opacity(1);
