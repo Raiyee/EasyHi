@@ -31,7 +31,6 @@ const config = {
   compiler_html_minify: false,
   compiler_css_modules: false,
   compiler_devtool: 'source-map',
-  compiler_source_map: true,
   compiler_hash_type: 'hash',
   compiler_quiet: false,
   compiler_public_path: '',

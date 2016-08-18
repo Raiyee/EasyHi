@@ -10,23 +10,32 @@
   },
   "scripts": {
     "build": "better-npm-run build",
+    "build:test": "better-npm-run build:test",
     "clean": "better-npm-run clean",
     "compile": "better-npm-run compile",
+    "compile:test": "better-npm-run compile:test",
     "debug": "better-npm-run dev -- --debug",
     "dev": "better-npm-run dev",
     "dev:mock": "better-npm-run dev -- --mock",
     "eslint": "eslint --max-warnings 10 --ext .js,.vue .",
-    "stylelint": "better-npm-run stylelint",
     "lint": "npm run eslint && npm run stylelint",
     "lint:fix": "npm run lint -- --fix",
     "start": "better-npm-run start",
+    "start:test": "better-npm-run start:test",
+    "stylelint": "better-npm-run stylelint",
+    "test": "better-npm-run test",
     "push": "bash build/bash/push.sh"
   },
   "betterScripts": {
     "build": {
       "command": "npm run lint && npm run clean && npm run compile",
       "env": {
-        "NODE_ENV": "production",
+        "DEBUG": "koa*"
+      }
+    },
+    "build:test": {
+      "command": "npm run lint && npm run clean && npm run compile:test",
+      "env": {
         "DEBUG": "koa*"
       }
     },
@@ -43,6 +52,13 @@
         "DEBUG": "koa*"
       }
     },
+    "compile:test": {
+      "command": "node build/bin/compile",
+      "env": {
+        "NODE_ENV": "test",
+        "DEBUG": "koa*"
+      }
+    },
     "dev": {
       "command": "nodemon build/bin/start",
       "env": {
@@ -56,11 +72,21 @@
         "DEBUG": "koa*"
       }
     },
+    "start:test": {
+      "command": "nodemon build/bin/start",
+      "env": {
+        "NODE_ENV": "test",
+        "DEBUG": "koa*"
+      }
+    },
     "stylelint": {
       "command": "node build/bin/stylelint.js",
       "env": {
         "DEBUG": "koa*"
       }
+    },
+    "test": {
+      "command": "npm run compile:test && npm run start:test"
     }
   },
   "dependencies": {

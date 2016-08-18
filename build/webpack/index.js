@@ -5,7 +5,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import _debug from 'debug';
 import config, {paths, pkg} from '../config';
 import utils from './utils';
-const {__DEV__, __PROD__, __TEST__} = config.globals;
+const {NODE_ENV, __DEV__, __PROD__, __TEST__} = config.globals;
 
 const debug = _debug('koa:webpack:config');
 
@@ -36,9 +36,9 @@ const webpackConfig = {
 const APP_ENTRY_PATH = ['babel-polyfill', paths.src('index.js')];
 
 webpackConfig.entry = {
-  app: __PROD__
-    ? APP_ENTRY_PATH
-    : APP_ENTRY_PATH.concat('webpack-hot-middleware/client'),
+  app: __DEV__
+    ? APP_ENTRY_PATH.concat('webpack-hot-middleware/client')
+    : APP_ENTRY_PATH,
   vendor: config.compiler_vendor
 };
 
@@ -72,9 +72,12 @@ webpackConfig.module.preLoaders = [
 // Loaders
 // ------------------------------------
 
-const sourceMap = config.compiler_source_map && !__PROD__;
+const sourceMap = {
+  sourceMap: !!config.compiler_devtool
+};
 
 webpackConfig.module.loaders = [
+  ...utils.commonCssLoaders(sourceMap),
   {
     test: /\.js$/,
     loader: 'babel',
@@ -99,14 +102,10 @@ webpackConfig.module.loaders = [
     test: /\.vue$/,
     loader: 'vue'
   }
-].concat(utils.commonCssLoaders({
-  sourceMap
-}));
+];
 
 webpackConfig.vue = {
-  loaders: utils.vueCssLoaders({
-    sourceMap
-  }),
+  loaders: utils.vueCssLoaders(sourceMap),
   autoprefixer: false
 };
 
@@ -142,8 +141,14 @@ webpackConfig.plugins = [
   })
 ];
 
-if (__PROD__) {
-  debug('Enable plugins for production (OccurenceOrder, Dedupe & UglifyJS).');
+if (__DEV__) {
+  debug('Enable plugins for live development (HMR, NoErrors).');
+  webpackConfig.plugins.push(
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin()
+  );
+} else {
+  debug(`Enable plugins for ${NODE_ENV} (OccurenceOrder, Dedupe & UglifyJS).`);
   webpackConfig.plugins.push(
     new webpack.optimize.OccurrenceOrderPlugin(true),
     new webpack.optimize.DedupePlugin(),
@@ -157,19 +162,10 @@ if (__PROD__) {
     // extract css into its own file
     new ExtractTextPlugin('[name].[contenthash].css')
   );
-} else {
-  debug('Enable plugins for live development (HMR, NoErrors).');
-  webpackConfig.plugins.push(
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
-  );
 }
 
-// Don't split bundles during testing, since we only want import one bundle
-if (!__TEST__) {
-  webpackConfig.plugins.push(new webpack.optimize.CommonsChunkPlugin({
-    names: ['vendor']
-  }));
-}
+webpackConfig.plugins.push(new webpack.optimize.CommonsChunkPlugin({
+  names: ['vendor']
+}));
 
 export default webpackConfig;

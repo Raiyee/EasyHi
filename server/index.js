@@ -20,7 +20,7 @@ app.use(error());
 // ------------------------------------
 // Apply Webpack DEV/HMR Middleware
 // ------------------------------------
-if (app.env === 'production') {
+if (app.env !== 'development') {
   // favicon
   app.use(favicon(paths.dist('favicon.ico')));
 
