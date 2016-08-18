@@ -19,7 +19,7 @@
     "dev:mock": "better-npm-run dev -- --mock",
     "eslint": "eslint --max-warnings 10 --ext .js,.vue .",
     "lint": "npm run eslint && npm run stylelint",
-    "lint:fix": "npm run lint -- --fix",
+    "lint:fix": "npm run eslint -- --fix",
     "start": "better-npm-run start",
     "start:test": "better-npm-run start:test",
     "stylelint": "better-npm-run stylelint",

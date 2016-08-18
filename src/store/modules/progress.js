@@ -11,11 +11,9 @@ const getters = {
 const actions = {
   setProgress({commit}, progress) {
     commit(SET_PROGRESS, progress);
-    if (progress === 100) {
-      setTimeout(() => {
-        commit(SET_PROGRESS, 0);
-      }, 500);
-    }
+    progress === 100 && setTimeout(() => {
+      commit(SET_PROGRESS, 0);
+    }, 500);
   }
 };
 

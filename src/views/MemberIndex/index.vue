@@ -2,7 +2,7 @@
   <div class="content">
     <hi-progress :progress="progress"/>
     <hi-loading v-show="progress"/>
-    <div class="wrap over-hidden" :style="{width:winWidth+'px', height:winHeight+'px'}">
+    <div class="wrap over-hidden" :style="{height:height+'px'}">
       <div class="pic pic1"></div>
       <div class="pic pic2"></div>
       <div class="slogan">
@@ -40,17 +40,21 @@
   import HiProgress from 'components/HiProgress';
   import HiLoading from 'components/HiLoading';
 
+  const documentEl = document.documentElement;
+
+  let resize = function () {
+    this.height = documentEl.clientHeight;
+  };
+
   export default {
     name: 'app',
     data() {
-      const documentEl = document.documentElement;
       return {
-        winHeight: documentEl.clientHeight,
-        winWidth: documentEl.clientWidth
+        height: documentEl.clientHeight
       };
     },
     computed: {
-      ...mapGetters(['progress'])
+      ...mapGetters(['height', 'progress'])
     },
     methods: {
       ...mapActions([]),
@@ -69,6 +73,11 @@
       }
     },
     created() {
+      resize = resize.bind(this);
+      window.addEventListener('resize', resize, false);
+    },
+    destroyed() {
+      window.removeEventListener('resize', resize);
     },
     watch: {},
     components: {
