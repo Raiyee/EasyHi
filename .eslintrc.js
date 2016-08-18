@@ -6,6 +6,7 @@ module.exports = {
   plugins: [
     'standard',
     'babel',
+    'react',
     `vue${argv.fix ? 'fix' : ''}`
   ],
   extends: [
@@ -17,13 +18,22 @@ module.exports = {
   globals: {
     __DEV__: false
   },
+  parserOptions: {
+    ecmaVersion: 6,
+    sourceType: 'module',
+    ecmaFeatures: {
+      jsx: true
+    }
+  },
   rules: {
+    'array-bracket-spacing': 2,
     'babel/generator-star-spacing': 2,
+    'computed-property-spacing': 2,
     'eol-last': 2,
     'generator-star-spacing': 0,
     'jsx-quotes': [
       2,
-      "prefer-double"
+      'prefer-double'
     ],
     'max-depth': 2,
     'max-len': [
@@ -45,7 +55,7 @@ module.exports = {
       }
     ],
     'object-curly-spacing': 2,
-    'array-bracket-spacing': 2,
-    'computed-property-spacing': 2
+    'react/jsx-uses-react': 2,
+    'react/jsx-uses-vars': 2,
   }
 };

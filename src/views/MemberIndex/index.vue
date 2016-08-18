@@ -1,7 +1,5 @@
 <template>
   <div class="content">
-    <hi-progress :progress="progress"/>
-    <hi-loading v-show="progress"/>
     <div class="wrap over-hidden" :style="{height:height+'px'}">
       <div class="pic pic1"></div>
       <div class="pic pic2"></div>
@@ -36,28 +34,14 @@
   </div>
 </template>
 <script>
-  import {mapGetters, mapActions} from 'vuex';
-  import HiProgress from 'components/HiProgress';
-  import HiLoading from 'components/HiLoading';
-
-  const documentEl = document.documentElement;
-
-  let resize = function () {
-    this.height = documentEl.clientHeight;
-  };
+  import {mapGetters} from 'vuex';
 
   export default {
     name: 'app',
-    data() {
-      return {
-        height: documentEl.clientHeight
-      };
-    },
     computed: {
-      ...mapGetters(['height', 'progress'])
+      ...mapGetters(['height'])
     },
     methods: {
-      ...mapActions([]),
       animationend: function (e) {
         const target = e.target;
         target.style.opacity = 1;
@@ -71,18 +55,6 @@
         target = target.nextElementSibling;
         target.className.match(/(^| )animated($| )/) || (target.className += ' animated');
       }
-    },
-    created() {
-      resize = resize.bind(this);
-      window.addEventListener('resize', resize, false);
-    },
-    destroyed() {
-      window.removeEventListener('resize', resize);
-    },
-    watch: {},
-    components: {
-      HiProgress,
-      HiLoading
     }
   };
 </script>

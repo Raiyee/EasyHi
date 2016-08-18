@@ -2,6 +2,7 @@ import Vue from 'vue';
 
 import store from 'store';
 import router from 'router';
+import App from './App';
 
 import 'bootstrap/less/bootstrap.less';
 // import 'styles/app.less';
@@ -26,5 +27,6 @@ Vue.config.debug = __DEV__;
 new Vue({
   el: '#app',
   store,
-  router
+  router,
+  ...App
 });

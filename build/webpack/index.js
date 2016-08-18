@@ -22,7 +22,7 @@ const webpackConfig = {
     alias: {
       vue: 'vue/dist/vue'
     },
-    extensions: ['', '.css', '.js', '.json', '.vue'],
+    extensions: ['', '.js', '.vue'],
     modules: ['node_modules', 'src']
   },
   module: {},
