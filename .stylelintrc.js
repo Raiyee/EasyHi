@@ -10,7 +10,7 @@ module.exports = {
     'selector-pseudo-class-no-unknown': [
       true,
       {
-        'ignorePseudoClasses': ':global,:local'
+        ignorePseudoClasses: ['global', 'local']
       }
     ],
     'selector-pseudo-element-colon-notation': 'single'

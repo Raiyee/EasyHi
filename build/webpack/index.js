@@ -2,7 +2,7 @@ import webpack from 'webpack';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
-import cssnano from 'cssnano';
+// import cssnano from 'cssnano';
 import _debug from 'debug';
 import config, {paths, pkg} from '../config';
 import utils, {baseLoaders, cssModuleLoaders, generateLoaders, nodeModules} from './utils';
@@ -90,7 +90,7 @@ webpackConfig.module.loaders = [
     exclude: nodeModules
   },
   {
-    test: /\b(^app)\.less$/,
+    test: /\.less$/,
     loader: generateLoaders('less', cssModuleLoaders, {
       sourceMap
     }),
@@ -186,21 +186,21 @@ if (__DEV__) {
   debug(`Enable postcss processors for ${TRUE_NODE_ENV}`);
 
   webpackConfig.postcss = [
-    cssnano({
-      autoprefixer: {
-        add: true,
-        remove: true,
-        browsers: ['> 0%']
-      },
-      discardComments: {
-        removeAll: true
-      },
-      discardUnused: false,
-      mergeIdents: false,
-      reduceIdents: false,
-      safe: true,
-      sourcemap: sourceMap
-    })
+    // cssnano({
+    //   autoprefixer: {
+    //     add: true,
+    //     remove: true,
+    //     browsers: ['> 0%']
+    //   },
+    //   discardComments: {
+    //     removeAll: true
+    //   },
+    //   discardUnused: false,
+    //   mergeIdents: false,
+    //   reduceIdents: false,
+    //   safe: true,
+    //   sourcemap: sourceMap
+    // })
   ];
 
   debug(`Enable plugins for ${TRUE_NODE_ENV} (OccurenceOrder, Dedupe & UglifyJS).`);

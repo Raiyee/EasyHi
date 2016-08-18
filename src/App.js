@@ -10,7 +10,7 @@ export default {
   render(h) {
     return (
       <div id="app">
-        <HiLoading/>
+        {this.progress ? <HiLoading/> : ''}
         <HiProgress progress={this.progress}/>
         <router-view/>
       </div>

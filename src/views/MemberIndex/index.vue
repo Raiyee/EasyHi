@@ -15,7 +15,7 @@
       <div class="member-menu">
         <div class="pull-left outside-circle" @animationend="animationend">
           <div class="inside-circle" data-title="subscribe"
-               @click="goto">
+               @click="scale">
             <span class="glyphicon glyphicon-book menu-icon"/>
             <span class="menu-text">预订课程</span>
           </div>
@@ -23,7 +23,7 @@
         </div>
         <div class="pull-right outside-circle" @animationend="animationend">
           <div class="inside-circle" data-title="index"
-               @click="goto">
+               @click="scale">
             <span class="glyphicon glyphicon-user menu-icon"/>
             <span class="menu-text">个人中心</span>
           </div>
@@ -47,13 +47,8 @@
         target.style.opacity = 1;
         target.className = target.className.replace(/ *animated */, '');
       },
-      goto: function (e) {
-        let target = e.target;
-        if (!target.className.match(/inside-circle/)) {
-          target = target.parentElement;
-        }
-        target = target.nextElementSibling;
-        target.className.match(/(^| )animated($| )/) || (target.className += ' animated');
+      scale: function (e) {
+        e.currentTarget.nextElementSibling.className += ' animated';
       }
     }
   };
