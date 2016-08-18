@@ -3,5 +3,5 @@ export default config => ({
   compiler_hash_type: 'chunkhash',
   compiler_html_minify: true,
   // compiler_public_path: ''
-  compiler_public_path: 'http://1stg.me/'
+  compiler_public_path: 'http://hi.1stg.me/'
 });
