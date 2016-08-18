@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import router from 'router';
 import 'bootstrap/less/bootstrap.less';
+import 'styles/app.less';
 
 import store from 'store';
 

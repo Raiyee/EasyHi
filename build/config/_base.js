@@ -4,8 +4,11 @@ import _debug from 'debug';
 
 const debug = _debug('koa:config:base');
 
+const TRUE_NODE_ENV = process.env.NODE_ENV || 'development';
+const NODE_ENV = TRUE_NODE_ENV === 'test' ? 'production' : TRUE_NODE_ENV;
+
 const config = {
-  env: process.env.NODE_ENV || 'development',
+  env: TRUE_NODE_ENV,
 
   pkg: require('../../package.json'),
 
@@ -51,12 +54,13 @@ const config = {
 // ------------------------------------
 config.globals = {
   'process.env': {
-    NODE_ENV: JSON.stringify(config.env)
+    NODE_ENV: JSON.stringify(NODE_ENV)
   },
-  NODE_ENV: config.env,
-  __DEV__: config.env === 'development',
-  __PROD__: config.env === 'production',
-  __TEST__: config.env === 'test'
+  NODE_ENV: NODE_ENV,
+  TRUE_NODE_ENV: TRUE_NODE_ENV,
+  __DEV__: TRUE_NODE_ENV === 'development',
+  __PROD__: TRUE_NODE_ENV === 'production',
+  __TEST__: TRUE_NODE_ENV === 'test'
 };
 
 // ------------------------------------

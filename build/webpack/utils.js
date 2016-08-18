@@ -3,7 +3,7 @@ import _debug from 'debug';
 import {argv} from 'yargs';
 
 // generate loader string to be used with extract text plugin
-function generateLoaders(loader, loaders, options) {
+export const generateLoaders = (loader, loaders, options) => {
   const sourceLoaders = (loader ? [...loaders, loader] : loaders).map(loader => {
     const hyphen = /\?/.test(loader) ? '&' : '?';
     return loader + (options.sourceMap ? hyphen + 'sourceMap' : '');
@@ -11,18 +11,23 @@ function generateLoaders(loader, loaders, options) {
 
   const styleLoader = `${options.vue ? 'vue-' : ''}style`;
 
-  if (options.extract) {
-    return ExtractTextPlugin.extract({
+  let extract = options.extract;
+  if (extract) {
+    return (extract.extract ? extract : ExtractTextPlugin).extract({
       fallbackLoader: styleLoader,
       loader: sourceLoaders
     });
   } else {
     return [styleLoader, sourceLoaders].join('!');
   }
-}
+};
 
-const baseLoaders = ['css?-minimize', 'postcss'];
-const loaders = {
+export const baseLoaders = ['css?-minimize', 'postcss'];
+const cssModuleSuffix = '&camelCase&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]';
+const [first, rest] = baseLoaders;
+export const cssModuleLoaders = [first + cssModuleSuffix, ...rest];
+
+const loaderMap = {
   css: '',
   less: 'less',
   sass: 'sass?indentedSyntax',
@@ -30,21 +35,24 @@ const loaders = {
   styl: 'stylus',
   stylus: 'stylus'
 };
-
 const debug = argv.debug;
 const debugPrefix = 'koa:webpack:';
+export const nodeModules = /\bnode_modules\b/;
 
-module.exports = {
+const normalizeExclude = (exclude = []) => {
+  return Array.isArray(exclude) ? exclude : [exclude];
+};
+
+export default {
   commonCssLoaders(options = {}) {
     options.vue = false;
 
-    const [first, rest] = baseLoaders;
-    // should not change `baseLoaders` because `vueCssLoaders` will use the original `baseLoaders` too
-    const baseLoader = [`${first}&camelCase&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]`, ...rest];
-    const nodeModules = /\bnode_modules\b/;
+    const exclude = normalizeExclude(options.exclude);
     const loader = [];
 
-    for (const [key, value] of Object.entries(loaders)) {
+    for (const [key, value] of Object.entries(loaderMap)) {
+      if (exclude.includes(key)) continue;
+
       const regExp = new RegExp(`\\.${key}\$`);
 
       loader.push({
@@ -53,7 +61,7 @@ module.exports = {
         include: nodeModules
       }, {
         test: regExp,
-        loader: generateLoaders(value, baseLoader, options),
+        loader: generateLoaders(value, cssModuleLoaders, options),
         exclude: nodeModules
       });
     }
@@ -65,9 +73,11 @@ module.exports = {
   vueCssLoaders: function (options = {}) {
     options.vue = true;
 
+    const exclude = normalizeExclude(options.exclude);
     const loader = {};
 
-    for (const [key, value] of Object.entries(loaders)) {
+    for (const [key, value] of Object.entries(loaderMap)) {
+      if (exclude.includes(key)) continue;
       loader[key] = generateLoaders(value, baseLoaders, options);
     }
 

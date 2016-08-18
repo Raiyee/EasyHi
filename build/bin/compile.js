@@ -1,4 +1,5 @@
 require('babel-register');
+require('babel-polyfill');
 
 const debug = require('debug')('koa:bin:compile');
 

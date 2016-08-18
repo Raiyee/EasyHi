@@ -2,10 +2,11 @@ import webpack from 'webpack';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import cssnano from 'cssnano';
 import _debug from 'debug';
 import config, {paths, pkg} from '../config';
-import utils from './utils';
-const {NODE_ENV, __DEV__, __PROD__, __TEST__} = config.globals;
+import utils, {baseLoaders, cssModuleLoaders, generateLoaders, nodeModules} from './utils';
+const {TRUE_NODE_ENV, __DEV__, __PROD__, __TEST__} = config.globals;
 
 const debug = _debug('koa:webpack:config');
 
@@ -72,16 +73,48 @@ webpackConfig.module.preLoaders = [
 // Loaders
 // ------------------------------------
 
-const sourceMap = {
-  sourceMap: !!config.compiler_devtool
-};
+const sourceMap = !!config.compiler_devtool;
+let appLoader, bootstrapLoader;
 
 webpackConfig.module.loaders = [
-  ...utils.commonCssLoaders(sourceMap),
+  ...utils.commonCssLoaders({
+    sourceMap,
+    exclude: 'less'
+  }),
+  {
+    test: /\bapp\.less$/,
+    loader: generateLoaders('less', baseLoaders, {
+      sourceMap,
+      extract: !__DEV__ && (appLoader = new ExtractTextPlugin('app.[contenthash].css'))
+    }),
+    exclude: nodeModules
+  },
+  {
+    test: /\b(^app)\.less$/,
+    loader: generateLoaders('less', cssModuleLoaders, {
+      sourceMap
+    }),
+    exclude: nodeModules
+  },
+  {
+    test: /\bbootstrap\.less$/,
+    loader: generateLoaders('less', baseLoaders, {
+      sourceMap,
+      extract: !__DEV__ && (bootstrapLoader = new ExtractTextPlugin('bootstrap.[contenthash].css'))
+    }),
+    include: nodeModules
+  },
+  {
+    test: /\b(^bootstrap)\.less$/,
+    loader: generateLoaders('less', baseLoaders, {
+      sourceMap
+    }),
+    include: nodeModules
+  },
   {
     test: /\.js$/,
     loader: 'babel',
-    exclude: /node_modules/
+    exclude: nodeModules
   },
   {
     test: /\.json$/,
@@ -105,7 +138,9 @@ webpackConfig.module.loaders = [
 ];
 
 webpackConfig.vue = {
-  loaders: utils.vueCssLoaders(sourceMap),
+  loaders: utils.vueCssLoaders({
+    sourceMap
+  }),
   autoprefixer: false
 };
 
@@ -148,7 +183,27 @@ if (__DEV__) {
     new webpack.NoErrorsPlugin()
   );
 } else {
-  debug(`Enable plugins for ${NODE_ENV} (OccurenceOrder, Dedupe & UglifyJS).`);
+  debug(`Enable postcss processors for ${TRUE_NODE_ENV}`);
+
+  webpackConfig.postcss = [
+    cssnano({
+      autoprefixer: {
+        add: true,
+        remove: true,
+        browsers: ['> 0%']
+      },
+      discardComments: {
+        removeAll: true
+      },
+      discardUnused: false,
+      mergeIdents: false,
+      reduceIdents: false,
+      safe: true,
+      sourcemap: sourceMap
+    })
+  ];
+
+  debug(`Enable plugins for ${TRUE_NODE_ENV} (OccurenceOrder, Dedupe & UglifyJS).`);
   webpackConfig.plugins.push(
     new webpack.optimize.OccurrenceOrderPlugin(true),
     new webpack.optimize.DedupePlugin(),
@@ -159,8 +214,9 @@ if (__DEV__) {
         warnings: false
       }
     }),
-    // extract css into its own file
-    new ExtractTextPlugin('[name].[contenthash].css')
+    // 将 bootstrap 和 app 分别导出到单独的文件中, 这里的顺序就是被注入到 HTML 中时加载的顺序
+    bootstrapLoader,
+    appLoader
   );
 }
 
