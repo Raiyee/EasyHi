@@ -22,7 +22,7 @@ const webpackConfig = {
     alias: {
       vue: 'vue/dist/vue'
     },
-    extensions: ['', '.js', '.vue'],
+    extensions: ['', '.js', '.styl'],
     modules: ['node_modules', 'src']
   },
   module: {},
@@ -79,18 +79,10 @@ let appLoader, bootstrapLoader;
 webpackConfig.module.loaders = [
   ...utils.commonCssLoaders({
     sourceMap,
-    exclude: 'less'
+    exclude: ['less', 'stylus']
   }),
   {
-    test: /\/app\.less$/,
-    loader: generateLoaders('less', baseLoaders, {
-      sourceMap,
-      extract: !__DEV__ && (appLoader = new ExtractTextPlugin('app.[contenthash].css'))
-    }),
-    exclude: nodeModules
-  },
-  {
-    test: /^(?!.*\/app\.less$).*\.less$/,
+    test: /\.less$/,
     loader: generateLoaders('less', cssModuleLoaders, {
       sourceMap
     }),
@@ -110,6 +102,14 @@ webpackConfig.module.loaders = [
       sourceMap
     }),
     include: nodeModules
+  },
+  {
+    test: /\/app\.stylus/,
+    loader: generateLoaders('stylus', baseLoaders, {
+      sourceMap,
+      extract: !__DEV__ && (appLoader = new ExtractTextPlugin('app.[contenthash].css'))
+    }),
+    exclude: nodeModules
   },
   {
     test: /\.js$/,

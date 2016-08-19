@@ -1,6 +1,6 @@
 import {mapGetters} from 'vuex';
 
-import classes from './index.less';
+import classes from './index.styl';
 
 export default {
   name: 'app',

@@ -1,29 +1,28 @@
-@import "../../styles/hi-mixins.less";
-@import "../../styles/variables";
+@import "~nib/lib/nib/image";
+@import "~fonts.css/fonts";
+@import "~stylus-px2rem/index.styl"
 
-@SLOGAN_TITLE_SIZE: 36 * @pr;
-@SLOGAN_TEXT_SIZE: 12 * @pr;
-@FOCUS_OUTLINE_COLOR: #79ffbc;
+SLOGAN_TITLE_SIZE = 36px;
+SLOGAN_TEXT_SIZE = 12px;
+FOCUS_OUTLINE_COLOR = #79ffbc;
 
 .content {
   .pic1 {
-    .image-2x("./member-index-01.png", cover);
-    background-size: cover;
+    image("../MemberIndex/member-index-01.png", cover);
     animation: pic1 6s linear infinite;
   }
 
   .pic2 {
-    .image-2x("./member-index-02.png", cover);
-    background-size: cover;
+    image("../MemberIndex/member-index-02.png", cover);
     animation: pic2 6s linear infinite;
   }
 
   .slogan-title {
-    font-size: @SLOGAN_TITLE_SIZE;
+    font-size: SLOGAN_TITLE_SIZE;
     transform: translate3d(0, 100%, 0);
     animation: sloganTitle .6s forwards 2.6s;
-    max-height: 20 / 14 * @SLOGAN_TITLE_SIZE;
-    width: 288 * @pr;
+    max-height: unit(20 / 14 * SLOGAN_TITLE_SIZE, px);
+    width: 288px;
     border: none;
     background: none;
     text-align: center;
@@ -31,23 +30,23 @@
     resize: none;
     outline: none;
     overflow: hidden;
-    .font-kai();
+    font-kai();
 
     &:focus {
-      outline: 1px solid @FOCUS_OUTLINE_COLOR;
+      outline: 1px solid FOCUS_OUTLINE_COLOR;
     }
   }
 
   .slogan-body {
-    width: 164 * @pr;
-    margin-top: 8 * @pr;
+    width: 164px;
+    margin-top: 8px;
     transform: translate3d(-100%, 0, 0);
     animation: sloganBody 1s forwards 3.3s;
-    .font-song();
+    font-song();
   }
 
   .slogan-text {
-    font-size: @SLOGAN_TEXT_SIZE;
+    font-size: SLOGAN_TEXT_SIZE;
     width: 100%;
     text-align: center;
     background: none;
@@ -58,7 +57,7 @@
     animation: sloganText 1s forwards 3.3s;
 
     &:focus {
-      outline: 1px solid @FOCUS_OUTLINE_COLOR;
+      outline: 1px solid FOCUS_OUTLINE_COLOR;
     }
   }
 
@@ -71,11 +70,11 @@
   }
 
   .outside-circle {
-    .opacity(0);
+    opacity: 0;
     position: relative;
-    width: 105 * @pr;
-    height: 105 * @pr;
-    border: 2 * @pr solid #dfd28a;
+    width: 105px;
+    height: 105px;
+    border: 2px solid #dfd28a;
     border-radius: 101px;
     backface-visibility: visible;
     animation: showCircle 1s .5s;
@@ -84,10 +83,10 @@
   .inside-circle-replace {
     position: absolute;
     top: 0;
-    width: 90 * @pr;
-    height: 90 * @pr;
+    width: 90px;
+    height: 90px;
     background: white;
-    border-radius: 90 * @pr;
+    border-radius: 90px;
     transform: scale(0);
     z-index: 9999;
 
@@ -111,7 +110,7 @@
 
     .wrap {
       position: relative;
-      max-width: 750 * @pr;
+      max-width: 750px;
       margin-left: auto;
       margin-right: auto;
 
@@ -134,45 +133,45 @@
         z-index: 300;
         left: 50%;
         transform: translate3d(-50%, 0, 0);
-        width: 250 * @pr;
+        width: 250px;
 
         .inside-circle {
-          width: 90 * @pr;
-          height: 90 * @pr;
+          width: 90px;
+          height: 90px;
           position: absolute;
           left: 50%;
           top: 50%;
           color: white;
           transform: translate3d(-50%, -50%, 0);
-          border-radius: 90 * @pr;
+          border-radius: 90px;
           background-color: #dfd28a;
           text-align: center;
-          padding: 8 * @pr 0;
+          padding: 8px 0;
 
           .menu-icon {
-            font-size: 24 * @pr;
+            font-size: 24px;
             display: block;
-            margin-top: 8 * @pr;
-            margin-bottom: 5 * @pr;
+            margin-top: 8px;
+            margin-bottom: 5px;
           }
 
           .menu-text {
-            font-size: 15 * @pr;
+            font-size: 15px;
           }
         }
       }
 
       .edit {
-        width: 65 * @pr;
-        height: 33 * @pr;
-        line-height: 33 * @pr;
+        width: 65px;
+        height: 33px;
+        line-height: 33px;
         text-align: center;
         position: absolute;
         z-index: 200;
         left: 0;
         bottom: 4%;
-        border-bottom-right-radius: 33 * @pr;
-        border-top-right-radius: 33 * @pr;
+        border-bottom-right-radius: 33px;
+        border-top-right-radius: 33px;
         background-color: #626262;
         color: #fff;
       }
@@ -183,31 +182,31 @@
 @keyframes pic1 {
   from {
     transform: scale(1.2);
-    .opacity(1);
+    opacity: 1;
     z-index: 200;
   }
 
   40% {
     transform: scale(1.04);
-    .opacity(1);
+    opacity: 1;
     z-index: 200;
   }
 
   50% {
     transform: scale(1);
-    .opacity(0);
+    opacity: 0;
     z-index: 100;
   }
 
   90% {
     transform: scale(1.25);
-    .opacity(0);
+    opacity: 0;
     z-index: 100;
   }
 
   to {
     transform: scale(1.2);
-    .opacity(1);
+    opacity: 1;
     z-index: 200;
   }
 }
@@ -215,31 +214,31 @@
 @keyframes pic2 {
   from {
     transform: scale(1);
-    .opacity(0);
+    opacity: 0;
     z-index: 100;
   }
 
   40% {
     transform: scale(1.25);
-    .opacity(0);
+    opacity: 0;
     z-index: 100;
   }
 
   50% {
     transform: scale(1.2);
-    .opacity(1);
+    opacity: 1;
     z-index: 200;
   }
 
   90% {
     transform: scale(1.04);
-    .opacity(1);
+    opacity: 1;
     z-index: 200;
   }
 
   to {
     transform: scale(1);
-    .opacity(0);
+    opacity: 0;
     z-index: 100;
   }
 }
@@ -287,12 +286,12 @@
 @keyframes showCircle {
   from {
     transform: scale(0);
-    .opacity(0);
+    opacity: 0;
   }
 
   to {
     transform: scale(1);
-    .opacity(1);
+    opacity: 1;
   }
 }
 
