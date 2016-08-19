@@ -4,8 +4,8 @@ import store from 'store';
 import router from 'router';
 import App from './App';
 
-import 'bootstrap/less/bootstrap.less';
-import 'styles/app.stylus';
+import 'bootstrap.less';
+import 'styles/app';
 
 const documentEl = document.documentElement;
 let resize, height, width;
