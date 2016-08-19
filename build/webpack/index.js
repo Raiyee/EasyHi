@@ -82,7 +82,7 @@ webpackConfig.module.loaders = [
     exclude: 'less'
   }),
   {
-    test: /\bapp\.less$/,
+    test: /\/app\.less$/,
     loader: generateLoaders('less', baseLoaders, {
       sourceMap,
       extract: !__DEV__ && (appLoader = new ExtractTextPlugin('app.[contenthash].css'))
@@ -90,14 +90,14 @@ webpackConfig.module.loaders = [
     exclude: nodeModules
   },
   {
-    test: /\.less$/,
+    test: /^(?!.*\/app\.less$).*\.less$/,
     loader: generateLoaders('less', cssModuleLoaders, {
       sourceMap
     }),
     exclude: nodeModules
   },
   {
-    test: /\bbootstrap\.less$/,
+    test: /\/bootstrap\.less$/,
     loader: generateLoaders('less', baseLoaders, {
       sourceMap,
       extract: !__DEV__ && (bootstrapLoader = new ExtractTextPlugin('bootstrap.[contenthash].css'))
@@ -105,7 +105,7 @@ webpackConfig.module.loaders = [
     include: nodeModules
   },
   {
-    test: /\b(^bootstrap)\.less$/,
+    test: /^(?!.*\/bootstrap\.less$).*\.less$/,
     loader: generateLoaders('less', baseLoaders, {
       sourceMap
     }),
@@ -197,10 +197,10 @@ if (__DEV__) {
       },
       discardUnused: false,
       mergeIdents: false,
+      normalizeUrl: false,
       reduceIdents: false,
       safe: true,
-      sourcemap: sourceMap,
-      normalizeUrl: false
+      sourcemap: sourceMap
     })
   ];
 

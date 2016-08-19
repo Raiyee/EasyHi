@@ -12,7 +12,9 @@ export default {
       <div id="app">
         {this.progress ? <HiLoading/> : ''}
         <HiProgress progress={this.progress}/>
-        <router-view/>
+        <transition name="bounce">
+          <router-view/>
+        </transition>
       </div>
     );
   }
