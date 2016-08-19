@@ -11,7 +11,7 @@ export default {
     animationend: function (e) {
       const target = e.target;
       target.style.opacity = 1;
-      target.className = target.className.replace(/ ?animated ?/, '');
+      target.className = target.className.replace(/ *animated */, '');
     },
     scale: function (e) {
       e.currentTarget.nextElementSibling.className += ' animated';
