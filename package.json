@@ -91,7 +91,6 @@
   },
   "dependencies": {
     "bootstrap": "^3.3.7",
-    "bootstrap-styl": "^5.0.7",
     "fonts.css": "^1.4.0",
     "vue": "^2.0.0-rc.1",
     "vue-router": "^2.0.0-rc.3",
