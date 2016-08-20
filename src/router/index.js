@@ -11,6 +11,12 @@ const router = new VueRouter({
     {
       path: '/',
       component: resolve => require(['views/MemberIndex'], resolve)
+    }, {
+      path: '/login',
+      component: resolve => require(['views/Login'], resolve)
+    }, {
+      path: '*',
+      redirect: '/'
     }
   ]
 });

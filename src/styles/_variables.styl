@@ -1,5 +1,65 @@
-@import "~nib/index";
-@import "~fonts.css/fonts";
-@import "~stylus-px2rem/index";
+@import "~nib/index"
+@import "~fonts.css/fonts"
+@import "~stylus-px2rem/index"
 
-vendors = vendor-prefixes = official;
+vendors = vendor-prefixes = official
+
+/** 输入框边框、列表分割线
+ *  登录输入、数据录入时正常状态时的边框
+ *  会员列表、教练列表、个人信息列表等页面的颜色
+ */
+INPUT_BORDER_COLOR = LIST_LINE_COLOR = #d0d0d0
+
+/** 虚线分割
+ *  用于卡片列表式的列表里面的分割
+ */
+DASHED_LINE_COLOR = #c2c2c2
+
+/** 卡片内部分割线
+ *  用于卡片列表里面的分割线
+ */
+CARD_LINE_COLOR = #f1f1f1
+
+/** 强调标题文本
+ *  标题类型的文本信息，一般放在一级标题或者开头的地方,列表的标题就是用此颜色
+ */
+STRESS_COLOR = #000
+
+/** 主体内容性文本
+ *  一级标题下面的主体内容文字，使用面积略大
+ */
+PRIMARY_COLOR = #555
+
+/** 主体内容性次级文本，叙述性文本
+ *  一级标题下面的叙述性内容文字,次于主体内容，使用面积略大
+ */
+SUBTEXT_COLOR = #808080
+
+/** 备注和非强调性文本
+ *  备注信息文字和不可用状态
+ */
+REMARK_COLOR = #b7b7b7
+
+/* 其他 */
+BACK_COLOR = #e5e5e5
+
+/** 报错文字和特殊强调文本
+ *  用于报错信息的文本和特殊强调的文本，范围不是很大
+ */
+HIGHLIGHT_COLOR = #fb351b
+
+/* 杜若蓝 */
+THEME_BLUE = #4b89dc
+THEME_BLUE_DARKER = #3c6eb0
+
+/* 忍冬青 */
+THEME_GREEN = #50d2c2
+THEME_GREEN_DARKER = #40a89b
+
+/* 紫罗兰 */
+THEME_PURPLE = #b28ef2
+THEME_PURPLE_DARKER = #8e72c2
+
+/* 胭脂红 */
+THEME_RED = #ff839f
+THEME_RED_DARKER = #cc697f

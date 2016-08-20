@@ -1,306 +1,310 @@
-@import "../../styles/_variables";
+@import "../../styles/_variables"
 
-SLOGAN_TITLE_SIZE = 36px;
-SLOGAN_TEXT_SIZE = 12px;
-FOCUS_OUTLINE_COLOR = #79ffbc;
+SLOGAN_TITLE_SIZE = 36px
+SLOGAN_TEXT_SIZE = 12px
+FOCUS_OUTLINE_COLOR = #79ffbc
 
 .content {
   .pic1 {
-    image("../MemberIndex/member-index-01.png", cover);
-    animation: pic1 6s linear infinite;
+    image("../MemberIndex/member-index-01.png", cover)
+    animation pic1 6s linear infinite
   }
 
   .pic2 {
-    image("../MemberIndex/member-index-02.png", cover);
-    animation: pic2 6s linear infinite;
+    image("../MemberIndex/member-index-02.png", cover)
+    animation pic2 6s linear infinite
   }
 
   .slogan-title {
-    font-size: SLOGAN_TITLE_SIZE;
-    transform: translate3d(0, 100%, 0);
-    animation: sloganTitle .6s forwards 2.6s;
-    max-height: (20 / 14) * SLOGAN_TITLE_SIZE;
-    width: 288px;
-    border: 0;
-    background: none;
-    text-align: center;
-    padding: 0;
-    resize: none;
-    outline: 0;
-    overflow: hidden;
-    font-kai();
+    font-size SLOGAN_TITLE_SIZE
+    transform translate3d(0, 100%, 0)
+    animation sloganTitle .6s forwards 2.6s
+    max-height (20 / 14) * SLOGAN_TITLE_SIZE
+    width 288px
+    border 0
+    background none
+    text-align center
+    padding 0
+    resize none
+    outline 0
+    overflow hidden
+    font-kai()
 
-    &.active:focus {
-      outline: 1px solid FOCUS_OUTLINE_COLOR;
+    &.activefocus {
+      outline 1px solid FOCUS_OUTLINE_COLOR
     }
   }
 
   .slogan-body {
-    width: 164px;
-    margin-top: 8px;
-    overflow: hidden;
-    transform: translate3d(-100%, 0, 0);
-    animation: sloganBody 1s forwards 3.3s;
-    font-song();
+    width 164px
+    margin-top 8px
+    overflow hidden
+    transform translate3d(-100%, 0, 0)
+    animation sloganBody 1s forwards 3.3s
+    font-song()
   }
 
   .slogan-text {
-    font-size: SLOGAN_TEXT_SIZE;
-    width: 100%;
-    text-align: center;
-    background: none;
-    resize: none;
-    border: 0;
-    outline: 0;
-    transform: translate3d(100%, 0, 0);
-    animation: sloganText 1s forwards 3.3s;
+    font-size SLOGAN_TEXT_SIZE
+    width 100%
+    text-align center
+    background none
+    resize none
+    border 0
+    outline 0
+    transform translate3d(100%, 0, 0)
+    animation sloganText 1s forwards 3.3s
 
-    &.active:focus {
-      outline: 1px solid FOCUS_OUTLINE_COLOR;
+    &.activefocus {
+      outline 1px solid FOCUS_OUTLINE_COLOR
     }
   }
 
   .line {
-    border-bottom: 1px solid black;
-    transform: translate3d(-100%, 0, 0);
-    animation: line 1s forwards 1.5s;
-    margin-left: auto;
-    margin-right: auto;
+    border-bottom 1px solid black
+    transform translate3d(-100%, 0, 0)
+    animation line 1s forwards 1.5s
+    margin-left auto
+    margin-right auto
   }
 
   .outside-circle {
-    position: relative;
-    width: 105px;
-    height: 105px;
-    border: 2px solid #dfd28a;
-    border-radius: 101px;
-    backface-visibility: visible;
-    &:global(.animated) {
-      opacity: 0;
-      transform scale(0);
-      animation: showCircle 1s .5s;
-    }
+    position relative
+    width 105px
+    height 105px
+    border 2px solid #dfd28a
+    border-radius 101px
+    backface-visibility visible
+
+&
+global(. animated) {
+  opacity 0
+  transform scale(0)
+  animation showCircle 1s .5s
+}
+
+}
+
+.inside-circle-replace {
+  position absolute
+  top 0
+  width 90px
+  height 90px
+  background white
+  border-radius 90px
+  transform scale(0)
+  z-index 9999
+
+  & :global(. animated) {
+    animation replaceCircle 1s ease
+  }
+}
+
+:global {
+  .pic {
+    position absolute
+    top 0
+    left 0
+    width 100%
+    height 100%
+    overflow hidden
   }
 
-  .inside-circle-replace {
-    position: absolute;
-    top: 0;
-    width: 90px;
-    height: 90px;
-    background: white;
-    border-radius: 90px;
-    transform: scale(0);
-    z-index: 9999;
+  .wrap {
+    position relative
+    max-width 750px
+    margin-left auto
+    margin-right auto
 
-    &:global(.animated) {
-      animation: replaceCircle 1s ease;
-    }
-  }
+    .slogan {
+      position absolute
+      left 50%
+      top 30%
+      transform translate3d(-50%, 0, 0)
+      text-align center
+      z-index 300
 
-  :global {
-    .pic {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
+      .slogan-header {
+        display inline-block
+        overflow hidden
+      }
     }
 
-    .wrap {
-      position: relative;
-      max-width: 750px;
-      margin-left: auto;
-      margin-right: auto;
+    .member-menu {
+      position absolute
+      bottom 17%
+      z-index 300
+      left 50%
+      transform translate3d(-50%, 0, 0)
+      width 250px
 
-      .slogan {
-        position: absolute;
-        left: 50%;
-        top: 30%;
-        transform: translate3d(-50%, 0, 0);
-        text-align: center;
-        z-index: 300;
+      .inside-circle {
+        width 90px
+        height 90px
+        position absolute
+        left 50%
+        top 50%
+        color white
+        transform translate3d(-50%, -50%, 0)
+        border-radius 90px
+        background-color #dfd28a
+        text-align center
+        padding 8px 0
 
-        .slogan-header {
-          display: inline-block;
-          overflow: hidden;
+        .menu-icon {
+          font-size 24px
+          display block
+          margin-top 8px
+          margin-bottom 5px
+        }
+
+        .menu-text {
+          font-size 15px
         }
       }
+    }
 
-      .member-menu {
-        position: absolute;
-        bottom: 17%;
-        z-index: 300;
-        left: 50%;
-        transform: translate3d(-50%, 0, 0);
-        width: 250px;
-
-        .inside-circle {
-          width: 90px;
-          height: 90px;
-          position: absolute;
-          left: 50%;
-          top: 50%;
-          color: white;
-          transform: translate3d(-50%, -50%, 0);
-          border-radius: 90px;
-          background-color: #dfd28a;
-          text-align: center;
-          padding: 8px 0;
-
-          .menu-icon {
-            font-size: 24px;
-            display: block;
-            margin-top: 8px;
-            margin-bottom: 5px;
-          }
-
-          .menu-text {
-            font-size: 15px;
-          }
-        }
-      }
-
-      .edit {
-        width: 65px;
-        height: 33px;
-        line-height: 33px;
-        text-align: center;
-        position: absolute;
-        z-index: 200;
-        left: 0;
-        bottom: 4%;
-        border-bottom-right-radius: 33px;
-        border-top-right-radius: 33px;
-        background-color: #626262;
-        color: #fff;
-      }
+    .edit {
+      width 65px
+      height 33px
+      line-height 33px
+      text-align center
+      position absolute
+      z-index 200
+      left 0
+      bottom 4%
+      border-bottom-right-radius 33px
+      border-top-right-radius 33px
+      background-color #626262
+      color #fff
     }
   }
 }
 
+}
+
 @keyframes pic1 {
   from {
-    transform: scale(1.2);
-    opacity: 1;
-    z-index: 200;
+    transform scale(1.2)
+    opacity 1
+    z-index 200
   }
 
   40% {
-    transform: scale(1.04);
-    opacity: 1;
-    z-index: 200;
+    transform scale(1.04)
+    opacity 1
+    z-index 200
   }
 
   50% {
-    transform: scale(1);
-    opacity: 0;
-    z-index: 100;
+    transform scale(1)
+    opacity 0
+    z-index 100
   }
 
   90% {
-    transform: scale(1.25);
-    opacity: 0;
-    z-index: 100;
+    transform scale(1.25)
+    opacity 0
+    z-index 100
   }
 
   to {
-    transform: scale(1.2);
-    opacity: 1;
-    z-index: 200;
+    transform scale(1.2)
+    opacity 1
+    z-index 200
   }
 }
 
 @keyframes pic2 {
   from {
-    transform: scale(1);
-    opacity: 0;
-    z-index: 100;
+    transform scale(1)
+    opacity 0
+    z-index 100
   }
 
   40% {
-    transform: scale(1.25);
-    opacity: 0;
-    z-index: 100;
+    transform scale(1.25)
+    opacity 0
+    z-index 100
   }
 
   50% {
-    transform: scale(1.2);
-    opacity: 1;
-    z-index: 200;
+    transform scale(1.2)
+    opacity 1
+    z-index 200
   }
 
   90% {
-    transform: scale(1.04);
-    opacity: 1;
-    z-index: 200;
+    transform scale(1.04)
+    opacity 1
+    z-index 200
   }
 
   to {
-    transform: scale(1);
-    opacity: 0;
-    z-index: 100;
+    transform scale(1)
+    opacity 0
+    z-index 100
   }
 }
 
 @keyframes sloganTitle {
   from {
-    transform: translate3d(0, 100%, 0);
+    transform translate3d(0, 100%, 0)
   }
 
   to {
-    transform: translate3d(0, 0, 0);
+    transform translate3d(0, 0, 0)
   }
 }
 
 @keyframes sloganBody {
   from {
-    transform: translate3d(-100%, 0, 0);
+    transform translate3d(-100%, 0, 0)
   }
 
   to {
-    transform: translate3d(0, 0, 0);
+    transform translate3d(0, 0, 0)
   }
 }
 
 @keyframes sloganText {
   from {
-    transform: translate3d(100%, 0, 0);
+    transform translate3d(100%, 0, 0)
   }
 
   to {
-    transform: translate3d(0, 0, 0);
+    transform translate3d(0, 0, 0)
   }
 }
 
 @keyframes line {
   from {
-    transform: translate3d(-100%, 0, 0);
+    transform translate3d(-100%, 0, 0)
   }
 
   to {
-    transform: translate3d(0, 0, 0);
+    transform translate3d(0, 0, 0)
   }
 }
 
 @keyframes showCircle {
   from {
-    transform: scale(0);
-    opacity: 0;
+    transform scale(0)
+    opacity 0
   }
 
   to {
-    transform: scale(1);
-    opacity: 1;
+    transform scale(1)
+    opacity 1
   }
 }
 
 @keyframes replaceCircle {
   from {
-    transform: scale(0);
+    transform scale(0)
   }
 
   to {
-    transform: scale(50);
+    transform scale(50)
   }
 }
