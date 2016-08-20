@@ -16,7 +16,7 @@ module.exports = {
   noImportant: true,
   semicolons: NEVER,
   blocks: false,
-  brackets: ALWAYS,
+  brackets: NEVER,
   colons: NEVER,
   // TODO 将常用颜色均定义为变量值
   // colors: ALWAYS,
