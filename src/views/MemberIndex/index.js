@@ -8,10 +8,9 @@ export default {
     ...mapGetters(['height'])
   },
   methods: {
-    animationend: function (e) {
+    animationEnd: function (e) {
       const target = e.target;
-      target.style.opacity = 1;
-      target.className = target.className.replace(/ *animated */, '');
+      target.className = target.className.replace(/(^| +)animated($| +)/, ' ').trim();
     },
     scale: function (e) {
       e.currentTarget.nextElementSibling.className += ' animated';
@@ -20,31 +19,31 @@ export default {
   render(h) {
     return (
       <div class={classes.content}>
-        <div class="wrap over-hidden"
+        <div class="wrap"
              style={{height: this.height + 'px'}}>
           <div class={['pic', classes.pic1]}></div>
           <div class={['pic', classes.pic2]}></div>
           <div class="slogan">
-            <div class="over-hidden slogan-header">
-              <input class={classes['slogan-title']} title="请输入标题" value="遇见瑜伽" disabled/>
+            <div class="slogan-header">
+              <input class={classes['slogan-title']} title="请输入标题" value="遇见瑜伽" readonly/>
               <div class={classes.line}></div>
             </div>
-            <div class={['over-hidden', classes['slogan-body'], 'center-block']}>
-              <textarea class={classes['slogan-text']} title="请输入内容" disabled>当心得到控制，平静下来时，剩下的便是灵魂</textarea>
+            <div class={['center-block', classes['slogan-body']]}>
+              <textarea class={classes['slogan-text']} title="请输入内容" readonly>当心得到控制，平静下来时，剩下的便是灵魂</textarea>
             </div>
           </div>
           <div class="member-menu">
-            <div class={['pull-left', classes.outsideCircle]} on-animationend={this.animationend}>
+            <div class={['pull-left animated', classes.outsideCircle]} on-animationend={this.animationEnd}>
               <div class="inside-circle"
-                   on-click={this.scale} on-animationend={this.animationend}>
+                   on-click={this.scale}>
                 <span class="glyphicon glyphicon-book menu-icon"/>
                 <span class="menu-text">预订课程</span>
               </div>
               <div class={classes.insideCircleReplace}></div>
             </div>
-            <div class={['pull-right', classes.outsideCircle]} on-animationend={this.animationend}>
+            <div class={['pull-right animated', classes.outsideCircle]} on-animationend={this.animationEnd}>
               <div class="inside-circle"
-                   on-click={this.scale} on-animationend={this.animationend}>
+                   on-click={this.scale}>
                 <span class="glyphicon glyphicon-user menu-icon"/>
                 <span class="menu-text">个人中心</span>
               </div>

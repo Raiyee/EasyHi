@@ -30,7 +30,7 @@ FOCUS_OUTLINE_COLOR = #79ffbc;
     overflow: hidden;
     font-kai();
 
-    &:focus {
+    &.active:focus {
       outline: 1px solid FOCUS_OUTLINE_COLOR;
     }
   }
@@ -38,6 +38,7 @@ FOCUS_OUTLINE_COLOR = #79ffbc;
   .slogan-body {
     width: 164px;
     margin-top: 8px;
+    overflow: hidden;
     transform: translate3d(-100%, 0, 0);
     animation: sloganBody 1s forwards 3.3s;
     font-song();
@@ -54,7 +55,7 @@ FOCUS_OUTLINE_COLOR = #79ffbc;
     transform: translate3d(100%, 0, 0);
     animation: sloganText 1s forwards 3.3s;
 
-    &:focus {
+    &.active:focus {
       outline: 1px solid FOCUS_OUTLINE_COLOR;
     }
   }
@@ -68,14 +69,17 @@ FOCUS_OUTLINE_COLOR = #79ffbc;
   }
 
   .outside-circle {
-    opacity: 0;
     position: relative;
     width: 105px;
     height: 105px;
     border: 2px solid #dfd28a;
     border-radius: 101px;
     backface-visibility: visible;
-    animation: showCircle 1s .5s;
+    &:global(.animated) {
+      opacity: 0;
+      transform scale(0);
+      animation: showCircle 1s .5s;
+    }
   }
 
   .inside-circle-replace {
@@ -94,16 +98,13 @@ FOCUS_OUTLINE_COLOR = #79ffbc;
   }
 
   :global {
-    .over-hidden {
-      overflow: hidden;
-    }
-
     .pic {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
+      overflow: hidden;
     }
 
     .wrap {
@@ -122,6 +123,7 @@ FOCUS_OUTLINE_COLOR = #79ffbc;
 
         .slogan-header {
           display: inline-block;
+          overflow: hidden;
         }
       }
 
