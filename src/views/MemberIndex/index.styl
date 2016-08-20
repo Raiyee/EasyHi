@@ -1,10 +1,8 @@
-@import "~nib/lib/nib/image";
-@import "~fonts.css/fonts";
-@import "~stylus-px2rem/index.styl";
+@import "../../styles/_variables";
 
-$SLOGAN_TITLE_SIZE = 36px;
-$SLOGAN_TEXT_SIZE = 12px;
-$FOCUS_OUTLINE_COLOR = #79ffbc;
+SLOGAN_TITLE_SIZE = 36px;
+SLOGAN_TEXT_SIZE = 12px;
+FOCUS_OUTLINE_COLOR = #79ffbc;
 
 .content {
   .pic1 {
@@ -18,10 +16,10 @@ $FOCUS_OUTLINE_COLOR = #79ffbc;
   }
 
   .slogan-title {
-    font-size: $SLOGAN_TITLE_SIZE;
+    font-size: SLOGAN_TITLE_SIZE;
     transform: translate3d(0, 100%, 0);
     animation: sloganTitle .6s forwards 2.6s;
-    max-height: unit(20 / 14 * $SLOGAN_TITLE_SIZE, px);
+    max-height: unit(20 / 14 * SLOGAN_TITLE_SIZE, px);
     width: 288px;
     border: 0;
     background: none;
@@ -33,7 +31,7 @@ $FOCUS_OUTLINE_COLOR = #79ffbc;
     font-kai();
 
     &:focus {
-      outline: 1px solid $FOCUS_OUTLINE_COLOR;
+      outline: 1px solid FOCUS_OUTLINE_COLOR;
     }
   }
 
@@ -46,7 +44,7 @@ $FOCUS_OUTLINE_COLOR = #79ffbc;
   }
 
   .slogan-text {
-    font-size: $SLOGAN_TEXT_SIZE;
+    font-size: SLOGAN_TEXT_SIZE;
     width: 100%;
     text-align: center;
     background: none;
@@ -57,7 +55,7 @@ $FOCUS_OUTLINE_COLOR = #79ffbc;
     animation: sloganText 1s forwards 3.3s;
 
     &:focus {
-      outline: 1px solid $FOCUS_OUTLINE_COLOR;
+      outline: 1px solid FOCUS_OUTLINE_COLOR;
     }
   }
 
