@@ -8,6 +8,10 @@ import 'styles/app';
 import HiLoading from 'components/HiLoading';
 import HiProgress from 'components/HiProgress';
 
+const theme = 'purple';
+
+require('bundle!styles/theme-' + theme);
+
 const docEl = document.documentElement;
 let resize, height, width;
 

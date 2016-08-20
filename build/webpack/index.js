@@ -113,7 +113,14 @@ webpackConfig.module.loaders = [
     exclude: nodeModules
   },
   {
-    test: /^(?!.*\/app\.styl).*\.styl/,
+    test: /\/theme-\w+\.styl/,
+    loader: generateLoaders('stylus', baseLoaders, {
+      sourceMap
+    }),
+    exclude: nodeModules
+  },
+  {
+    test: /^(?!.*\/(app|theme-\w+)\.styl).*\.styl/,
     loader: generateLoaders('stylus', cssModuleLoaders, {
       sourceMap
     }),

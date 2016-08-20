@@ -28,7 +28,7 @@ export default {
               <span class="glyphicon glyphicon-lock"/>
             </span>
               <input type="password" class="form-control" placeholder="请输入验证码"/>
-              <span class="input-group-addon">获取验证码</span>
+              <span class="input-group-addon theme-color">获取验证码</span>
             </div>
           </div>
           <button type="submit" class="btn btn-default center-block">Submit</button>
