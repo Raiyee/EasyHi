@@ -14,7 +14,7 @@ export default {
   render(h) {
     return (
       <div class={[classes.loading, this.className]}>
-        <div class={classes['loading-' + this.theme]}></div>
+        <div class={classes['loading-' + this.theme]}/>
         {this.$slots.default}
       </div>
     );
