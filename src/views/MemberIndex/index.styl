@@ -1,10 +1,14 @@
 @import "../../styles/_variables"
 
-SLOGAN_TITLE_SIZE = 36px
-SLOGAN_TEXT_SIZE = 12px
 FOCUS_OUTLINE_COLOR = #79ffbc
+BTN_COLOR = #dfd28a
 
-.content
+.container
+  position relative
+  max-width 750px
+  margin-left auto
+  margin-right auto
+
   .pic1
     image("../MemberIndex/member-index-01.png", cover)
     animation pic1 6s linear infinite
@@ -14,10 +18,10 @@ FOCUS_OUTLINE_COLOR = #79ffbc
     animation pic2 6s linear infinite
 
   .slogan-title
-    font-size SLOGAN_TITLE_SIZE
+    font-size TOP_SIZE
     transform translate3d(0, 100%, 0)
     animation sloganTitle .6s forwards 2.6s
-    max-height (20 / 14) * SLOGAN_TITLE_SIZE
+    max-height (20 / 14) * TOP_SIZE
     width 288px
     border 0
     background none
@@ -28,11 +32,12 @@ FOCUS_OUTLINE_COLOR = #79ffbc
     overflow hidden
     font-kai()
 
-    &.activefocus
+    &.active:focus
       outline 1px solid FOCUS_OUTLINE_COLOR
 
   .slogan-body
-    width 164px
+    /* TIPS: textarea 默认有 2px 的 padding */
+    width 160px * (16 / 12)
     margin-top 8px
     overflow hidden
     transform translate3d(-100%, 0, 0)
@@ -40,17 +45,17 @@ FOCUS_OUTLINE_COLOR = #79ffbc
     font-song()
 
   .slogan-text
-    font-size SLOGAN_TEXT_SIZE
+    font-size PRIMARY_SIZE
     width 100%
     text-align center
     background none
     resize none
     border 0
     outline 0
-    transform translate3d(100%, 0, 0)
+    transform translate3d(100%, 0, 0) scale(SMALL_SCALE)
     animation sloganText 1s forwards 3.3s
 
-    &.activefocus
+    &.active:focus
       outline 1px solid FOCUS_OUTLINE_COLOR
 
   .line
@@ -64,42 +69,36 @@ FOCUS_OUTLINE_COLOR = #79ffbc
     position relative
     width 105px
     height 105px
-    border 2px solid #dfd28a
+    border 2px solid BTN_COLOR
     border-radius 101px
     backface-visibility visible
 
-  :global(.animated)
-    opacity 0
-    transform scale(0)
-    animation showCircle 1s .5s
+    &:global(.animated)
+      opacity 0
+      transform scale(0)
+      animation showCircle 1s .5s
 
-.inside-circle-replace
-  position absolute
-  top 0
-  width 90px
-  height 90px
-  background white
-  border-radius 90px
-  transform scale(0)
-  z-index 9999
-
-  &:global(.animated)
-    animation replaceCircle 1s ease
-
-:global
-  .pic
+  .inside-circle-replace
     position absolute
     top 0
-    left 0
-    width 100%
-    height 100%
-    overflow hidden
+    width 90px
+    height 90px
+    background white
+    border-radius 90px
+    transform scale(0)
+    z-index 9999
 
-  .wrap
-    position relative
-    max-width 750px
-    margin-left auto
-    margin-right auto
+    &:global(.animated)
+      animation replaceCircle 1s ease
+
+  :global // @stylint ignore
+    .pic
+      position absolute
+      top 0
+      left 0
+      width 100%
+      height 100%
+      overflow hidden
 
     .slogan
       position absolute
@@ -130,7 +129,7 @@ FOCUS_OUTLINE_COLOR = #79ffbc
         color white
         transform translate3d(-50%, -50%, 0)
         border-radius 90px
-        background-color #dfd28a
+        background-color BTN_COLOR
         text-align center
         padding 8px 0
 
@@ -142,20 +141,6 @@ FOCUS_OUTLINE_COLOR = #79ffbc
 
         .menu-text
           font-size 15px
-
-    .edit
-      width 65px
-      height 33px
-      line-height 33px
-      text-align center
-      position absolute
-      z-index 200
-      left 0
-      bottom 4%
-      border-bottom-right-radius 33px
-      border-top-right-radius 33px
-      background-color #626262
-      color #fff
 
 @keyframes pic1
   from
@@ -225,10 +210,10 @@ FOCUS_OUTLINE_COLOR = #79ffbc
 
 @keyframes sloganText
   from
-    transform translate3d(100%, 0, 0)
+    transform translate3d(100%, 0, 0) scale(SMALL_SCALE)
 
   to
-    transform translate3d(0, 0, 0)
+    transform translate3d(0, 0, 0) scale(SMALL_SCALE)
 
 @keyframes line
   from

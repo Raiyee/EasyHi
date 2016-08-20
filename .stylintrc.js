@@ -18,8 +18,7 @@ module.exports = {
   blocks: false,
   brackets: NEVER,
   colons: NEVER,
-  // TODO 将常用颜色均定义为变量值
-  // colors: ALWAYS,
+  colors: ALWAYS,
   commaSpace: ALWAYS,
   commentSpace: ALWAYS,
   cssLiteral: NEVER,
