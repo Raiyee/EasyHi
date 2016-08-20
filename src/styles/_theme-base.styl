@@ -3,17 +3,20 @@
 THEME_COLOR ?= THEME_PURPLE
 THEME_COLOR_DARKER ?= THEME_PURPLE_DARKER
 
+// @stylint off
 .theme-color
-  color THEME_COLOR !important            // @stylint ignore
+  color THEME_COLOR !important
 
 .theme-bd
-  border-color THEME_COLOR !important     // @stylint ignore
+  border-color THEME_COLOR !important
 
 .theme-bg
-  background-color THEME_COLOR !important // @stylint ignore
+  background-color THEME_COLOR !important
 
 .btn-primary
   height INPUT_SIZE
   border-radius HALF_INPUT_SIZE
-  bbColor THEME_COLOR                     // @stylint ignore
-  bbActive THEME_COLOR_DARKER             // @stylint ignore
+  bbColor THEME_COLOR
+  bbActive THEME_COLOR_DARKER
+
+// @stylint on

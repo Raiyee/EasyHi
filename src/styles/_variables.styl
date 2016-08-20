@@ -6,12 +6,15 @@ bbColor(args...)
   border-color args[0]
   background-color args[1] || args[0]
 
+// @stylint off
 bbActive(args...)
   &:hover, &.focus, &:focus
-    bbColor args                      // @stylint ignore
+    bbColor args
   &.active, &:active
     &, &:hover, &.focus, &:focus
-      bbColor args                    // @stylint ignore
+      bbColor args
+
+// @stylint on
 
 vendors = vendor-prefixes = official
 

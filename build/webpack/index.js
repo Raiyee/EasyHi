@@ -2,6 +2,7 @@ import webpack from 'webpack';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import autoprefixer from 'autoprefixer';
 import cssnano from 'cssnano';
 import _debug from 'debug';
 import config, {paths, pkg} from '../config';
@@ -199,6 +200,14 @@ webpackConfig.plugins = [
 ];
 
 if (__DEV__) {
+  debug(`Enable postcss processor(autoprefixer) for ${TRUE_NODE_ENV}`);
+
+  webpackConfig.postcss = [
+    autoprefixer({
+      browsers: ['> 0%']
+    })
+  ];
+
   debug('Enable plugins for live development (HMR, NoErrors).');
   webpackConfig.plugins.push(
     new webpack.HotModuleReplacementPlugin(),

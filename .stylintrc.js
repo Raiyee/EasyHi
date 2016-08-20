@@ -13,7 +13,7 @@ module.exports = {
   reporterOptions: {
     verbose: true
   },
-  noImportant: true,
+  noImportant: NEVER,
   semicolons: NEVER,
   blocks: false,
   brackets: NEVER,
@@ -24,7 +24,7 @@ module.exports = {
   cssLiteral: NEVER,
   customProperties: [],
   depthLimit: false,
-  duplicates: true,
+  duplicates: NEVER,
   efficient: ALWAYS,
   exclude: [],
   extendPref: false,
