@@ -29,7 +29,6 @@ export default {
     handleChange(type, e) {
       const target = e.target;
       let value = target.value;
-      // this[type] = target.value;
       switch (type) {
         case ('mobile'):
           value = target.value = this.mobile = value.substr(0, 11);
@@ -48,7 +47,6 @@ export default {
     },
     submit(e) {
       e.preventDefault();
-      console.log(this.mobile, this.verificationCode);
       this.submitClicked = true;
       this.mobileError = !mobileRegExp.test(this.mobile);
       this.codeError = !codeRegExp.test(this.verificationCode);

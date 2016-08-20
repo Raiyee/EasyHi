@@ -8,10 +8,10 @@ bbColor(args...)
 
 bbActive(args...)
   &:hover, &.focus, &:focus
-    bbColor args
+    bbColor args                      // @stylint ignore
   &.active, &:active
     &, &:hover, &.focus, &:focus
-      bbColor args
+      bbColor args                    // @stylint ignore
 
 vendors = vendor-prefixes = official
 

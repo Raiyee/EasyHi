@@ -2,18 +2,18 @@
 
 input
   placeholder((color PLACEHOLDER_COLOR) ())
+  &::-webkit-inner-spin-button,                 // @stylint ignore
+  &::-webkit-outer-spin-button                  // @stylint ignore
+    -webkit-appearance none
 
 .btn
   font-hei()
   &.btn-responsive
     width 100%
 
-.form-control
-  height INPUT_SIZE
-
 .input-group-addon
   color ICON_COLOR
-  background-color BACK_LIGHT_COLOR !important
+  background-color BACK_LIGHT_COLOR !important  // @stylint ignore
   &:first-child + .form-control
     border-left 0
     padding-left 0
@@ -21,8 +21,9 @@ input
       border-right 0
 
 .form-control
+  height INPUT_SIZE
   &, &:focus
-    box-shadow none !important
+    box-shadow none !important                    // @stylint ignore
     border-color INPUT_BORDER_COLOR
 
 .input-group-addon,
