@@ -1,3 +1,29 @@
+@require "_variables.styl"
+
+.form-control
+  height INPUT_SIZE
+
+.input-group
+  .input-group-addon
+    background-color BACK_LIGHT_COLOR
+    &:first-child + .form-control
+      border-left 0
+      &:not(:last-child)
+        border-right 0
+  .form-control
+    box-shadow none
+    &:focus
+      border-color INPUT_BORDER_COLOR
+  .input-group-addon,
+  .form-control
+    &:first-child
+      padding-left 22px
+      border-radius HALF_INPUT_SIZE 0 0 HALF_INPUT_SIZE
+    &:last-child
+      border-radius 0 HALF_INPUT_SIZE HALF_INPUT_SIZE 0
+    &
+      border-color INPUT_BORDER_COLOR
+
 .bounce-enter-active
   animation bounce-in .5s
 
