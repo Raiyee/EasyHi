@@ -2,6 +2,17 @@
 @require "~fonts.css/fonts"
 @require "~stylus-px2rem/index"
 
+bbColor(args...)
+  border-color args[0]
+  background-color args[1] || args[0]
+
+bbActive(args...)
+  &:hover, &.focus, &:focus
+    bbColor args
+  &.active, &:active
+    &, &:hover, &.focus, &:focus
+      bbColor args
+
 vendors = vendor-prefixes = official
 
 /** 大输入框高度
@@ -51,7 +62,7 @@ TINY_SCALE = 11 / 16
  *  登录输入、数据录入时正常状态时的边框
  *  会员列表、教练列表、个人信息列表等页面的颜色
  */
-INPUT_BORDER_COLOR = LIST_LINE_COLOR = #d0d0d0
+PLACEHOLDER_COLOR = INPUT_BORDER_COLOR = LIST_LINE_COLOR = ICON_COLOR = #d0d0d0
 
 /** 虚线分割
  *  用于卡片列表式的列表里面的分割

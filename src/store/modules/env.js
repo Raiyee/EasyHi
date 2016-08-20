@@ -8,7 +8,8 @@ const ENV_KEY = 'ENV_KEY';
 const SET_ENV = 'SET_ENV';
 
 const persist = createPersist(ENV_KEY, {
-  authorized: false
+  authorized: false,
+  mobile: null
 }, {
   expires: ONE_WEEK
 });
@@ -16,7 +17,8 @@ const persist = createPersist(ENV_KEY, {
 const state = persist.get();
 
 const getters = {
-  authorized: state => state.authorized
+  authorized: state => state.authorized,
+  mobile: state => state.mobile
 };
 
 const actions = {

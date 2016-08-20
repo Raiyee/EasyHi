@@ -1,28 +1,50 @@
 @require "_variables.styl"
 
+input
+  placeholder((color PLACEHOLDER_COLOR) ())
+
+.btn
+  font-hei()
+  &.btn-responsive
+    width 100%
+
 .form-control
   height INPUT_SIZE
 
-.input-group
+.input-group-addon
+  color ICON_COLOR
+  background-color BACK_LIGHT_COLOR !important
+  &:first-child + .form-control
+    border-left 0
+    padding-left 0
+    &:not(:last-child)
+      border-right 0
+
+.form-control
+  &, &:focus
+    box-shadow none !important
+    border-color INPUT_BORDER_COLOR
+
+.input-group-addon,
+.form-control
+  padding 6px 12px
+  &:first-child
+    padding-left 22px
+    border-radius HALF_INPUT_SIZE 0 0 HALF_INPUT_SIZE
+  &:last-child
+    border-radius 0 HALF_INPUT_SIZE HALF_INPUT_SIZE 0
+  &
+    border-color INPUT_BORDER_COLOR
+
+.has-error
+  .form-control
+    &, &:focus
+      border-color HIGHLIGHT_COLOR
   .input-group-addon
-    background-color BACK_LIGHT_COLOR
-    &:first-child + .form-control
-      border-left 0
-      &:not(:last-child)
-        border-right 0
-  .form-control
-    box-shadow none
-    &:focus
-      border-color INPUT_BORDER_COLOR
-  .input-group-addon,
-  .form-control
-    &:first-child
-      padding-left 22px
-      border-radius HALF_INPUT_SIZE 0 0 HALF_INPUT_SIZE
-    &:last-child
-      border-radius 0 HALF_INPUT_SIZE HALF_INPUT_SIZE 0
-    &
-      border-color INPUT_BORDER_COLOR
+    color ICON_COLOR
+    border-color HIGHLIGHT_COLOR
+  .form-control-static
+    color HIGHLIGHT_COLOR
 
 .bounce-enter-active
   animation bounce-in .5s

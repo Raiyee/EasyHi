@@ -4,10 +4,16 @@ THEME_COLOR ?= THEME_PURPLE
 THEME_COLOR_DARKER ?= THEME_PURPLE_DARKER
 
 .theme-color
-  color THEME_COLOR
+  color THEME_COLOR !important
 
 .theme-bd
-  border-color THEME_COLOR
+  border-color THEME_COLOR !important
 
 .theme-bg
-  background-color THEME_COLOR
+  background-color THEME_COLOR !important
+
+.btn-primary
+  height INPUT_SIZE
+  border-radius HALF_INPUT_SIZE
+  bbColor THEME_COLOR
+  bbActive THEME_COLOR_DARKER
