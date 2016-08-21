@@ -35,16 +35,17 @@ export default {
     handleChange(type, e) {
       const target = e.target;
       const value = target.value;
+      const submitClicked = this.submitClicked;
       let subValue;
 
       switch (type) {
         case ('mobile'):
           subValue = this.loginMobile = value.substr(0, 11);
-          this.mobileError = this.submitClicked && !mobileRegExp.test(value);
+          this.mobileError = submitClicked && !mobileRegExp.test(value);
           break;
         case ('verificationCode'):
           subValue = this.verificationCode = value.substr(0, 6);
-          this.codeError = this.submitClicked && !codeRegExp.test(value);
+          this.codeError = submitClicked && !codeRegExp.test(value);
           break;
       }
 
@@ -67,7 +68,7 @@ export default {
         const error = res.json().error;
         if (error) return alert(error);
         this.setEnv({mobile, authorized: true});
-        this.$router.push('home');
+        this.$router.push({name: this.$route.query.from || 'home'});
       });
     }
   },
@@ -85,7 +86,7 @@ export default {
                   <span class="input-group-addon">
                     <span class="glyphicon glyphicon-phone"/>
                   </span>
-                  <input type="number" class="form-control" maxlength="11" placeholder="请输入手机号"
+                  <input type="number" class="form-control" placeholder="请输入手机号"
                          on-input={this.handleChange.bind(this, 'mobile')} value={this.loginMobile}/>
                   {this.loginMobile ? (<span class="input-group-addon" on-click={this.clearMobile}>
                       <span class="glyphicon glyphicon-remove-sign"/>
@@ -98,7 +99,7 @@ export default {
                   <span class="input-group-addon">
                     <span class="glyphicon glyphicon-lock"/>
                   </span>
-                  <input type="number" class="form-control" maxlength="6" placeholder="请输入验证码"
+                  <input type="number" class="form-control" placeholder="请输入验证码"
                          on-input={this.handleChange.bind(this, 'verificationCode')} value={this.verificationCode}/>
                   <span class="input-group-addon theme-color"
                         on-click={this.getVerificationCode}>{this.limit ? this.limit + 's' : '获取验证码'}</span>

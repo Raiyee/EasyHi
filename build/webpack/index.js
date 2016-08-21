@@ -60,16 +60,16 @@ webpackConfig.output = {
 // Pre-Loaders
 // ------------------------------------
 
-webpackConfig.module.preLoaders = [
-  {
-    test: /\.(js|vue)$/,
-    loader: 'eslint',
-    exclude: /node_modules/,
-    query: {
-      emitWarning: __DEV__
-    }
-  }
-];
+// webpackConfig.module.preLoaders = [
+//   {
+//     test: /\.(js|vue)$/,
+//     loader: 'eslint',
+//     exclude: /node_modules/,
+//     query: {
+//       emitWarning: __DEV__
+//     }
+//   }
+// ];
 
 // ------------------------------------
 // Loaders

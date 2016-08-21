@@ -40,11 +40,12 @@ export default {
             <div class={classes.insideCircleReplace}></div>
           </div>
           <div class={['pull-right animated', classes.outsideCircle]} on-animationend={this.animationEnd}>
-            <div class="inside-circle"
-                 on-click={this.scale}>
+            <router-link to={{name: 'memberCenter'}}
+                         tag="div"
+                         class="inside-circle">
               <span class="glyphicon glyphicon-user menu-icon"/>
               <span class="menu-text">个人中心</span>
-            </div>
+            </router-link>
             <div class={classes.insideCircleReplace}></div>
           </div>
         </div>

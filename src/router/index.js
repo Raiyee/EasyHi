@@ -17,6 +17,13 @@ const router = new VueRouter({
       name: 'login',
       component: resolve => require(['views/Login'], resolve)
     }, {
+      path: '/member-center',
+      name: 'memberCenter',
+      component: resolve => require(['views/MemberCenter'], resolve),
+      meta: {
+        auth: true
+      }
+    }, {
       path: '*',
       redirect: '/'
     }
@@ -26,7 +33,7 @@ const router = new VueRouter({
 router.beforeEach((route, redirect, next) => {
   store.dispatch('setProgress', 50);
   if (route.matched.some(m => m.meta.auth) && !store.getters.authorized) {
-    redirect('/');
+    redirect({name: 'login', query: {from: route.name}});
   } else {
     next();
   }

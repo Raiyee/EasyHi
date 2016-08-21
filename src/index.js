@@ -1,15 +1,15 @@
 import Vue from 'vue';
-import VueResource from 'vue-resource';
-
-Vue.use(VueResource);
 
 import store from 'store';
 import router from 'router';
 import App from 'views/App';
 
+import 'ajax';
+
 module.hot && module.hot.accept();
 
-__DEV__ && require('mock');
+// TODO should inject mock in specific environment or when using argument `mock`
+require('mock');
 
 /* eslint no-new: 0 */
 new Vue({
