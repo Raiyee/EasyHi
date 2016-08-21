@@ -1,6 +1,7 @@
 import {mapGetters} from 'vuex';
 
 import store from 'store';
+import router from 'router';
 
 import 'bootstrap.less';
 import 'styles/app';
@@ -23,6 +24,12 @@ addEventListener('resize', resize = () => {
 }, false);
 
 resize();
+
+// 暂时添加一个退出登录的钩子
+window._logout_ = () => {
+  store.dispatch('setEnv', {authorized: false, mobile: null});
+  router.replace({name: router.currentRoute.name, query: {timestamp: +new Date()}});
+};
 
 export default {
   computed: {
