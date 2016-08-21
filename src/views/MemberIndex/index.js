@@ -1,24 +1,11 @@
-import {mapGetters} from 'vuex';
-
+import MemberIndex from './index.common';
 import classes from './index.styl';
 
 export default {
-  name: 'app',
-  computed: {
-    ...mapGetters(['height'])
-  },
-  methods: {
-    animationEnd: function (e) {
-      const target = e.target;
-      target.className = target.className.replace(/(^| +)animated($| +)/, ' ').trim();
-    },
-    scale: function (e) {
-      e.currentTarget.nextElementSibling.className += ' animated';
-    }
-  },
+  ...MemberIndex,
   render(h) {
     return (
-      <div class={classes.container} style={{height: this.height + 'px'}}>
+      <div class={['container', classes.container]} style={{height: this.height + 'px'}}>
         <div class={['pic', classes.pic1]}></div>
         <div class={['pic', classes.pic2]}></div>
         <div class="slogan">
@@ -41,7 +28,6 @@ export default {
           </div>
           <div class={['pull-right animated', classes.outsideCircle]} on-animationend={this.animationEnd}>
             <router-link to={{name: 'memberCenter'}}
-                         tag="div"
                          class="inside-circle">
               <span class="glyphicon glyphicon-user menu-icon"/>
               <span class="menu-text">个人中心</span>
