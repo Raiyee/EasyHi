@@ -1,37 +1,12 @@
-import {mapGetters, mapActions} from 'vuex';
-
 import classes from './index.styl';
 import yoga from './yoga.png';
 
-const mobileRegExp = /^1[35789]\d{9}$/;
-const codeRegExp = /[\d]{6}/;
+import Login, {mobileRegExp, codeRegExp} from './index.common';
 
 export default {
-  data() {
-    return {
-      limit: 0,
-      loginMobile: null,
-      verificationCode: null,
-      mobileError: false,
-      codeError: false,
-      submitClicked: false
-    };
-  },
-  created() {
-    this.loginMobile = this.mobile;
-  },
-  computed: {
-    ...mapGetters(['mobile'])
-  },
+  ...Login,
   methods: {
-    ...mapActions(['setEnv']),
-    getVerificationCode() {
-      if (this.limit) return;
-      this.limit = 60;
-      const intervalId = setInterval(() => {
-        --this.limit || clearInterval(intervalId);
-      }, 1000);
-    },
+    ...Login.methods,
     handleChange(type, e) {
       const target = e.target;
       const value = target.value;
@@ -41,11 +16,11 @@ export default {
       switch (type) {
         case ('mobile'):
           subValue = this.loginMobile = value.substr(0, 11);
-          this.mobileError = submitClicked && !mobileRegExp.test(value);
+          this.mobileError = submitClicked && !mobileRegExp.test(subValue);
           break;
         case ('verificationCode'):
           subValue = this.verificationCode = value.substr(0, 6);
-          this.codeError = submitClicked && !codeRegExp.test(value);
+          this.codeError = submitClicked && !codeRegExp.test(subValue);
           break;
       }
 
@@ -55,21 +30,6 @@ export default {
       const inputEl = e.currentTarget.previousElementSibling;
       inputEl.value = this.loginMobile = null;
       inputEl.focus();
-    },
-    submit(e) {
-      e.preventDefault();
-      this.submitClicked = true;
-      const mobile = this.loginMobile;
-      const mobileError = this.mobileError = !mobileRegExp.test(mobile);
-      const verificationCode = this.verificationCode;
-      const codeError = this.codeError = !codeRegExp.test(verificationCode);
-      if (mobileError || codeError) return;
-      this.$http.get('/verifyCode', {body: {verificationCode}}).then(res => {
-        const error = res.json().error;
-        if (error) return alert(error);
-        this.setEnv({mobile, authorized: true});
-        this.$router.replace({name: this.$route.query.from || 'home'});
-      });
     }
   },
   render(h) {
