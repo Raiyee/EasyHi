@@ -1,4 +1,4 @@
-import {mapActions} from 'vuex';
+import {mapGetters, mapActions} from 'vuex';
 
 import classes from './index.styl';
 import yoga from './yoga.png';
@@ -10,12 +10,18 @@ export default {
   data() {
     return {
       limit: 0,
-      mobile: null,
+      loginMobile: null,
       verificationCode: null,
       mobileError: false,
       codeError: false,
       submitClicked: false
     };
+  },
+  created() {
+    this.loginMobile = this.mobile;
+  },
+  computed: {
+    ...mapGetters(['mobile'])
   },
   methods: {
     ...mapActions(['setEnv']),
@@ -28,28 +34,41 @@ export default {
     },
     handleChange(type, e) {
       const target = e.target;
-      let value = target.value;
+      const value = target.value;
+      let subValue;
+
       switch (type) {
         case ('mobile'):
-          value = target.value = this.mobile = value.substr(0, 11);
+          subValue = this.loginMobile = value.substr(0, 11);
           this.mobileError = this.submitClicked && !mobileRegExp.test(value);
           break;
         case ('verificationCode'):
-          value = target.value = this.verificationCode = value.substr(0, 6);
+          subValue = this.verificationCode = value.substr(0, 6);
           this.codeError = this.submitClicked && !codeRegExp.test(value);
           break;
       }
+
+      value === subValue || (target.value = subValue);
     },
     clearMobile(e) {
       const inputEl = e.currentTarget.previousElementSibling;
-      inputEl.value = this.mobile = null;
+      inputEl.value = this.loginMobile = null;
       inputEl.focus();
     },
     submit(e) {
       e.preventDefault();
       this.submitClicked = true;
-      this.mobileError = !mobileRegExp.test(this.mobile);
-      this.codeError = !codeRegExp.test(this.verificationCode);
+      const mobile = this.loginMobile;
+      const mobileError = this.mobileError = !mobileRegExp.test(mobile);
+      const verificationCode = this.verificationCode;
+      const codeError = this.codeError = !codeRegExp.test(verificationCode);
+      if (mobileError || codeError) return;
+      this.$http.get('/verifyCode', {body: {verificationCode}}).then(res => {
+        const error = res.json().error;
+        if (error) return alert(error);
+        this.setEnv({mobile, authorized: true});
+        this.$router.push('home');
+      });
     }
   },
   render(h) {
@@ -67,8 +86,8 @@ export default {
                     <span class="glyphicon glyphicon-phone"/>
                   </span>
                   <input type="number" class="form-control" maxlength="11" placeholder="请输入手机号"
-                         on-input={this.handleChange.bind(this, 'mobile')} value={this.mobile}/>
-                  {this.mobile ? (<span class="input-group-addon" on-click={this.clearMobile}>
+                         on-input={this.handleChange.bind(this, 'mobile')} value={this.loginMobile}/>
+                  {this.loginMobile ? (<span class="input-group-addon" on-click={this.clearMobile}>
                       <span class="glyphicon glyphicon-remove-sign"/>
                     </span>) : ''}
                 </div>

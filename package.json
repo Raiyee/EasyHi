@@ -92,9 +92,10 @@
   "dependencies": {
     "bootstrap": "^3.3.7",
     "fonts.css": "^1.4.0",
-    "vue": "^2.0.0-rc.1",
+    "vue": "^2.0.0-rc.3",
+    "vue-resource": "^0.9.3",
     "vue-router": "^2.0.0-rc.3",
-    "vuex": "^2.0.0-rc.4",
+    "vuex": "^2.0.0-rc.5",
     "vuex-localstorage": "^0.2.0",
     "vuex-promise": "^2.0.0-rc.3"
   },
@@ -140,6 +141,7 @@
     "koa-static": "^3.0.0",
     "less": "^2.7.1",
     "less-loader": "^2.2.3",
+    "mockjs": "^1.0.1-beta2",
     "nib": "^1.1.2",
     "nodemon": "^1.10.0",
     "phantomjs-polyfill": "0.0.2",

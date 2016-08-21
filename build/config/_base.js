@@ -42,6 +42,7 @@ const config = {
   },
   compiler_vendor: [
     'vue',
+    'vue-resource',
     'vue-router',
     'vuex',
     'vuex-localstorage',
