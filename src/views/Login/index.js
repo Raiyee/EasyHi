@@ -1,7 +1,7 @@
 import classes from './index.styl';
 import yoga from './yoga.png';
 
-import Login, {mobileRegExp, codeRegExp} from './index.common';
+import Login from './index.common';
 
 export default {
   ...Login,
@@ -9,22 +9,9 @@ export default {
     ...Login.methods,
     handleChange(type, e) {
       const target = e.target;
-      const value = target.value;
-      const submitClicked = this.submitClicked;
-      let subValue;
+      const subValue = this.handleInput(type, e);
 
-      switch (type) {
-        case ('mobile'):
-          subValue = this.loginMobile = value.substr(0, 11);
-          this.mobileError = submitClicked && !mobileRegExp.test(subValue);
-          break;
-        case ('verificationCode'):
-          subValue = this.verificationCode = value.substr(0, 6);
-          this.codeError = submitClicked && !codeRegExp.test(subValue);
-          break;
-      }
-
-      value === subValue || (target.value = subValue);
+      target.value === subValue || (target.value = subValue);
     },
     clearMobile(e) {
       const inputEl = e.currentTarget.previousElementSibling;

@@ -24,7 +24,8 @@ const webpackConfig = {
       vue: 'vue/dist/vue',
       'bootstrap.less': 'bootstrap/less/bootstrap.less'
     },
-    extensions: ['', '.js', '.styl'],
+    extensions: ['', '.vue', '.js', '.styl'],
+    // extensions: ['', '.js', '.vue', '.styl'],
     modules: ['node_modules', 'src']
   },
   module: {},

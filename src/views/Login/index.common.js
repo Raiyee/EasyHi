@@ -22,6 +22,24 @@ export default {
   },
   methods: {
     ...mapActions(['setEnv']),
+    handleInput(type, e) {
+      const value = e.target.value;
+      const submitClicked = this.submitClicked;
+      let subValue;
+
+      switch (type) {
+        case ('mobile'):
+          subValue = this.loginMobile = value.substr(0, 11);
+          this.mobileError = submitClicked && !mobileRegExp.test(subValue);
+          break;
+        case ('verificationCode'):
+          subValue = this.verificationCode = value.substr(0, 6);
+          this.codeError = submitClicked && !codeRegExp.test(subValue);
+          break;
+      }
+
+      return subValue;
+    },
     getVerificationCode() {
       if (this.limit) return;
       this.limit = 60;
