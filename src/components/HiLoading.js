@@ -1,20 +1,12 @@
+import HiLoading from './HiLoading.common';
 import classes from './HiLoading.css';
 
 export default {
-  props: {
-    className: {
-      type: String,
-      default: ''
-    },
-    theme: {
-      type: String,
-      default: 'snake'
-    }
-  },
+  ...HiLoading,
   render(h) {
     return (
-      <div class={[classes.loading, this.className]}>
-        <div class={classes['loading-' + this.theme]}/>
+      <div class={[classes.hiLoading, this.className]}>
+        <div class={classes['hi-loading-' + this.theme]}/>
         {this.$slots.default}
       </div>
     );

@@ -1,4 +1,4 @@
-.loading {
+.hi-loading {
   text-align: center;
   position: fixed;
   top: 50%;
@@ -6,8 +6,8 @@
   transform: translate3d(0, -50%, 0);
 }
 
-.loading-snake {
-  animation: loading-snake-rotate .8s infinite linear;
+.hi-loading-snake {
+  animation: hi-loading-snake-rotate .8s infinite linear;
   border: 4px solid rgb(204, 204, 204);
   border-right-color: transparent;
   border-radius: 50%;
@@ -16,7 +16,7 @@
   display: inline-block;
 }
 
-@keyframes loading-snake-rotate {
+@keyframes hi-loading-snake-rotate {
   0% {
     transform: rotate(0deg);
   }

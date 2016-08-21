@@ -4,6 +4,7 @@ export const mobileRegExp = /^1[35789]\d{9}$/;
 export const codeRegExp = /[\d]{6}/;
 
 export default {
+  name: 'login',
   data() {
     return {
       limit: 0,
