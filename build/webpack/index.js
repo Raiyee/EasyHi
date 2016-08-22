@@ -200,12 +200,14 @@ webpackConfig.plugins = [
   })
 ];
 
+const browsers = config.compiler_browsers;
+
 if (__DEV__) {
   debug(`Enable postcss processor(autoprefixer) for ${TRUE_NODE_ENV}`);
 
   webpackConfig.postcss = [
     autoprefixer({
-      browsers: ['> 0%']
+      browsers
     })
   ];
 
@@ -222,7 +224,7 @@ if (__DEV__) {
       autoprefixer: {
         add: true,
         remove: true,
-        browsers: ['> 0%']
+        browsers
       },
       discardComments: {
         removeAll: true
