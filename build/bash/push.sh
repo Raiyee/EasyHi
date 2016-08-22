@@ -10,13 +10,14 @@ read MESSAGE
 
 echo "Pushing $MESSAGE ..."
 
+git config --global i18n.commitencoding utf-8
 git commit -a -m "$MESSAGE"
 git push
 
 # commit
 cd dist
-cp ../README.md .
-cp ../CONTRIBUTING.md .
+#cp ../README.md .
+cp ../*.md .
 git init
 git add -A
 git commit -m "$MESSAGE"
