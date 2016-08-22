@@ -11,6 +11,7 @@ read MESSAGE
 echo "Pushing $MESSAGE ..."
 
 git config --global i18n.commitencoding utf-8
+git config --global i18n.logoutputencoding utf-8
 git commit -a -m "$MESSAGE"
 git push
 
