@@ -21,7 +21,8 @@
         <div class="inside-circle-replace"></div>
       </div>
       <div class="pull-right animated outside-circle" @animationend="animationEnd">
-        <router-link to="{name: 'memberCenter'}"
+        <router-link :to="{name: 'memberCenter'}"
+                     tag="div"
                      class="inside-circle">
           <span class="glyphicon glyphicon-user menu-icon"/>
           <span class="menu-text">个人中心</span>
