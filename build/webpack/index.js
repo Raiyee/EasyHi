@@ -92,7 +92,7 @@ webpackConfig.module.loaders = [
     exclude: nodeModules
   },
   {
-    test: /\/bootstrap\.less$/,
+    test: /[/\\]bootstrap\.less$/,
     loader: generateLoaders('less', baseLoaders, {
       sourceMap,
       extract: !__DEV__ && (bootstrapLoader = new ExtractTextPlugin('bootstrap.[contenthash].css'))
@@ -100,14 +100,14 @@ webpackConfig.module.loaders = [
     include: nodeModules
   },
   {
-    test: /^(?!.*\/bootstrap\.less$).*\.less$/,
+    test: /^(?!.*[/\\]bootstrap\.less$).*\.less$/,
     loader: generateLoaders('less', baseLoaders, {
       sourceMap
     }),
     include: nodeModules
   },
   {
-    test: /\/app\.styl/,
+    test: /[/\\]app\.styl/,
     loader: generateLoaders('stylus', baseLoaders, {
       sourceMap,
       extract: !__DEV__ && (appLoader = new ExtractTextPlugin('app.[contenthash].css'))
@@ -115,14 +115,14 @@ webpackConfig.module.loaders = [
     exclude: nodeModules
   },
   {
-    test: /\/theme-\w+\.styl/,
+    test: /[/\\]theme-\w+\.styl/,
     loader: generateLoaders('stylus', baseLoaders, {
       sourceMap
     }),
     exclude: nodeModules
   },
   {
-    test: /^(?!.*\/(app|theme-\w+)\.styl).*\.styl/,
+    test: /^(?!.*[/\\](app|theme-\w+)\.styl).*\.styl/,
     loader: generateLoaders('stylus', cssModuleLoaders, {
       sourceMap
     }),
