@@ -1,5 +1,5 @@
 <template>
-  <div class="container" :style="{height: height + 'px'}">
+  <div class="content" :style="{height: height + 'px'}">
     <div class="pic pic1"></div>
     <div class="pic pic2"></div>
     <div class="slogan">
