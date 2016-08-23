@@ -1,16 +1,24 @@
 <template>
   <div class="calendar-container">
     <ol class="calendar list-unstyled clearfix"
-        :style="{width: calendarWidth + 'px'}"
-        v-touch:swipe="onSwipe">
+        :style="{width: calendarWidth + 'px', transform: transform}"
+        v-touch:panstart="onPanStart"
+        v-touch:pan="onPan"
+        v-touch:panend="onPanEnd">
       <calendar-item v-for="(calendarItem, index) of calendar"
                      :class="{active: index === activeIndex}"
                      :date="calendarItem.date"
                      :status="calendarItem.status"
+                     :baseWidth="baseWidth"
+                     :itemWidth="itemWidth"
+                     :divisor="divisor"
                      :index="index"
                      :key="calendarItem"
                      @click="toggleActive"/>
-      <calendar-item :style="{transform: transform, marginLeft: marginLeft + 'px'}"/>
+      <calendar-item :baseWidth="baseWidth"
+                     :itemWidth="itemWidth"
+                     :class="{active: bgActive}"
+                     :style="{transform: bgTransform, marginLeft: marginLeft + 'px'}"/>
     </ol>
   </div>
 </template>
@@ -21,8 +29,6 @@
 
   import moment from 'moment';
   import utils from 'utils';
-
-  const divisor = 7 * 375;
 
   export default {
     name: 'scroll-calendar',
@@ -48,43 +54,77 @@
     },
     data() {
       return {
-        activeIndex: 0
+        activeIndex: 0,
+        activeIndexFetched: false,
+        divisor: 7 * 375,
+        translate: 0,
+        baseTranslate: 0,
+        transformIndex: 0,
+        translating: false
       };
     },
-    updated: (() => {
-      let updateCount = 0;
-      return function () {
-        if (updateCount++) return;
-        this.activeIndex = this.calendar.findIndex(calendarItem => [1, 2].includes(calendarItem.status));
-      };
-    })(),
+    updated() {
+      if (this.activeIndexFetched) return;
+      this.activeIndexFetched = true;
+      this.activeIndex = this.calendar.findIndex(calendarItem => [1, 2].includes(calendarItem.status));
+    },
     computed: {
-      ...mapGetters(['width', 'rem']),
+      ...mapGetters(['width', 'threshold']),
       marginLeft() {
-        const activeIndex = this.activeIndex;
-        const offset = this.baseWidth - 55 * 7 * this.width;
-        return (~~(activeIndex / 6) * 6 + activeIndex % 6) * offset / 6 / divisor;
+        return this.offset(this.activeIndex);
       },
       baseWidth() {
         // 为了计算更精确, 统一使用此大整数进行宽度换算
-        return this.width * (375 - 20);
+        return this.width < this.threshold ? this.width * (375 - 20) : (this.width - 20) * 375;
       },
       calendarWidth() {
-        return this.baseWidth * this.calendar.length / divisor;
+        return this.baseWidth * this.calendar.length / this.divisor;
       },
       itemWidth() {
-        return this.baseWidth / divisor;
+        return this.baseWidth / this.divisor;
       },
       transform() {
-        return `translate3d(${this.baseWidth * this.activeIndex / divisor}px, 0, 0)`;
+        return `translate3d(${this.translate}px, 0, 0)`;
+      },
+      bgTransform() {
+        return `translate3d(${this.baseWidth * this.activeIndex / this.divisor}px, 0, 0)`;
+      },
+      bgActive() {
+        const activeIndex = this.activeIndex;
+        const transformIndex = -this.getTransformIndex();
+        return this.translating || transformIndex === Math.floor(activeIndex / 7);
       }
     },
     methods: {
-      toggleActive(disabled, index) {
-        disabled || (this.activeIndex = index);
+      offset(index) {
+        if (this.width >= this.threshold) return 0;
+        const offset = this.baseWidth - 55 * 7 * this.width;
+        return (~~(index / 6) * 6 + index % 6) * offset / (6 * this.divisor);
       },
-      onSwipe(e) {
-        console.log('onSwipe', e);
+      getTransformIndex() {
+        return Math.floor(this.translate * this.divisor / (7 * this.baseWidth));
+      },
+      toggleActive(disabled, index) {
+        disabled || this.translating || (this.activeIndex = index);
+      },
+      onPanStart() {
+        this.baseTranslate = this.translate;
+        this.transformIndex = this.getTransformIndex();
+      },
+      onPan(e) {
+        this.translate = this.baseTranslate + e.deltaX;
+        this.translating = true;
+      },
+      onPanEnd() {
+        let translate = this.translate;
+        let transformIndex = this.transformIndex;
+        transformIndex = translate - this.baseTranslate > 0 ? Math.min(0, transformIndex + 1)
+          : Math.max(1 - this.calendar.length / 7, transformIndex - 1);
+        const offsetIndex = transformIndex * 7;
+        this.translate = offsetIndex * this.baseWidth / this.divisor + this.offset(offsetIndex);
+        setTimeout(() => {
+          this.translating = false;
+        }, 0);
       }
     },
     components: {

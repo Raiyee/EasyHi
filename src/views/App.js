@@ -20,7 +20,7 @@ addEventListener('resize', resize = () => {
   height = docEl.clientHeight;
   width = docEl.clientWidth;
   let rem;
-  docEl.style.fontSize = (rem = width < 768 ? width / 375 : 1) * 16 + 'px';
+  docEl.style.fontSize = (rem = width < store.getters.threshold ? width / 375 : 1) * 16 + 'px';
   store.dispatch('setSize', {height, width, rem});
 }, false);
 

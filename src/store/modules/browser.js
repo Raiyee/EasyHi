@@ -3,13 +3,15 @@ const SET_SIZE = 'SET_SIZE';
 const state = {
   height: 0,
   width: 0,
-  rem: 1
+  rem: 1,
+  threshold: 768
 };
 
 const getters = {
   height: state => state.height,
   width: state => state.width,
-  rem: state => state.rem
+  rem: state => state.rem,
+  threshold: state => state.threshold
 };
 
 const actions = {

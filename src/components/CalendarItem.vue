@@ -23,22 +23,23 @@
     props: {
       date: String,
       status: Number,
-      index: Number
+      index: Number,
+      baseWidth: Number,
+      itemWidth: Number,
+      divisor: Number
     },
     data() {
       return {};
     },
     computed: {
-      ...mapGetters(['width', 'rem']),
+      ...mapGetters(['width', 'threshold']),
       marginLeft() {
-        if (this.index % 7) return (this.itemWidth * 375 - 55 * this.width) / 6 / 375;
-        return 0;
+        const width = this.width;
+        return width < this.threshold && this.index % 7
+          ? (this.baseWidth - 55 * 7 * width) / (6 * this.divisor) : 0;
       },
       disabled() {
         return [0, 3].includes(this.status);
-      },
-      itemWidth() {
-        return (this.width * 375 - 20 * this.width) / 7 / 375;
       }
     },
     filters: {
