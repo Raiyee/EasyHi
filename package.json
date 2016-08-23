@@ -24,7 +24,7 @@
     "start:test": "better-npm-run start:test",
     "stylelint": "better-npm-run stylelint",
     "test": "better-npm-run test",
-    "push": "bash build/bash/push.sh"
+    "push": "better-npm-run push"
   },
   "betterScripts": {
     "build": {
@@ -64,6 +64,9 @@
       "env": {
         "DEBUG": "koa*"
       }
+    },
+    "push":{
+      "command":"bash build/bash/push.sh"
     },
     "start": {
       "command": "nodemon build/bin/start",

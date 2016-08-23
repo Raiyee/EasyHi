@@ -1,147 +1,126 @@
-.membercenter-container {
-  .membercenter-header {
-    padding: 20px 15px;
-    color: white;
-    margin-top: 0;
-    margin-bottom: 10px;
+@import "../../styles/_variables"
 
-    .media-object {
-      border-radius: 50%;
-      border: 2px solid white;
+.membercenter-container
+  .membercenter-header
+    padding 20px 15px
+    color REVERSE_COLOR
+    margin-top 0
+    margin-bottom 10px
 
-      img {
-        width: 70px;
-        height: 70px;
-      }
-    }
+    .media-object
+      border-radius 50%
+      border 2px solid white
 
-    .media-right .icon-message {
-      position: relative;
-      display: inline-block;
+      img
+        width 70px
+        height 70px
 
-      &:before {
-        font-size: 30px;
-      }
+    .media-right .icon-message
+      position relative
+      display inline-block
 
-      > span {
-        position: absolute;
-        top: 2px;
-        right: -4px;
-        font-size: 12px;
-        width: 18px;
-        height: 18px;
-        padding: 1px;
-        line-height: 16px;
-        background-color: red;
-        border-radius: 50%;
-        border: 1px solid white;
-        transform: scale(.8);
-      }
-    }
-  }
-}
-@import "./subscribe-panel";
+      &:before
+        font-size 30px
 
-.card-panel {
-  margin-bottom: 5px;
+      > span
+        position absolute
+        top 2px
+        right -4px
+        font-size 12px
+        width 18px
+        height 18px
+        padding 1px
+        line-height 16px
+        background-color HIGHLIGHT_COLOR
+        border-radius 50%
+        border 1px solid white
+        transform scale(.8)
 
-  .panel-title {
-    font-size: 15px;
-    font-weight: normal;
-  }
+@import "./subscribe-panel"
 
-  .panel-body > div {
-    width: 50%;
-    float: left;
+.card-panel
+  margin-bottom 5px
 
-    + div {
-      border-left: 1px solid #f1f1f1;
-    }
+  .panel-title
+    font-size 15px
+    font-weight normal
 
-    > span {
-      font-size: 30px;
-    }
-  }
-}
+  .panel-body > div
+    width 50%
+    float left
 
-.contact-panel {
-  color: #555;
+    + div
+      border-left 1px solid CARD_LINE_COLOR
 
-  > .panel-body {
-    padding-top: 10px;
-    padding-bottom: 10px;
-  }
+    > span
+      font-size 30px
 
-  .member-notice {
-    + hr {
-      margin-top: 10px;
-      margin-bottom: 10px;
-    }
-  }
+.contact-panel
+  color PRIMARY_COLOR
 
-  a {
-    text-decoration: none;
+  > .panel-body
+    padding-top 10px
+    padding-bottom 10px
 
-    &, &:active, &:visited {
-      color: inherit;
-    }
-  }
-}
+  .member-notice
+    + hr
+      margin-top 10px
+      margin-bottom 10px
 
-#kf-panel {
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-  .panel-heading {
-    margin: 0 10px !important;
-  }
-  .panel-body {
-    padding-bottom: 0;
-  }
-  .membercenter-header {
-    padding: 20px 15px;
-    color: white;
-    margin-top: 0;
-    margin-bottom: 0;
+  a
+    text-decoration none
 
-    .media-object {
-      border-radius: 50%;
-      border: 2px solid white;
+    &, &:active, &:visited
+      color inherit
 
-      img {
-        width: 70px;
-        height: 70px;
-      }
-    }
-    .media-body {
-      width: 180px;
-      text-align: left;
-    }
-    .media-right {
-      width: 80px;
-      vertical-align: middle;
-    }
-    .media-right .icon-message {
-      position: relative;
-      display: inline-block;
+#kf-panel
+  padding-left 0
+  padding-right 0
+  .panel-heading
+    margin 0 10px
 
-      &:before {
-        font-size: 30px;
-      }
+  .panel-body
+    padding-bottom 0
 
-      > span {
-        position: absolute;
-        top: 2px;
-        right: -4px;
-        font-size: 12px;
-        width: 18px;
-        height: 18px;
-        padding: 1px;
-        line-height: 16px;
-        background-color: red;
-        border-radius: 50%;
-        border: 1px solid white;
-        transform: scale(.8);
-      }
-    }
-  }
-}
+  .membercenter-header
+    padding 20px 15px
+    color REVERSE_COLOR
+    margin-top 0
+    margin-bottom 0
+
+    .media-object
+      border-radius 50%
+      border 2px solid white
+
+      img
+        width 70px
+        height 70px
+
+    .media-body
+      width 180px
+      text-align left
+
+    .media-right
+      width 80px
+      vertical-align middle
+
+    .media-right .icon-message
+      position relative
+      display inline-block
+
+      &:before
+        font-size 30px
+
+      > span
+        position absolute
+        top 2px
+        right -4px
+        font-size 12px
+        width 18px
+        height 18px
+        padding 1px
+        line-height 16px
+        background-color HIGHLIGHT_COLOR
+        border-radius 50%
+        border 1px solid white
+        transform scale(.8)

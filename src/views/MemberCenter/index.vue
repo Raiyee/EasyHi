@@ -114,34 +114,34 @@
 <script>
   export default{
     name: 'memberCenterIndex',
-    data () {
+    data() {
       return {
         memberGender: true,
-        icon: "",
-        memberName: "",
-        memberMobile: "",
-        messageCount: "",
-        latestCourse: "",
-        courseDate: "",
-        startTime: "",
-        endTime: "",
-        courseName: "",
-        courseCost: "",
-        courseBills: "",
+        icon: '',
+        memberName: '',
+        memberMobile: '',
+        messageCount: '',
+        latestCourse: '',
+        courseDate: '',
+        startTime: '',
+        endTime: '',
+        courseName: '',
+        courseCost: '',
+        courseBills: '',
         cardNum: 1,
-        subscribeId: "",
-        courseDuration: "",
+        subscribeId: '',
+        courseDuration: '',
         voucherNum: 0,
         hasNotice: false,
-        grantList: "",
-        ownerMobile: "12345678910"
+        grantList: '',
+        ownerMobile: '12345678910'
       };
     },
-    created () {
-      this.$http.get("/membercenter").then((resp) => {
+    created() {
+      this.$http.get('/membercenter').then((resp) => {
         Object.assign(this, resp.json());
       });
     }
-  }
+  };
 </script>
 <style lang="styl" src="./index.styl" scoped/>

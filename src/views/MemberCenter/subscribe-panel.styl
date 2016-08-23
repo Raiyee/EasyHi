@@ -1,57 +1,47 @@
-.subscribe-panel {
-  margin-bottom: 5px;
+@import "../../styles/_variables"
 
-  .panel-title{
-    color: #000;
-    font-size: 15px;
-    font-weight: normal;
+.subscribe-panel
+  margin-bottom 5px
 
-    small {
-      color: #555;
+  .panel-title
+    color STRESS_COLOR
+    font-size 15px
+    font-weight normal
 
-      + a {
-        font-size: 13px;
-        font-weight: 100;
-        text-decoration: none;
+    small
+      color PRIMARY_COLOR
 
-        > span{
-          font-size: 13px;
-          color: #808080;
-        }
-      }
-    }
-  }
+      + a
+        font-size 13px
+        font-weight 100
+        text-decoration none
 
-  .panel-body {
-    > span {
-      margin-right: 5px;
-      transform: scale(1.2);
+        > span
+          font-size 13px
+          color SUBTEXT_COLOR
 
-      &, + div {
-        float: left;
-      }
-    }
+  .panel-body
+    > span
+      margin-right 5px
+      transform scale(1.2)
 
-    .count {
-      font-size: 18px;
-    }
-  }
+      &, + div
+        float left
 
-  .panel-footer {
-    border-top: 1px dashed #c2c2c2;
-    border-bottom-style: none;
-    background-color: white;
-  }
+    .count
+      font-size 18px
 
-  .no-course {
-    > div {
-      color: #808080;
-      margin-bottom: 20px;
+  .panel-footer
+    border-top 1px dashed DASHED_LINE_COLOR
+    border-bottom-style none
+    background-color REVERSE_COLOR
 
-      + .btn {
-        padding-left: 25px;
-        padding-right: 25px;
-      }
-    }
-  }
-}
+  .no-course
+    > div
+      color SUBTEXT_COLOR
+      margin-bottom 20px
+
+      + .btn
+        padding-left 25px
+        padding-right 25px
+

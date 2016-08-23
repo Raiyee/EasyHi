@@ -21,17 +21,17 @@ Mock.mock(/\/membercenter$/, (() => {
     hasNotice: '@boolean()',
     ownerMobile: '@integer(0, 11)',
     courseBills: Mock.mock({
-      "array|0-1": [
+      'array|0-1': [
         {
-          "count": '@integer(1, 5)',
-          "name": '@string(5, 11)'
+          'count': '@integer(1, 5)',
+          'name': '@string(5, 11)'
         }
       ]
     }).array,
     grantList: Mock.mock({
-      "grantList|1-2": [
+      'grantList|1-2': [
         {
-          sourceName: "@string(5, 11)",
+          sourceName: '@string(5, 11)',
           selected: Random.string('number', 0, 1),
           sourceMobile: '@string(5, 11)'
         }
