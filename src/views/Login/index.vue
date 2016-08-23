@@ -53,4 +53,4 @@
     }
   };
 </script>
-<style lang="styl" src="./index.styl" scoped/>
+<style lang="stylus" src="./index.styl" scoped/>

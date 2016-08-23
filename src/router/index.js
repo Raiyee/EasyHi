@@ -24,6 +24,10 @@ const router = new VueRouter({
         auth: true
       }
     }, {
+      path: '/member-subscribe',
+      name: 'memberSubscribe',
+      component: resolve => require(['views/MemberSubscribe'], resolve)
+    }, {
       path: '*',
       redirect: '/'
     }

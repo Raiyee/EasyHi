@@ -8,4 +8,4 @@
   // eslint-disable-next-line object-curly-spacing
   export default from './HiLoading.common';
 </script>
-<style src="./HiLoading.css" scoped/>
+<style src="./hi-loading.css" scoped/>

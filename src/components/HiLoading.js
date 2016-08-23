@@ -1,5 +1,5 @@
 import HiLoading from './HiLoading.common';
-import classes from './HiLoading.css';
+import classes from './hi-loading.css';
 
 export default {
   ...HiLoading,

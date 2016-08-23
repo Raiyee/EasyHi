@@ -1,0 +1,27 @@
+@import "../styles/_variables"
+
+.calendar-item
+  relative()
+  float left
+  text-align center
+  transition transform .5s ease
+  &.active
+    color REVERSE_COLOR
+  &.disabled
+    color REMARK_COLOR
+  &.bg-item
+    absolute()
+    z-index -1
+  > div
+    relative()
+    margin-left auto
+    margin-right auto
+    width 55px
+    height 55px
+    border-radius 50%
+    > div
+      absolute()
+      width 100%
+      top 50%
+      left 50%
+      transform translate3d(-50%, -50%, 0)

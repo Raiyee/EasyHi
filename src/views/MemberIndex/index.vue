@@ -13,11 +13,12 @@
     </div>
     <div class="member-menu">
       <div class="pull-left animated outside-circle" @animationend="animationEnd">
-        <div class="inside-circle"
-             @click="scale">
+        <router-link :to="{name: 'memberSubscribe'}"
+                     tag="div"
+                     class="inside-circle">
           <span class="glyphicon glyphicon-book menu-icon"/>
           <span class="menu-text">预订课程</span>
-        </div>
+        </router-link>
         <div class="inside-circle-replace"></div>
       </div>
       <div class="pull-right animated outside-circle" @animationend="animationEnd">
@@ -36,4 +37,4 @@
   // eslint-disable-next-line object-curly-spacing
   export default from './index.common';
 </script>
-<style lang="styl" src="./index.styl" scoped/>
+<style lang="stylus" src="./index.styl" scoped/>

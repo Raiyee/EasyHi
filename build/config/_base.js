@@ -42,6 +42,7 @@ const config = {
     colors: true
   },
   compiler_vendor: [
+    'moment',
     'vue',
     'vue-resource',
     'vue-router',

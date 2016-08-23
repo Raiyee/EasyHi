@@ -5,4 +5,4 @@
   // eslint-disable-next-line object-curly-spacing
   export default from './HiProgress.common';
 </script>
-<style src="./HiProgress.css" scoped/>
+<style src="./hi-progress.css" scoped/>

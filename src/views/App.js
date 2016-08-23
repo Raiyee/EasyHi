@@ -19,8 +19,9 @@ let resize, height, width;
 addEventListener('resize', resize = () => {
   height = docEl.clientHeight;
   width = docEl.clientWidth;
-  docEl.style.fontSize = Math.min(width, 375) / 375 * 16 + 'px';
-  store.dispatch('setSize', {height, width});
+  let rem;
+  docEl.style.fontSize = (rem = width < 768 ? width / 375 : 1) * 16 + 'px';
+  store.dispatch('setSize', {height, width, rem});
 }, false);
 
 resize();

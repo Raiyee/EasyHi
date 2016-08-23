@@ -1,5 +1,5 @@
 import HiProgress from './HiProgress.common';
-import classes from './HiProgress.css';
+import classes from './hi-progress.css';
 
 export default {
   ...HiProgress,
