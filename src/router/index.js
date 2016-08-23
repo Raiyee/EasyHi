@@ -27,15 +27,13 @@ const router = new VueRouter({
       path: '/member-subscribe',
       name: 'memberSubscribe',
       component: resolve => require(['views/MemberSubscribe'], resolve)
-    },
-    {
+    }, {
       path: '/website',
       name: 'website',
       component: {
         template: '<div>这是微官网</div>'
       }
-    },
-    {
+    }, {
       path: '*',
       redirect: '/'
     }
