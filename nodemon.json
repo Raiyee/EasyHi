@@ -6,6 +6,7 @@
   "ignore": [
     "dist",
     "node_modules",
+    "src",
     "package.json"
   ]
 }

@@ -23,7 +23,15 @@ const router = new VueRouter({
       meta: {
         auth: true
       }
-    }, {
+    },
+    {
+      path: '/website',
+      name: 'website',
+      component: {
+        template:"<div>这是微官网</div>"
+      }
+    },
+    {
       path: '*',
       redirect: '/'
     }

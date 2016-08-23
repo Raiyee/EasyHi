@@ -36,6 +36,7 @@ const config = {
   compiler_devtool: 'source-map',
   compiler_hash_type: 'hash',
   compiler_quiet: false,
+  compiler_browsers: ['> 0%'],
   compiler_public_path: '',
   compiler_stats: {
     colors: true
