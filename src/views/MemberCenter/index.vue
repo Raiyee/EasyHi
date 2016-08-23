@@ -1,0 +1,147 @@
+<template>
+  <div class="membercenter-container">
+    <div class="media theme-bg membercenter-header">
+      <div class="media-left">
+        <div class="media-object media-middle">
+          <img class="img-circle" src="http://www.66tools.com/WebTools/rImage?p=400"/>
+        </div>
+      </div>
+      <div class="media-body media-middle">
+        <div class="media-heading">{{ memberName }}</div>
+        <div class="media-body">{{ memberMobile }}</div>
+      </div>
+      <div class="media-right">
+            <span class="iconfont icon-message">
+              <span class="text-center">{{ messageCount > 9 ? '9+' : messageCount }}</span>
+            </span>
+      </div>
+    </div>
+    <div class="panel panel-full subscribe-panel">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          最近课程
+          <small v-if="latestCourse">（ {{ courseDate }} ）</small>
+          <a class="pull-right" href="#member-center/member-subscription">
+            查看全部预订
+            <span class="iconfont icon-arrow-right"></span>
+          </a>
+        </h3>
+      </div>
+      <div class="panel-body clearfix">
+        <template v-if="latestCourse">
+          <span class="iconfont icon-clock theme-color"></span>
+          <div>
+            {{ courseDuration }} {{ courseName }}
+            <br>
+            预订<span class="theme-color count">{{ courseCost }}</span>人
+            <br>
+            <template v-for="courseBill in courseBills">
+              扣{{ courseBill.name }}<span class="theme-color count">{{ courseBill.count }}</span>次
+            </template>
+          </div>
+        </template>
+        <template v-else>
+          <div class="no-course text-center">
+            <div>还没有要上的课</div>
+            <button class="btn btn-primary">去订课</button>
+          </div>
+        </template>
+      </div>
+      <div v-if="latestCourse" id="cancel-subscribe" class="panel-footer theme-color text-right"
+           :subscribeId="subscribeId">取消预订
+      </div>
+    </div>
+    <div class="panel panel-full card-panel">
+      <div class="panel-heading">
+        <h3 class="panel-title">我的卡券</h3>
+      </div>
+      <div class="panel-body text-center clearfix">
+        <div class="enabled" data-link="#member-center/member-card">
+          <span class="iconfont icon-huiyuanqia theme-color"></span>
+          <br/>
+          会员卡( {{ cardNum }} )
+        </div>
+        <div class="enabled" data-link="#member-center/expvoucher-link/1">
+          <span class="iconfont icon-youhuiquan1 theme-color"></span>
+          <br/>
+          体验券:( {{ voucherNum }} )
+        </div>
+      </div>
+    </div>
+    <div v-if="grantList && grantList.length > 0" class="panel panel-full kf-panel" id="kf-panel">
+      <div class="panel-heading">
+        <h3 class="panel-title">授权信息</h3>
+      </div>
+      <div v-for="grant in grantList" class="panel-body text-center clearfix">
+        <div class="media membercenter-header" style="color:#b28ef2;">
+          <div class="media-left only-kf">
+            <div class="media-object media-middle">
+              <img class="img-circle"
+                   src="http://www.66tools.com/WebTools/rImage?p=400">
+            </div>
+          </div>
+          <div class="media-body media-middle only-kf">
+            <div class="media-heading">
+              {{ grant.sourceName }}
+            </div>
+            <div class="media-body">
+              {{ grant.sourceMobile }}
+            </div>
+          </div>
+          <div :class="['media-right', 'only-kf', grant.selected=='0'? 'accept-oauth' : 'release-oauth']">
+            <span class="">{{ grant.selected == '0' ? '开启授权' : '解除授权' }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-full contact-panel">
+      <div class="panel-body text-center">
+        <template v-if="hasNotice">
+          <a class="member-notice">
+            <div>会员须知></div>
+          </a>
+          <hr/>
+        </template>
+        <a :href="'tel:'+ ownerMobile">
+          <div>
+            联系客服 {{ ownerMobile }}
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+  export default{
+    name: 'memberCenterIndex',
+    data () {
+      return {
+        memberGender: true,
+        icon: "",
+        memberName: "",
+        memberMobile: "",
+        messageCount: "",
+        latestCourse: "",
+        courseDate: "",
+        startTime: "",
+        endTime: "",
+        courseName: "",
+        courseCost: "",
+        courseBills: "",
+        cardNum: 1,
+        subscribeId: "",
+        courseDuration: "",
+        voucherNum: 0,
+        hasNotice: false,
+        grantList: "",
+        ownerMobile: "12345678910"
+      };
+    },
+    created () {
+      this.$http.get("/membercenter").then((resp) => {
+        Object.assign(this, resp.json());
+      });
+    }
+  }
+</script>
+<style lang="styl" src="./index.styl" scoped/>
