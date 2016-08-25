@@ -1,7 +1,11 @@
 @import "../../styles/_variables"
 
 .subscribe-panel
+  padding-left 10px
+  padding-right 10px
   margin-bottom 5px
+  .panel-heading
+    border-color CARD_LINE_COLOR
 
   .panel-title
     color STRESS_COLOR
@@ -31,6 +35,9 @@
     .count
       font-size 18px
 
+    .glyphicon-time
+      top 3px
+
   .panel-footer
     border-top 1px dashed DASHED_LINE_COLOR
     border-bottom-style none
@@ -42,6 +49,7 @@
       margin-bottom 20px
 
       + .btn
+        height inherit
         padding-left 25px
         padding-right 25px
 

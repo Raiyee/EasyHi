@@ -11,7 +11,7 @@
         <div class="media-body">{{ memberMobile }}</div>
       </div>
       <div class="media-right">
-            <span class="iconfont icon-message">
+            <span class="glyphicon glyphicon-unchecked">
               <span class="text-center">{{ messageCount > 9 ? '9+' : messageCount }}</span>
             </span>
       </div>
@@ -29,7 +29,7 @@
       </div>
       <div class="panel-body clearfix">
         <template v-if="latestCourse">
-          <span class="iconfont icon-clock theme-color"></span>
+          <span class="glyphicon glyphicon-time theme-color"></span>
           <div>
             {{ courseDuration }} {{ courseName }}
             <br>
@@ -57,12 +57,12 @@
       </div>
       <div class="panel-body text-center clearfix">
         <div class="enabled" data-link="#member-center/member-card">
-          <span class="iconfont icon-huiyuanqia theme-color"></span>
+          <span class="glyphicon glyphicon-credit-card theme-color"></span>
           <br/>
           会员卡( {{ cardNum }} )
         </div>
         <div class="enabled" data-link="#member-center/expvoucher-link/1">
-          <span class="iconfont icon-youhuiquan1 theme-color"></span>
+          <span class="iconfont icon-youhuiquan1 glyphicon glyphicon-credit-card theme-color"></span>
           <br/>
           体验券:( {{ voucherNum }} )
         </div>

@@ -5,7 +5,7 @@ Mock.mock(/\/membercenter$/, (() => {
   return {
     memberGender: '@boolean()',
     icon: '@string(0, 11)',
-    memberName: '@cword(1, 11)',
+    memberName: Random.cname(),
     memberMobile: '@integer(10, 11)',
     messageCount: '@integer(10, 20)',
     latestCourse: '@boolean()',
@@ -13,7 +13,7 @@ Mock.mock(/\/membercenter$/, (() => {
     courseDate: '@datetime(yyyy-MM-dd)周@cword("一二三四五六日")',
     startTime: Random.date('T'),
     endTime: Random.date('T'),
-    courseName: '@string(5, 11)',
+    courseName: Random.cname(),
     courseCost: '@integer(0, 11)',
     cardNum: '@integer(0,1)',
     subscribeId: '@integer(11)',
@@ -21,19 +21,19 @@ Mock.mock(/\/membercenter$/, (() => {
     hasNotice: '@boolean()',
     ownerMobile: '@integer(0, 11)',
     courseBills: Mock.mock({
-      'array|0-1': [
+      'array|1-2': [
         {
           'count': '@integer(1, 5)',
-          'name': '@string(5, 11)'
+          'name': Random.cname()
         }
       ]
     }).array,
     grantList: Mock.mock({
-      'grantList|1-2': [
+      'grantList|0-1': [
         {
-          sourceName: '@string(5, 11)',
+          sourceName: Random.cname(),
           selected: Random.string('number', 0, 1),
-          sourceMobile: '@string(5, 11)'
+          sourceMobile: Random.character('number', 11)
         }
       ]
     }).grantList
