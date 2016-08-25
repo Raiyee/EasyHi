@@ -42,6 +42,7 @@ const router = new VueRouter({
 
 router.beforeEach((route, redirect, next) => {
   store.dispatch('setProgress', 50);
+  document.getElementsByTagName('body')[0].className = 'bg';
   if (route.matched.some(m => m.meta.auth) && !store.getters.authorized) {
     redirect({name: 'login', query: {from: route.name}});
   } else {
