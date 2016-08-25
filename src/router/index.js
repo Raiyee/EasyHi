@@ -30,9 +30,7 @@ const router = new VueRouter({
     }, {
       path: '/website',
       name: 'website',
-      component: {
-        template: '<div>这是微官网</div>'
-      }
+      component: resolve => require(['views/MerchantWebsite'], resolve)
     }, {
       path: '*',
       redirect: '/'
