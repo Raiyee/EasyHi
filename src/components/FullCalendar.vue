@@ -12,7 +12,6 @@
                        :index="index"
                        :activeDayIndex="activeDayIndex"
                        :key="day"
-                       :calendarStatus="calendarStatus"
                        :style="{width: itemWidth + 'px'}"
                        @click="toggleActive"
                        v-touch:panstart="onPanStart"
@@ -30,7 +29,7 @@
   import {mapGetters} from 'vuex';
 
   import moment from 'moment';
-  import {DATE_FORMAT, isArray, getWeeks, getDatetime, firstDayOfWeek} from 'utils';
+  import {isArray, getWeeks, getDatetime, firstDayOfWeek} from 'utils';
 
   import CalendarItem from './FullCalendarItem';
 
@@ -49,24 +48,6 @@
           const range = calendar.range;
           return !(range && (!isArray(range) || range.length !== 2));
         }
-      },
-      calendarStatus: {
-        type: Array,
-        required: true,
-        validator(calendar) {
-          const len = calendar.length;
-          if (!len) return true;
-          if (len % 7) return false;
-
-          const firstDate = moment(calendar[0].date);
-          if (![0, 1].includes(firstDate.day())) return false;
-          for (let [index, value] of calendar.entries()) {
-            if (firstDate.add(+!!index, 'd').format(DATE_FORMAT) === value.date) continue;
-            return false;
-          }
-
-          return true;
-        }
       }
     },
     data() {
@@ -78,24 +59,21 @@
         translateStart: 0,
         translating: false,
         currentTranslateX: 0,
-        changing: false,
-        dataFetched: false
+        changing: false
       };
     },
-    updated() {
-      if (this.dataFetched) return;
+    created() {
       let activeDay = firstDayOfWeek(this.calendar.date);
       const days = this.days = getWeeks(activeDay);
       const calendar = this.calendarStatus.find(calendar =>
-        [1, 2].includes(calendar.status) && !moment(calendar.date).isBefore(activeDay));
+      [1, 2].includes(calendar.status) && !moment(calendar.date).isBefore(activeDay));
       calendar && (this.activeDay = activeDay = calendar.date);
       this.activeDayIndex = days.findIndex((day, index) => {
         return index > 6 && index < 14 && day === activeDay;
       });
-      this.dataFetched = true;
     },
     computed: {
-      ...mapGetters(['winWidth', 'rem']),
+      ...mapGetters(['calendarStatus', 'winWidth', 'rem']),
       year() {
         return getDatetime(this.days[7], 'y');
       },
@@ -158,7 +136,6 @@
         return days.findIndex(day => day === date);
       },
       onTransitionEnd() {
-        if (this.translating) return;
         this.changing = true;
         let days = this.days;
         const activeDay = this.activeDay;

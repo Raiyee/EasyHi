@@ -10,12 +10,13 @@
   </li>
 </template>
 <script>
+  import {mapGetters} from 'vuex';
+
   import {getWeekday, getDatetime} from 'utils';
 
   export default{
     props: {
       day: String,
-      calendarStatus: Array,
       index: Number,
       activeDayIndex: Number
     },
@@ -23,6 +24,7 @@
       return {};
     },
     computed: {
+      ...mapGetters(['calendarStatus']),
       current() {
         return this.calendarStatus.find(calendar => calendar.date === this.day) || {status: 1};
       },

@@ -28,7 +28,7 @@ resize();
 // 暂时添加一个退出登录的钩子
 window._logout_ = () => {
   store.dispatch('setEnv', {authorized: false, mobile: null});
-  router.replace({name: router.currentRoute.name, query: {timestamp: +new Date()}});
+  router.replace({path: router.currentRoute.fullPath, query: {timestamp: +new Date()}});
 };
 
 export default {
