@@ -1,25 +1,49 @@
 <template>
-  <li>
-    {{day}}
-    <br>
-    {{statusText}}
+  <li class="full-calendar-item"
+      :class="{active: active, disabled: disabled}"
+      @click="toggleActive">
+    <div>
+      {{dateTime}}
+      <br>
+      {{statusText}}
+    </div>
   </li>
 </template>
 <script>
-  import {getWeekday} from 'utils';
+  import {mapGetters} from 'vuex';
+
+  import {getWeekday, getDatetime} from 'utils';
 
   export default{
     props: {
       day: String,
-      calendarStatus: Array
+      index: Number,
+      activeDayIndex: Number
     },
     data() {
       return {};
     },
     computed: {
+      ...mapGetters(['calendarStatus']),
+      current() {
+        return this.calendarStatus.find(calendar => calendar.date === this.day) || {status: 1};
+      },
+      active() {
+        return this.index === this.activeDayIndex;
+      },
+      disabled() {
+        return ![1, 2].includes(this.current.status);
+      },
+      dateTime() {
+        return getDatetime(this.day, 'date');
+      },
       statusText() {
-        const calendar = this.calendarStatus.find(calendar => calendar.date === this.day) || {};
-        return calendar.statusText || getWeekday(this.day);
+        return this.current.statusText || getWeekday(this.day);
+      }
+    },
+    methods: {
+      toggleActive(e) {
+        this.disabled || this.$emit('click', e, this.day, this.index);
       }
     }
   };

@@ -1,2 +1,24 @@
+@import "../styles/_variables"
+
 .full-calendar
-  none
+  padding-left 5px
+  padding-right 5px
+  .calendar-container
+    overflow hidden
+    ul
+      padding-left 5px
+      padding-right 5px
+      &.transition
+        transition transform .5s ease
+      relative()
+      text-align center
+      li.scroll-bg
+        absolute()
+        left 0
+        top 0
+        width 55px
+        height 55px
+        border-radius 50%
+        z-index -1
+        &.transition
+          transition transform .5s

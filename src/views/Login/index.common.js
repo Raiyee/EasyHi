@@ -60,7 +60,7 @@ export default {
         const error = res.json().error;
         if (error) return alert(error);
         this.setEnv({mobile, authorized: true});
-        this.$router.replace({name: this.$route.query.from || 'home'});
+        this.$router.replace(this.$route.query.from || '/');
       });
     }
   }

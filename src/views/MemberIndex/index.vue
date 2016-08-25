@@ -1,5 +1,5 @@
 <template>
-  <div class="content" :style="{height: height + 'px'}">
+  <div class="content" :style="{height: winHeight + 'px'}">
     <div class="pic pic1"></div>
     <div class="pic pic2"></div>
     <div class="slogan">
@@ -13,7 +13,7 @@
     </div>
     <div class="member-menu">
       <div class="pull-left animated outside-circle" @animationend="animationEnd">
-        <router-link :to="{name: 'memberSubscribe'}"
+        <router-link to="/member-subscribe"
                      tag="div"
                      class="inside-circle">
           <span class="glyphicon glyphicon-book menu-icon"/>
@@ -22,7 +22,7 @@
         <div class="inside-circle-replace"></div>
       </div>
       <div class="pull-right animated outside-circle" @animationend="animationEnd">
-        <router-link :to="{name: 'memberCenter'}"
+        <router-link to="/member-center"
                      tag="div"
                      class="inside-circle">
           <span class="glyphicon glyphicon-user menu-icon"/>
