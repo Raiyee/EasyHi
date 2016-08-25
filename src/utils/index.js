@@ -41,7 +41,7 @@ Object.assign(utils, {
    * @param date        日期值
    * @returns {string}  当周第一天日期字符串
    */
-  firstDayOfWeek: date => moment(date).isoWeekday(1).format(DATE_FORMAT),
+  firstDayOfWeek: (date = new Date()) => moment(date).isoWeekday(1).format(DATE_FORMAT),
   /**
    * 根据日期和周数获取从上一周开始共 count 周的所有日期
    *

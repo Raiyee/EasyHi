@@ -6,7 +6,7 @@
       <ul class="list-unstyled clearfix"
           :class="{transition: !changing}"
           :style="{width: baseWidth + 'px', transform: transform}"
-          @transitionend="onTransitionEnd">
+          @transitionend.self="onTransitionEnd">
         <calendar-item v-for="(day, index) in days"
                        :day="day"
                        :index="index"
@@ -30,7 +30,7 @@
   import {mapGetters} from 'vuex';
 
   import moment from 'moment';
-  import {DATE_FORMAT, isArray, getWeeks, getDatetime} from 'utils';
+  import {DATE_FORMAT, isArray, getWeeks, getDatetime, firstDayOfWeek} from 'utils';
 
   import CalendarItem from './FullCalendarItem';
 
@@ -78,13 +78,21 @@
         translateStart: 0,
         translating: false,
         currentTranslateX: 0,
-        changing: false
+        changing: false,
+        dataFetched: false
       };
     },
-    created() {
-      this.days = getWeeks(this.calendar.date);
-    },
     updated() {
+      if (this.dataFetched) return;
+      let activeDay = firstDayOfWeek(this.calendar.date);
+      const days = this.days = getWeeks(activeDay);
+      const calendar = this.calendarStatus.find(calendar =>
+        [1, 2].includes(calendar.status) && !moment(calendar.date).isBefore(activeDay));
+      calendar && (this.activeDay = activeDay = calendar.date);
+      this.activeDayIndex = days.findIndex((day, index) => {
+        return index > 6 && index < 14 && day === activeDay;
+      });
+      this.dataFetched = true;
     },
     computed: {
       ...mapGetters(['winWidth', 'rem']),
@@ -132,7 +140,7 @@
           this.activeDay = day;
         }, 0);
       },
-      onPanStart(e) {
+      onPanStart() {
         this.translateStart = this.translateX;
         this.translating = true;
       },
