@@ -1,0 +1,17 @@
+@import "../styles/_variables"
+
+.full-calendar-item
+  relative()
+  float left
+  height 55px
+  &.active
+    color REVERSE_COLOR
+  &.disabled
+    color REMARK_COLOR
+  > div
+    absolute()
+    left 50%
+    top 50%
+    min-width 100%
+    transform translate3d(-50%, -50%, 0)
+

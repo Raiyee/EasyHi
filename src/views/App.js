@@ -14,14 +14,13 @@ const theme = 'purple';
 require('bundle!styles/theme-' + theme);
 
 const docEl = document.documentElement;
-let resize, height, width;
+let resize, winHeight, winWidth;
 
 addEventListener('resize', resize = () => {
-  height = docEl.clientHeight;
-  width = docEl.clientWidth;
-  let rem;
-  docEl.style.fontSize = (rem = width < store.getters.threshold ? width / 375 : 1) * 16 + 'px';
-  store.dispatch('setSize', {height, width, rem});
+  winHeight = docEl.clientHeight;
+  winWidth = docEl.clientWidth;
+  store.dispatch('setSize', {winHeight, winWidth});
+  docEl.style.fontSize = store.getters.fontSize + 'px';
 }, false);
 
 resize();

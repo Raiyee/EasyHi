@@ -3,7 +3,7 @@ import {mapGetters} from 'vuex';
 export default {
   name: 'member-index',
   computed: {
-    ...mapGetters(['height'])
+    ...mapGetters(['winHeight'])
   },
   methods: {
     animationEnd: function (e) {

@@ -5,7 +5,7 @@ export default {
   ...MemberIndex,
   render(h) {
     return (
-      <div class={[classes.content]} style={{height: this.height + 'px'}}>
+      <div class={[classes.content]} style={{height: this.winHeight + 'px'}}>
         <div class={['pic', classes.pic1]}></div>
         <div class={['pic', classes.pic2]}></div>
         <div class="slogan">
