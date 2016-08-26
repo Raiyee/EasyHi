@@ -18,6 +18,8 @@ echo "Pushing $MESSAGE ..."
 git commit -a -m "$MESSAGE"
 git push
 
+
+
 # commit
 cd dist
 #cp ../README.md .
