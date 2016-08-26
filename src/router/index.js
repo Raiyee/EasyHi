@@ -39,7 +39,7 @@ const router = new VueRouter({
     }, {
       path: '/website',
       name: 'website',
-      component: resolve => require(['views/MerchantWebsite'], resolve)
+      component: resolve => require(['views/MerchantWebsite/edit-index'], resolve)
     }, {
       path: '*',
       redirect: '/'
