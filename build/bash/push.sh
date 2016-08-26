@@ -2,6 +2,11 @@
 
 set -e
 
+# pull
+echo "Pulling from origin/master"
+
+git pull
+
 #build
 npm run build
 
