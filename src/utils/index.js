@@ -11,6 +11,30 @@ const trueTypeFunc = type => value => type === utils.trueType(value);
 
 const isNumber = trueTypeFunc('Number');
 
+class JsonLoop {
+  constructor(json, level = Infinity) {
+    this.json = json;
+    this.level = level;
+  }
+
+  parse() {
+    const level = this.level;
+    const json = this.json;
+
+    if (!level) return json;
+
+    const data = utils.parseJSON(json);
+
+    if (!utils.isObject(data)) return data;
+
+    for (const [key, value] of Object.entries(data)) {
+      data[key] = new JsonLoop(value, level - 1).parse();
+    }
+
+    return data;
+  }
+}
+
 Object.assign(utils, {
   /**
    * 获取输入值的真实类型
@@ -67,7 +91,18 @@ Object.assign(utils, {
    * @param unit        与 moment 一致的时间单位字符串
    * @returns {string}  对应单位的日期数据
    */
-  getDatetime: (date, unit) => moment(date).get(unit)
+  getDatetime: (date, unit) => moment(date).get(unit),
+  parseJSON(data) {
+    try {
+      return JSON.parse(data);
+    } catch (e) {
+      return data;
+    }
+  },
+  parseJsonLoop: (data, level) => new JsonLoop(data, level).parse(),
+  getItem: (key, level) => utils.parseJsonLoop(localStorage.getItem(key), level),
+  setItem: (key, data) => localStorage.setItem(key, JSON.stringify(data)) || utils.getItem(key),
+  deleteItem: key => delete localStorage[key]
 });
 
 /**

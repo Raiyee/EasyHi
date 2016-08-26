@@ -43,10 +43,17 @@ export default {
     },
     getVerificationCode() {
       if (this.limit) return;
-      this.limit = 60;
-      const intervalId = setInterval(() => {
-        --this.limit || clearInterval(intervalId);
-      }, 1000);
+
+      const mobile = this.loginMobile;
+
+      if (!mobileRegExp.test(mobile)) return (this.mobileError = true);
+
+      this.$http.get('/getVerificationCode', {body: {mobile}}).then(res => {
+        this.limit = res.json();
+        const intervalId = setInterval(() => {
+          --this.limit || clearInterval(intervalId);
+        }, 1000);
+      });
     },
     submit(e) {
       e.preventDefault();
@@ -56,7 +63,7 @@ export default {
       const verificationCode = this.verificationCode;
       const codeError = this.codeError = !codeRegExp.test(verificationCode);
       if (mobileError || codeError) return;
-      this.$http.get('/verifyCode', {body: {verificationCode}}).then(res => {
+      this.$http.get('/verifyCode', {body: {verificationCode, mobile}}).then(res => {
         const error = res.json().error;
         if (error) return alert(error);
         this.setEnv({mobile, authorized: true});
