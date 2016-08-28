@@ -4,15 +4,13 @@
 <script>
   import Vue from 'vue';
 
-  const Loading = Vue.extend({
-    template: '<div>Loading……</div>'
-  });
-
   export default {
     name: 'website-edit',
     data() {
       return {
-        current: 'Loading'
+        current: Vue.extend({
+          template: '<div>Loading……</div>'
+        })
       };
     },
     beforeCreate() {
@@ -34,8 +32,6 @@
           components
         });
       });
-    },
-    components: {Loading}
+    }
   };
 </script>
-
