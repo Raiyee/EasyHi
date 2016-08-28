@@ -16,10 +16,12 @@
     beforeCreate() {
       this.$http.get('/get-website-edit').then(resp => {
         const data = resp.json();
-        const template = data.reduce((previous, current, index) => `${previous}<Component${index}/>`, '');
+
+        let template = '';
         const components = {};
 
         data.forEach((value, index) => {
+          template += `<Component${index}/>`;
           components[`Component${index}`] = Vue.extend({
             data: () => value.data,
             template: `<div>${value.componentTpl}</div>`
