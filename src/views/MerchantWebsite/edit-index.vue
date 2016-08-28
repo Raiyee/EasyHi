@@ -28,15 +28,11 @@
           });
         });
 
-        const componentName = `ComponentsWrapper${~~(Math.random() * 1000)}`;
-
-        Vue.component(componentName, {
-          name: componentName,
+        this.current = Vue.extend({
+          name: 'ComponentsWrapper',
           template: `<div>${template}</div>`,
           components
         });
-
-        this.current = componentName;
       });
     },
     components: {Loading}
