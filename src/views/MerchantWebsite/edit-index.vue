@@ -1,37 +1,45 @@
-
+<template>
+  <component :is="current"/>
+</template>
 <script>
   import Vue from 'vue';
+
+  const Loading = Vue.extend({
+    template: '<div>Loading……</div>'
+  });
+
   export default {
+    name: 'website-edit',
     data() {
-      return {};
+      return {
+        current: 'Loading'
+      };
     },
-    created() {
-      this.$http.get('/get-webiste-edit').then(ret => {
-        const data = ret.json();
-        let template = '';
-        data.map((value, index) => {
-          template += `<component_${index}/>`;
+    beforeCreate() {
+      this.$http.get('/get-website-edit').then(resp => {
+        const data = resp.json();
+        const template = data.reduce((previous, current, index) => `${previous}<Component${index}/>`, '');
+        const components = {};
+
+        data.forEach((value, index) => {
+          components[`Component${index}`] = Vue.extend({
+            data: () => value.data,
+            template: `<div>${value.componentTpl}</div>`
+          });
         });
-        var outerComponents = Vue.component('outerComponents', {
-          data() {
-            return {};
-          },
-          created() {
-            data.map((value, index) => {
-              Vue.component(`component_${index}`, {
-                data() { return value.data; },
-                template: `<span>${value.componentTpl}</span>`
-              });
-            });
-          },
-          template: `<div>${template}</div>`
+
+        const componentName = `ComponentsWrapper${~~(Math.random() * 1000)}`;
+
+        Vue.component(componentName, {
+          name: componentName,
+          template: `<div>${template}</div>`,
+          components
         });
-        this.components = {
-          outerComponents
-        };
+
+        this.current = componentName;
       });
     },
-    template: '<outerComponents/>'
+    components: {Loading}
   };
 </script>
 

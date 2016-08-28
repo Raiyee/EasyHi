@@ -56,16 +56,18 @@ router.beforeEach((route, redirect, next) => {
 
   body.className = meta.bg || meta.bg == null ? 'bg' : '';
 
-  let init, url;
+  let init;
 
   // 首先判断是否需要登录权限, 后期需要新增馆主、教练、客服等多种权限
   if (meta.auth && !store.getters.authorized) return redirect({name: 'login', query: {from: route.fullPath}});
 
   // 如果不需要先初始化数据或者已经拉取过数据则直接进入, 后期可能考虑新增过期时间字段
-  if (!(init = meta.init) || !(url = init.url) || meta.fetched) return next();
+  if (!(init = meta.init) || meta.fetched) return next();
+
+  if (typeof init === 'function') return init(route, redirect, next);
 
   // 需要预先拉取数据
-  Vue.http[init.type || 'get'](url, {
+  Vue.http[init.type || 'get'](init.url, {
     body: {
       ...route.params,
       ...route.query
