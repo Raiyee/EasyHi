@@ -2,35 +2,34 @@
   <component :is="current"/>
 </template>
 <script>
-  import Vue from 'vue';
-
   export default {
     name: 'website-edit',
     data() {
       return {
-        current: Vue.extend({
+        current: {
           template: '<div>Loading……</div>'
-        })
+        }
       };
     },
     beforeCreate() {
       this.$http.get('/get-website-edit').then(resp => {
-        let template = '';
+        let wrapperTemplate = '';
         const components = {};
 
-        resp.json().forEach(({data, componentTpl}, index) => {
-          template += `<Component${index}/>`;
-          components[`Component${index}`] = Vue.extend({
+        resp.json().forEach(({data, template}, index) => {
+          let component = `Component${index}`;
+          wrapperTemplate += `<${component}/>`;
+          components[component] = {
             data: () => data,
-            template: `<div>${componentTpl}</div>`
-          });
+            template
+          };
         });
 
-        this.current = Vue.extend({
+        this.current = {
           name: 'ComponentsWrapper',
-          template: `<div>${template}</div>`,
+          template: `<div>${wrapperTemplate}</div>`,
           components
-        });
+        };
       });
     }
   };
