@@ -5,6 +5,8 @@ import store from 'store';
 
 Vue.use(VueRouter);
 
+const promise = resolve => promise => promise.then(resolve);
+
 const router = new VueRouter({
   mode: 'hash',
   routes: [
@@ -39,7 +41,8 @@ const router = new VueRouter({
     }, {
       path: '/website',
       name: 'website',
-      component: resolve => require(['views/MerchantWebsite/edit-index'], resolve)
+      component: resolve => require(['views/MerchantWebsite/edit-index'], promise(resolve))
+      // component: resolve => require(['views/MerchantWebsite/edit-index'], promise => promise.then(resolve))
     }, {
       path: '*',
       redirect: '/'

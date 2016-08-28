@@ -1,9 +1,6 @@
 /**
  * Created by shuxun on 16/8/28.
  */
-/**
- * Created by shuxun on 16/8/28.
- */
 import Mock from 'mockjs';
 
 const Random = Mock.Random;
