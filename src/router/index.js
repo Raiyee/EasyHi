@@ -5,8 +5,6 @@ import store from 'store';
 
 Vue.use(VueRouter);
 
-const promise = resolve => promise => promise.then(resolve);
-
 const router = new VueRouter({
   mode: 'hash',
   routes: [
@@ -41,8 +39,13 @@ const router = new VueRouter({
     }, {
       path: '/website',
       name: 'website',
-      component: resolve => require(['views/MerchantWebsite/edit-index'], promise(resolve))
-      // component: resolve => require(['views/MerchantWebsite/edit-index'], promise => promise.then(resolve))
+      component: resolve => require(['views/MerchantWebsite/edit-index'], resolve),
+      meta: {
+        init: {
+          url: '/get-website-edit'
+        }
+      }
+
     }, {
       path: '*',
       redirect: '/'
@@ -79,8 +82,12 @@ router.beforeEach((route, redirect, next) => {
   }).then(res => {
     const data = res.json();
     const actions = init.actions;
-    // 完成后如果是字符串表示直接将所有数据导入 action
-    if (typeof actions === 'string') {
+
+    if (!actions) {
+      // 未定义 actions 表示将 data 存入 meta 然后在组件初始化前通过 route 获取
+      meta.data = data;
+    } else if (typeof actions === 'string') {
+      // 完成后如果是字符串表示直接将所有数据导入 action
       store.dispatch(actions, data);
     } else {
       // 否则应该是对象类型, 遍历将对应数据导入对应 action
