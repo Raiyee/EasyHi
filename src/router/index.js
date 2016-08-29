@@ -5,6 +5,11 @@ import store from 'store';
 
 Vue.use(VueRouter);
 
+const promise = resolve => promise => {
+  console.log(promise);
+  return promise.then(resolve);
+};
+
 const router = new VueRouter({
   mode: 'hash',
   routes: [
@@ -19,7 +24,7 @@ const router = new VueRouter({
     }, {
       path: '/member-center',
       name: 'memberCenter',
-      component: resolve => require(['views/MemberCenter'], resolve),
+      component: resolve => require(['views/MemberCenter'], promise(resolve)),
       meta: {
         auth: true
       }
@@ -39,13 +44,7 @@ const router = new VueRouter({
     }, {
       path: '/website',
       name: 'website',
-      component: resolve => require(['views/MerchantWebsite/edit-index'], resolve),
-      meta: {
-        init: {
-          url: '/get-website-edit'
-        }
-      }
-
+      component: resolve => require(['views/MerchantWebsite/edit-index'], promise(resolve))
     }, {
       path: '*',
       redirect: '/'

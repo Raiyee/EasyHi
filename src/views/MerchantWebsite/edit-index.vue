@@ -1,15 +1,10 @@
-<template>
-  <component :is="current"/>
-</template>
 <script>
-  export default {
-    name: 'website-edit',
-    beforeCreate() {
-      const data = this.$route.meta.data;
+  export default require('vue').http.get('/get-website-edit')
+    .then(res => {
       let wrapperTemplate = '';
       const components = {};
 
-      data.forEach(({data, template}, index) => {
+      res.json().forEach(({data, template}, index) => {
         let component = `Component${index}`;
         wrapperTemplate += `<${component}/>`;
         components[component] = {
@@ -18,10 +13,10 @@
         };
       });
 
-      this.current = {
+      return {
+        name: 'website-edit',
         template: `<div>${wrapperTemplate}</div>`,
         components
       };
-    }
-  };
+    });
 </script>

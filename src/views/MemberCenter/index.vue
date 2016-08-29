@@ -112,36 +112,14 @@
   </div>
 </template>
 <script>
-  export default{
-    name: 'memberCenterIndex',
-    data() {
+  export default require('vue').http.get('/membercenter')
+    .then(res => {
       return {
-        memberGender: true,
-        icon: '',
-        memberName: '',
-        memberMobile: '',
-        messageCount: '',
-        latestCourse: '',
-        courseDate: '',
-        startTime: '',
-        endTime: '',
-        courseName: '',
-        courseCost: '',
-        courseBills: '',
-        cardNum: 1,
-        subscribeId: '',
-        courseDuration: '',
-        voucherNum: 0,
-        hasNotice: false,
-        grantList: '',
-        ownerMobile: '12345678910'
+        name: 'memberCenterIndex',
+        data() {
+          return res.json();
+        }
       };
-    },
-    created() {
-      this.$http.get('/membercenter').then((resp) => {
-        Object.assign(this, resp.json());
-      });
-    }
-  };
+    });
 </script>
 <style lang="styl" src="./index.styl" scoped/>
