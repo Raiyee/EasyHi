@@ -5,10 +5,7 @@ import store from 'store';
 
 Vue.use(VueRouter);
 
-const promise = resolve => promise => {
-  console.log(promise);
-  return promise.then(resolve);
-};
+const promise = resolve => promise => promise.then(resolve);
 
 const router = new VueRouter({
   mode: 'hash',
