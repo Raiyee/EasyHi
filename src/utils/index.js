@@ -1,7 +1,10 @@
 import moment from 'moment';
 
 // 使用 require 语法将 constants 导出的所有常量汇合到一个对象中并注入 utils
-const utils = {...require('./constants')};
+const utils = {
+  ...require('./constants'),
+  ...require('./dom')
+};
 
 const DATE_FORMAT = utils.DATE_FORMAT;
 

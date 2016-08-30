@@ -34,13 +34,12 @@ export default {
         }
       }
     }, {
-      path: '/website',
+      path: '/website/:websiteId',
       name: 'website',
       component: resolve => require(['views/MerchantWebsite'], resolve),
       meta: {
         init: {
-          url: '/get-website-edit',
-          restore: false
+          url: '/get-website-edit'
         }
       }
     }, {
