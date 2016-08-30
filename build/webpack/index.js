@@ -157,7 +157,7 @@ webpackConfig.module.loaders = [
   },
   {
     test: /\.vue$/,
-    loader: 'vue-promise'
+    loader: 'vue'
   }
 ];
 

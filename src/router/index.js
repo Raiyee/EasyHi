@@ -5,8 +5,6 @@ import store from 'store';
 
 Vue.use(VueRouter);
 
-const promise = resolve => promise => promise.then(resolve);
-
 const router = new VueRouter({
   mode: 'hash',
   routes: [
@@ -21,7 +19,7 @@ const router = new VueRouter({
     }, {
       path: '/member-center',
       name: 'memberCenter',
-      component: resolve => require(['views/MemberCenter'], promise(resolve)),
+      component: resolve => require(['views/MemberCenter'], resolve),
       meta: {
         auth: true
       }
@@ -41,7 +39,7 @@ const router = new VueRouter({
     }, {
       path: '/website',
       name: 'website',
-      component: resolve => require(['views/MerchantWebsite/edit-index'], promise(resolve))
+      component: resolve => require(['views/MerchantWebsite/edit-index'], resolve)
     }, {
       path: '*',
       redirect: '/'

@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import VueTouch from 'utils/vue-touch';
+import VueTouch from 'vue-touch';
 
 Vue.use(VueTouch);
 

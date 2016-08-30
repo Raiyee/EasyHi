@@ -112,14 +112,14 @@
   </div>
 </template>
 <script>
-  export default require('vue').http.get('/membercenter')
-    .then(res => {
-      return {
-        name: 'memberCenterIndex',
-        data() {
-          return res.json();
-        }
-      };
-    });
+//  export default require('vue').http.get('/membercenter')
+//    .then(res => {
+//      return {
+//        name: 'memberCenterIndex',
+//        data() {
+//          return res.json();
+//        }
+//      };
+//    });
 </script>
 <style lang="styl" src="./index.styl" scoped/>
