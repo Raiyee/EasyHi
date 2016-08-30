@@ -1,7 +1,9 @@
+<template>
+  <component :is="current"/>
+</template>
 <script>
   export default {
     name: 'website-edit',
-    template: '<component :is="current"/>',
     beforeCreate() {
       let wrapperTemplate = '';
       const components = {};

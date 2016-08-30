@@ -23,7 +23,8 @@ const router = new VueRouter({
       meta: {
         auth: true,
         init: {
-          url: '/membercenter'
+          url: '/membercenter',
+          restore: false
         }
       }
     }, {
@@ -42,10 +43,11 @@ const router = new VueRouter({
     }, {
       path: '/website',
       name: 'website',
-      component: resolve => require(['views/MerchantWebsite/edit-index'], resolve),
+      component: resolve => require(['views/MerchantWebsite'], resolve),
       meta: {
         init: {
-          url: '/get-website-edit'
+          url: '/get-website-edit',
+          restore: false
         }
       }
     }, {
@@ -74,6 +76,8 @@ router.beforeEach((route, redirect, next) => {
 
   if (typeof init === 'function') return init(route, redirect, next);
 
+  store.dispatch('setProgress', 70);
+
   // 需要预先拉取数据
   Vue.http[init.type || 'get'](init.url, {
     body: {
@@ -82,6 +86,8 @@ router.beforeEach((route, redirect, next) => {
     },
     ...init.options
   }).then(res => {
+    store.dispatch('setProgress', 90);
+
     const data = res.json();
     const actions = init.actions;
 
@@ -97,7 +103,11 @@ router.beforeEach((route, redirect, next) => {
         store.dispatch(key, data[value]);
       }
     }
-    meta.fetched = true;
+
+    if (init.restore == null || init.restore) {
+      meta.fetched = true;
+    }
+
     // 数据导入 store 成功后进入组件
     next();
   });

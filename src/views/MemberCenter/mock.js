@@ -1,8 +1,8 @@
 import Mock from 'mockjs';
 
 const Random = Mock.Random;
-Mock.mock(/\/membercenter$/, (() => {
-  return {
+Mock.mock(/\/membercenter$/, () => {
+  return Mock.mock({
     memberGender: '@boolean()',
     icon: '@string(0, 11)',
     memberName: Random.cname(),
@@ -37,5 +37,5 @@ Mock.mock(/\/membercenter$/, (() => {
         }
       ]
     }).grantList
-  };
-})());
+  });
+});
