@@ -112,13 +112,11 @@
   </div>
 </template>
 <script>
-  import Vue from 'vue';
-
   export default {
     name: 'memberCenterIndex',
     beforeCreate() {
       Object.assign(this, this.$route.meta.data);
     }
-  }
+  };
 </script>
 <style lang="styl" src="./index.styl" scoped/>

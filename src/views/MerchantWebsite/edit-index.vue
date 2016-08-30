@@ -1,8 +1,8 @@
 <script>
   export default {
     name: 'website-edit',
-    template: `<component :is="current"/>`,
-    beforeCreate(){
+    template: '<component :is="current"/>',
+    beforeCreate() {
       let wrapperTemplate = '';
       const components = {};
 
@@ -18,7 +18,7 @@
       this.current = {
         template: `<div>${wrapperTemplate}</div>`,
         components
-      }
+      };
     }
-  }
+  };
 </script>

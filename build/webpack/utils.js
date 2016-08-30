@@ -13,10 +13,13 @@ export const generateLoaders = (loader, loaders, options) => {
 
   let extract = options.extract;
   if (extract) {
-    return (extract.extract ? extract : ExtractTextPlugin).extract({
-      fallbackLoader: styleLoader,
-      loader: sourceLoaders
-    });
+    return (extract.extract ? extract : ExtractTextPlugin).extract(
+      styleLoader, sourceLoaders
+      // {
+      //   fallbackLoader: styleLoader,
+      //   loader: sourceLoaders
+      // }
+    );
   } else {
     return [styleLoader, sourceLoaders].join('!');
   }
