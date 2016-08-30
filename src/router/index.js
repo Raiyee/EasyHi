@@ -21,7 +21,10 @@ const router = new VueRouter({
       name: 'memberCenter',
       component: resolve => require(['views/MemberCenter'], resolve),
       meta: {
-        auth: true
+        auth: true,
+        init: {
+          url: '/membercenter'
+        }
       }
     }, {
       path: '/member-subscribe',
@@ -39,7 +42,12 @@ const router = new VueRouter({
     }, {
       path: '/website',
       name: 'website',
-      component: resolve => require(['views/MerchantWebsite/edit-index'], resolve)
+      component: resolve => require(['views/MerchantWebsite/edit-index'], resolve),
+      meta: {
+        init: {
+          url: '/get-website-edit'
+        }
+      }
     }, {
       path: '*',
       redirect: '/'

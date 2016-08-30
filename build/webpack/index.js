@@ -26,7 +26,8 @@ const webpackConfig = {
     },
     extensions: ['', '.vue', '.js', '.styl'],
     // extensions: ['', '.js', '.vue', '.styl'],
-    modules: ['node_modules', 'src']
+    modules: ['node_modules', 'src'],
+    modulesDirectories: ['node_modules', 'src']
   },
   module: {},
   node: {
