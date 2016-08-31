@@ -14,7 +14,7 @@ const actions = {
   }
 };
 
-import utils from 'utils';
+import {getWeekday} from 'utils/moment';
 
 /**
  * 排期存在 4 种状态
@@ -34,7 +34,7 @@ const statusText = (status, date) => {
     case (2):
       return '订满';
   }
-  return utils.getWeekday(date);
+  return getWeekday(date);
 };
 
 const mutations = {

@@ -34,7 +34,7 @@ export default {
         }
       }
     }, {
-      path: '/website/:websiteId',
+      path: '/website',
       name: 'website',
       component: resolve => require(['views/MerchantWebsite'], resolve),
       meta: {

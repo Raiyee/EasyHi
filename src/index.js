@@ -7,12 +7,13 @@ import store from 'store';
 import router from 'router';
 import App from 'views/App';
 
-import 'utils/ajax';
+import 'http/ajax';
+
+// TODO should inject mock or vconsole in specific environment or when using argument `mock`
+import 'http/mock';
+import 'vconsole';
 
 module.hot && module.hot.accept();
-
-// TODO should inject mock in specific environment or when using argument `mock`
-require('utils/mock');
 
 /* eslint no-new: 0 */
 new Vue({

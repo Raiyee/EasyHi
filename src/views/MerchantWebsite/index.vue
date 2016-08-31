@@ -1,5 +1,5 @@
 <template>
-  <component :is="current"/>
+  <component :is="view"/>
 </template>
 <script>
   export default {
@@ -17,7 +17,7 @@
         };
       });
 
-      this.current = {
+      this.view = {
         template: `<div>${wrapperTemplate}</div>`,
         components
       };
