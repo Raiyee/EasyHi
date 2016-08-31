@@ -1,15 +1,18 @@
 import Mock from 'mockjs';
-import {firstDayOfWeek} from 'utils/moment';
+import moment from 'moment';
+
+import {DATE_FORMAT, firstDayOfWeek} from 'utils';
 
 const Random = Mock.Random;
 Mock.mock(/\/get-schedules$/, () => {
-  const firstDate = firstDayOfWeek(null, false);
+  const today = moment();
+  const firstDate = firstDayOfWeek(today, false);
   return Mock.mock({
     calendar: new Array(7 * Random.integer(1, 5)).fill(0).map((value, index) => {
-      const status = Random.natural(0, 2);
+      const date = firstDate.add(+!!index, 'd');
       return {
-        date: firstDate.add(+!!index, 'd').format('YYYY-MM-DD'),
-        status
+        date: date.format(DATE_FORMAT),
+        status: date.isBefore(today) ? Random.pick([0, 3]) : Random.natural(0, 2)
       };
     })
   });
