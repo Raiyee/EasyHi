@@ -142,10 +142,10 @@
         const activeIndex = this.activeIndex;
         days = getWeeks(days[7 + activeIndex * 7]);
         const activeDayIndex = this.getDayIndex(days, activeDay);
+        activeDayIndex === -1 || (this.activeDayIndex = activeDayIndex);
         Object.assign(this, {
           days,
-          activeIndex: 0,
-          activeDayIndex
+          activeIndex: 0
         });
         setTimeout(() => (this.changing = false), 0);
       }

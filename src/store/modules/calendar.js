@@ -39,10 +39,10 @@ const statusText = (status, date) => {
 
 const mutations = {
   [ADD_STATUSES](state, payload) {
-    state.statuses = [...payload.map(status => ({
+    state.statuses = payload.map(status => ({
       ...status,
       statusText: statusText(status.status)
-    }))];
+    }));
   }
 };
 

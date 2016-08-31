@@ -1,6 +1,6 @@
 <template>
   <div>
-    <full-calendar :calendar="calendar" :calendarStatus="calendarStatus"/>
+    <full-calendar :calendar="calendar"/>
   </div>
 </template>
 <script>
