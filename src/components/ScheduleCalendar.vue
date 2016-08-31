@@ -43,11 +43,8 @@
     },
     data() {
       return {
-        activeDate: null
+        activeDate: this.date
       };
-    },
-    created() {
-      this.activeDate = this.date;
     },
     computed: {
       ...mapGetters(['rem']),
