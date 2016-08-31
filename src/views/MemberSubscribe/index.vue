@@ -1,30 +1,19 @@
 <template>
-  <div>
-    <full-calendar :calendar="calendar"/>
-  </div>
+  <schedule-calendar>
+    小班课
+  </schedule-calendar>
 </template>
 <script>
-  import {mapGetters} from 'vuex';
-
-  import FullCalendar from 'components/FullCalendar';
+  import ScheduleCalendar from 'components/ScheduleCalendar';
 
   export default{
     name: 'member-subscribe',
     data() {
-      return {
-        courseTypeId: null,
-        courseTypes: [],
-        calendar: {
-          activeDate: null,
-          range: [0, 3]
-        }
-      };
+      return {};
     },
-    computed: {
-      ...mapGetters(['calendarStatus'])
-    },
+    computed: {},
     components: {
-      FullCalendar
+      ScheduleCalendar
     }
   };
 </script>

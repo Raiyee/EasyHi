@@ -25,7 +25,6 @@ export default {
       name: 'memberSubscribe',
       component: resolve => require(['views/MemberSubscribe'], resolve),
       meta: {
-        bg: false,
         init: {
           url: '/get-schedules',
           actions: {
