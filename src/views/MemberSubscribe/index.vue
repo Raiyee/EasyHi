@@ -1,5 +1,5 @@
 <template>
-  <schedule-calendar>
+  <schedule-calendar :calendar="calendar" :date="date">
     小班课
   </schedule-calendar>
 </template>
@@ -9,7 +9,13 @@
   export default{
     name: 'member-subscribe',
     data() {
-      return {};
+      return {
+        date: null,
+        calendar: []
+      };
+    },
+    created() {
+      Object.assign(this, this.$route.meta.data);
     },
     computed: {},
     components: {

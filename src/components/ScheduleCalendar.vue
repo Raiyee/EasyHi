@@ -11,13 +11,13 @@
     <div class="panel">
       <div class="panel-body">
         <ol class="calendar list-unstyled clearfix" :style="{width: calendarWidth + 'px'}">
-          <li v-for="i in length" :class="{active: i === 1, monday: i % 7 === 1}">
-            <div>
-              <span>26</span>
-              <span>周一</span>
-            </div>
-          </li>
-          <li class="theme-bg scroll-bg"></li>
+          <calendar-item v-for="(calendarItem, index) of calendar"
+                         :date="calendarItem.date"
+                         :status="calendarItem.status"
+                         :class="{monday: !(index % 7), active: activeIndex === index}"
+                         :key="calendarItem.date"
+                         @click="toggleActive"/>
+          <li class="theme-bg scroll-bg" :style="{transform: bgTransform}"></li>
         </ol>
       </div>
     </div>
@@ -25,18 +25,55 @@
 </template>
 <script>
   import {mapGetters} from 'vuex';
+  import moment from 'moment';
 
-  export default{
+  import CalendarItem from './ScheduleCalendarItem';
+
+  import {DATE_FORMAT, lastDayOfWeek} from 'utils';
+
+  export default {
+    props: {
+      calendar: {
+        type: Array,
+        required: true
+      },
+      date: {
+        type: String
+      }
+    },
     data() {
       return {
-        length: 7
+        activeDate: null
       };
+    },
+    created() {
+      this.activeDate = this.date;
     },
     computed: {
       ...mapGetters(['rem']),
+      activeIndex() {
+        const date = this.activeDate || moment().format(DATE_FORMAT);
+        const sunday = lastDayOfWeek(date);
+
+        return this.calendar.findIndex(({date: itemDate, status}) =>
+        itemDate >= date && itemDate <= sunday && [1, 2].includes(status));
+      },
       calendarWidth() {
-        return (355 * this.length / 7 + 10) * this.rem;
+        return (355 * this.calendar.length / 7 + 10) * this.rem;
+      },
+      bgTransform() {
+        const activeIndex = this.activeIndex;
+        const translateX = (activeIndex * 50 + ~~(activeIndex / 7) * 5) * this.rem;
+        return `translate3d(${translateX}px, 0, 0)`;
       }
+    },
+    methods: {
+      toggleActive(e, date) {
+        this.activeDate = date;
+      }
+    },
+    components: {
+      CalendarItem
     }
   };
 </script>

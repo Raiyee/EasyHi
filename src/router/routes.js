@@ -26,10 +26,7 @@ export default {
       component: resolve => require(['views/MemberSubscribe'], resolve),
       meta: {
         init: {
-          url: '/get-schedules',
-          actions: {
-            addStatuses: 'calendarStatus'
-          }
+          url: '/get-schedules'
         }
       }
     }, {
