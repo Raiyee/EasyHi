@@ -16,6 +16,7 @@ const trueTypeFunc = type => value => type === trueType(value);
   .forEach(type => (module.exports[`is${type}`] = trueTypeFunc(type)));
 
 const isNumberFunc = trueTypeFunc('Number');
+const isNaNFunc = window.isNaN;
 
 /**
  * 判断是否是 NaN, 与原生 isNaN 不同, 例如 String 类型传入为 false
@@ -23,7 +24,7 @@ const isNumberFunc = trueTypeFunc('Number');
  * @param value       验证值
  * @returns {boolean} 是否是 NaN 值
  */
-export const isNaN = value => isNumberFunc(value) && isNaN(value);
+export const isNaN = value => isNumberFunc(value) && isNaNFunc(value);
 
 /**
  * 判断是否是数字, 不包括 NaN 值
@@ -31,4 +32,4 @@ export const isNaN = value => isNumberFunc(value) && isNaN(value);
  * @param value       验证值
  * @returns {boolean} 是否是纯数字
  */
-export const isNumber = value => isNumber(value) && !isNaN(value);
+export const isNumber = value => isNumberFunc(value) && !isNaNFunc(value);
