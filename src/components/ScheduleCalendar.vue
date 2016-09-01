@@ -19,12 +19,13 @@
           <calendar-item v-for="(calendarItem, index) of calendar"
                          :date="calendarItem.date"
                          :status="calendarItem.status"
-                         :class="{monday: !(index % 7), active: activeIndex === index}"
+                         :class="{monday: !(index % 7)}"
+                         :active="activeIndex === index"
                          :key="calendarItem.date"
                          @click="toggleActive"/>
           <li class="theme-bg scroll-bg"
               :class="{active: activeIndex !== -1}"
-              :style="{transform}"></li>
+              :style="{transform}"/>
         </ol>
       </div>
     </div>
@@ -38,7 +39,10 @@
 
   import {DATE_FORMAT, lastDayOfWeek} from 'utils';
 
+  const translateBase = 7 * 50 + 5;
+
   export default {
+    name: 'schedule-calendar',
     props: {
       calendar: {
         type: Array,
@@ -58,7 +62,7 @@
       };
     },
     computed: {
-      ...mapGetters(['rem']),
+      ...mapGetters(['rem', 'winWidth', 'threshold']),
       activeIndex() {
         const date = this.activeDate || moment().format(DATE_FORMAT);
         const sunday = lastDayOfWeek(date);
@@ -80,25 +84,31 @@
     },
     methods: {
       getCurrentIndex() {
-        return -~~(this.translateX / (7 * 55 - 6 * 5) / this.rem);
+        return -Math.round(this.translateX / translateBase / this.rem);
       },
       toggleActive(e, date) {
         this.activeDate = date;
       },
-      onPanStart() {
+      toTriggerPan() {
+        return this.winWidth < this.threshold;
+      },
+      onPanStart(e) {
+        if (!this.toTriggerPan()) return;
         this.translateStart = this.translateX;
         this.translating = this.panning = true;
       },
       onPan(e) {
+        if (!this.toTriggerPan()) return;
         this.translateX = this.translateStart + e.deltaX;
       },
       onPanEnd(e) {
+        if (!this.toTriggerPan()) return;
         this.panning = false;
         const deltaX = e.deltaX;
         const currentIndex = this.getCurrentIndex();
-        const nextIndex = Math.abs(deltaX) <= 5 ? currentIndex : deltaX < 0
-          ? Math.min(this.calendar.length / 7 - 1, currentIndex + 1) : Math.max(0, currentIndex - 1);
-        this.translateX = -nextIndex * (7 * 50 + 5) * this.rem;
+        // eslint-disable-next-line max-len
+        const nextIndex = deltaX < 0 ? Math.min(this.calendar.length / 7 - 1, currentIndex + 1) : Math.max(0, currentIndex - 1);
+        this.translateX = -nextIndex * translateBase * this.rem;
       },
       onTransitionEnd() {
         if (this.panning) return;

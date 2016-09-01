@@ -1,8 +1,8 @@
 <template>
-  <li :class="{disabled}" @click="toggleActive">
+  <li :class="{active, disabled}" @click="toggleActive">
     <div>
       <span>{{ day }}</span>
-      <span>{{ statusText }}</span>
+      <span :class="{'theme-color': !active && 2 === status}">{{ statusText }}</span>
     </div>
   </li>
 </template>
@@ -28,6 +28,10 @@
 
   export default{
     props: {
+      active: {
+        type: Boolean,
+        required: true
+      },
       date: {
         type: String,
         required: true
@@ -50,7 +54,7 @@
     },
     methods: {
       toggleActive(e) {
-        this.disabled || this.$emit('click', e, this.date);
+        this.active || this.disabled || this.$emit('click', e, this.date);
       }
     }
   };

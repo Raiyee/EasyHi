@@ -1,5 +1,7 @@
 @require "../styles/_variables"
 
+CIRCLE_SIZE = 55px
+
 .schedule-calendar
   .panel
     margin-bottom 3px
@@ -12,8 +14,9 @@
     margin-bottom 0
     relative()
     li
-      width 55px
-      height 55px
+      width CIRCLE_SIZE
+      height CIRCLE_SIZE
+      z-index 1
       &.scroll-bg
         absolute()
         margin-left 0

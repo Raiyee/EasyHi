@@ -1,5 +1,7 @@
 @require "../styles/_variables"
 
+CIRCLE_SIZE = 55px
+
 li
   float left
   text-align center
@@ -11,17 +13,17 @@ li
     color REMARK_COLOR
   &.monday
     margin-left 0
+  relative()
   > div
-    width 55px
-    height 55px
+    width CIRCLE_SIZE
+    height CIRCLE_SIZE
     display table-cell
     vertical-align middle
-    z-index 1
-    relative()
-    span
-      display block
-      &:first-child
-        font-size 20px
-      &:last-child
-        font-size 16px
-        transform scale(12 / 16)
+  span
+    display block
+    line-height 1
+    &:first-child
+      font-size 20px
+    &:last-child
+      font-size 16px
+      transform scale(12 / 16)
