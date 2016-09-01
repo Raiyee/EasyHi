@@ -2,6 +2,7 @@
   <schedule-calendar :calendar="calendar"
                      :date="date"
                      :month="{lineHeight: 25 * rem + 'px'}"
+                     :schedules="schedules"
                      @toggleActiveDate="toggleActiveDate">
     <ul class="list-unstyled clearfix scroll-list course-types"
         :style="style">
@@ -27,7 +28,8 @@
         courseTypeId: null,
         courseTypeIndex: 0,
         calendar: [],
-        courseTypes: []
+        courseTypes: [],
+        schedules: []
       };
     },
     created() {
@@ -38,10 +40,12 @@
       ...mapGetters(['rem', 'winWidth']),
       style() {
         const length = this.courseTypes.length;
-        const width = Math.ceil((70 * length + 10) * this.rem);
+        const rem = this.rem;
+        const width = Math.ceil((70 * length + 10) * rem);
+        const winWidth = this.winWidth;
         return {
           width: width + 'px',
-          float: width > this.winWidth || 'right'
+          float: width > winWidth - (winWidth - 20 * rem) / 10 || 'right'
         };
       },
       transform() {

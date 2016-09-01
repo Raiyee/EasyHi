@@ -60,4 +60,4 @@
     }
   };
 </script>
-<style lang="stylus" src="./item.styl" scoped/>
+<style lang="stylus" src="./calendar-item" scoped/>
