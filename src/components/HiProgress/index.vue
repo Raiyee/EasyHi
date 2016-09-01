@@ -3,6 +3,6 @@
 </template>
 <script>
   // eslint-disable-next-line object-curly-spacing
-  export default from './HiProgress.common';
+  export default from './index.common';
 </script>
-<style src="./hi-progress.css" scoped/>
+<style src="./index.css" scoped/>

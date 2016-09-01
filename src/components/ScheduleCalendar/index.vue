@@ -16,12 +16,12 @@
             v-touch:pan="onPan"
             v-touch:panend="onPanEnd"
             @transitionend.self="onTransitionEnd">
-          <calendar-item v-for="(calendarItem, index) of calendar"
-                         :date="calendarItem.date"
-                         :status="calendarItem.status"
+          <item v-for="(item, index) of calendar"
+                         :date="item.date"
+                         :status="item.status"
                          :class="{first: !(index % 7)}"
                          :active="activeIndex === index"
-                         :key="calendarItem.date"
+                         :key="item.date"
                          @toggleActive="toggleActive"/>
           <li class="theme-bg scroll-bg"
               :class="{active: activeIndex !== -1}"
@@ -35,7 +35,7 @@
   import {mapGetters} from 'vuex';
   import moment from 'moment';
 
-  import CalendarItem from './ScheduleCalendarItem';
+  import Item from './item';
 
   import {DATE_FORMAT, lastDayOfWeek} from 'utils';
 
@@ -117,8 +117,8 @@
       }
     },
     components: {
-      CalendarItem
+      Item
     }
   };
 </script>
-<style lang="stylus" src="./schedule-calendar" scoped/>
+<style lang="stylus" src="./index.styl" scoped/>

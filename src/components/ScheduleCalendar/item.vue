@@ -27,6 +27,7 @@
   };
 
   export default{
+    name: 'schedule-calendar-item',
     props: {
       active: {
         type: Boolean,
@@ -59,4 +60,4 @@
     }
   };
 </script>
-<style lang="stylus" src="./schedule-calendar-item" scoped/>
+<style lang="stylus" src="./item.styl" scoped/>
