@@ -54,7 +54,7 @@
     },
     methods: {
       toggleActive(e) {
-        this.active || this.disabled || this.$emit('click', e, this.date);
+        this.active || this.disabled || this.$emit('toggleActive', e, this.date);
       }
     }
   };

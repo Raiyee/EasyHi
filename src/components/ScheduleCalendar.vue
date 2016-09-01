@@ -1,16 +1,16 @@
 <template>
   <div class="schedule-calendar">
-    <div class="panel">
+    <div class="panel course-type-panel">
       <div class="panel-body">
-        <div class="pull-left">09月</div>
-        <div class="pull-right">
+        <div :style="month">09月</div>
+        <div>
           <slot/>
         </div>
       </div>
     </div>
     <div class="panel">
       <div class="panel-body">
-        <ol class="calendar list-unstyled clearfix"
+        <ol class="list-unstyled clearfix scroll-list calendar"
             :style="style"
             v-touch:panstart="onPanStart"
             v-touch:pan="onPan"
@@ -19,10 +19,10 @@
           <calendar-item v-for="(calendarItem, index) of calendar"
                          :date="calendarItem.date"
                          :status="calendarItem.status"
-                         :class="{monday: !(index % 7)}"
+                         :class="{first: !(index % 7)}"
                          :active="activeIndex === index"
                          :key="calendarItem.date"
-                         @click="toggleActive"/>
+                         @toggleActive="toggleActive"/>
           <li class="theme-bg scroll-bg"
               :class="{active: activeIndex !== -1}"
               :style="{transform}"/>
@@ -39,7 +39,7 @@
 
   import {DATE_FORMAT, lastDayOfWeek} from 'utils';
 
-  const translateBase = 7 * 50 + 5;
+  const periodWidth = 7 * 50 + 5;
 
   export default {
     name: 'schedule-calendar',
@@ -50,6 +50,9 @@
       },
       date: {
         type: String
+      },
+      month: {
+        type: Object
       }
     },
     data() {
@@ -66,28 +69,26 @@
       activeIndex() {
         const date = this.activeDate || moment().format(DATE_FORMAT);
         const sunday = lastDayOfWeek(date);
-
         return this.calendar.findIndex(({date: itemDate, status}) =>
         itemDate >= date && itemDate <= sunday && [1, 2].includes(status));
       },
       style() {
         return {
-          width: (355 * this.calendar.length / 7 + 10) * this.rem + 'px',
+          width: (periodWidth * this.calendar.length / 7 + 10) * this.rem + 'px',
           transform: `translate3d(${this.translateX}px, 0, 0)`
         };
       },
       transform() {
         const activeIndex = this.activeIndex;
-        const translateX = (activeIndex * 50 + ~~(activeIndex / 7) * 5) * this.rem;
-        return `translate3d(${translateX}px, 0, 0)`;
+        return `translate3d(${(activeIndex * 50 + ~~(activeIndex / 7) * 5) * this.rem}px, 0, 0)`;
       }
     },
     methods: {
       getCurrentIndex() {
-        return -Math.round(this.translateX / translateBase / this.rem);
+        return -Math.round(this.translateX / periodWidth / this.rem);
       },
       toggleActive(e, date) {
-        this.activeDate = date;
+        this.translating || (this.activeDate = date) && this.$emit('toggleActiveDate', e, date);
       },
       toTriggerPan() {
         return this.winWidth < this.threshold;
@@ -104,16 +105,15 @@
       onPanEnd(e) {
         if (!this.toTriggerPan()) return;
         this.panning = false;
-        const deltaX = e.deltaX;
         const currentIndex = this.getCurrentIndex();
-        // eslint-disable-next-line max-len
-        const nextIndex = deltaX < 0 ? Math.min(this.calendar.length / 7 - 1, currentIndex + 1) : Math.max(0, currentIndex - 1);
-        this.translateX = -nextIndex * translateBase * this.rem;
+        const nextIndex = e.deltaX < 0
+          ? Math.min(this.calendar.length / 7 - 1, currentIndex + 1) : Math.max(0, currentIndex - 1);
+        this.translateX = -nextIndex * periodWidth * this.rem;
       },
       onTransitionEnd() {
         if (this.panning) return;
         this.translating = false;
-        this.activeDate = this.calendar[this.getCurrentIndex() * 7].date;
+        this.translateStart === this.translateX || (this.activeDate = this.calendar[this.getCurrentIndex() * 7].date);
       }
     },
     components: {

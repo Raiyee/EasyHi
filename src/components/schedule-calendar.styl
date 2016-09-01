@@ -10,23 +10,44 @@ CIRCLE_SIZE = 55px
       overflow hidden
       @media (min-width: 768px)
         overflow auto
-  .calendar
+  .course-type-panel .panel-body
+    display flex
+    > div
+      &:first-child
+        flex 1
+      &:last-child
+        flex 9
+        overflow auto
+  .scroll-list
     margin-bottom 0
-    relative()
+    &, li
+      relative()
     li
-      width CIRCLE_SIZE
-      height CIRCLE_SIZE
+      float left
+      text-align center
       z-index 1
+      color SUBTEXT_COLOR
+      overflow ellipsis
+      &.active
+        color REVERSE_COLOR
+      &.disabled
+        color REMARK_COLOR
+      &.first
+        margin-left 0
       &.scroll-bg
         absolute()
         margin-left 0
         z-index 0
         top 0
         left 0
-        border-radius 50%
         transform translate3d(0, 0, 0)
         visibility hidden
         &.active
           visibility visible
-    &, .scroll-bg
-      transition transform .5s
+  &, .scroll-bg
+    transition transform .5s
+  .calendar
+    li
+      width CIRCLE_SIZE
+      height CIRCLE_SIZE
+      border-radius 50%

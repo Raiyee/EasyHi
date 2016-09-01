@@ -14,6 +14,11 @@ Mock.mock(/\/get-schedules$/, () => {
         date: date.format(DATE_FORMAT),
         status: date.isBefore(today) ? Random.pick([0, 3]) : Random.natural(0, 2)
       };
-    })
+    }),
+    courseTypes: Random.range(0, Random.integer(2, 10)).map(() => ({
+      courseTypeId: '@id',
+      courseTypeName: '@cword(2,5)课',
+      subscribeType: '@pick([1,2])'
+    }))
   });
 });
