@@ -20,3 +20,4 @@
     }
   };
 </script>
+<style lang="stylus" src="./schedules.styl"/>

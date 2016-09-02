@@ -2,7 +2,7 @@
   <div class="schedule-calendar">
     <div class="panel course-type-panel">
       <div class="panel-body">
-        <div :style="month">{{ activeMonth }}月</div>
+        <div :style="month">{{ activeDate | formatDate('MM')}}月</div>
         <div>
           <slot/>
         </div>
@@ -29,7 +29,7 @@
         </ol>
       </div>
     </div>
-    <schedules :schedules="schedules"/>
+    <schedules :schedules="activeSchedules"/>
   </div>
 </template>
 <script>
@@ -39,23 +39,17 @@
   import CalendarItem from './CalendarItem';
   import Schedules from './Schedules';
 
-  import {DATE_FORMAT, MONTH_FORMAT, formatDate, lastDayOfWeek} from 'utils';
+  import {DATE_FORMAT, REQUIRED_ARRAY, REQUIRED_OBJECT, lastDayOfWeek, weekdays} from 'utils';
 
   const periodWidth = 7 * 50 + 5;
 
   export default {
     name: 'schedule-calendar',
     props: {
-      calendar: {
-        type: Array,
-        required: true
-      },
+      calendar: REQUIRED_ARRAY,
       date: String,
       month: Object,
-      schedules: {
-        type: Object,
-        required: true
-      }
+      schedules: REQUIRED_OBJECT
     },
     data() {
       return {
@@ -68,8 +62,15 @@
     },
     computed: {
       ...mapGetters(['rem', 'winWidth', 'threshold']),
-      activeMonth() {
-        return formatDate(this.activeDate || [], MONTH_FORMAT);
+      activeSchedules() {
+        const weekDays = weekdays(this.activeDate);
+        const activeSchedules = {};
+        for (const [key, value] of Object.entries(this.schedules)) {
+          if (weekDays.includes(key)) {
+            activeSchedules[key] = value;
+          }
+        }
+        return activeSchedules;
       },
       activeIndex() {
         const date = this.activeDate || moment().format(DATE_FORMAT);

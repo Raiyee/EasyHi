@@ -1,9 +1,11 @@
-import moment from 'moment';
+import _moment from 'moment';
+
+const moment = (first, ...rest) => _moment(first || [], ...rest);
 
 import {DATE_FORMAT, isoWeekdays} from './constants';
 
 export const dayOfWeek = (date, dayOfWeek, format = true) => {
-  const mDate = moment(date || undefined).isoWeekday(dayOfWeek);
+  const mDate = moment(date).isoWeekday(dayOfWeek);
   return format ? mDate.format(DATE_FORMAT) : mDate;
 };
 
@@ -36,10 +38,21 @@ export const getWeekday = date => isoWeekdays[moment(date).isoWeekday() - 1];
 /**
  * 获取对应格式的日期数据
  *
- * @param date        可供 moment 解析的日期字符串或 Date 实例
+ * @param date        可供 moment 解析的日期值
  * @param unit        与 moment 一致的时间单位字符串
  * @returns {string}  对应单位的日期数据
  */
 export const getDatetime = (date, unit) => moment(date).get(unit);
 
+/**
+ * 格式化日期字符串
+ *
+ * @param date        可供 moment 解析的日期值
+ * @param format      与 moment 一致的格式化参数
+ */
 export const formatDate = (date, format) => moment(date).format(format);
+
+export const weekdays = date => {
+  const monday = firstDayOfWeek(date, false);
+  return new Array(7).fill(0).map((date, index) => monday.add(+!!index, 'd').format(DATE_FORMAT));
+};
