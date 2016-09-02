@@ -1,11 +1,12 @@
 <template>
   <schedule-calendar :calendar="calendar"
                      :date="date"
-                     :month="{lineHeight: 25 * rem + 'px'}"
+                     :monthStyle="{lineHeight: 25 * rem + 'px'}"
                      :schedules="schedules"
+                     :schedulesStyle="schedulesStyle"
                      @toggleActiveDate="toggleActiveDate">
     <ul class="list-unstyled clearfix scroll-list course-types"
-        :style="style">
+        :style="typesStyle">
       <li v-for="(courseType, index) of courseTypes"
           :class="{first: !index, active: courseTypeId === courseType.courseTypeId}"
           @click="toggleCourseType(courseType.courseTypeId)">
@@ -37,8 +38,8 @@
       this.courseTypeId = this.courseTypeId || this.courseTypes[0].courseTypeId;
     },
     computed: {
-      ...mapGetters(['rem', 'winWidth']),
-      style() {
+      ...mapGetters(['rem', 'winWidth', 'winHeight']),
+      typesStyle() {
         const length = this.courseTypes.length;
         const rem = this.rem;
         const width = Math.ceil((70 * length + 10) * rem);
@@ -46,6 +47,12 @@
         return {
           width: width + 'px',
           float: width > winWidth - (winWidth - 20 * rem) / 10 || 'right'
+        };
+      },
+      schedulesStyle() {
+        const height = this.winHeight - (48 + 78) * this.rem - 4;
+        return {
+          height: height + 'px'
         };
       },
       transform() {

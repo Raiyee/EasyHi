@@ -2,7 +2,7 @@
   <div class="schedule-calendar">
     <div class="panel course-type-panel">
       <div class="panel-body">
-        <div :style="month">{{ activeDate | formatDate('MM')}}月</div>
+        <div :style="monthStyle">{{ activeDate | formatDate('MM')}}月</div>
         <div>
           <slot/>
         </div>
@@ -29,7 +29,11 @@
         </ol>
       </div>
     </div>
-    <schedules :schedules="activeSchedules"/>
+    <ol class="list-unstyled schedules" :style="schedulesStyle">
+      <schedule-items v-for="(scheduleItems, date) of activeSchedules"
+                      :date="date"
+                      :scheduleItems="scheduleItems"/>
+    </ol>
   </div>
 </template>
 <script>
@@ -37,7 +41,7 @@
   import moment from 'moment';
 
   import CalendarItem from './CalendarItem';
-  import Schedules from './Schedules';
+  import ScheduleItems from './ScheduleItems';
 
   import {DATE_FORMAT, REQUIRED_ARRAY, REQUIRED_OBJECT, lastDayOfWeek, weekdays} from 'utils';
 
@@ -48,8 +52,9 @@
     props: {
       calendar: REQUIRED_ARRAY,
       date: String,
-      month: Object,
-      schedules: REQUIRED_OBJECT
+      monthStyle: Object,
+      schedules: REQUIRED_OBJECT,
+      schedulesStyle: Object
     },
     data() {
       return {
@@ -121,7 +126,7 @@
     },
     components: {
       CalendarItem,
-      Schedules
+      ScheduleItems
     }
   };
 </script>

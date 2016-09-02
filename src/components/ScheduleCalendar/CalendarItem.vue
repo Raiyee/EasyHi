@@ -7,7 +7,7 @@
   </li>
 </template>
 <script>
-  import {getDatetime, getWeekday} from 'utils/moment';
+  import {REQUIRED_BOOLEAN, REQUIRED_NUMBER, REQUIRED_STRING, getDatetime, getWeekday} from 'utils';
 
   /**
    * 排期存在 4 种状态
@@ -29,18 +29,9 @@
   export default{
     name: 'schedule-calendar-item',
     props: {
-      active: {
-        type: Boolean,
-        required: true
-      },
-      date: {
-        type: String,
-        required: true
-      },
-      status: {
-        type: Number,
-        required: true
-      }
+      active: REQUIRED_BOOLEAN,
+      date: REQUIRED_STRING,
+      status: REQUIRED_NUMBER
     },
     computed: {
       disabled() {

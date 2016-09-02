@@ -1,5 +1,5 @@
 <template>
-  <li>
+  <li class="schedule-item">
     <div class="media" :class="{disabled: !scheduleRemaining}">
       <div class="media-body">
         <h4 class="media-heading">
@@ -56,4 +56,4 @@
     }
   };
 </script>
-<style lang="stylus" src="./schedule-item"/>
+<style lang="stylus" src="./schedule-item" scoped/>

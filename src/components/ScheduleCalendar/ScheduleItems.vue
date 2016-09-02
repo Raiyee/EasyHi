@@ -4,7 +4,7 @@
       {{ date | getWeekday }}
     </div>
     <ol class="list-unstyled">
-      <schedule-item v-for="scheduleItem of scheduleItems"
+      <schedule-item v-for="(scheduleItem, index) of scheduleItems"
                      :coursePicUrl="scheduleItem.coursePicUrl"
                      :scheduleBooked="scheduleItem.scheduleBooked"
                      :scheduleCoach="scheduleItem.scheduleCoach"
@@ -32,4 +32,4 @@
     }
   };
 </script>
-<style lang="stylus" src="./schedule-items"/>
+<style lang="stylus" src="./schedule-items" scoped/>
