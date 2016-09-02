@@ -53,7 +53,7 @@
       date: String,
       month: Object,
       schedules: {
-        type: Array,
+        type: Object,
         required: true
       }
     },

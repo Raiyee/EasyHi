@@ -18,6 +18,19 @@ Mock.mock(/\/get-schedules$/, () => {
       status
     };
   });
+  const schedules = {};
+
+  scheduleDates.forEach((scheduleDate, index) => {
+    schedules[scheduleDate] = [{
+      coursePicUrl: `60-60-${index}`,
+      scheduleCoach: '@cword(5,12)',
+      scheduleDuration: '@pick(60,120)',
+      scheduleName: '@cword(5,12)课',
+      scheduleRemaining: calendar.find(calendarItem => calendarItem.date === scheduleDate).status === 2
+        ? 0 : '@integer(1,20)'
+    }];
+  });
+
   return Mock.mock({
     calendar,
     courseTypes: Random.range(0, Random.integer(2, 10)).map(() => ({
@@ -25,15 +38,6 @@ Mock.mock(/\/get-schedules$/, () => {
       courseTypeName: '@cword(2,5)课',
       subscribeType: '@pick([1,2])'
     })),
-    schedules: scheduleDates.map((scheduleDate, index) => ({
-      [scheduleDate]: [{
-        coursePicUrl: `60-60-${index}`,
-        scheduleCoach: '@cword(5,12)',
-        scheduleDuration: '@pick(60,120)',
-        scheduleName: '@cword(5,12)课',
-        scheduleRemaining: calendar.find(calendarItem => calendarItem.date === scheduleDate).status === 2
-          ? 0 : '@integer(1,20)'
-      }]
-    }))
+    schedules
   });
 });
