@@ -3,8 +3,7 @@
                      :date="date"
                      :monthStyle="{lineHeight: 25 * rem + 'px'}"
                      :schedules="schedules"
-                     :schedulesStyle="schedulesStyle"
-                     @toggleActiveDate="toggleActiveDate">
+                     :schedulesStyle="schedulesStyle">
     <ul class="list-unstyled clearfix scroll-list course-types"
         :style="typesStyle">
       <li v-for="(courseType, index) of courseTypes"
@@ -60,11 +59,17 @@
       }
     },
     methods: {
-      toggleActiveDate(e, date) {
-      },
       toggleCourseType(courseTypeId) {
-        this.courseTypeId = courseTypeId;
-        this.courseTypeIndex = this.courseTypes.findIndex(courseType => courseTypeId === courseType.courseTypeId);
+        this.$http.get('/get-schedules', {body: {courseTypeId}})
+          .then(res => {
+            const data = res.json();
+            this.schedules = data.schedules;
+            this.calendar = data.calendar;
+            this.courseTypeId = courseTypeId;
+            this.courseTypeIndex = this.courseTypes.findIndex(function (courseType) {
+              return courseTypeId === courseType.courseTypeId;
+            });
+          });
       }
     },
     components: {

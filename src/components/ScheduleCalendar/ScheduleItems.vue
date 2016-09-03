@@ -31,12 +31,13 @@
       scheduleItems: REQUIRED_ARRAY
     },
     computed: {
-      ...mapGetters(['baseWidth', 'logicWidth', 'rem']),
+      ...mapGetters(['rem']),
       itemsStyle() {
         const itemsLength = this.scheduleItems.length;
-        let itemsHeight = this.schedulesHeight * this.baseWidth -
-          (28 + 113 * itemsLength) * this.logicWidth - (itemsLength + 1) * this.baseWidth;
-        itemsHeight = Math.ceil(itemsHeight / this.baseWidth);
+        const rem = this.rem;
+        // 预留 3px 的误差值范围，防止部分手机计算值不准确造成滚动时无法选中当周最后一天
+        const fix = rem === 1 ? 0 : 3;
+        const itemsHeight = this.schedulesHeight - (28 - fix + 113 * itemsLength) * rem - itemsLength + 1;
         return {
           marginBottom: this.last && `${itemsHeight}px`
         };

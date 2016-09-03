@@ -104,6 +104,7 @@
     },
     methods: {
       toggleActive(e, date) {
+        if (this.translating) return;
         const refs = this.$refs;
         const schedules = refs.schedules;
         const dateIndex = Object.keys(this.activeSchedules).findIndex(scheduleDate => date === scheduleDate);
@@ -111,7 +112,7 @@
         scrollTop(schedules, refs.date[dateIndex].$el.offsetTop - schedules.offsetTop, null, () => {
           this.scrolling = false;
         });
-        this.translating || (this.activeDate = date) && this.$emit('toggleActiveDate', e, date);
+        this.activeDate = date;
       },
       toTriggerPan() {
         return this.winWidth < this.threshold;
