@@ -70,6 +70,16 @@
         scrolling: false
       };
     },
+    watch: {
+      calendar() {
+        this.translateX = 0;
+        this.activeDate = null;
+        this.scrolling = true;
+        scrollTop(this.$refs.schedules, 0, null, () => {
+          this.scrolling = false;
+        });
+      }
+    },
     computed: {
       ...mapGetters(['rem', 'winWidth', 'threshold']),
       schedulesHeight() {
@@ -86,10 +96,10 @@
         return activeSchedules;
       },
       activeIndex() {
-        const date = formatDate(this.activeDate);
-        const sunday = lastDayOfWeek(date);
-        return this.calendar.findIndex(({date: itemDate, status}) =>
-        itemDate >= date && itemDate <= sunday && [1, 2].includes(status));
+        const activeDate = formatDate(this.activeDate);
+        const sunday = lastDayOfWeek(activeDate);
+        return this.calendar.findIndex(({date, status}) =>
+        date >= activeDate && date <= sunday && [1, 2].includes(status));
       },
       calendarStyle() {
         return {
