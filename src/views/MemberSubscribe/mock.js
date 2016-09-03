@@ -25,7 +25,7 @@ Mock.mock(/\/get-schedules$/, () => {
   scheduleDates.forEach((scheduleDate, dateIndex) => {
     startTime = moment(scheduleDate).add(Random.integer(6 * 60, 9 * 60), 'm');
 
-    schedules[scheduleDate] = Random.range(0, 5).map((value, index) => ({
+    schedules[scheduleDate] = new Array(Random.integer(1, 5)).fill(0).map((value, index) => ({
       coursePicUrl: `60-60-${dateIndex}-${index}`,
       scheduleBooked: '@integer(0,20)',
       scheduleCoach: '@cname(2,5)',

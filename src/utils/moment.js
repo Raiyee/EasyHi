@@ -50,9 +50,9 @@ export const getDatetime = (date, unit) => moment(date).get(unit);
  * @param date        可供 moment 解析的日期值
  * @param format      与 moment 一致的格式化参数
  */
-export const formatDate = (date, format) => moment(date).format(format);
+export const formatDate = (date, format = DATE_FORMAT) => moment(date).format(format);
 
-export const weekdays = date => {
+export const weekdays = (date, format = DATE_FORMAT) => {
   const monday = firstDayOfWeek(date, false);
-  return new Array(7).fill(0).map((date, index) => monday.add(+!!index, 'd').format(DATE_FORMAT));
+  return new Array(7).fill(0).map((date, index) => monday.add(+!!index, 'd').format(format));
 };

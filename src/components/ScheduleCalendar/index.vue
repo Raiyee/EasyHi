@@ -11,7 +11,7 @@
     <div class="panel">
       <div class="panel-body">
         <ol class="list-unstyled clearfix scroll-list calendar"
-            :style="style"
+            :style="calendarStyle"
             v-touch:panstart="onPanStart"
             v-touch:pan="onPan"
             v-touch:panend="onPanEnd"
@@ -29,21 +29,24 @@
         </ol>
       </div>
     </div>
-    <ol class="list-unstyled schedules" :style="schedulesStyle">
-      <schedule-items v-for="(scheduleItems, date) of activeSchedules"
-                      :date="date"
-                      :scheduleItems="scheduleItems"/>
-    </ol>
+    <div class="schedules" :style="schedulesStyle">
+      <ol class="list-unstyled">
+        <schedule-items v-for="(scheduleItems, date, index) of activeSchedules"
+                        :date="date"
+                        :last="index === Object.keys(activeSchedules).length - 1"
+                        :schedulesHeight="schedulesHeight"
+                        :scheduleItems="scheduleItems"/>
+      </ol>
+    </div>
   </div>
 </template>
 <script>
   import {mapGetters} from 'vuex';
-  import moment from 'moment';
 
   import CalendarItem from './CalendarItem';
   import ScheduleItems from './ScheduleItems';
 
-  import {DATE_FORMAT, REQUIRED_ARRAY, REQUIRED_OBJECT, lastDayOfWeek, weekdays} from 'utils';
+  import {REQUIRED_ARRAY, REQUIRED_OBJECT, formatDate, lastDayOfWeek, weekdays} from 'utils';
 
   const periodWidth = 7 * 50 + 5;
 
@@ -67,6 +70,9 @@
     },
     computed: {
       ...mapGetters(['rem', 'winWidth', 'threshold']),
+      schedulesHeight() {
+        return +this.schedulesStyle.height.replace('px', '');
+      },
       activeSchedules() {
         const weekDays = weekdays(this.activeDate);
         const activeSchedules = {};
@@ -78,12 +84,12 @@
         return activeSchedules;
       },
       activeIndex() {
-        const date = this.activeDate || moment().format(DATE_FORMAT);
+        const date = formatDate(this.activeDate);
         const sunday = lastDayOfWeek(date);
         return this.calendar.findIndex(({date: itemDate, status}) =>
         itemDate >= date && itemDate <= sunday && [1, 2].includes(status));
       },
-      style() {
+      calendarStyle() {
         return {
           width: (periodWidth * this.calendar.length / 7 + 10) * this.rem + 'px',
           transform: `translate3d(${this.translateX}px, 0, 0)`

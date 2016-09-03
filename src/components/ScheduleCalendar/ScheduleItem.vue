@@ -1,34 +1,32 @@
 <template>
-  <li class="schedule-item">
-    <div class="media" :class="{disabled: !scheduleRemaining}">
-      <div class="media-body">
-        <h4 class="media-heading">
-          {{ scheduleStartTime | formatDate('HH:mm') }}
-          {{ scheduleName }}
-        </h4>
-        <div class="media-content">
-          时长：{{ scheduleDuration }}min
-          <br>
-          老师：{{ scheduleCoach }}
-          <br>
-          <template v-if="scheduleRemaining">
-            <span class="icon-character theme-bg">预</span>
-            还可预订{{ scheduleRemaining }}人
-          </template>
-          <template v-else>
-            <span class="icon-character remark-bg">满</span>
-            已订满
-          </template>
-          <template v-if="scheduleBooked">
+  <li class="media" :class="{disabled: !scheduleRemaining}">
+    <div class="media-body">
+      <h4 class="media-heading">
+        {{ scheduleStartTime | formatDate('HH:mm') }}
+        {{ scheduleName }}
+      </h4>
+      <div class="media-content">
+        时长：{{ scheduleDuration }}min
+        <br>
+        老师：{{ scheduleCoach }}
+        <br>
+        <template v-if="scheduleRemaining">
+          <span class="icon-character theme-bg">预</span>
+          还可预订{{ scheduleRemaining }}人
+        </template>
+        <template v-else>
+          <span class="icon-character remark-bg">满</span>
+          已订满
+        </template>
+        <template v-if="scheduleBooked">
             <span class="icon-character"
                   :class="{'theme-bg': scheduleRemaining, 'remark-bg': !scheduleRemaining}">我</span>
-            已预订{{ scheduleBooked }}人
-          </template>
-        </div>
+          已预订{{ scheduleBooked }}人
+        </template>
       </div>
-      <div class="media-right media-middle">
-        <img class="media-object img-circle" :src="imgPath(coursePicUrl)">
-      </div>
+    </div>
+    <div class="media-right media-middle">
+      <img class="media-object img-circle" :src="imgPath(coursePicUrl)">
     </div>
   </li>
 </template>

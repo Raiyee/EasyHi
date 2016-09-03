@@ -1,11 +1,11 @@
 @require "../../styles/_variables"
 
-.schedule-item:last-child .media
-  border-bottom none
-
 .media
   padding 15px 0
   border-bottom 1px solid CARD_LINE_COLOR
+  margin-top 0
+  &:last-child
+    border-bottom none
   &.disabled
     &, .media-content
       color REMARK_COLOR
