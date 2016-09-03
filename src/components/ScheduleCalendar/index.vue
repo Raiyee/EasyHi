@@ -29,9 +29,10 @@
         </ol>
       </div>
     </div>
-    <div class="schedules" :style="schedulesStyle">
+    <div class="schedules" :style="schedulesStyle" ref="schedules">
       <ol class="list-unstyled">
         <schedule-items v-for="(scheduleItems, date, index) of activeSchedules"
+                        :ref="date"
                         :date="date"
                         :last="index === Object.keys(activeSchedules).length - 1"
                         :schedulesHeight="schedulesHeight"
@@ -46,7 +47,7 @@
   import CalendarItem from './CalendarItem';
   import ScheduleItems from './ScheduleItems';
 
-  import {REQUIRED_ARRAY, REQUIRED_OBJECT, formatDate, lastDayOfWeek, weekdays} from 'utils';
+  import {REQUIRED_ARRAY, REQUIRED_OBJECT, formatDate, lastDayOfWeek, scrollTop, weekdays} from 'utils';
 
   const periodWidth = 7 * 50 + 5;
 
@@ -102,12 +103,15 @@
     },
     methods: {
       toggleActive(e, date) {
+        const refs = this.$refs;
+        const schedules = refs.schedules;
+        scrollTop(schedules, refs[date][0].$el.offsetTop - schedules.offsetTop);
         this.translating || (this.activeDate = date) && this.$emit('toggleActiveDate', e, date);
       },
       toTriggerPan() {
         return this.winWidth < this.threshold;
       },
-      onPanStart(e) {
+      onPanStart() {
         if (!this.toTriggerPan()) return;
         this.translateStart = this.translateX;
         this.translating = this.panning = true;
@@ -123,7 +127,9 @@
         const nextIndex = e.deltaX < 0
           ? Math.min(this.calendar.length / 7 - 1, currentIndex + 1) : Math.max(0, currentIndex - 1);
         this.translateX = -nextIndex * periodWidth * this.rem;
-        currentIndex === nextIndex || (this.activeDate = this.calendar[nextIndex * 7].date);
+        if (currentIndex === nextIndex) return;
+        this.activeDate = this.calendar[nextIndex * 7].date;
+        scrollTop(this.$refs.schedules, 0);
       },
       onTransitionEnd() {
         if (this.panning) return;

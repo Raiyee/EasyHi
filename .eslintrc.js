@@ -42,7 +42,7 @@ module.exports = {
       2
     ],
     'max-nested-callbacks': 2,
-    'max-params': 2,
+    'max-params': [2, 5],
     semi: [
       2,
       'always'
