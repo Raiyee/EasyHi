@@ -29,10 +29,10 @@
         </ol>
       </div>
     </div>
-    <div class="schedules" :style="schedulesStyle" ref="schedules">
+    <div class="schedules" :style="schedulesStyle" ref="schedules" @scroll="onScroll">
       <ol class="list-unstyled">
         <schedule-items v-for="(scheduleItems, date, index) of activeSchedules"
-                        :ref="date"
+                        ref="date"
                         :date="date"
                         :last="index === Object.keys(activeSchedules).length - 1"
                         :schedulesHeight="schedulesHeight"
@@ -66,7 +66,8 @@
         translateX: 0,
         translateStart: 0,
         translating: false,
-        panning: false
+        panning: false,
+        scrolling: false
       };
     },
     computed: {
@@ -105,7 +106,11 @@
       toggleActive(e, date) {
         const refs = this.$refs;
         const schedules = refs.schedules;
-        scrollTop(schedules, refs[date][0].$el.offsetTop - schedules.offsetTop);
+        const dateIndex = Object.keys(this.activeSchedules).findIndex(scheduleDate => date === scheduleDate);
+        this.scrolling = true;
+        scrollTop(schedules, refs.date[dateIndex].$el.offsetTop - schedules.offsetTop, null, () => {
+          this.scrolling = false;
+        });
         this.translating || (this.activeDate = date) && this.$emit('toggleActiveDate', e, date);
       },
       toTriggerPan() {
@@ -128,12 +133,26 @@
           ? Math.min(this.calendar.length / 7 - 1, currentIndex + 1) : Math.max(0, currentIndex - 1);
         this.translateX = -nextIndex * periodWidth * this.rem;
         if (currentIndex === nextIndex) return;
+        this.scrolling = true;
         this.activeDate = this.calendar[nextIndex * 7].date;
-        scrollTop(this.$refs.schedules, 0);
+        scrollTop(this.$refs.schedules, 0, null, () => {
+          this.scrolling = false;
+        });
       },
       onTransitionEnd() {
         if (this.panning) return;
         this.translating = false;
+      },
+      onScroll() {
+        if (this.scrolling) return;
+        const refs = this.$refs;
+        const schedules = refs.schedules;
+        let date;
+        for (const vm of refs.date) {
+          if (vm.$el.offsetTop - schedules.offsetTop - schedules.scrollTop >= 3 * this.rem) break;
+          date = vm.date;
+        }
+        this.activeDate = date;
       }
     },
     components: {

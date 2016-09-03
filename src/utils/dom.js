@@ -14,7 +14,8 @@ export const removeClass = function (el, className) {
 
 const abs = Math.abs;
 
-export const scrollTop = (el, top, duration = 500, callback) => {
+export const scrollTop = (el, top, duration, callback) => {
+  duration = duration || 500;
   let origin = el.scrollTop;
   let requestId;
   const step = 1000 * (top - origin) / duration / 60;
