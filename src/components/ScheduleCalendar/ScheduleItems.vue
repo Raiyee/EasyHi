@@ -31,10 +31,12 @@
       scheduleItems: REQUIRED_ARRAY
     },
     computed: {
-      ...mapGetters(['rem']),
+      ...mapGetters(['baseWidth', 'logicWidth', 'rem']),
       itemsStyle() {
         const itemsLength = this.scheduleItems.length;
-        const itemsHeight = this.schedulesHeight - (28 + 113 * itemsLength) * this.rem - itemsLength + 1;
+        let itemsHeight = this.schedulesHeight * this.baseWidth -
+          (28 + 113 * itemsLength) * this.logicWidth - (itemsLength + 1) * this.baseWidth;
+        itemsHeight = Math.ceil(itemsHeight / this.baseWidth);
         return {
           marginBottom: this.last && `${itemsHeight}px`
         };
