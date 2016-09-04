@@ -11,6 +11,7 @@
     <div class="panel">
       <div class="panel-body">
         <ol class="list-unstyled clearfix scroll-list calendar"
+            :class="{flex}"
             :style="calendarStyle"
             v-touch:panstart="onPanStart"
             v-touch:pan="onPan"
@@ -23,9 +24,11 @@
                          :active="activeIndex === index"
                          :key="item.date"
                          @toggleActive="toggleActive"/>
-          <li class="theme-bg scroll-bg"
+          <li class="scroll-bg"
               :class="{active: activeIndex !== -1}"
-              :style="{transform}"/>
+              :style="{transform}">
+            <div class="theme-bg"/>
+          </li>
         </ol>
       </div>
     </div>
@@ -81,35 +84,50 @@
       }
     },
     computed: {
-      ...mapGetters(['rem', 'winWidth', 'threshold']),
+      ...mapGetters(['mode', 'rem', 'winWidth']),
+      baseWidth() {
+        return periodWidth * this.calendar.length / 7 + 10;
+      },
+      flex() {
+        const winWidth = this.winWidth;
+        return !this.mode && this.baseWidth < winWidth - 20;
+      },
+      calendarWidth() {
+        if (!this.flex) return this.baseWidth;
+        return this.winWidth - 20;
+      },
       schedulesHeight() {
         return +this.schedulesStyle.height.replace('px', '');
       },
       activeSchedules() {
+        const schedules = this.schedules;
+        if (!this.mode) return schedules;
         const weekDays = weekdays(this.activeDate);
         const activeSchedules = {};
-        for (const [key, value] of Object.entries(this.schedules)) {
-          if (weekDays.includes(key)) {
-            activeSchedules[key] = value;
-          }
+        for (const [key, value] of Object.entries(schedules)) {
+          if (!weekDays.includes(key)) continue;
+          activeSchedules[key] = value;
         }
         return activeSchedules;
       },
       activeIndex() {
         const activeDate = formatDate(this.activeDate);
-        const sunday = lastDayOfWeek(activeDate);
+        const lastDay = this.mode ? lastDayOfWeek(activeDate) : this.calendar.slice(-1)[0].date;
         return this.calendar.findIndex(({date, status}) =>
-        date >= activeDate && date <= sunday && [1, 2].includes(status));
+        date >= activeDate && date <= lastDay && [1, 2].includes(status));
       },
       calendarStyle() {
         return {
-          width: (periodWidth * this.calendar.length / 7 + 10) * this.rem + 'px',
+          width: `${this.calendarWidth}px`,
           transform: `translate3d(${this.translateX}px, 0, 0)`
         };
       },
       transform() {
         const activeIndex = this.activeIndex;
-        return `translate3d(${(activeIndex * 50 + ~~(activeIndex / 7) * 5) * this.rem}px, 0, 0)`;
+        const perWidth = this.calendarWidth / this.calendar.length;
+        const translateX = this.flex ? perWidth * activeIndex + (perWidth - 55) / 2
+          : (activeIndex * 50 + ~~(activeIndex / 7) * 5) * this.rem;
+        return `translate3d(${translateX}px, 0, 0)`;
       }
     },
     methods: {
@@ -124,20 +142,17 @@
         });
         this.activeDate = date;
       },
-      toTriggerPan() {
-        return this.winWidth < this.threshold;
-      },
       onPanStart() {
-        if (!this.toTriggerPan()) return;
+        if (!this.mode) return;
         this.translateStart = this.translateX;
         this.translating = this.panning = true;
       },
       onPan(e) {
-        if (!this.toTriggerPan()) return;
+        if (!this.mode) return;
         this.translateX = this.translateStart + e.deltaX;
       },
       onPanEnd(e) {
-        if (!this.toTriggerPan()) return;
+        if (!this.mode) return;
         this.panning = false;
         const currentIndex = -Math.round(this.translateStart / periodWidth / this.rem);
         const nextIndex = e.deltaX < 0

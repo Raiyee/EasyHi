@@ -60,15 +60,14 @@
     },
     methods: {
       toggleCourseType(courseTypeId) {
+        if (this.courseTypeId === courseTypeId) return;
         this.$http.get('/get-schedules', {body: {courseTypeId}})
           .then(res => {
             const data = res.json();
             this.schedules = data.schedules;
             this.calendar = data.calendar;
             this.courseTypeId = courseTypeId;
-            this.courseTypeIndex = this.courseTypes.findIndex(function (courseType) {
-              return courseTypeId === courseType.courseTypeId;
-            });
+            this.courseTypeIndex = this.courseTypes.findIndex(courseType => courseTypeId === courseType.courseTypeId);
           });
       }
     },

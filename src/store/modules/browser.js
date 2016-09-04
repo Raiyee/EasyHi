@@ -8,7 +8,8 @@ const state = {
   rem: 1,
   fontSize: 16,
   logicWidth: 375,
-  threshold: 768
+  threshold: 768,
+  mode: true
 };
 
 const getters = {
@@ -19,7 +20,8 @@ const getters = {
   rem: state => state.rem,
   fontSize: state => state.fontSize,
   logicWidth: state => state.logicWidth,
-  threshold: state => state.threshold
+  threshold: state => state.threshold,
+  mode: state => state.mode
 };
 
 const actions = {
@@ -32,9 +34,11 @@ const mutations = {
   [SET_SIZE](state, {winHeight, winWidth}) {
     const payload = {winHeight, winWidth};
     const baseWidth = state.baseWidth;
-    payload.rem = (payload.logicWidth =
-        winWidth < state.threshold ? winWidth : baseWidth) / baseWidth;
-    payload.fontSize = payload.logicWidth * state.baseFontSize / baseWidth;
+    const mode = payload.mode = winWidth < state.threshold;
+    let logicWidth;
+    payload.rem = (logicWidth = payload.logicWidth =
+        mode ? winWidth : baseWidth) / baseWidth;
+    payload.fontSize = logicWidth * state.baseFontSize / baseWidth;
     Object.assign(state, payload);
   }
 };
