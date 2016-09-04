@@ -13,3 +13,6 @@ export const isoWeekdays = [...rest, first];
     required: true
   };
 });
+
+export const EMPTY_FUNC = () => {
+};

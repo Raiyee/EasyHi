@@ -9,7 +9,7 @@
       </div>
     </div>
     <div class="panel">
-      <div class="panel-body">
+      <div class="panel-body" ref="calendar">
         <ol class="list-unstyled clearfix scroll-list calendar"
             :class="{flex}"
             :style="calendarStyle"
@@ -50,7 +50,14 @@
   import CalendarItem from './CalendarItem';
   import ScheduleItems from './ScheduleItems';
 
-  import {REQUIRED_ARRAY, REQUIRED_OBJECT, formatDate, lastDayOfWeek, scrollTop, weekdays} from 'utils';
+  import {
+    REQUIRED_ARRAY,
+    REQUIRED_OBJECT,
+    formatDate,
+    lastDayOfWeek,
+    animate,
+    weekdays
+  } from 'utils';
 
   const periodWidth = 7 * 50 + 5;
 
@@ -78,8 +85,12 @@
         this.translateX = 0;
         this.activeDate = null;
         this.scrolling = true;
-        scrollTop(this.$refs.schedules, 0, null, () => {
-          this.scrolling = false;
+        const $refs = this.$refs;
+        animate($refs.calendar, 'scrollLeft', 0);
+        animate($refs.schedules, 'scrollTop', {
+          callback: () => {
+            this.scrolling = false;
+          }
         });
       }
     },
@@ -137,8 +148,11 @@
         const schedules = refs.schedules;
         const dateIndex = Object.keys(this.activeSchedules).findIndex(scheduleDate => date === scheduleDate);
         this.scrolling = true;
-        scrollTop(schedules, refs.date[dateIndex].$el.offsetTop - schedules.offsetTop, null, () => {
-          this.scrolling = false;
+        animate(schedules, 'scrollTop', {
+          value: refs.date[dateIndex].$el.offsetTop - schedules.offsetTop,
+          callback: () => {
+            this.scrolling = false;
+          }
         });
         this.activeDate = date;
       },
@@ -161,8 +175,10 @@
         if (currentIndex === nextIndex) return;
         this.scrolling = true;
         this.activeDate = this.calendar[nextIndex * 7].date;
-        scrollTop(this.$refs.schedules, 0, null, () => {
-          this.scrolling = false;
+        animate(this.$refs.schedules, 'scrollTop', {
+          callback: () => {
+            this.scrolling = false;
+          }
         });
       },
       onTransitionEnd() {
