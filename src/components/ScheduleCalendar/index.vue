@@ -60,6 +60,18 @@
   } from 'utils';
 
   const periodWidth = 7 * 50 + 5;
+  const reset = function () {
+    this.translateX = 0;
+    this.activeDate = null;
+    this.scrolling = true;
+    const $refs = this.$refs;
+    animate($refs.calendar, 'scrollLeft', 0);
+    animate($refs.schedules, 'scrollTop', {
+      callback: () => {
+        this.scrolling = false;
+      }
+    });
+  };
 
   export default {
     name: 'schedule-calendar',
@@ -81,23 +93,13 @@
       };
     },
     watch: {
-      calendar() {
-        this.translateX = 0;
-        this.activeDate = null;
-        this.scrolling = true;
-        const $refs = this.$refs;
-        animate($refs.calendar, 'scrollLeft', 0);
-        animate($refs.schedules, 'scrollTop', {
-          callback: () => {
-            this.scrolling = false;
-          }
-        });
-      }
+      mode: reset,
+      calendar: reset
     },
     computed: {
       ...mapGetters(['mode', 'rem', 'winWidth']),
       baseWidth() {
-        return periodWidth * this.calendar.length / 7 + 10;
+        return (periodWidth * this.calendar.length / 7 + 10) * this.rem;
       },
       flex() {
         const winWidth = this.winWidth;

@@ -45,7 +45,7 @@
         const winWidth = this.winWidth;
         return {
           width: width + 'px',
-          float: width > winWidth - (winWidth - 20 * rem) / 10 || 'right'
+          float: width < winWidth - (winWidth - 20 * rem) / 10 && 'right'
         };
       },
       schedulesStyle() {

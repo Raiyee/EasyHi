@@ -35,10 +35,9 @@ export const animate = (() => {
     }
 
     // options 存在且不是对象时视为设置的 value
-    if (options != null && !isObject(options)) options = {value: options};
+    options != null && !isObject(options) && (options = {value: options});
 
-    options = Object.assign({}, DEFAULT_OPTIONS, options);
-    const {callback, duration, value} = options;
+    const {callback, duration, value} = Object.assign({}, DEFAULT_OPTIONS, options);
 
     let origin = el[type];
     let requestId;
