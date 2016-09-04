@@ -26,7 +26,7 @@ module.exports = {
   depthLimit: false,
   duplicates: NEVER,
   efficient: ALWAYS,
-  exclude: [],
+  exclude: ['styles/bootstrap/**/*.styl'],
   extendPref: false,
   globalDupe: false,
   groupOutputByFile: true,

@@ -116,6 +116,14 @@ webpackConfig.module.loaders = [
     exclude: nodeModules
   },
   {
+    test: /[/\\]bootstrap\.styl/,
+    loader: generateLoaders('stylus', baseLoaders, {
+      sourceMap,
+      extract: !__DEV__ && (bootstrapLoader = new ExtractTextPlugin('bootstrap.[contenthash].css'))
+    }),
+    exclude: nodeModules
+  },
+  {
     test: /[/\\]theme-\w+\.styl/,
     loader: generateLoaders('stylus', baseLoaders, {
       sourceMap
@@ -123,7 +131,7 @@ webpackConfig.module.loaders = [
     exclude: nodeModules
   },
   {
-    test: /^(?!.*[/\\](app|theme-\w+)\.styl).*\.styl/,
+    test: /^(?!.*[/\\](app|bootstrap|theme-\w+)\.styl).*\.styl/,
     loader: generateLoaders('stylus', cssModuleLoaders, {
       sourceMap
     }),

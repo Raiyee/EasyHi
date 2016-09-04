@@ -44,8 +44,10 @@ const config = {
   compiler_vendor: [
     'moment',
     'vue',
+    'vue-lazyload',
     'vue-resource',
     'vue-router',
+    'vue-touch',
     'vuex',
     'vuex-localstorage',
     'vuex-promise'

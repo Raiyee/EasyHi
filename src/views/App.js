@@ -2,7 +2,8 @@ import {mapGetters} from 'vuex';
 
 import store from 'store';
 
-import 'bootstrap.less';
+// import 'bootstrap.less';
+import 'styles/bootstrap';
 import 'styles/app';
 
 import HiLoading from 'components/HiLoading';
