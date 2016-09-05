@@ -23,7 +23,7 @@
 
   import {REQUIRED_ARRAY, REQUIRED_BOOLEAN, REQUIRED_NUMBER, REQUIRED_STRING} from 'utils/constants'
 
-  export default{
+  export default {
     props: {
       date: REQUIRED_STRING,
       last: REQUIRED_BOOLEAN,
@@ -34,10 +34,8 @@
       ...mapGetters(['rem']),
       itemsStyle() {
         const itemsLength = this.scheduleItems.length
-        const rem = this.rem
-        // 预留 3px 的误差值范围，防止部分手机计算值不准确造成滚动时无法选中当周最后一天
-        const fix = rem === 1 ? 0 : 3
-        const itemsHeight = this.schedulesHeight - (28 - fix + 113 * itemsLength) * rem - itemsLength + 1
+        const pr = Math.ceil(this.rem * 1000) / 1000
+        const itemsHeight = this.schedulesHeight - (28 + 113 * itemsLength) * pr - itemsLength + 1
         return {
           marginBottom: this.last && `${itemsHeight}px`
         }
