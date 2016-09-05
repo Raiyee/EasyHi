@@ -6,11 +6,11 @@ export default {
     ...mapGetters(['winHeight'])
   },
   methods: {
-    animationEnd: function (e) {
+    animationEnd(e) {
       const target = e.target
       target.className = target.className.replace(/(^| +)animated($| +)/, ' ').trim()
     },
-    scale: function (e) {
+    scale(e) {
       e.currentTarget.nextElementSibling.className += ' animated'
     }
   }
