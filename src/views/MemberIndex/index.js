@@ -1,5 +1,5 @@
-import MemberIndex from './index.common';
-import classes from './index.styl';
+import MemberIndex from './index.common'
+import classes from './index.styl'
 
 export default {
   ...MemberIndex,
@@ -36,6 +36,6 @@ export default {
           </div>
         </div>
       </div>
-    );
+    )
   }
-};
+}

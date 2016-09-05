@@ -1,4 +1,4 @@
-const SET_SIZE = 'SET_SIZE';
+const SET_SIZE = 'SET_SIZE'
 
 const state = {
   baseWidth: 375,
@@ -10,7 +10,7 @@ const state = {
   logicWidth: 375,
   threshold: 768,
   mode: true
-};
+}
 
 const getters = {
   baseWidth: state => state.baseWidth,
@@ -22,30 +22,30 @@ const getters = {
   logicWidth: state => state.logicWidth,
   threshold: state => state.threshold,
   mode: state => state.mode
-};
+}
 
 const actions = {
   setSize({commit}, size) {
-    commit(SET_SIZE, size);
+    commit(SET_SIZE, size)
   }
-};
+}
 
 const mutations = {
   [SET_SIZE](state, {winHeight, winWidth}) {
-    const payload = {winHeight, winWidth};
-    const baseWidth = state.baseWidth;
-    const mode = payload.mode = winWidth < state.threshold;
-    let logicWidth;
+    const payload = {winHeight, winWidth}
+    const baseWidth = state.baseWidth
+    const mode = payload.mode = winWidth < state.threshold
+    let logicWidth
     payload.rem = (logicWidth = payload.logicWidth =
-        mode ? winWidth : baseWidth) / baseWidth;
-    payload.fontSize = logicWidth * state.baseFontSize / baseWidth;
-    Object.assign(state, payload);
+        mode ? winWidth : baseWidth) / baseWidth
+    payload.fontSize = logicWidth * state.baseFontSize / baseWidth
+    Object.assign(state, payload)
   }
-};
+}
 
 export default {
   state,
   getters,
   actions,
   mutations
-};
+}

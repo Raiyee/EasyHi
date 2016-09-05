@@ -1,4 +1,4 @@
-const argv = require('yargs').argv;
+const argv = require('yargs').argv
 
 module.exports = {
   root: true,
@@ -43,10 +43,6 @@ module.exports = {
     ],
     'max-nested-callbacks': 2,
     'max-params': [2, 5],
-    semi: [
-      2,
-      'always'
-    ],
     'space-before-function-paren': [
       2,
       {
@@ -58,4 +54,4 @@ module.exports = {
     'react/jsx-uses-react': 2,
     'react/jsx-uses-vars': 2,
   }
-};
+}

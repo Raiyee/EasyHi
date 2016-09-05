@@ -31,8 +31,8 @@
   </li>
 </template>
 <script>
-  import {REQUIRED_NUMBER, REQUIRED_STRING} from 'utils/constants';
-  import {imgPath} from 'filters/image';
+  import {REQUIRED_NUMBER, REQUIRED_STRING} from 'utils/constants'
+  import {imgPath} from 'filters/image'
 
   export default{
     props: {
@@ -46,12 +46,12 @@
     },
     computed: {
       scheduleDuration() {
-        return (this.scheduleEndTime - this.scheduleStartTime) / 1000 / 60;
+        return (this.scheduleEndTime - this.scheduleStartTime) / 1000 / 60
       }
     },
     methods: {
       imgPath
     }
-  };
+  }
 </script>
 <style lang="stylus" src="./schedule-item" scoped/>

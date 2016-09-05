@@ -1,12 +1,12 @@
-import webpackDevMiddleware from 'webpack-dev-middleware';
-import applyExpressMiddleware from '../lib/apply-express-middleware';
-import _debug from 'debug';
-import config from '../../config';
+import webpackDevMiddleware from 'webpack-dev-middleware'
+import applyExpressMiddleware from '../lib/apply-express-middleware'
+import _debug from 'debug'
+import config from '../../config'
 
-const debug = _debug('koa:webpack-dev');
+const debug = _debug('koa:webpack-dev')
 
 export default compiler => {
-  debug('Enable webpack dev middleware.');
+  debug('Enable webpack dev middleware.')
 
   const middleware = webpackDevMiddleware(compiler, {
     publicPath: config.compiler_public_path,
@@ -15,21 +15,21 @@ export default compiler => {
     noInfo: config.compiler_quiet,
     lazy: false,
     stats: config.compiler_stats
-  });
+  })
 
   return async function koaWebpackDevMiddleware(ctx, next) {
     /*eslint prefer-const: 0*/
     let hasNext = await applyExpressMiddleware(middleware, ctx.req, {
       end(content) {
-        ctx.body = content;
+        ctx.body = content
       },
       setHeader() {
-        ctx.set.apply(ctx, arguments);
+        ctx.set.apply(ctx, arguments)
       }
-    });
+    })
 
     if (hasNext) {
-      await next();
+      await next()
     }
-  };
-};
+  }
+}

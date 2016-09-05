@@ -1,17 +1,17 @@
-import webpack from 'webpack';
-import CopyWebpackPlugin from 'copy-webpack-plugin';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import autoprefixer from 'autoprefixer';
-import cssnano from 'cssnano';
-import _debug from 'debug';
-import config, {paths, pkg} from '../config';
-import utils, {baseLoaders, cssModuleLoaders, generateLoaders, nodeModules} from './utils';
-const {TRUE_NODE_ENV, __DEV__, __PROD__, __TEST__} = config.globals;
+import webpack from 'webpack'
+import CopyWebpackPlugin from 'copy-webpack-plugin'
+import ExtractTextPlugin from 'extract-text-webpack-plugin'
+import HtmlWebpackPlugin from 'html-webpack-plugin'
+import autoprefixer from 'autoprefixer'
+import cssnano from 'cssnano'
+import _debug from 'debug'
+import config, {paths, pkg} from '../config'
+import utils, {baseLoaders, cssModuleLoaders, generateLoaders, nodeModules} from './utils'
+const {TRUE_NODE_ENV, __DEV__, __PROD__, __TEST__} = config.globals
 
-const debug = _debug('koa:webpack:config');
+const debug = _debug('koa:webpack:config')
 
-debug('Create configuration.');
+debug('Create configuration.')
 const webpackConfig = {
   __DEV__,
   __PROD__,
@@ -33,19 +33,19 @@ const webpackConfig = {
   node: {
     fs: 'empty'
   }
-};
+}
 
 // ------------------------------------
 // Entry Points
 // ------------------------------------
-const APP_ENTRY_PATH = ['babel-polyfill', paths.src('index.js')];
+const APP_ENTRY_PATH = ['babel-polyfill', paths.src('index.js')]
 
 webpackConfig.entry = {
   app: __DEV__
     ? APP_ENTRY_PATH.concat('webpack-hot-middleware/client')
     : APP_ENTRY_PATH,
   vendor: config.compiler_vendor
-};
+}
 
 // ------------------------------------
 // Bundle Output
@@ -56,7 +56,7 @@ webpackConfig.output = {
   publicPath: config.compiler_public_path,
   filename: `[name].[${config.compiler_hash_type}].js`,
   chunkFilename: `[id].[${config.compiler_hash_type}].js`
-};
+}
 
 // ------------------------------------
 // Pre-Loaders
@@ -77,8 +77,8 @@ webpackConfig.output = {
 // Loaders
 // ------------------------------------
 
-const sourceMap = !!config.compiler_devtool;
-let appLoader, bootstrapLoader;
+const sourceMap = !!config.compiler_devtool
+let appLoader, bootstrapLoader
 
 webpackConfig.module.loaders = [
   ...utils.commonCssLoaders({
@@ -168,18 +168,18 @@ webpackConfig.module.loaders = [
     test: /\.vue$/,
     loader: 'vue'
   }
-];
+]
 
 webpackConfig.vue = {
   loaders: utils.vueCssLoaders({
     sourceMap
   }),
   autoprefixer: false
-};
+}
 
 webpackConfig.eslint = {
   formatter: require('eslint-friendly-formatter')
-};
+}
 
 // ------------------------------------
 // Plugins
@@ -207,26 +207,26 @@ webpackConfig.plugins = [
   }], {
     // ignore: ['*.ico', '*.md']
   })
-];
+]
 
-const browsers = config.compiler_browsers;
+const browsers = config.compiler_browsers
 
 if (__DEV__) {
-  debug(`Enable postcss processor(autoprefixer) for ${TRUE_NODE_ENV}`);
+  debug(`Enable postcss processor(autoprefixer) for ${TRUE_NODE_ENV}`)
 
   webpackConfig.postcss = [
     autoprefixer({
       browsers
     })
-  ];
+  ]
 
-  debug('Enable plugins for live development (HMR, NoErrors).');
+  debug('Enable plugins for live development (HMR, NoErrors).')
   webpackConfig.plugins.push(
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin()
-  );
+  )
 } else {
-  debug(`Enable postcss processors for ${TRUE_NODE_ENV}`);
+  debug(`Enable postcss processors for ${TRUE_NODE_ENV}`)
 
   webpackConfig.postcss = [
     cssnano({
@@ -245,9 +245,9 @@ if (__DEV__) {
       safe: true,
       sourcemap: sourceMap
     })
-  ];
+  ]
 
-  debug(`Enable plugins for ${TRUE_NODE_ENV} (OccurenceOrder, Dedupe & UglifyJS).`);
+  debug(`Enable plugins for ${TRUE_NODE_ENV} (OccurenceOrder, Dedupe & UglifyJS).`)
   webpackConfig.plugins.push(
     new webpack.optimize.OccurrenceOrderPlugin(true),
     new webpack.optimize.DedupePlugin(),
@@ -261,11 +261,11 @@ if (__DEV__) {
     // 将 bootstrap 和 app 分别导出到单独的文件中, 这里的顺序就是被注入到 HTML 中时加载的顺序
     bootstrapLoader,
     appLoader
-  );
+  )
 }
 
 webpackConfig.plugins.push(new webpack.optimize.CommonsChunkPlugin({
   names: ['vendor']
-}));
+}))
 
-export default webpackConfig;
+export default webpackConfig

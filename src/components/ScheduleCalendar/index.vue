@@ -45,10 +45,10 @@
   </div>
 </template>
 <script>
-  import {mapGetters} from 'vuex';
+  import {mapGetters} from 'vuex'
 
-  import CalendarItem from './CalendarItem';
-  import ScheduleItems from './ScheduleItems';
+  import CalendarItem from './CalendarItem'
+  import ScheduleItems from './ScheduleItems'
 
   import {
     REQUIRED_ARRAY,
@@ -57,21 +57,21 @@
     lastDayOfWeek,
     animate,
     weekdays
-  } from 'utils';
+  } from 'utils'
 
-  const periodWidth = 7 * 50 + 5;
+  const periodWidth = 7 * 50 + 5
   const reset = function () {
-    this.translateX = 0;
-    this.activeDate = null;
-    this.scrolling = true;
-    const $refs = this.$refs;
-    animate($refs.calendar, 'scrollLeft', 0);
+    this.translateX = 0
+    this.activeDate = null
+    this.scrolling = true
+    const $refs = this.$refs
+    animate($refs.calendar, 'scrollLeft', 0)
     animate($refs.schedules, 'scrollTop', {
       callback: () => {
-        this.scrolling = false;
+        this.scrolling = false
       }
-    });
-  };
+    })
+  }
 
   export default {
     name: 'schedule-calendar',
@@ -90,7 +90,7 @@
         translating: false,
         panning: false,
         scrolling: false
-      };
+      }
     },
     watch: {
       mode: reset,
@@ -99,110 +99,110 @@
     computed: {
       ...mapGetters(['mode', 'rem', 'winWidth']),
       baseWidth() {
-        return (periodWidth * this.calendar.length / 7 + 10) * this.rem;
+        return (periodWidth * this.calendar.length / 7 + 10) * this.rem
       },
       flex() {
-        const winWidth = this.winWidth;
-        return !this.mode && this.baseWidth < winWidth - 20;
+        const winWidth = this.winWidth
+        return !this.mode && this.baseWidth < winWidth - 20
       },
       calendarWidth() {
-        if (!this.flex) return this.baseWidth;
-        return this.winWidth - 20;
+        if (!this.flex) return this.baseWidth
+        return this.winWidth - 20
       },
       schedulesHeight() {
-        return +this.schedulesStyle.height.replace('px', '');
+        return +this.schedulesStyle.height.replace('px', '')
       },
       activeSchedules() {
-        const schedules = this.schedules;
-        if (!this.mode) return schedules;
-        const weekDays = weekdays(this.activeDate);
-        const activeSchedules = {};
+        const schedules = this.schedules
+        if (!this.mode) return schedules
+        const weekDays = weekdays(this.activeDate)
+        const activeSchedules = {}
         for (const [key, value] of Object.entries(schedules)) {
-          if (!weekDays.includes(key)) continue;
-          activeSchedules[key] = value;
+          if (!weekDays.includes(key)) continue
+          activeSchedules[key] = value
         }
-        return activeSchedules;
+        return activeSchedules
       },
       activeIndex() {
-        const activeDate = formatDate(this.activeDate);
-        const lastDay = this.mode ? lastDayOfWeek(activeDate) : this.calendar.slice(-1)[0].date;
+        const activeDate = formatDate(this.activeDate)
+        const lastDay = this.mode ? lastDayOfWeek(activeDate) : this.calendar.slice(-1)[0].date
         return this.calendar.findIndex(({date, status}) =>
-        date >= activeDate && date <= lastDay && [1, 2].includes(status));
+        date >= activeDate && date <= lastDay && [1, 2].includes(status))
       },
       calendarStyle() {
         return {
           width: `${this.calendarWidth}px`,
           transform: `translate3d(${this.translateX}px, 0, 0)`
-        };
+        }
       },
       transform() {
-        const activeIndex = this.activeIndex;
-        const perWidth = this.calendarWidth / this.calendar.length;
+        const activeIndex = this.activeIndex
+        const perWidth = this.calendarWidth / this.calendar.length
         const translateX = this.flex ? perWidth * activeIndex + (perWidth - 55) / 2
-          : (activeIndex * 50 + ~~(activeIndex / 7) * 5) * this.rem;
-        return `translate3d(${translateX}px, 0, 0)`;
+          : (activeIndex * 50 + ~~(activeIndex / 7) * 5) * this.rem
+        return `translate3d(${translateX}px, 0, 0)`
       }
     },
     methods: {
       toggleActive(e, date) {
-        if (this.translating) return;
-        const refs = this.$refs;
-        const schedules = refs.schedules;
-        const dateIndex = Object.keys(this.activeSchedules).findIndex(scheduleDate => date === scheduleDate);
-        this.scrolling = true;
+        if (this.translating) return
+        const refs = this.$refs
+        const schedules = refs.schedules
+        const dateIndex = Object.keys(this.activeSchedules).findIndex(scheduleDate => date === scheduleDate)
+        this.scrolling = true
         animate(schedules, 'scrollTop', {
           value: refs.date[dateIndex].$el.offsetTop - schedules.offsetTop,
           callback: () => {
-            this.scrolling = false;
+            this.scrolling = false
           }
-        });
-        this.activeDate = date;
+        })
+        this.activeDate = date
       },
       onPanStart() {
-        if (!this.mode) return;
-        this.translateStart = this.translateX;
-        this.translating = this.panning = true;
+        if (!this.mode) return
+        this.translateStart = this.translateX
+        this.translating = this.panning = true
       },
       onPan(e) {
-        if (!this.mode) return;
-        this.translateX = this.translateStart + e.deltaX;
+        if (!this.mode) return
+        this.translateX = this.translateStart + e.deltaX
       },
       onPanEnd(e) {
-        if (!this.mode) return;
-        this.panning = false;
-        const currentIndex = -Math.round(this.translateStart / periodWidth / this.rem);
+        if (!this.mode) return
+        this.panning = false
+        const currentIndex = -Math.round(this.translateStart / periodWidth / this.rem)
         const nextIndex = e.deltaX < 0
-          ? Math.min(this.calendar.length / 7 - 1, currentIndex + 1) : Math.max(0, currentIndex - 1);
-        this.translateX = -nextIndex * periodWidth * this.rem;
-        if (currentIndex === nextIndex) return;
-        this.scrolling = true;
-        this.activeDate = this.calendar[nextIndex * 7].date;
+          ? Math.min(this.calendar.length / 7 - 1, currentIndex + 1) : Math.max(0, currentIndex - 1)
+        this.translateX = -nextIndex * periodWidth * this.rem
+        if (currentIndex === nextIndex) return
+        this.scrolling = true
+        this.activeDate = this.calendar[nextIndex * 7].date
         animate(this.$refs.schedules, 'scrollTop', {
           callback: () => {
-            this.scrolling = false;
+            this.scrolling = false
           }
-        });
+        })
       },
       onTransitionEnd() {
-        if (this.panning) return;
-        this.translating = false;
+        if (this.panning) return
+        this.translating = false
       },
       onScroll() {
-        if (this.scrolling) return;
-        const refs = this.$refs;
-        const schedules = refs.schedules;
-        let date;
+        if (this.scrolling) return
+        const refs = this.$refs
+        const schedules = refs.schedules
+        let date
         for (const vm of refs.date) {
-          if (vm.$el.offsetTop - schedules.offsetTop - schedules.scrollTop >= 3 * this.rem) break;
-          date = vm.date;
+          if (vm.$el.offsetTop - schedules.offsetTop - schedules.scrollTop >= 3 * this.rem) break
+          date = vm.date
         }
-        this.activeDate = date;
+        this.activeDate = date
       }
     },
     components: {
       CalendarItem,
       ScheduleItems
     }
-  };
+  }
 </script>
 <style lang="stylus" src="./index.styl" scoped/>

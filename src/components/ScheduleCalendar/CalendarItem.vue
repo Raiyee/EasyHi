@@ -7,7 +7,7 @@
   </li>
 </template>
 <script>
-  import {REQUIRED_BOOLEAN, REQUIRED_NUMBER, REQUIRED_STRING, getDatetime, getWeekday} from 'utils';
+  import {REQUIRED_BOOLEAN, REQUIRED_NUMBER, REQUIRED_STRING, getDatetime, getWeekday} from 'utils'
 
   /**
    * 排期存在 4 种状态
@@ -19,12 +19,12 @@
   const statusText = (status, date) => {
     switch (status) {
       case (0):
-        return '无课';
+        return '无课'
       case (2):
-        return '订满';
+        return '订满'
     }
-    return getWeekday(date);
-  };
+    return getWeekday(date)
+  }
 
   export default{
     name: 'schedule-calendar-item',
@@ -35,20 +35,20 @@
     },
     computed: {
       disabled() {
-        return [0, 3].includes(this.status);
+        return [0, 3].includes(this.status)
       },
       day() {
-        return getDatetime(this.date, 'date');
+        return getDatetime(this.date, 'date')
       },
       statusText() {
-        return statusText(this.status, this.date);
+        return statusText(this.status, this.date)
       }
     },
     methods: {
       toggleActive(e) {
-        this.active || this.disabled || this.$emit('toggleActive', e, this.date);
+        this.active || this.disabled || this.$emit('toggleActive', e, this.date)
       }
     }
-  };
+  }
 </script>
 <style lang="stylus" src="./calendar-item" scoped/>

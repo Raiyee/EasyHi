@@ -1,4 +1,4 @@
-import {mapGetters} from 'vuex';
+import {mapGetters} from 'vuex'
 
 export default {
   name: 'member-index',
@@ -7,11 +7,11 @@ export default {
   },
   methods: {
     animationEnd: function (e) {
-      const target = e.target;
-      target.className = target.className.replace(/(^| +)animated($| +)/, ' ').trim();
+      const target = e.target
+      target.className = target.className.replace(/(^| +)animated($| +)/, ' ').trim()
     },
     scale: function (e) {
-      e.currentTarget.nextElementSibling.className += ' animated';
+      e.currentTarget.nextElementSibling.className += ' animated'
     }
   }
-};
+}

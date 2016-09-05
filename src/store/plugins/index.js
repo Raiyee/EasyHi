@@ -1,12 +1,12 @@
-import createLogger from 'vuex/logger';
-import createPromise from 'vuex-promise';
+import createLogger from 'vuex/logger'
+import createPromise from 'vuex-promise'
 
 import {
   PROMISE_PENDING,
   PROMISE_SUCCESS,
   PROMISE_FAILURE,
   PROMISE_FINALLY
-} from '../constants';
+} from '../constants'
 
 const plugins = [
   createPromise({
@@ -24,24 +24,24 @@ const plugins = [
     store.subscribe(({meta = {}, payload}) => {
       switch (meta.promise) {
         case PROMISE_PENDING:
-          store.dispatch('setProgress', 60);
-          break;
+          store.dispatch('setProgress', 60)
+          break
         case PROMISE_SUCCESS:
-          store.dispatch('setProgress', 100);
-          break;
+          store.dispatch('setProgress', 100)
+          break
         case PROMISE_FAILURE:
-          store.dispatch('setProgress', 100);
-          store.dispatch('addToast', payload);
-          break;
+          store.dispatch('setProgress', 100)
+          store.dispatch('addToast', payload)
+          break
         default:
           // setProgress(0)
       }
-    });
+    })
   }
-];
+]
 
 if (__DEV__) {
-  plugins.unshift(createLogger());
+  plugins.unshift(createLogger())
 }
 
-export default plugins;
+export default plugins

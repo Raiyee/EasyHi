@@ -1,6 +1,6 @@
-import Mock from 'mockjs';
+import Mock from 'mockjs'
 
-const Random = Mock.Random;
+const Random = Mock.Random
 Mock.mock(/\/membercenter$/, () => {
   return Mock.mock({
     memberGender: '@boolean()',
@@ -37,5 +37,5 @@ Mock.mock(/\/membercenter$/, () => {
         }
       ]
     }).grantList
-  });
-});
+  })
+})

@@ -1,13 +1,13 @@
-require('babel-register');
+require('babel-register')
 
-const debug = require('debug')('koa:bin:clean');
+const debug = require('debug')('koa:bin:clean')
 
-debug('Clean files...');
+debug('Clean files...')
 
 require('del')(require('../config').paths.dist('**'), err => {
   if (err) {
-    debug(err);
+    debug(err)
   } else {
-    debug('Files cleaned.');
+    debug('Files cleaned.')
   }
-});
+})

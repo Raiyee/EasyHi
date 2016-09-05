@@ -10,4 +10,4 @@ export default {
       default: 0
     }
   }
-};
+}

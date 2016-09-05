@@ -1,35 +1,35 @@
-import {mapGetters} from 'vuex';
+import {mapGetters} from 'vuex'
 
-import store from 'store';
+import store from 'store'
 
 // import 'bootstrap.less';
-import 'styles/bootstrap';
-import 'styles/app';
+import 'styles/bootstrap'
+import 'styles/app'
 
-import HiLoading from 'components/HiLoading';
-import HiProgress from 'components/HiProgress';
+import HiLoading from 'components/HiLoading'
+import HiProgress from 'components/HiProgress'
 
-const theme = 'purple';
+const theme = 'purple'
 
-require('bundle!styles/theme-' + theme);
+require('bundle!styles/theme-' + theme)
 
-const docEl = document.documentElement;
-let resize, winHeight, winWidth;
+const docEl = document.documentElement
+let resize, winHeight, winWidth
 
 addEventListener('resize', resize = () => {
-  winHeight = docEl.clientHeight;
-  winWidth = docEl.clientWidth;
-  store.dispatch('setSize', {winHeight, winWidth});
-  docEl.style.fontSize = store.getters.fontSize + 'px';
-}, false);
+  winHeight = docEl.clientHeight
+  winWidth = docEl.clientWidth
+  store.dispatch('setSize', {winHeight, winWidth})
+  docEl.style.fontSize = store.getters.fontSize + 'px'
+}, false)
 
-resize();
+resize()
 
 // 暂时添加一个退出登录的钩子
 window._logout_ = () => {
-  store.dispatch('setEnv', {authorized: false, mobile: null});
-  location.reload();
-};
+  store.dispatch('setEnv', {authorized: false, mobile: null})
+  location.reload()
+}
 
 export default {
   computed: {
@@ -44,6 +44,6 @@ export default {
           <router-view/>
         </transition>
       </div>
-    );
+    )
   }
-};
+}

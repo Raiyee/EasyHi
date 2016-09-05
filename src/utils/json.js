@@ -1,41 +1,41 @@
-import {isObject} from './base';
+import {isObject} from './base'
 
 class JsonLoop {
   constructor(json, level = Infinity) {
-    this.json = json;
-    this.level = level;
+    this.json = json
+    this.level = level
   }
 
   parse() {
-    const level = this.level;
-    const json = this.json;
+    const level = this.level
+    const json = this.json
 
-    if (!level) return json;
+    if (!level) return json
 
-    const data = parseJSON(json);
+    const data = parseJSON(json)
 
-    if (!isObject(data)) return data;
+    if (!isObject(data)) return data
 
     for (const [key, value] of Object.entries(data)) {
-      data[key] = new JsonLoop(value, level - 1).parse();
+      data[key] = new JsonLoop(value, level - 1).parse()
     }
 
-    return data;
+    return data
   }
 }
 
 export const parseJSON = data => {
   try {
-    return JSON.parse(data);
+    return JSON.parse(data)
   } catch (e) {
-    return data;
+    return data
   }
-};
+}
 
-export const parseJsonLoop = (data, level) => new JsonLoop(data, level).parse();
+export const parseJsonLoop = (data, level) => new JsonLoop(data, level).parse()
 
-export const getItem = (key, level) => parseJsonLoop(localStorage.getItem(key), level);
+export const getItem = (key, level) => parseJsonLoop(localStorage.getItem(key), level)
 
-export const setItem = (key, data) => localStorage.setItem(key, JSON.stringify(data)) || getItem(key);
+export const setItem = (key, data) => localStorage.setItem(key, JSON.stringify(data)) || getItem(key)
 
-export const deleteItem = key => delete localStorage[key];
+export const deleteItem = key => delete localStorage[key]

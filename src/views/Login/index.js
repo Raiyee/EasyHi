@@ -1,22 +1,22 @@
-import classes from './index.styl';
-import yoga from './yoga.png';
+import classes from './index.styl'
+import yoga from './yoga.png'
 
-import Login from './index.common';
+import Login from './index.common'
 
 export default {
   ...Login,
   methods: {
     ...Login.methods,
     handleChange(type, e) {
-      const target = e.target;
-      const subValue = this.handleInput(type, e);
+      const target = e.target
+      const subValue = this.handleInput(type, e)
 
-      target.value === subValue || (target.value = subValue);
+      target.value === subValue || (target.value = subValue)
     },
     clearMobile(e) {
-      const inputEl = e.currentTarget.previousElementSibling;
-      inputEl.value = this.loginMobile = null;
-      inputEl.focus();
+      const inputEl = e.currentTarget.previousElementSibling
+      inputEl.value = this.loginMobile = null
+      inputEl.focus()
     }
   },
   render(h) {
@@ -58,6 +58,6 @@ export default {
           </div>
         </div>
       </div>
-    );
+    )
   }
-};
+}

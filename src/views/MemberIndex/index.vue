@@ -35,6 +35,6 @@
 </template>
 <script>
   // eslint-disable-next-line object-curly-spacing
-  export default from './index.common';
+  export default from './index.common'
 </script>
 <style lang="stylus" src="./index.styl" scoped/>

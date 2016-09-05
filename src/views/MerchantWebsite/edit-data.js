@@ -1,9 +1,9 @@
 /**
  * Created by shuxun on 16/8/28.
  */
-import Mock from 'mockjs';
+import Mock from 'mockjs'
 
-const Random = Mock.Random;
+const Random = Mock.Random
 
 export default [
   {
@@ -338,4 +338,4 @@ export default [
     },
     createTime: '2016-08-16 14:29:18.0'
   }
-];
+]

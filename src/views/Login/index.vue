@@ -40,17 +40,17 @@
   </div>
 </template>
 <script>
-  import Login from './index.common';
+  import Login from './index.common'
 
   export default {
     ...Login,
     methods: {
       ...Login.methods,
       clearMobile() {
-        this.loginMobile = null;
-        this.$refs.mobile.focus();
+        this.loginMobile = null
+        this.$refs.mobile.focus()
       }
     }
-  };
+  }
 </script>
 <style lang="stylus" src="./index.styl" scoped/>
