@@ -1,10 +1,11 @@
 <template>
   <schedule-calendar :calendar="calendar"
                      :date="date"
-                     :monthStyle="{lineHeight: 25 * rem + 'px'}"
+                     :month="classes.month"
                      :schedules="schedules"
                      :schedulesStyle="schedulesStyle">
-    <ul class="list-unstyled clearfix scroll-list course-types"
+    <ul class="list-unstyled clearfix scroll-list"
+        :class="classes.courseTypes"
         :style="typesStyle">
       <li v-for="(courseType, index) of courseTypes"
           :class="{first: !index, active: courseTypeId === courseType.courseTypeId}"
@@ -18,12 +19,15 @@
 <script>
   import {mapGetters} from 'vuex'
 
+  import classes from './index.styl'
+
   import ScheduleCalendar from 'components/ScheduleCalendar'
 
   export default{
     name: 'member-subscribe',
     data() {
       return {
+        classes,
         date: null,
         courseTypeId: null,
         courseTypeIndex: 0,
@@ -49,9 +53,8 @@
         }
       },
       schedulesStyle() {
-        const height = this.winHeight - (48 + 78) * this.rem - 4
         return {
-          height: height + 'px'
+          height: `${this.winHeight - (48 + 78) * this.rem - 4}px`
         }
       },
       transform() {
@@ -76,4 +79,3 @@
     }
   }
 </script>
-<style lang="stylus" src="./index.styl" scoped/>

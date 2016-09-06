@@ -1,8 +1,8 @@
 <template>
-  <div class="schedule-calendar">
+  <div :class="classes.scheduleCalendar">
     <div class="panel course-type-panel">
       <div class="panel-body">
-        <div :style="monthStyle">{{ activeDate | formatDate('MM')}}月</div>
+        <div :class="month">{{ activeDate | formatDate('MM')}}月</div>
         <div>
           <slot/>
         </div>
@@ -47,6 +47,8 @@
 <script>
   import {mapGetters} from 'vuex'
 
+  import classes from './index.styl'
+
   import CalendarItem from './CalendarItem'
   import ScheduleItems from './ScheduleItems'
 
@@ -78,12 +80,13 @@
     props: {
       calendar: REQUIRED_ARRAY,
       date: String,
-      monthStyle: Object,
+      month: String,
       schedules: REQUIRED_OBJECT,
       schedulesStyle: Object
     },
     data() {
       return {
+        classes,
         activeDate: this.date,
         translateX: 0,
         translateStart: 0,
@@ -205,4 +208,3 @@
     }
   }
 </script>
-<style lang="stylus" src="./index.styl" scoped/>

@@ -1,6 +1,6 @@
 <template>
   <li class="schedule-items" :style="itemsStyle">
-    <div class="theme-bg schedule-weekday">
+    <div class="theme-bg" :class="classes.scheduleWeekday">
       {{ date | getWeekday }}
     </div>
     <ol class="list-unstyled">
@@ -19,6 +19,8 @@
 <script>
   import {mapGetters} from 'vuex'
 
+  import classes from './schedule-items'
+
   import ScheduleItem from './ScheduleItem'
 
   import {REQUIRED_ARRAY, REQUIRED_BOOLEAN, REQUIRED_NUMBER, REQUIRED_STRING} from 'utils/constants'
@@ -29,6 +31,9 @@
       last: REQUIRED_BOOLEAN,
       schedulesHeight: REQUIRED_NUMBER,
       scheduleItems: REQUIRED_ARRAY
+    },
+    data() {
+      return {classes}
     },
     computed: {
       ...mapGetters(['rem']),
@@ -46,4 +51,3 @@
     }
   }
 </script>
-<style lang="stylus" src="./schedule-items" scoped/>
