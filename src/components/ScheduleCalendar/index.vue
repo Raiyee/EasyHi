@@ -94,7 +94,7 @@
       calendar: reset
     },
     computed: {
-      ...mapGetters(['mode', 'rem', 'winWidth']),
+      ...mapGetters(['mode', 'rem']),
       schedulesHeight() {
         return +this.schedulesStyle.height.replace('px', '')
       },

@@ -35,7 +35,7 @@
       ...mapGetters(['rem']),
       itemsStyle() {
         const itemsLength = this.scheduleItems.length
-        const pr = Math.floor(this.rem * 100) / 100
+        const pr = Math.floor(this.rem * 10) / 10
         const itemsHeight = this.schedulesHeight - (28 + 113 * itemsLength) * pr - itemsLength + 1
         return {
           marginBottom: this.last && `${itemsHeight}px`
