@@ -1,8 +1,12 @@
 <template>
-  <div class="hi-progress" :class="className" :style="{width: progress + '%'}"></div>
+  <div :class="[classes.hiProgress, className]" :style="{width: progress + '%'}"></div>
 </template>
 <script>
-  // eslint-disable-next-line object-curly-spacing
-  export default from './index.common'
+  import HiProgress from './index.common'
+  import classes from './index.css'
+
+  export default {
+    extends: HiProgress,
+    data: () => ({classes})
+  }
 </script>
-<style src="./index.css" scoped/>

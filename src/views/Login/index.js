@@ -28,7 +28,7 @@ export default {
         <div class="row">
           <div class="col-xs-12 col-sm-6 col-sm-push-3 col-lg-4 col-lg-push-4">
             <form on-submit={this.submit}>
-              <div class={['form-group', classes.formGroup, this.mobileError ? 'has-error' : '']}>
+              <div class={[classes.formGroup, this.mobileError && 'has-error']}>
                 <div class="input-group">
                   <span class="input-group-addon">
                     <span class="glyphicon glyphicon-phone"/>
@@ -41,7 +41,7 @@ export default {
                 </div>
                 {this.mobileError ? <p class="form-control-static">请输入正确的手机号码</p> : ''}
               </div>
-              <div class={['form-group', classes.formGroup, this.codeError ? 'has-error' : '']}>
+              <div class={[classes.formGroup, this.codeError && 'has-error']}>
                 <div class="input-group">
                   <span class="input-group-addon">
                     <span class="glyphicon glyphicon-lock"/>
