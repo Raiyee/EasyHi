@@ -51,4 +51,3 @@
     }
   }
 </script>
-<style lang="stylus" src="./calendar-item" scoped/>

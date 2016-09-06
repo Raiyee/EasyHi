@@ -1,0 +1,31 @@
+@require "../../styles/_variables"
+
+CIRCLE_SIZE = 55px
+
+.calendar
+  &.flex
+    display flex
+    li
+      flex 1
+      margin-left 0
+  li
+    margin-left -5px
+    relative()
+    &, &:global(.scroll-bg) > div
+      width CIRCLE_SIZE
+      height CIRCLE_SIZE
+      border-radius 50%
+    > div
+      width CIRCLE_SIZE
+      absolute()
+      top 50%
+      left 50%
+      transform translate3d(-50%, -50%, 0)
+    span
+      display block
+      line-height 1
+      &:first-child
+        font-size 20px
+      &:last-child
+        font-size 16px
+        transform scale(12 / 16)

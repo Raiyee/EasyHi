@@ -1,6 +1,6 @@
 <template>
   <div :class="classes.scheduleCalendar">
-    <div class="panel course-type-panel">
+    <div class="panel" :class="classes.courseTypePanel">
       <div class="panel-body">
         <div :class="month">{{ activeDate | formatDate('MM')}}月</div>
         <div>
@@ -10,32 +10,27 @@
     </div>
     <div class="panel">
       <div class="panel-body" ref="calendar">
-        <ol class="list-unstyled clearfix scroll-list calendar"
-            :class="{flex}"
-            :style="calendarStyle"
-            v-touch:panstart="onPanStart"
-            v-touch:pan="onPan"
-            v-touch:panend="onPanEnd"
-            @transitionend.self="onTransitionEnd">
-          <calendar-item v-for="(item, index) of calendar"
-                         :date="item.date"
-                         :status="item.status"
-                         :class="{first: !(index % 7)}"
-                         :active="activeIndex === index"
-                         :key="item.date"
-                         @toggleActive="toggleActive"/>
-          <li class="scroll-bg"
-              :class="{active: activeIndex !== -1}"
-              :style="{transform}">
-            <div class="theme-bg"/>
-          </li>
-        </ol>
+        <calendar v-if="mode"
+                  v-touch:panstart="onPanStart"
+                  v-touch:pan="onPan"
+                  v-touch:panend="onPanEnd"
+                  :calendar="calendar"
+                  :activeDate="activeDate"
+                  :translateX="translateX"
+                  @toggleActiveDate="toggleActiveDate"
+                  @transitionend.native.self="onTransitionEnd"/>
+        <calendar v-else
+                  :calendar="calendar"
+                  :activeDate="activeDate"
+                  :translateX="translateX"
+                  @toggleActiveDate="toggleActiveDate"/>
       </div>
     </div>
-    <div class="schedules" :style="schedulesStyle" ref="schedules" @scroll="onScroll">
+    <div :class="classes.schedules" :style="schedulesStyle" ref="schedules" @scroll="onScroll">
       <ol class="list-unstyled">
         <schedule-items v-for="(scheduleItems, date, index) of activeSchedules"
                         ref="date"
+                        :class="classes.scheduleItems"
                         :date="date"
                         :last="index === Object.keys(activeSchedules).length - 1"
                         :schedulesHeight="schedulesHeight"
@@ -49,19 +44,18 @@
 
   import classes from './index.styl'
 
-  import CalendarItem from './CalendarItem'
+  import Calendar from './Calendar'
   import ScheduleItems from './ScheduleItems'
+
+  const periodWidth = 7 * 50 + 5
 
   import {
     REQUIRED_ARRAY,
     REQUIRED_OBJECT,
-    formatDate,
-    lastDayOfWeek,
     animate,
     weekdays
   } from 'utils'
 
-  const periodWidth = 7 * 50 + 5
   const reset = function () {
     this.translateX = 0
     this.activeDate = null
@@ -101,17 +95,6 @@
     },
     computed: {
       ...mapGetters(['mode', 'rem', 'winWidth']),
-      baseWidth() {
-        return (periodWidth * this.calendar.length / 7 + 10) * this.rem
-      },
-      flex() {
-        const winWidth = this.winWidth
-        return !this.mode && this.baseWidth < winWidth - 20
-      },
-      calendarWidth() {
-        if (!this.flex) return this.baseWidth
-        return this.winWidth - 20
-      },
       schedulesHeight() {
         return +this.schedulesStyle.height.replace('px', '')
       },
@@ -125,29 +108,10 @@
           activeSchedules[key] = value
         }
         return activeSchedules
-      },
-      activeIndex() {
-        const activeDate = formatDate(this.activeDate)
-        const lastDay = this.mode ? lastDayOfWeek(activeDate) : this.calendar.slice(-1)[0].date
-        return this.calendar.findIndex(({date, status}) =>
-        date >= activeDate && date <= lastDay && [1, 2].includes(status))
-      },
-      calendarStyle() {
-        return {
-          width: `${this.calendarWidth}px`,
-          transform: `translate3d(${this.translateX}px, 0, 0)`
-        }
-      },
-      transform() {
-        const activeIndex = this.activeIndex
-        const perWidth = this.calendarWidth / this.calendar.length
-        const translateX = this.flex ? perWidth * activeIndex + (perWidth - 55) / 2
-          : (activeIndex * 50 + ~~(activeIndex / 7) * 5) * this.rem
-        return `translate3d(${translateX}px, 0, 0)`
       }
     },
     methods: {
-      toggleActive(e, date) {
+      toggleActiveDate(e, date) {
         if (this.translating) return
         const refs = this.$refs
         const schedules = refs.schedules
@@ -203,7 +167,7 @@
       }
     },
     components: {
-      CalendarItem,
+      Calendar,
       ScheduleItems
     }
   }

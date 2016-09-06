@@ -1,6 +1,47 @@
 @require "../../styles/_variables"
 
-CIRCLE_SIZE = 55px
+.course-type-panel :global(.panel-body)
+  display flex
+  > div
+    &:first-child
+      flex 1
+    &:last-child
+      flex 9
+      overflow auto
+
+.schedules
+  overflow auto
+  .schedule-items
+    padding 0 10px
+    margin-bottom 3px
+    background-color REVERSE_COLOR
+    box-shadow BOTTOM_SHADOW
+  > ol, .schedule-items
+    &:last-child
+      margin-bottom 0
+  :global // @stylint ignore
+    .schedule-weekday
+      display inline-block
+      padding 5px 18px
+      color REVERSE_COLOR
+      font-size 13px
+      border-bottom-left-radius 5px
+      border-bottom-right-radius 5px
+    .media
+      padding 15px 0
+      border-bottom 1px solid CARD_LINE_COLOR
+      margin-top 0
+      &:last-child
+        border-bottom none
+      &.disabled
+        &, .media-content
+          color REMARK_COLOR
+      .media-heading
+        font-size 15px
+        margin-bottom 5px
+      .media-content
+        color PRIMARY_COLOR
+        padding-left 42px
 
 .schedule-calendar
   :global // @stylint ignore
@@ -12,14 +53,6 @@ CIRCLE_SIZE = 55px
         padding 10px
         overflow hidden
         @media (min-width: 768px)
-          overflow auto
-    .course-type-panel .panel-body
-      display flex
-      > div
-        &:first-child
-          flex 1
-        &:last-child
-          flex 9
           overflow auto
     .scroll-list
       margin-bottom 0
@@ -52,24 +85,4 @@ CIRCLE_SIZE = 55px
             visibility visible
       &, .scroll-bg
         transition transform .5s
-    .calendar
-      li
-        &, &.scroll-bg > div
-          width CIRCLE_SIZE
-          height CIRCLE_SIZE
-          border-radius 50%
-      &.flex
-        display flex
-        li
-          flex 1
-          margin-left 0
-    .schedules
-      overflow auto
-      .schedule-items
-        padding 0 10px
-        margin-bottom 3px
-        background-color REVERSE_COLOR
-        box-shadow BOTTOM_SHADOW
-      > ol, .schedule-items
-        &:last-child
-          margin-bottom 0
+

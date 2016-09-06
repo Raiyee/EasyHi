@@ -1,10 +1,11 @@
 <template>
-  <li class="schedule-items" :style="itemsStyle">
-    <div class="theme-bg" :class="classes.scheduleWeekday">
+  <li :style="itemsStyle">
+    <div class="theme-bg schedule-weekday">
       {{ date | getWeekday }}
     </div>
     <ol class="list-unstyled">
       <schedule-item v-for="(scheduleItem, index) of scheduleItems"
+                     :class="{disabled: !scheduleItem.scheduleRemaining}"
                      :coursePicUrl="scheduleItem.coursePicUrl"
                      :scheduleBooked="scheduleItem.scheduleBooked"
                      :scheduleCoach="scheduleItem.scheduleCoach"
@@ -19,8 +20,6 @@
 <script>
   import {mapGetters} from 'vuex'
 
-  import classes from './schedule-items'
-
   import ScheduleItem from './ScheduleItem'
 
   import {REQUIRED_ARRAY, REQUIRED_BOOLEAN, REQUIRED_NUMBER, REQUIRED_STRING} from 'utils/constants'
@@ -32,14 +31,11 @@
       schedulesHeight: REQUIRED_NUMBER,
       scheduleItems: REQUIRED_ARRAY
     },
-    data() {
-      return {classes}
-    },
     computed: {
       ...mapGetters(['rem']),
       itemsStyle() {
         const itemsLength = this.scheduleItems.length
-        const pr = Math.ceil(this.rem * 1000) / 1000
+        const pr = Math.ceil(this.rem * 100) / 100
         const itemsHeight = this.schedulesHeight - (28 + 113 * itemsLength) * pr - itemsLength + 1
         return {
           marginBottom: this.last && `${itemsHeight}px`
