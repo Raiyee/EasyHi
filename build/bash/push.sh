@@ -8,7 +8,6 @@ echo "Pulling from origin/master"
 git pull
 
 #build
-npm run lint:fix
 npm run build
 
 echo "Enter message: "

@@ -7,7 +7,7 @@
         <input :class="classes['slogan-title']" title="请输入标题" value="遇见瑜伽" readonly/>
         <div :class="classes.line"></div>
       </div>
-      <div class="center-block" :class="classes.sloganBody">
+      <div class="center-block" :class="classes['slogan-body']">
         <textarea :class="classes['slogan-text']" title="请输入内容" readonly>当心得到控制，平静下来时，剩下的便是灵魂</textarea>
       </div>
     </div>
