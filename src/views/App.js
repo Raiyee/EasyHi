@@ -9,7 +9,7 @@ import 'styles/app'
 import HiLoading from 'components/HiLoading'
 import HiProgress from 'components/HiProgress'
 
-const theme = 'purple'
+const theme = ['blue', 'green', 'purple', 'red'][~~(Math.random() * 4)]
 
 require('bundle!styles/theme-' + theme)
 

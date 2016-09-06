@@ -1,11 +1,11 @@
 <template>
-  <li class="media" :class="{disabled: !scheduleRemaining}">
+  <li class="media" :class="{[classes.disabled]: !scheduleRemaining}">
     <div class="media-body">
       <h4 class="media-heading">
         {{ scheduleStartTime | formatDate('HH:mm') }}
         {{ scheduleName }}
       </h4>
-      <div class="media-content">
+      <div :class="classes.mediaContent">
         时长：{{ scheduleDuration }}min
         <br>
         老师：{{ scheduleCoach }}
@@ -34,6 +34,8 @@
   import {REQUIRED_NUMBER, REQUIRED_STRING} from 'utils/constants'
   import {imgPath} from 'filters/image'
 
+  import classes from './schedule-item'
+
   export default{
     props: {
       coursePicUrl: REQUIRED_STRING,
@@ -43,6 +45,9 @@
       scheduleEndTime: REQUIRED_NUMBER,
       scheduleName: REQUIRED_STRING,
       scheduleRemaining: REQUIRED_NUMBER
+    },
+    data() {
+      return {classes}
     },
     computed: {
       scheduleDuration() {
@@ -54,4 +59,3 @@
     }
   }
 </script>
-<style lang="stylus" src="./schedule-item" scoped/>

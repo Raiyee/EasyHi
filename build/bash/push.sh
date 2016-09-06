@@ -8,7 +8,6 @@ echo "Pulling from origin/master"
 git pull
 
 #build
-npm run lint:fix
 npm run build
 
 echo "Enter message: "
@@ -32,5 +31,4 @@ git push --force --quiet git@github.com:Raiyee/EasyHi.git master:gh-pages
 git push --force --quiet git@git.coding.net:Raiyee/EasyHi.git master:coding-pages
 
 # back to root
-
 cd ..

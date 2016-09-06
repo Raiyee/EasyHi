@@ -19,7 +19,7 @@
     "dev:mock": "better-npm-run dev -- --mock",
     "eslint": "eslint --max-warnings 10 --ext .js,.vue .",
     "lint": "npm run eslint && npm run stylelint",
-    "lint:fix": "npm run eslint -- --fix",
+    "lint:fix": "npm run eslint -- --fix && npm run stylelint",
     "start": "better-npm-run start",
     "start:test": "better-npm-run start:test",
     "stylelint": "better-npm-run stylelint",
@@ -28,13 +28,13 @@
   },
   "betterScripts": {
     "build": {
-      "command": "npm run lint && npm run clean && npm run compile",
+      "command": "npm run lint:fix && npm run clean && npm run compile",
       "env": {
         "DEBUG": "koa*"
       }
     },
     "build:test": {
-      "command": "npm run lint && npm run clean && npm run compile:test",
+      "command": "npm run lint:fix && npm run clean && npm run compile:test",
       "env": {
         "DEBUG": "koa*"
       }

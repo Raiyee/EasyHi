@@ -1,11 +1,15 @@
 <template>
-  <div class="hi-loading" :class="className">
-    <div :class="'hi-loading-' + theme"></div>
+  <div :class="[classes.hiLoading, className]">
+    <div :class="classes['hi-loading-' + theme]"></div>
     <slot/>
   </div>
 </template>
 <script>
-  // eslint-disable-next-line object-curly-spacing
-  export default from './index.common'
+  import HiLoading from './index.common'
+  import classes from './index.css'
+
+  export default {
+    extends: HiLoading,
+    data: () => ({classes})
+  }
 </script>
-<style src="./index.css" scoped/>

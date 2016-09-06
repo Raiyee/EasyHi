@@ -3,72 +3,73 @@
 CIRCLE_SIZE = 55px
 
 .schedule-calendar
-  .panel
-    margin-bottom 3px
-    border-left none
-    border-right none
-    .panel-body
-      padding 10px
-      overflow hidden
-      @media (min-width: 768px)
-        overflow auto
-  .course-type-panel .panel-body
-    display flex
-    > div
-      &:first-child
-        flex 1
-      &:last-child
-        flex 9
-        overflow auto
-  .scroll-list
-    margin-bottom 0
-    &, li
-      relative()
-    li
-      float left
-      text-align center
-      z-index 1
-      color SUBTEXT_COLOR
-      overflow ellipsis
-      cursor pointer
-      &.active
-        color REVERSE_COLOR
-        cursor default
-      &.disabled
-        color REMARK_COLOR
-        cursor not-allowed
-      &.first
-        margin-left 0
-      &.scroll-bg
-        absolute()
-        margin-left 0
-        z-index 0
-        top 0
-        left 0
-        transform translate3d(0, 0, 0)
-        visibility hidden
-        &.active
-          visibility visible
-    &, .scroll-bg
-      transition transform .5s
-  .calendar
-    li
-      &, &.scroll-bg > div
-        width CIRCLE_SIZE
-        height CIRCLE_SIZE
-        border-radius 50%
-    &.flex
-      display flex
-      li
-        flex 1
-        margin-left 0
-  .schedules
-    overflow auto
-    .schedule-items
-      padding 0 10px
+  :global // @stylint ignore
+    .panel
       margin-bottom 3px
-      background-color REVERSE_COLOR
-      box-shadow BOTTOM_SHADOW
-    > ol, .schedule-items
-      &:last-child
-        margin-bottom 0
+      border-left none
+      border-right none
+      .panel-body
+        padding 10px
+        overflow hidden
+        @media (min-width: 768px)
+          overflow auto
+    .course-type-panel .panel-body
+      display flex
+      > div
+        &:first-child
+          flex 1
+        &:last-child
+          flex 9
+          overflow auto
+    .scroll-list
+      margin-bottom 0
+      &, li
+        relative()
+      li
+        float left
+        text-align center
+        z-index 1
+        color SUBTEXT_COLOR
+        overflow ellipsis
+        cursor pointer
+        &.active
+          color REVERSE_COLOR
+          cursor default
+        &.disabled
+          color REMARK_COLOR
+          cursor not-allowed
+        &.first
+          margin-left 0
+        &.scroll-bg
+          absolute()
+          margin-left 0
+          z-index 0
+          top 0
+          left 0
+          transform translate3d(0, 0, 0)
+          visibility hidden
+          &.active
+            visibility visible
+      &, .scroll-bg
+        transition transform .5s
+    .calendar
+      li
+        &, &.scroll-bg > div
+          width CIRCLE_SIZE
+          height CIRCLE_SIZE
+          border-radius 50%
+      &.flex
+        display flex
+        li
+          flex 1
+          margin-left 0
+    .schedules
+      overflow auto
+      .schedule-items
+        padding 0 10px
+        margin-bottom 3px
+        background-color REVERSE_COLOR
+        box-shadow BOTTOM_SHADOW
+      > ol, .schedule-items
+        &:last-child
+          margin-bottom 0
