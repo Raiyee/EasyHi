@@ -1,9 +1,11 @@
 <template>
   <schedule-calendar :calendar="calendar"
                      :date="date"
+                     :subscribeType="subscribeType"
                      :month="classes.month"
                      :schedules="schedules"
-                     :schedulesStyle="schedulesStyle">
+                     :coaches="coaches"
+                     :contentStyle="contentStyle">
     <ul class="list-unstyled clearfix scroll-list"
         :class="classes.courseTypes"
         :style="typesStyle">
@@ -21,6 +23,8 @@
 
   import classes from './index.styl'
 
+  import {pickObj, omitObj} from 'utils/common'
+
   import ScheduleCalendar from 'components/ScheduleCalendar'
 
   export default{
@@ -33,12 +37,13 @@
         courseTypeIndex: 0,
         calendar: [],
         courseTypes: [],
-        schedules: []
+        coaches: {},
+        schedules: {}
       }
     },
     created() {
       Object.assign(this, this.$route.meta.data)
-      this.courseTypeId = this.courseTypeId || this.courseTypes[0].courseTypeId
+      this.courseTypeId || Object.assign(this, pickObj(this.courseTypes[0], 'courseTypeId', 'subscribeType'))
     },
     computed: {
       ...mapGetters(['rem', 'winWidth', 'winHeight']),
@@ -52,7 +57,7 @@
           float: width < winWidth - (winWidth - 20 * rem) / 10 && 'right'
         }
       },
-      schedulesStyle() {
+      contentStyle() {
         return {
           height: `${this.winHeight - (48 + 78) * this.rem - 4}px`
         }
@@ -67,8 +72,7 @@
         this.$http.get('/get-schedules', {body: {courseTypeId}})
           .then(res => {
             const data = res.json()
-            this.schedules = data.schedules
-            this.calendar = data.calendar
+            Object.assign(this, omitObj(data, 'courseTypes'))
             this.courseTypeId = courseTypeId
             this.courseTypeIndex = this.courseTypes.findIndex(courseType => courseTypeId === courseType.courseTypeId)
           })

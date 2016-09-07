@@ -52,7 +52,15 @@ export const getDatetime = (date, unit) => moment(date).get(unit)
  */
 export const formatDate = (date, format = DATE_FORMAT) => moment(date).format(format)
 
-export const weekdays = (date, format = DATE_FORMAT) => {
+/**
+ * 获取一周日期
+ *
+ * @param date        日期
+ * @param weeks       获取周数，默认为 1
+ * @param format      格式化参数，默认为 DATE_FORMAT
+ * @returns {Array}   当周日期数据
+ */
+export const weekDates = (date, weeks = 1, format = DATE_FORMAT) => {
   const monday = firstDayOfWeek(date, false)
-  return new Array(7).fill(0).map((date, index) => monday.add(+!!index, 'd').format(format))
+  return new Array(7 * weeks).fill(0).map((date, index) => monday.add(+!!index, 'd').format(format))
 }

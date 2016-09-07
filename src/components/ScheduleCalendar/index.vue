@@ -15,26 +15,35 @@
                   v-touch:pan="onPan"
                   v-touch:panend="onPanEnd"
                   :calendar="calendar"
-                  :activeDate="activeDate"
+                  :activeIndex="activeIndex"
                   :translateX="translateX"
                   @toggleActiveDate="toggleActiveDate"
                   @transitionend.native.self="onTransitionEnd"/>
         <calendar v-else
                   :calendar="calendar"
-                  :activeDate="activeDate"
+                  :activeIndex="activeIndex"
                   :translateX="translateX"
                   @toggleActiveDate="toggleActiveDate"/>
       </div>
     </div>
-    <div :class="classes.schedules" :style="schedulesStyle" ref="schedules" @scroll="onScroll">
+    <div :class="classes.content" :style="contentStyle" ref="schedules" @scroll="onScroll">
       <ol class="list-unstyled">
-        <schedule-items v-for="(scheduleItems, date, index) of activeSchedules"
+        <schedule-items v-if="subscribeType == 1"
+                        v-for="(scheduleItems, date, index) of activeItems"
                         ref="date"
+                        :key="date"
                         :class="classes.scheduleItems"
                         :date="date"
-                        :last="index === Object.keys(activeSchedules).length - 1"
-                        :schedulesHeight="schedulesHeight"
+                        :last="index === Object.keys(activeItems).length - 1"
+                        :itemsHeight="itemsHeight"
                         :scheduleItems="scheduleItems"/>
+        <coach-item v-if="subscribeType == 2"
+                    v-for="(coachItem, date, index) of activeItems[activeDate]"
+                    ref="date"
+                    :key="date"
+                    :coachItem="coachItem"
+                    :last="index === Object.keys(activeItems).length - 1"
+                    :itemsHeight="itemsHeight"/>
       </ol>
     </div>
   </div>
@@ -45,16 +54,12 @@
   import classes from './index.styl'
 
   import Calendar from './Calendar'
+  import CoachItem from './CoachItem'
   import ScheduleItems from './ScheduleItems'
 
   const periodWidth = 7 * 50 + 5
 
-  import {
-    REQUIRED_ARRAY,
-    REQUIRED_OBJECT,
-    animate,
-    weekdays
-  } from 'utils'
+  import {REQUIRED_ARRAY, animate, formatDate, lastDayOfWeek, weekDates} from 'utils'
 
   const reset = function () {
     this.translateX = 0
@@ -75,8 +80,13 @@
       calendar: REQUIRED_ARRAY,
       date: String,
       month: String,
-      schedules: REQUIRED_OBJECT,
-      schedulesStyle: Object
+      schedules: Object,
+      coaches: Object,
+      contentStyle: Object,
+      subscribeType: {
+        type: Number,
+        default: 1
+      }
     },
     data() {
       return {
@@ -95,19 +105,25 @@
     },
     computed: {
       ...mapGetters(['mode', 'rem']),
-      schedulesHeight() {
-        return +this.schedulesStyle.height.replace('px', '')
+      itemsHeight() {
+        return +this.contentStyle.height.replace('px', '')
       },
-      activeSchedules() {
-        const schedules = this.schedules
-        if (!this.mode) return schedules
-        const weekDays = weekdays(this.activeDate)
-        const activeSchedules = {}
-        for (const [key, value] of Object.entries(schedules)) {
-          if (!weekDays.includes(key)) continue
-          activeSchedules[key] = value
+      activeIndex() {
+        const activeDate = formatDate(this.activeDate)
+        const lastDay = this.mode ? lastDayOfWeek(activeDate) : this.calendar.slice(-1)[0].date
+        return this.calendar.findIndex(({date, status}) =>
+        date >= activeDate && date <= lastDay && [1, 2].includes(status) && (this.activeDate = date))
+      },
+      activeItems() {
+        const items = this.subscribeType === 2 ? this.coaches : this.schedules
+        if (!this.mode) return items
+        const weekdays = weekDates(this.activeDate)
+        const activeItems = {}
+        for (const [key, value] of Object.entries(items)) {
+          if (!weekdays.includes(key)) continue
+          activeItems[key] = value
         }
-        return activeSchedules
+        return activeItems
       }
     },
     methods: {
@@ -115,10 +131,10 @@
         if (this.translating) return
         const refs = this.$refs
         const schedules = refs.schedules
-        const dateIndex = Object.keys(this.activeSchedules).findIndex(scheduleDate => date === scheduleDate)
+        const dateIndex = Object.keys(this.activeItems).findIndex(scheduleDate => date === scheduleDate)
         if (dateIndex === -1) return
         this.scrolling = true
-        animate(schedules, 'scrollTop', {
+        refs.date && refs.date[dateIndex] && animate(schedules, 'scrollTop', {
           value: refs.date[dateIndex].$el.offsetTop - schedules.offsetTop,
           callback: () => {
             this.scrolling = false
@@ -169,6 +185,7 @@
     },
     components: {
       Calendar,
+      CoachItem,
       ScheduleItems
     }
   }

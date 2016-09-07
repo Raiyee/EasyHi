@@ -1,11 +1,12 @@
 import Mock from 'mockjs'
 import moment from 'moment'
 
-import {DATE_FORMAT, firstDayOfWeek, pickObj} from 'utils'
+import {DATE_FORMAT, firstDayOfWeek, omitObj} from 'utils'
 
 const Random = Mock.Random
 Mock.mock(/\/get-schedules$/, (() => {
   const CACHE = {}
+  let COURSE_TYPES
 
   return req => {
     let courseTypeId = JSON.parse(req.body).courseTypeId
@@ -28,40 +29,63 @@ Mock.mock(/\/get-schedules$/, (() => {
       }
     })
 
-    const schedules = {}
-    let startTime
-    scheduleDates.forEach((scheduleDate, dateIndex) => {
-      startTime = moment(scheduleDate).add(Random.integer(6 * 60, 9 * 60), 'm')
-      schedules[scheduleDate] = new Array(Random.integer(1, 5)).fill(0).map((value, index) => ({
-        coursePicUrl: `60-60-${dateIndex}-${index}`,
-        scheduleBooked: '@integer(0,20)',
-        scheduleCoach: '@cname(2,5)',
-        scheduleStartTime: +startTime.add(Random.integer(0, 120), 'm'),
-        scheduleEndTime: +startTime.add(Random.pick(60, 120), 'm'),
-        scheduleName: '@cword(5,12)课',
-        scheduleRemaining: calendar.find(calendarItem => calendarItem.date === scheduleDate).status === 2
-          ? 0 : '@integer(0,20)'
-      }))
-    })
+    let courseTypes, courseType, subscribeType
 
-    let courseTypes
-
-    if (!courseTypeId) {
-      courseTypes = Random.range(0, Random.integer(2, 10)).map(() => ({
+    if (COURSE_TYPES) {
+      subscribeType = COURSE_TYPES.find(courseType => courseType.courseTypeId === courseTypeId).subscribeType
+    } else {
+      COURSE_TYPES = courseTypes = Random.range(0, Random.integer(2, 10)).map(() => ({
         courseTypeId: Random.id(),
         courseTypeName: '@cword(2,5)课',
-        subscribeType: '@pick([1,2])'
+        subscribeType: Random.pick([1, 2])
       }))
-      courseTypeId = courseTypes[0].courseTypeId
+      courseType = courseTypes[0]
+      courseTypeId = courseType.courseTypeId
+      subscribeType = courseType.subscribeType
     }
+
+    const isPrivate = subscribeType === 2
+    let schedules = {}
+    let coaches = {}
+    let startTime
+    scheduleDates.forEach((scheduleDate, dateIndex) => {
+      startTime = moment(scheduleDate).add(Random.integer(6 * 60, 9 * 60), 'm');
+      (isPrivate ? coaches : schedules)[scheduleDate] = new Array(Random.integer(1, 5)).fill(0).map((value, index) => {
+        const picUrl = `60-60-${dateIndex}-${index}`
+        return isPrivate ? {
+          coachId: '@id',
+          coachGender: '@boolean',
+          coachName: '@cname(2,5)',
+          coachPortrait: picUrl,
+          min060: {
+            morning: [],
+            afternoon: [],
+            evening: []
+          },
+          min120: {}
+        } : {
+          coursePicUrl: picUrl,
+          scheduleBooked: '@integer(0,20)',
+          scheduleCoach: '@cname(2,5)',
+          scheduleId: '@id',
+          scheduleStartTime: +startTime.add(Random.integer(0, 120), 'm'),
+          scheduleEndTime: +startTime.add(Random.pick(60, 120), 'm'),
+          scheduleName: '@cword(5,12)课',
+          scheduleRemaining: calendar.find(calendarItem => calendarItem.date === scheduleDate).status === 2
+            ? 0 : '@integer(0,20)'
+        }
+      })
+    })
 
     const schedulesData = Mock.mock({
       calendar,
+      coaches,
       courseTypes,
-      schedules
+      schedules,
+      subscribeType
     })
 
-    CACHE[courseTypeId] = pickObj(schedulesData, 'calendar', 'schedules')
+    CACHE[courseTypeId] = omitObj(schedulesData, 'courseTypes')
 
     return schedulesData
   }

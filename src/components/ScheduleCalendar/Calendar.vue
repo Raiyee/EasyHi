@@ -23,14 +23,12 @@
 
   import CalendarItem from './CalendarItem'
 
-  import {formatDate, lastDayOfWeek} from 'utils/moment'
-
   const periodWidth = 7 * 50 + 5
 
   export default{
     props: {
       calendar: Array,
-      activeDate: String,
+      activeIndex: Number,
       translateX: Number
     },
     data() {
@@ -50,12 +48,6 @@
       calendarWidth() {
         if (!this.flex) return this.baseWidth
         return this.winWidth - 20
-      },
-      activeIndex() {
-        const activeDate = formatDate(this.activeDate)
-        const lastDay = this.mode ? lastDayOfWeek(activeDate) : this.calendar.slice(-1)[0].date
-        return this.calendar.findIndex(({date, status}) =>
-        date >= activeDate && date <= lastDay && [1, 2].includes(status))
       },
       calendarStyle() {
         return {
