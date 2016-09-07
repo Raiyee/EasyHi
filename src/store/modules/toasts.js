@@ -31,7 +31,10 @@ const mutations = {
   },
 
   [DELETE_TOAST](state, payload) {
-    state.toasts.$remove(payload)
+    const index = state.toasts.findIndex(toast => toast === payload)
+    if (index !== -1) {
+      state.toasts.splice(index, 1)
+    }
   }
 }
 
