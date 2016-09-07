@@ -10,6 +10,9 @@ const messageType = {
   'G': '购买成功提醒',
   'R': '退款提醒'
 }
+export const resetType = (type) => {
+  return messageType[type] || '消息提醒'
+}
 
 export const reSetMsg = (msgs) => {
   var messages = []
@@ -30,16 +33,8 @@ export const reSetMsg = (msgs) => {
       } else {
         date = year + '.' + month + '.' + day + ' ' + msg.hiDate.week
       }
-    var messageDataList = reSetMessageTitle(msg.userMessageDataList)
-    messages.push({'date': date, 'messages': messageDataList})
+    messages.push({'date': date, 'messages': msg.userMessageDataList})
   })
   return messages
 }
 
-var reSetMessageTitle = (msgList) => {
-  msgList.forEach(function (msg) {
-    msg.type = messageType[msg.type] || '消息提醒'
-  })
-
-  return msgList
-}

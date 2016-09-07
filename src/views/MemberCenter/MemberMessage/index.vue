@@ -18,7 +18,7 @@
                 <ul>
                   <li v-for="ml in mm.messages" :class="{past:ml.readState}">
                     <div class="mes-title">
-                      <span class="message-type">{{ ml.type }}</span>
+                      <span class="message-type">{{ ml.type | resetType }}</span>
                       <span class="time">{{ ml.createTime | formatDate('HH:mm') }}</span>
                     </div>
                     <div class="mes-content">{{ ml.msgContent }}</div>
@@ -33,12 +33,15 @@
   </div>
 </template>
 <script>
-  import {reSetMsg} from './MemberMessage'
+  import {resetType, reSetMsg} from './MemberMessage'
   export default {
     name: 'memberMessage',
     beforeCreate() {
       this.msg = reSetMsg(this.$route.meta.data.data.msg)
       this.noMessage = this.$route.meta.data.data.noMessage
+    },
+    filters: {
+      resetType
     }
   }
 </script>
