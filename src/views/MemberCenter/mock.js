@@ -56,7 +56,7 @@ Mock.mock(/\/membermessage$/, () => {
         messageId: Random.character('number', 11),
         msgContent: Random.cword(5, 12),
         readState: Random.boolean(),
-        type: Random.character('QYWBDXZGR'),
+        type: Random.character('SQYWBDXZGRVX'),
         createTime: +Random.date('T')
       }))
     }

@@ -1,3 +1,15 @@
+const messageType = {
+  'S': '上课提醒',
+  'Q': '取消预订消息',
+  'Y': '预订消息',
+  'W': '温馨提示',
+  'B': '卡变更提醒',
+  'D': '到期提醒',
+  'X': '私教课时间修改',
+  'Z': '中奖提醒',
+  'G': '购买成功提醒',
+  'R': '退款提醒'
+}
 
 export const reSetMsg = (msgs) => {
   var messages = []
@@ -26,32 +38,7 @@ export const reSetMsg = (msgs) => {
 
 var reSetMessageTitle = (msgList) => {
   msgList.forEach(function (msg) {
-    var title = ''
-    var msgType = msg.type
-    if (msgType === 'S') {
-      title = '上课提醒'
-    } else if (msgType === 'Q') {
-      title = '取消预订消息'
-    } else if (msgType === 'Y') {
-      title = '预订消息'
-    } else if (msgType === 'W') {
-      title = '温馨提示'
-    } else if (msgType === 'B') {
-      title = '卡变更提醒'
-    } else if (msgType === 'D') {
-      title = '到期提醒'
-    } else if (msgType === 'X') {
-      title = '私教课时间修改'
-    } else if (msgType === 'Z') {
-      title = '中奖提醒'
-    } else if (msgType === 'G') {
-      title = '购买成功提醒'
-    } else if (msgType === 'R') {
-      title = '退款提醒'
-    } else {
-      title = '消息提醒'
-    }
-    msg.type = title
+    msg.type = messageType[msg.type] || '消息提醒'
   })
   return msgList
 }
