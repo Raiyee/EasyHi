@@ -116,6 +116,7 @@
         const refs = this.$refs
         const schedules = refs.schedules
         const dateIndex = Object.keys(this.activeSchedules).findIndex(scheduleDate => date === scheduleDate)
+        if (dateIndex === -1) return
         this.scrolling = true
         animate(schedules, 'scrollTop', {
           value: refs.date[dateIndex].$el.offsetTop - schedules.offsetTop,
