@@ -40,5 +40,6 @@ var reSetMessageTitle = (msgList) => {
   msgList.forEach(function (msg) {
     msg.type = messageType[msg.type] || '消息提醒'
   })
+
   return msgList
 }
