@@ -30,6 +30,16 @@ export default {
         }
       }
     }, {
+      path: '/member-message',
+      name: 'memberMessage',
+      component: resolve => require(['views/MemberCenter/MemberMessage'], resolve),
+      meta: {
+        auth: true,
+        init: {
+          url: '/membermessage'
+        }
+      }
+    }, {
       path: '/website',
       name: 'website',
       component: resolve => require(['views/MerchantWebsite'], resolve),

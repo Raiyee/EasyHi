@@ -10,7 +10,7 @@
         <div class="media-heading">{{ memberName }}</div>
         <div class="media-body">{{ memberMobile }}</div>
       </div>
-      <div class="media-right">
+      <div class="media-right" @click="memberMessage">
             <span class="glyphicon glyphicon-unchecked">
               <span class="text-center">{{ messageCount > 9 ? '9+' : messageCount }}</span>
             </span>
@@ -116,6 +116,11 @@
     name: 'memberCenterIndex',
     beforeCreate() {
       Object.assign(this, this.$route.meta.data)
+    },
+    methods: {
+      memberMessage: function () {
+        this.$router.push('/member-message')
+      }
     }
   }
 </script>
