@@ -1,44 +1,48 @@
 <template>
-  <div class="content">
+  <div :class="classes.content">
     <form action="javascript:;">
-      <div class="mm-container">
-        <div v-if="noMessage">
-          <div class="no-detail">
+      <div :class="classes.mmContainer">
+        <template v-if="noMessage">
+          <div :class="classes.noDetail">
             <img src="http://www.66tools.com/WebTools/rImage?p=400">
-            <span class="no-message">{{ noMessage }}</span>
+            <span :class="classes.noMessage">{{ noMessage }}</span>
           </div>
-        </div>
-        <div v-else>
+        </template>
+        <template v-else>
           <div v-for="mm in msg">
-            <div class="mm-panel">
-              <div class="mm-panel-title">
-                <span class="date theme-color">{{mm.date}}</span>
+            <div :class="classes.mmPanel">
+              <div :class="classes.mmPanelTitle">
+                <span :class="[classes.date, 'theme-color']">{{mm.date}}</span>
               </div>
-              <div class="mm-panel-content">
+              <div :class="classes.mmPanelContent">
                 <ul>
-                  <li v-for="ml in mm.messages" :class="{past:ml.readState}">
-                    <div class="mes-title">
-                      <span class="message-type">{{ ml.type | resetType }}</span>
-                      <span class="time">{{ ml.createTime | formatDate('HH:mm') }}</span>
+                  <li v-for="ml in mm.messages" :class="[ml.readState ? classes.past :'']">
+                    <div :class="classes.mesTitle">
+                      <span :class="classes.messageType">{{ ml.type | resetType }}</span>
+                      <span :class="classes.time">{{ ml.createTime | formatDate('HH:mm') }}</span>
                     </div>
-                    <div class="mes-content">{{ ml.msgContent }}</div>
+                    <div :class="classes.mesContent">{{ ml.msgContent }}</div>
                   </li>
                 </ul>
               </div>
             </div>
           </div>
-        </div>
+        </template>
       </div>
     </form>
   </div>
 </template>
 <script>
   import {resetType, reSetMsg} from './MemberMessage'
+  import classes from './member-message.styl'
   export default {
     name: 'memberMessage',
-    beforeCreate() {
-      this.msg = reSetMsg(this.$route.meta.data.data.msg)
-      this.noMessage = this.$route.meta.data.data.noMessage
+    data() {
+      return {
+        classes: classes,
+        msg: reSetMsg(this.$route.meta.data.data.msg),
+        noMessage: this.$route.meta.data.data.noMessage
+      }
     },
     filters: {
       resetType
@@ -46,4 +50,3 @@
   }
 </script>
 
-<style lang='stylus' src='./member-message.styl'/>
