@@ -10,7 +10,6 @@ export default {
     handleChange(type, e) {
       const target = e.target
       const subValue = this.handleInput(type, e)
-
       target.value === subValue || (target.value = subValue)
     },
     clearMobile(e) {

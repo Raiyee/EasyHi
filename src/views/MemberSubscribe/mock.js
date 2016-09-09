@@ -1,7 +1,7 @@
 import Mock from 'mockjs'
 import moment from 'moment'
 
-import {DATE_FORMAT, firstDayOfWeek, omitObj} from 'utils'
+import {DATE_FORMAT, HOUR_FORMAT, firstDayOfWeek, omitObj} from 'utils'
 
 const Random = Mock.Random
 Mock.mock(/\/get-schedules$/, (() => {
@@ -48,22 +48,51 @@ Mock.mock(/\/get-schedules$/, (() => {
     let schedules = {}
     let coaches = {}
     let startTime
+    let endTime
+
+    const getTimePeriod = time => {
+      let hour = time.get('H')
+      if (hour < 12) return 'morning'
+      if (hour < 18) return 'afternoon'
+      return 'evening'
+    }
+
     scheduleDates.forEach((scheduleDate, dateIndex) => {
-      startTime = moment(scheduleDate).add(Random.integer(6 * 60, 9 * 60), 'm');
+      startTime = moment(scheduleDate).add(Random.integer(6, 12), 'h')
+      endTime = moment(scheduleDate).add(Random.integer(18, 22), 'h');
       (isPrivate ? coaches : schedules)[scheduleDate] = new Array(Random.integer(1, 5)).fill(0).map((value, index) => {
         const picUrl = `60-60-${dateIndex}-${index}`
-        return isPrivate ? {
-          coachId: '@id',
-          coachGender: '@boolean',
-          coachName: '@cname(2,5)',
-          coachPortrait: picUrl,
-          min060: {
+
+        if (isPrivate) {
+          const min060 = {}
+          const min120 = {};
+
+          [min060, min120].forEach(value => Object.assign(value, {
             morning: [],
             afternoon: [],
             evening: []
-          },
-          min120: {}
-        } : {
+          }))
+
+          let start = moment(startTime)
+
+          while (start.isBefore(endTime)) {
+            let timePeriod = getTimePeriod(start)
+            min060[timePeriod].push(start.format(HOUR_FORMAT))
+            min120[timePeriod].push(moment(start).add(1, 'h').format(HOUR_FORMAT))
+            start.add(20, 'm')
+          }
+
+          return {
+            coachId: '@id',
+            coachGender: '@boolean',
+            coachName: '@cname(2,5)',
+            coachPortrait: picUrl,
+            min060,
+            min120
+          }
+        }
+
+        return {
           coursePicUrl: picUrl,
           scheduleBooked: '@integer(0,20)',
           scheduleCoach: '@cname(2,5)',

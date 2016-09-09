@@ -38,12 +38,10 @@
                         :itemsHeight="itemsHeight"
                         :scheduleItems="scheduleItems"/>
         <coach-item v-if="subscribeType == 2"
-                    v-for="(coachItem, date, index) of activeItems[activeDate]"
+                    v-for="coachItem of activeItems[activeDate]"
                     ref="date"
-                    :key="date"
-                    :coachItem="coachItem"
-                    :last="index === Object.keys(activeItems).length - 1"
-                    :itemsHeight="itemsHeight"/>
+                    :key="coachItem.coachId"
+                    :coachItem="coachItem"/>
       </ol>
     </div>
   </div>

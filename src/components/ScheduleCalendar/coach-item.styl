@@ -6,3 +6,69 @@
   background-color REVERSE_COLOR
   border-bottom 1px solid CARD_LINE_COLOR
   box-shadow BOTTOM_SHADOW
+
+  :global(.btn-theme-default)
+    width 80px
+    padding 4px
+
+.time-items
+  margin-top 20px
+  ol
+    > li
+      relative()
+      > :global(.iconfont)
+        absolute()
+        top 10px
+        left 0
+        margin-left 30px
+        background-color REVERSE_COLOR
+        transform translate3d(-50%, 0, 0)
+      > ol
+        margin-left 30px
+        padding-left 40px
+        padding-top 10px
+        padding-bottom 10px
+        border-left 1px solid BACK_COLOR
+        > li
+          width 25%
+          float left
+          margin-bottom 10px
+    + div :global(.btn)
+        width 50%
+        font-size 16px
+
+.morning .time-item:global(.active)
+  color MORNING_COLOR
+  border-color MORNING_COLOR
+
+.afternoon .time-item:global(.active)
+  color AFTERNOON_COLOR
+  border-color AFTERNOON_COLOR
+
+.evening .time-item:global(.active)
+  color EVENING_COLOR
+  border-color EVENING_COLOR
+
+.time-item
+  relative()
+  width 55px
+  height 55px
+  border-radius 50%
+  border 1px solid REMARK_COLOR
+  color REMARK_COLOR
+  text-align center
+  display table-cell
+  vertical-align middle
+  > span
+    font-size 16px
+    display block
+    line-height 1
+    &:global(.icon-check)
+      absolute()
+      top auto
+      right 0
+      bottom 0
+    &:first-child
+      transform scale(13 / 16)
+    &:last-child
+      transform scale(11 / 16)

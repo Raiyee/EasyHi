@@ -8,47 +8,89 @@
         <span class="iconfont"
               :class="`icon-${coachItem.coachGender ? '' : 'fe'}male`"/>
       </h4>
-      <span class="iconfont icon-morning"/>
-      <span class="iconfont icon-afternoon"/>
-      <span class="iconfont icon-evening"/>
+      <template v-if="active">
+        <span @click="toggleChecked(false)">
+          <span class="iconfont icon-radio" :class="checked ? 'inactive' : 'theme-color'"/> 60min
+        </span>
+        <span @click="toggleChecked(true)">
+          <span class="iconfont icon-radio" :class="checked ? 'theme-color' : 'inactive'"/> 120min
+        </span>
+      </template>
+      <template v-else>
+        <span v-if="coachItem.min060.morning.length" class="iconfont icon-morning"/>
+        <span v-if="coachItem.min060.afternoon.length" class="iconfont icon-afternoon"/>
+        <span v-if="coachItem.min060.evening.length" class="iconfont icon-evening"/>
+      </template>
     </div>
     <div class="media-right media-middle">
-      <button class="btn btn-theme-default">选择时间</button>
+      <button class="btn btn-theme-default"
+              @click="toggleActive">
+        {{ active ? '收起' : '选择时间' }}
+      </button>
     </div>
+    <transition name="bounce">
+      <div v-show="active" :class="classes.timeItems">
+        <ol class="list-unstyled">
+          <li v-for="(times, key) of activeItems"
+              v-if="times.length"
+              :class="classes[key]">
+            <span class="iconfont" :class="`icon-${key}`"/>
+            <ol class="list-unstyled clearfix">
+              <li v-for="time of times"
+                  @click="toggleTime(time)">
+                <div :class="[classes.timeItem, {active: time === activeTime}]">
+                  <span>{{time}}</span>
+                  <span v-show="time === activeTime" class="iconfont icon-check"/>
+                  <span>开始</span>
+                </div>
+              </li>
+            </ol>
+          </li>
+        </ol>
+        <div class="text-center">
+          <button class="btn btn-theme-primary" @click="orderSchedule">预订</button>
+        </div>
+      </div>
+    </transition>
   </li>
 </template>
 <script>
-  import {mapGetters} from 'vuex'
-
   import classes from './coach-item'
 
-  import {REQUIRED_BOOLEAN, REQUIRED_NUMBER, REQUIRED_OBJECT} from 'utils/constants'
+  import {REQUIRED_OBJECT} from 'utils/constants'
   import {imgPath} from 'filters/image'
 
   export default {
     props: {
-      coachItem: REQUIRED_OBJECT,
-      itemsHeight: REQUIRED_NUMBER,
-      last: REQUIRED_BOOLEAN
+      coachItem: REQUIRED_OBJECT
     },
     data() {
-      return {classes}
+      return {
+        classes,
+        active: false,
+        checked: false,
+        activeTime: null
+      }
     },
     computed: {
-      ...mapGetters(['rem']),
-      itemsStyle() {
-        if (!this.last) return
-//        const itemsLength = this.scheduleItems.length
-        const itemsLength = 1
-        const pr = Math.floor(this.rem * 10) / 10
-        const itemsHeight = this.itemsHeight - (28 + 113 * itemsLength) * pr - itemsLength + 1
-        return {
-          marginBottom: `${itemsHeight}px`
-        }
+      activeItems() {
+        return this.coachItem[`min${this.checked ? '120' : '060'}`]
       }
     },
     methods: {
-      imgPath
+      imgPath,
+      toggleActive() {
+        this.active = !this.active
+      },
+      toggleChecked(checked) {
+        this.checked = checked
+      },
+      toggleTime(time) {
+        this.activeTime = time === this.activeTime ? null : time
+      },
+      orderSchedule(e) {
+        this.$emit(e, this.activeTime)
+      }
     }
   }
 </script>
