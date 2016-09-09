@@ -13,10 +13,14 @@ THEME_COLOR_DARKER ?= THEME_PURPLE_DARKER
 .theme-bg
   background-color THEME_COLOR !important
 
-.btn-primary
+.btn-theme-default
+  bbColor THEME_COLOR THEME_COLOR REVERSE_COLOR
+  bbActive THEME_COLOR_DARKER THEME_COLOR_DARKER REVERSE_COLOR
+
+.btn-theme-primary
   height INPUT_SIZE
   border-radius HALF_INPUT_SIZE
-  bbColor THEME_COLOR
-  bbActive THEME_COLOR_DARKER
+  bbColor REVERSE_COLOR THEME_COLOR
+  bbActive REVERSE_COLOR THEME_COLOR_DARKER
 
 // @stylint on

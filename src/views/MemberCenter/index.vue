@@ -43,7 +43,7 @@
         <template v-else>
           <div class="no-course text-center">
             <div>还没有要上的课</div>
-            <button class="btn btn-primary">去订课</button>
+            <button class="btn btn-theme-primary">去订课</button>
           </div>
         </template>
       </div>

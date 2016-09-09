@@ -5,17 +5,18 @@ flex-version = flex
 @require "~fonts.css/fonts"
 @require "~stylus-px2rem/index"
 
-bbColor(args...)
-  border-color args[0]
-  background-color args[1] || args[0]
+bbColor()
+  color arguments[0]
+  border-color arguments[1] || arguments[0]
+  background-color arguments[2] || arguments[1] || arguments[0]
 
 // @stylint off
-bbActive(args...)
+bbActive()
   &:hover, &.focus, &:focus
-    bbColor args
+    bbColor arguments
   &.active, &:active
     &, &:hover, &.focus, &:focus
-      bbColor args
+      bbColor arguments
 
 // @stylint on
 
@@ -116,6 +117,34 @@ BACK_COLOR = #e5e5e5
  */
 HIGHLIGHT_COLOR = #fb351b
 
+/**
+ * 男性
+ */
+MALE_COLOR = #01bad4
+
+/**
+ * 女性
+ */
+FEMALE_COLOR = #ff839f
+
+/**
+ * 早晨
+ */
+MORNING_COLOR = #fdb736
+
+/**
+ * 下午
+ */
+AFTERNOON_COLOR = #f96a2c
+
+/**
+ * 晚上
+ */
+EVENING_COLOR = #206dc1
+
+/**
+ * 下边框阴影
+ */
 BOTTOM_SHADOW = 0 1px 1px rgba(0, 0, 0, .05)
 
 /* 杜若蓝 */
@@ -131,5 +160,5 @@ THEME_PURPLE = #b28ef2
 THEME_PURPLE_DARKER = #8e72c2
 
 /* 胭脂红 */
-THEME_RED = #ff839f
+THEME_RED = FEMALE_COLOR
 THEME_RED_DARKER = #cc697f

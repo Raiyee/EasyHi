@@ -33,7 +33,7 @@
             </div>
             <p v-if="codeError" class="form-control-static">请输入正确的验证码</p>
           </div>
-          <button type="submit" class="btn btn-primary btn-responsive center-block">登 录</button>
+          <button type="submit" class="btn btn-theme-primary btn-responsive center-block">登 录</button>
         </form>
       </div>
     </div>
