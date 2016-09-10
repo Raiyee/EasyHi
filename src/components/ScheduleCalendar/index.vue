@@ -27,7 +27,7 @@
       </div>
     </div>
     <div :class="classes.content" :style="contentStyle" ref="schedules" @scroll="onScroll">
-      <ol class="list-unstyled">
+      <ol class="list-unstyled" v-if="Object.keys(activeItems).length">
         <schedule-items v-if="subscribeType == 1"
                         v-for="(scheduleItems, date, index) of activeItems"
                         ref="date"
@@ -41,8 +41,11 @@
                     v-for="coachItem of activeItems[activeDate]"
                     ref="date"
                     :key="coachItem.coachId"
-                    :coachItem="coachItem"/>
+                    :coachItem="coachItem"
+                    :activeCoachId="activeCoachId"
+                    @toggleActiveCoach="toggleActiveCoach"/>
       </ol>
+      <no-item v-else text="本周没有安排任何课程"/>
     </div>
   </div>
 </template>
@@ -54,6 +57,7 @@
   import Calendar from './Calendar'
   import CoachItem from './CoachItem'
   import ScheduleItems from './ScheduleItems'
+  import NoItem from 'components/NoItem'
 
   const periodWidth = 7 * 50 + 5
 
@@ -89,6 +93,7 @@
     data() {
       return {
         classes,
+        activeCoachId: null,
         activeDate: this.date,
         translateX: 0,
         translateStart: 0,
@@ -179,12 +184,16 @@
           date = vm.date
         }
         this.activeDate = date
+      },
+      toggleActiveCoach(coachId) {
+        this.activeCoachId = coachId
       }
     },
     components: {
       Calendar,
       CoachItem,
-      ScheduleItems
+      ScheduleItems,
+      NoItem
     }
   }
 </script>

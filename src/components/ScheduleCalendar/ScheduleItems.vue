@@ -3,7 +3,7 @@
     <div class="theme-bg schedule-weekday">
       {{ date | getWeekday }}
     </div>
-    <ol class="list-unstyled">
+    <ol class="list-unstyled" v-if="scheduleItems.length">
       <schedule-item v-for="(scheduleItem, index) of scheduleItems"
                      :key="scheduleItem.scheduleId"
                      :class="{disabled: !scheduleItem.scheduleRemaining}"

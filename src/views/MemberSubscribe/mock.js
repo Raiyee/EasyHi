@@ -78,7 +78,7 @@ Mock.mock(/\/get-schedules$/, (() => {
           while (start.isBefore(endTime)) {
             let timePeriod = getTimePeriod(start)
             min060[timePeriod].push(start.format(HOUR_FORMAT))
-            min120[timePeriod].push(moment(start).add(1, 'h').format(HOUR_FORMAT))
+            // min120[timePeriod].push(moment(start).add(1, 'h').format(HOUR_FORMAT))
             start.add(20, 'm')
           }
 

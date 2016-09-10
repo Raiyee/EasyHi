@@ -6,14 +6,20 @@
   background-color REVERSE_COLOR
   border-bottom 1px solid CARD_LINE_COLOR
   box-shadow BOTTOM_SHADOW
-
-  :global(.btn-theme-default)
-    width 80px
-    padding 4px
+  :global // @stylint ignore
+    .media-object
+      width 60px
+      height 60px
+    .btn-theme-default
+      width 80px
+      padding 4px
 
 .time-items
-  margin-top 20px
-  ol
+  height 0
+  overflow hidden
+  transition height .5s
+  > ol
+    margin-top 20px
     > li
       relative()
       > :global(.iconfont)
@@ -27,15 +33,16 @@
         margin-left 30px
         padding-left 40px
         padding-top 10px
-        padding-bottom 10px
         border-left 1px solid BACK_COLOR
         > li
           width 25%
           float left
           margin-bottom 10px
     + div :global(.btn)
-        width 50%
-        font-size 16px
+      width 50%
+      font-size 16px
+      margin-top 15px
+      margin-bottom 25px
 
 .morning .time-item:global(.active)
   color MORNING_COLOR
@@ -56,6 +63,7 @@
   border-radius 50%
   border 1px solid REMARK_COLOR
   color REMARK_COLOR
+  cursor pointer
   text-align center
   display table-cell
   vertical-align middle
@@ -72,3 +80,10 @@
       transform scale(13 / 16)
     &:last-child
       transform scale(11 / 16)
+
+.no-item
+  text-align center
+  font-size 15px
+  color SUBTEXT_COLOR
+  padding-top 50px
+  padding-bottom 20px

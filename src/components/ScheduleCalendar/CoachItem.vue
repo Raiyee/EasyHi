@@ -28,33 +28,36 @@
         {{ active ? '收起' : '选择时间' }}
       </button>
     </div>
-    <transition name="bounce">
-      <div v-show="active" :class="classes.timeItems">
-        <ol class="list-unstyled">
-          <li v-for="(times, key) of activeItems"
-              v-if="times.length"
-              :class="classes[key]">
-            <span class="iconfont" :class="`icon-${key}`"/>
-            <ol class="list-unstyled clearfix">
-              <li v-for="time of times"
-                  @click="toggleTime(time)">
-                <div :class="[classes.timeItem, {active: time === activeTime}]">
-                  <span>{{time}}</span>
-                  <span v-show="time === activeTime" class="iconfont icon-check"/>
-                  <span>开始</span>
-                </div>
-              </li>
-            </ol>
-          </li>
-        </ol>
-        <div class="text-center">
-          <button class="btn btn-theme-primary" @click="orderSchedule">预订</button>
-        </div>
+    <div v-if="hasItems" :class="classes.timeItems" :style="style">
+      <ol class="list-unstyled">
+        <li v-for="(times, key) of activeItems"
+            v-if="times.length"
+            :class="classes[key]">
+          <span class="iconfont" :class="`icon-${key}`"/>
+          <ol class="list-unstyled clearfix">
+            <li v-for="time of times">
+              <div :class="[classes.timeItem, {active: time === activeTime}]"
+                   @click="toggleTime(time)">
+                <span>{{time}}</span>
+                <span v-show="time === activeTime" class="iconfont icon-check"/>
+                <span>开始</span>
+              </div>
+            </li>
+          </ol>
+        </li>
+      </ol>
+      <div class="text-center">
+        <button class="btn btn-theme-primary" @click="orderSchedule">预订</button>
       </div>
-    </transition>
+    </div>
+    <div v-else :class="classes.timeItems" :style="style">
+      <div :class="classes.noItem">没有可以预订的时间</div>
+    </div>
   </li>
 </template>
 <script>
+  import {mapGetters} from 'vuex'
+
   import classes from './coach-item'
 
   import {REQUIRED_OBJECT} from 'utils/constants'
@@ -62,25 +65,50 @@
 
   export default {
     props: {
+      activeCoachId: String,
       coachItem: REQUIRED_OBJECT
     },
     data() {
       return {
         classes,
-        active: false,
         checked: false,
         activeTime: null
       }
     },
     computed: {
+      ...mapGetters(['rem']),
+      hasItems() {
+        for (const value of Object.values(this.activeItems)) {
+          if (value.length) return true
+        }
+      },
+      active() {
+        return this.coachItem.coachId === this.activeCoachId
+      },
       activeItems() {
         return this.coachItem[`min${this.checked ? '120' : '060'}`]
+      },
+      height() {
+        const rem = this.rem
+
+        if (!this.hasItems) return 90 * rem
+
+        let height = 20 + 15 + 36 + 25
+        for (const value of Object.values(this.activeItems)) {
+          height += value.length && (Math.ceil(value.length / 4) * 65 + 10)
+        }
+        return height * rem
+      },
+      style() {
+        return this.active && {
+          height: `${this.height}px`
+        }
       }
     },
     methods: {
       imgPath,
       toggleActive() {
-        this.active = !this.active
+        this.$emit('toggleActiveCoach', this.active ? null : this.coachItem.coachId)
       },
       toggleChecked(checked) {
         this.checked = checked
@@ -89,7 +117,6 @@
         this.activeTime = time === this.activeTime ? null : time
       },
       orderSchedule(e) {
-        this.$emit(e, this.activeTime)
       }
     }
   }
