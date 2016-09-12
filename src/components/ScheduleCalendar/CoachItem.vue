@@ -61,7 +61,7 @@
   import classes from './coach-item'
 
   import {REQUIRED_OBJECT} from 'utils'
-  import {imgPath} from 'filters/image'
+  import {imgPath} from 'plugins/filters'
 
   export default {
     props: {

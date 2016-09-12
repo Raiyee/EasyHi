@@ -1,5 +1,3 @@
-const constantsContext = require.context('./constants/', false, /\.js$/)
+const constantsContext = require.context('./constants', false, /\.js$/)
 
-export default constantsContext.keys().reduce((constants, key) => {
-  return Object.assign(constants, constantsContext(key))
-}, {})
+export default constantsContext.keys().reduce((constants, key) => Object.assign(constants, constantsContext(key)), {})

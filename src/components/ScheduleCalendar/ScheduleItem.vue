@@ -34,7 +34,7 @@
   import classes from './schedule-item'
 
   import {REQUIRED_NUMBER, REQUIRED_STRING} from 'utils'
-  import {imgPath} from 'filters/image'
+  import {imgPath} from 'plugins/filters'
 
   export default{
     props: {

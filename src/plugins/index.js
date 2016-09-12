@@ -1,3 +1,4 @@
+import './directives'
 import './filters'
 import './vue-resource'
 import './vue-touch'
