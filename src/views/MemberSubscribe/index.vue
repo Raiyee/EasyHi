@@ -23,7 +23,7 @@
 
   import classes from './index.styl'
 
-  import {pickObj, omitObj} from 'utils/common'
+  import {pickObj, omitObj} from 'utils'
 
   import ScheduleCalendar from 'components/ScheduleCalendar'
 

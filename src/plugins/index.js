@@ -1,5 +1,5 @@
-import './ajax'
 import './filters'
+import './vue-resource'
 import './vue-touch'
 
 // TODO should inject mock or vconsole in specific environment or when using argument `mock`

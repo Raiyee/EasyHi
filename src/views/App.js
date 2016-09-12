@@ -1,5 +1,8 @@
 import {mapGetters} from 'vuex'
 
+import {deleteItem} from 'utils'
+import {PERMISSION} from 'store/constants'
+
 import store from 'store'
 
 import 'styles/bootstrap'
@@ -27,6 +30,8 @@ resize()
 // 暂时添加一个退出登录的钩子
 window._logout_ = () => {
   store.dispatch('setEnv', {authorized: false, mobile: null})
+  store.dispatch('setRoles')
+  deleteItem(PERMISSION)
   location.reload()
 }
 

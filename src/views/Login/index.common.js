@@ -22,7 +22,7 @@ export default {
     ...mapGetters(['mobile'])
   },
   methods: {
-    ...mapActions(['setEnv']),
+    ...mapActions(['setEnv', 'setRoles']),
     handleInput(type, e) {
       const value = e.target.value
       const submitClicked = this.submitClicked
@@ -64,9 +64,10 @@ export default {
       const codeError = this.codeError = !codeRegExp.test(verificationCode)
       if (mobileError || codeError) return
       this.$http.get('/verifyCode', {body: {verificationCode, mobile}}).then(res => {
-        const error = res.json().error
+        const {error, roles} = res.json()
         if (error) return alert(error)
         this.setEnv({mobile, authorized: true})
+        this.setRoles(roles)
         this.$router.replace(this.$route.query.from || '/')
       })
     }

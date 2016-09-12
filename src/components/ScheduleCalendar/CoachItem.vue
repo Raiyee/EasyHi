@@ -60,7 +60,7 @@
 
   import classes from './coach-item'
 
-  import {REQUIRED_OBJECT} from 'utils/constants'
+  import {REQUIRED_OBJECT} from 'utils'
   import {imgPath} from 'filters/image'
 
   export default {

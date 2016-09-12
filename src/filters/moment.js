@@ -1,1 +1,1 @@
-export {getWeekday, formatDate} from 'utils/moment'
+export {getWeekday, formatDate} from 'utils'

@@ -23,7 +23,7 @@
 
   import ScheduleItem from './ScheduleItem'
 
-  import {REQUIRED_ARRAY, REQUIRED_BOOLEAN, REQUIRED_NUMBER, REQUIRED_STRING} from 'utils/constants'
+  import {REQUIRED_ARRAY, REQUIRED_BOOLEAN, REQUIRED_NUMBER, REQUIRED_STRING} from 'utils'
 
   export default {
     props: {

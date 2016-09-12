@@ -33,7 +33,7 @@
 <script>
   import classes from './schedule-item'
 
-  import {REQUIRED_NUMBER, REQUIRED_STRING} from 'utils/constants'
+  import {REQUIRED_NUMBER, REQUIRED_STRING} from 'utils'
   import {imgPath} from 'filters/image'
 
   export default{
