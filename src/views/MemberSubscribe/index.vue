@@ -38,7 +38,8 @@
         calendar: [],
         courseTypes: [],
         coaches: {},
-        schedules: {}
+        schedules: {},
+        subscribeType: 0
       }
     },
     created() {
@@ -69,12 +70,13 @@
     methods: {
       toggleCourseType(courseTypeId) {
         if (this.courseTypeId === courseTypeId) return
-        this.$http.get('/get-schedules', {body: {courseTypeId}})
+        return this.$http.get('/get-schedules', {body: {courseTypeId}})
           .then(res => {
             const data = res.json()
-            Object.assign(this, omitObj(data, 'courseTypes'))
-            this.courseTypeId = courseTypeId
-            this.courseTypeIndex = this.courseTypes.findIndex(courseType => courseTypeId === courseType.courseTypeId)
+            Object.assign(this, omitObj(data, 'courseTypes'), {
+              courseTypeId,
+              courseTypeIndex: this.courseTypes.findIndex(courseType => courseTypeId === courseType.courseTypeId)
+            })
           })
       }
     },

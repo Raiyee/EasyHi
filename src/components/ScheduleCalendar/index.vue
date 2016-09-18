@@ -61,7 +61,7 @@
 
   const periodWidth = 7 * 50 + 5
 
-  import {REQUIRED_ARRAY, animate, formatDate, lastDayOfWeek, weekDates} from 'utils'
+  import {REQUIRED_ARRAY, animate, formatDate, lastDayOfWeek, weekDates, toNum} from 'utils'
 
   const reset = function () {
     this.translateX = 0
@@ -109,7 +109,7 @@
     computed: {
       ...mapGetters(['mode', 'rem']),
       itemsHeight() {
-        return +this.contentStyle.height.replace('px', '')
+        return toNum(this.contentStyle.height)
       },
       activeIndex() {
         const activeDate = formatDate(this.activeDate)
@@ -175,7 +175,7 @@
         this.translating = false
       },
       onScroll() {
-        if (this.scrolling) return
+        if (this.scrolling || +this.subscribeType === 2) return
         const refs = this.$refs
         const schedules = refs.schedules
         let date
