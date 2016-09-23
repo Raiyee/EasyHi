@@ -49,8 +49,8 @@ const config = {
     'vue-router',
     'vue-touch',
     'vuex',
-    'vuex-localstorage',
-    'vuex-promise'
+    'vuex-actions',
+    'vuex-localstorage'
   ]
 }
 

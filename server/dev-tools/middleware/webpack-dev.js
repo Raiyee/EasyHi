@@ -18,7 +18,7 @@ export default compiler => {
   })
 
   return async function koaWebpackDevMiddleware(ctx, next) {
-    /*eslint prefer-const: 0*/
+    /* eslint prefer-const: 0 */
     let hasNext = await applyExpressMiddleware(middleware, ctx.req, {
       end(content) {
         ctx.body = content

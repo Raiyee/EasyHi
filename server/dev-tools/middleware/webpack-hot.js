@@ -9,7 +9,7 @@ export default compiler => {
 
   const middleware = webpackHotMiddleware(compiler)
   return async function koaWebpackHMR(ctx, next) {
-    /*eslint prefer-const: 0*/
+    /* eslint prefer-const: 0 */
     let hasNext = await applyExpressMiddleware(middleware, ctx.req, ctx.res)
 
     if (hasNext && next) {
