@@ -56,7 +56,7 @@ export default {
     for (const [key, value] of Object.entries(loaderMap)) {
       if (exclude.includes(key)) continue
 
-      const regExp = new RegExp(`\\.${key}\$`)
+      const regExp = new RegExp(`\\.${key}$`)
 
       loader.push({
         test: regExp,

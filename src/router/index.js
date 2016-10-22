@@ -38,18 +38,18 @@ const resolveData = (data, meta, next) => {
 
 const BG = 'bg'
 
-router.beforeEach((route, redirect, next) => {
+router.beforeEach((to, from, next) => {
   store.dispatch('setProgress', 50)
 
-  const meta = route.meta
+  const meta = to.meta
   const bg = meta.bg
 
   utils[`${bg == null || bg ? 'add' : 'remove'}Class`](body, BG)
 
   // 首先判断是否需要登录权限, 后期需要新增馆主、教练、客服等多种权限
-  if (meta.auth && !store.getters.authorized) return redirect({name: 'login', query: {from: route.fullPath}})
+  if (meta.auth && !store.getters.authorized) return next({name: 'login', query: {from: to.fullPath}})
 
-  const fullPath = route.fullPath
+  const fullPath = to.fullPath
   let init, cache
 
   // 如果不需要先初始化数据或者已经拉取过数据则直接进入
@@ -57,19 +57,22 @@ router.beforeEach((route, redirect, next) => {
   // eslint-disable-next-line no-cond-assign
   if (cache = routeCache[fullPath]) return resolveData(cache, meta, next)
 
-  if (typeof init === 'function') return init(route, redirect, next)
+  if (typeof init === 'function') return init(to, from, next)
 
   store.dispatch('setProgress', 70)
 
   // 需要预先拉取数据
   Vue.http[init.type || 'get'](init.url, {
     body: {
-      ...route.params,
-      ...route.query
+      ...to.params,
+      ...to.query
     },
     ...init.options
   }).then(res => {
     const data = res.json()
+
+    console.log(res)
+
     resolveData(data, meta, next)
     if (init.restore == null || init.restore) {
       routeCache[fullPath] = data

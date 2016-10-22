@@ -90,16 +90,15 @@
     }
   },
   "dependencies": {
-    "bootstrap-styl": "^5.0.7",
+    "bootstrap-styl": "^5.0.8",
     "fonts.css": "^1.4.0",
     "moment": "^2.15.1",
-    "vue": "^2.0.0-rc.6",
-    "vue-lazyload": "^0.8.1",
-    "vue-localstorage": "^0.1.0",
+    "vue": "^2.0.3",
+    "vue-lazyload": "^0.8.3",
     "vue-resource": "^0.9.3",
-    "vue-router": "^2.0.0-rc.5",
+    "vue-router": "^2.0.1",
     "vue-touch": "vuejs/vue-touch#next",
-    "vuex": "^2.0.0-rc.5",
+    "vuex": "^2.0.0",
     "vuex-actions": "^1.1.1",
     "vuex-localstorage": "^0.2.0"
   },
