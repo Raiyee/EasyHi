@@ -7,32 +7,39 @@ import cssnano from 'cssnano'
 import _debug from 'debug'
 import config, {paths, pkg} from '../config'
 import utils, {baseLoaders, cssModuleLoaders, generateLoaders, nodeModules} from './utils'
-const {TRUE_NODE_ENV, __DEV__, __PROD__, __TEST__} = config.globals
+const {TRUE_NODE_ENV, __DEV__, __PROD__} = config.globals
 
 const debug = _debug('koa:webpack:config')
 
 debug('Create configuration.')
 const webpackConfig = {
-  __DEV__,
-  __PROD__,
-  __TEST__,
-  name: 'client',
   target: 'web',
-  devtool: config.compiler_devtool,
   resolve: {
-    alias: {
-      vue: 'vue/dist/vue',
-      'bootstrap.less': 'bootstrap/less/bootstrap.less'
-    },
-    extensions: ['', '.vue', '.js', '.styl'],
-    // extensions: ['', '.js', '.vue', '.styl'],
-    modules: ['node_modules', 'src'],
-    modulesDirectories: ['node_modules', 'src']
+    modules: [paths.src(), 'node_modules'],
+    descriptionFiles: ['package.json'],
+    mainFields: ['main', 'browser'],
+    mainFiles: ['index'],
+    extensions: ['.vue', '.js', '.styl'],
+    // extensions: ['.js', '.vue', '.styl'],
+    enforceExtension: false,
+    enforceModuleExtension: false
   },
-  module: {},
+  resolveLoader: {
+    modules: ['node_modules'],
+    descriptionFiles: ['package.json'],
+    mainFields: ['main'],
+    mainFiles: ['index'],
+    extensions: ['.js'],
+    enforceExtension: false,
+    enforceModuleExtension: false,
+    moduleExtensions: ['-loader']
+  },
   node: {
-    fs: 'empty'
-  }
+    fs: 'empty',
+    net: 'empty'
+  },
+  devtool: config.compiler_devtool,
+  module: {}
 }
 
 // ------------------------------------
@@ -59,28 +66,13 @@ webpackConfig.output = {
 }
 
 // ------------------------------------
-// Pre-Loaders
-// ------------------------------------
-
-// webpackConfig.module.preLoaders = [
-//   {
-//     test: /\.(js|vue)$/,
-//     loader: 'eslint',
-//     exclude: /node_modules/,
-//     query: {
-//       emitWarning: __DEV__
-//     }
-//   }
-// ];
-
-// ------------------------------------
 // Loaders
 // ------------------------------------
 
 const sourceMap = !!config.compiler_devtool
 let appLoader, bootstrapLoader
 
-webpackConfig.module.loaders = [
+webpackConfig.module.rules = [
   ...utils.commonCssLoaders({
     sourceMap,
     exclude: ['less', 'styl']
@@ -170,17 +162,6 @@ webpackConfig.module.loaders = [
   }
 ]
 
-webpackConfig.vue = {
-  loaders: utils.vueCssLoaders({
-    sourceMap
-  }),
-  autoprefixer: false
-}
-
-webpackConfig.eslint = {
-  formatter: require('eslint-friendly-formatter')
-}
-
 // ------------------------------------
 // Plugins
 // ------------------------------------
@@ -211,10 +192,24 @@ webpackConfig.plugins = [
 
 const browsers = config.compiler_browsers
 
+const LOADER_OPTIONS = {
+  minimize: __PROD__,
+  debug: __DEV__,
+  options: {
+    context: __dirname
+  },
+  vue: {
+    loaders: utils.vueCssLoaders({
+      sourceMap
+    }),
+    autoprefixer: false
+  }
+}
+
 if (__DEV__) {
   debug(`Enable postcss processor(autoprefixer) for ${TRUE_NODE_ENV}`)
 
-  webpackConfig.postcss = [
+  LOADER_OPTIONS.postcss = [
     autoprefixer({
       browsers
     })
@@ -228,7 +223,7 @@ if (__DEV__) {
 } else {
   debug(`Enable postcss processors for ${TRUE_NODE_ENV}`)
 
-  webpackConfig.postcss = [
+  LOADER_OPTIONS.postcss = [
     cssnano({
       autoprefixer: {
         add: true,
@@ -249,7 +244,6 @@ if (__DEV__) {
 
   debug(`Enable plugins for ${TRUE_NODE_ENV} (OccurenceOrder, Dedupe & UglifyJS).`)
   webpackConfig.plugins.push(
-    new webpack.optimize.OccurrenceOrderPlugin(true),
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
@@ -264,8 +258,11 @@ if (__DEV__) {
   )
 }
 
-webpackConfig.plugins.push(new webpack.optimize.CommonsChunkPlugin({
-  names: ['vendor']
-}))
+webpackConfig.plugins.push(
+  new webpack.LoaderOptionsPlugin(LOADER_OPTIONS),
+  new webpack.optimize.CommonsChunkPlugin({
+    names: ['vendor']
+  })
+)
 
 export default webpackConfig

@@ -4,15 +4,15 @@ export default {
     {
       path: '/',
       name: 'home',
-      component: resolve => require(['views/MemberIndex'], resolve)
+      component: () => System.import('views/MemberIndex')
     }, {
       path: '/login',
       name: 'login',
-      component: resolve => require(['views/Login'], resolve)
+      component: () => System.import('views/Login')
     }, {
       path: '/member-center',
       name: 'memberCenter',
-      component: resolve => require(['views/MemberCenter'], resolve),
+      component: () => System.import('views/MemberCenter'),
       meta: {
         auth: true,
         init: {
@@ -23,7 +23,7 @@ export default {
     }, {
       path: '/member-subscribe',
       name: 'memberSubscribe',
-      component: resolve => require(['views/MemberSubscribe'], resolve),
+      component: () => System.import('views/MemberSubscribe'),
       meta: {
         init: {
           url: '/get-schedules'
@@ -32,7 +32,7 @@ export default {
     }, {
       path: '/member-message',
       name: 'memberMessage',
-      component: resolve => require(['views/MemberCenter/MemberMessage'], resolve),
+      component: () => System.import('views/MemberCenter/MemberMessage'),
       meta: {
         auth: true,
         init: {
@@ -42,7 +42,7 @@ export default {
     }, {
       path: '/website',
       name: 'website',
-      component: resolve => require(['views/MerchantWebsite'], resolve),
+      component: () => System.import('views/MerchantWebsite'),
       meta: {
         init: {
           url: '/get-website-edit'

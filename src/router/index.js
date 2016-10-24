@@ -70,9 +70,6 @@ router.beforeEach((to, from, next) => {
     ...init.options
   }).then(res => {
     const data = res.json()
-
-    console.log(res)
-
     resolveData(data, meta, next)
     if (init.restore == null || init.restore) {
       routeCache[fullPath] = data
@@ -80,7 +77,7 @@ router.beforeEach((to, from, next) => {
   })
 })
 
-router.afterEach((/* route, redirect, next */) => {
+router.afterEach(() => {
   store.dispatch('setProgress', 100)
   window.scrollTo(0, 0)
 })

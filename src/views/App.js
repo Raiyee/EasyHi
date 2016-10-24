@@ -13,7 +13,7 @@ import HiProgress from 'components/HiProgress'
 
 const theme = ['blue', 'green', 'purple', 'red'][~~(Math.random() * 4)]
 
-require('bundle!styles/theme-' + theme)
+System.import('styles/theme-' + theme)
 
 const docEl = document.documentElement
 let resize, winHeight, winWidth
