@@ -42,4 +42,3 @@
     data: () => ({classes})
   }
 </script>
-<style lang="stylus" src="./index.styl" scoped/>

@@ -2,7 +2,6 @@
   <div>
     <component :is="view"/>
   </div>
-
 </template>
 <script>
   export default {

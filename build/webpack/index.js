@@ -75,30 +75,8 @@ let appLoader, bootstrapLoader
 webpackConfig.module.rules = [
   ...utils.commonCssLoaders({
     sourceMap,
-    exclude: ['less', 'styl']
+    exclude: ['styl']
   }),
-  {
-    test: /\.less$/,
-    loader: generateLoaders('less', cssModuleLoaders, {
-      sourceMap
-    }),
-    exclude: nodeModules
-  },
-  {
-    test: /[/\\]bootstrap\.less$/,
-    loader: generateLoaders('less', baseLoaders, {
-      sourceMap,
-      extract: !__DEV__ && (bootstrapLoader = new ExtractTextPlugin('bootstrap.[contenthash].css'))
-    }),
-    include: nodeModules
-  },
-  {
-    test: /^(?!.*[/\\]bootstrap\.less$).*\.less$/,
-    loader: generateLoaders('less', baseLoaders, {
-      sourceMap
-    }),
-    include: nodeModules
-  },
   {
     test: /[/\\]app\.styl/,
     loader: generateLoaders('stylus', baseLoaders, {
@@ -142,23 +120,15 @@ webpackConfig.module.rules = [
     exclude: nodeModules
   },
   {
-    test: /\.json$/,
-    loader: 'json'
+    test: /\.vue$/,
+    loader: 'vue'
   },
   {
-    test: /\.html$/,
-    loader: 'vue-html'
-  },
-  {
-    test: /\.(png|jpe?g|gif|svg|woff2?|eot|ttf)(\?.*)?$/,
+    test: /\.(png|jpe?g|gif|svg|woff2?|eot|ttf)$/,
     loader: 'url',
     query: {
       limit: 10000
     }
-  },
-  {
-    test: /\.vue$/,
-    loader: 'vue'
   }
 ]
 
