@@ -38,9 +38,8 @@
         if (!this.last) return
         const itemsLength = this.scheduleItems.length
         const pr = Math.floor(this.rem * 10) / 10
-        const itemsHeight = this.itemsHeight - (28 + 113 * itemsLength) * pr - itemsLength + 1
         return {
-          marginBottom: `${itemsHeight}px`
+          marginBottom: `${this.itemsHeight - (28 + 113 * itemsLength) * pr - itemsLength + 10}px`
         }
       }
     },
