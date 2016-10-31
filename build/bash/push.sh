@@ -16,7 +16,8 @@ read MESSAGE
 echo "Pushing $MESSAGE ..."
 
 git commit -a -m "$MESSAGE"
-git push
+git push --force --quiet git@github.com:Raiyee/EasyHi.git master:master
+git push --force --quiet git@git.coding.net:Raiyee/EasyHi.git master:master
 
 # commit
 cd dist
