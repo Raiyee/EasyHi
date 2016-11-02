@@ -2,8 +2,6 @@ import webpack from 'webpack'
 import CopyWebpackPlugin from 'copy-webpack-plugin'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
-import autoprefixer from 'autoprefixer'
-import cssnano from 'cssnano'
 import _debug from 'debug'
 import config, {paths, pkg} from '../config'
 import utils, {baseLoaders, cssModuleLoaders, generateLoaders, nodeModules} from './utils'
@@ -160,8 +158,6 @@ webpackConfig.plugins = [
   })
 ]
 
-const browsers = config.compiler_browsers
-
 const LOADER_OPTIONS = {
   minimize: __PROD__,
   debug: __DEV__,
@@ -177,41 +173,12 @@ const LOADER_OPTIONS = {
 }
 
 if (__DEV__) {
-  debug(`Enable postcss processor(autoprefixer) for ${TRUE_NODE_ENV}`)
-
-  LOADER_OPTIONS.postcss = [
-    autoprefixer({
-      browsers
-    })
-  ]
-
   debug('Enable plugins for live development (HMR, NoErrors).')
   webpackConfig.plugins.push(
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin()
   )
 } else {
-  debug(`Enable postcss processors for ${TRUE_NODE_ENV}`)
-
-  LOADER_OPTIONS.postcss = [
-    cssnano({
-      autoprefixer: {
-        add: true,
-        remove: true,
-        browsers
-      },
-      discardComments: {
-        removeAll: true
-      },
-      discardUnused: false,
-      mergeIdents: false,
-      normalizeUrl: false,
-      reduceIdents: false,
-      safe: true,
-      sourcemap: sourceMap
-    })
-  ]
-
   debug(`Enable plugins for ${TRUE_NODE_ENV} (OccurenceOrder, Dedupe & UglifyJS).`)
   webpackConfig.plugins.push(
     new webpack.optimize.DedupePlugin(),
