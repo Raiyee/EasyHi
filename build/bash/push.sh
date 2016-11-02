@@ -8,6 +8,7 @@ echo "Pulling from origin/master"
 git pull
 
 #build
+yarn outdated
 npm run build
 
 echo "Enter message: "
