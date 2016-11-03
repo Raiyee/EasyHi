@@ -23,9 +23,9 @@ const actions = {
   setCurrentRole({commit}, currentRole = VISITOR) {
     commit(SET_CURRENT_ROLES, currentRole)
   },
-  resetRole({dispatch}, role = {}) {
-    dispatch('setRoles', role.roles)
-    dispatch('setCurrentRole', role.currentRole)
+  resetRole({dispatch}, {roles, currentRole} = {}) {
+    dispatch('setRoles', roles)
+    dispatch('setCurrentRole', currentRole)
   }
 }
 
