@@ -5,8 +5,8 @@
   },
   "ignore": [
     "dist",
-    "node_modules",
     "src",
+    "node_modules",
     "package.json"
   ]
 }

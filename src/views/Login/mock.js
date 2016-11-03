@@ -59,11 +59,11 @@ Mock.mock(/\/verifyCode$/, req => {
     const include = mobiles.includes(+mobile)
     if (include) {
       setItem(PERMISSION, {
-        [PERMISSION.toLowerCase()]: {roles}
+        [PERMISSION.toLowerCase()]: {roles, currentRole: roles[0]}
       })
       return include
     }
-  }) || {roles: [MEMBER]}
+  }) || {roles: [MEMBER], currentRole: MEMBER}
 
   return {
     error: !correct && Random.cword(5, 12),

@@ -65,10 +65,10 @@ export default {
       const codeError = this.codeError = !codeRegExp.test(verificationCode)
       if (mobileError || codeError) return
       HTTP.get('/verifyCode', {verificationCode, mobile}).then(({data}) => {
-        const {error, roles} = data
+        const {error} = data
         if (error) return alert(error)
         this.setEnv({mobile, authorized: true})
-        this.setRoles(roles)
+        this.resetRole(data)
         this.$router.replace(this.$route.query.from || '/')
       })
     }

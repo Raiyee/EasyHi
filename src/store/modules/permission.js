@@ -1,25 +1,40 @@
-import {ROLES} from '../constants'
+import {ROLES, STAFFS} from '../constants'
+
+const {VISITOR} = ROLES
 
 const SET_ROLES = 'SET_ROLES'
+const SET_CURRENT_ROLES = 'SET_CURRENT_ROLES'
 
 const state = {
-  roles: [],
-  ROLES
+  roles: [VISITOR],
+  currentRole: VISITOR
 }
 
 const getters = {
-  roles: state => state.roles
+  roles: state => state.roles,
+  currentRole: state => state.currentRole,
+  isStaff: state => STAFFS.includes(state.currentRole)
 }
 
 const actions = {
-  setRoles({commit}, roles = []) {
+  setRoles({commit}, roles = [VISITOR]) {
     commit(SET_ROLES, roles)
+  },
+  setCurrentRole({commit}, currentRole = VISITOR) {
+    commit(SET_CURRENT_ROLES, currentRole)
+  },
+  resetRole({dispatch}, role = {}) {
+    dispatch('setRoles', role.roles)
+    dispatch('setCurrentRole', role.currentRole)
   }
 }
 
 const mutations = {
   [SET_ROLES](state, roles) {
     state.roles = roles
+  },
+  [SET_CURRENT_ROLES](state, currentRole) {
+    state.currentRole = currentRole
   }
 }
 
