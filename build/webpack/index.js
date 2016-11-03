@@ -22,7 +22,10 @@ const webpackConfig = {
     extensions: ['.vue', '.js', '.styl'],
     // extensions: ['.js', '.vue', '.styl'],
     enforceExtension: false,
-    enforceModuleExtension: false
+    enforceModuleExtension: false,
+    alias: {
+      http: 'axios'
+    }
   },
   resolveLoader: {
     modules: ['node_modules'],

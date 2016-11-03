@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import HTTP from 'http'
 
 Vue.use(VueRouter)
 
@@ -61,19 +62,24 @@ router.beforeEach((to, from, next) => {
 
   store.dispatch('setProgress', 70)
 
-  // 需要预先拉取数据
-  Vue.http[init.type || 'get'](init.url, {
-    body: {
+  HTTP({
+    method: init.type || 'get',
+    url: init.url,
+    data: {
       ...to.params,
       ...to.query
     },
-    ...init.options
-  }).then(res => {
-    const data = res.json()
+    ...init.options,
+    __INIT__: true
+  }).then(({data}) => {
     resolveData(data, meta, next)
     if (init.restore == null || init.restore) {
       routeCache[fullPath] = data
     }
+  }).catch(() => {
+    alert('系统异常，无法跳转')
+    next(false)
+    store.dispatch('setProgress', 0)
   })
 })
 

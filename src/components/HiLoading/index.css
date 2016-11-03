@@ -10,7 +10,7 @@
 }
 
 .hi-loading-snake {
-  animation: hi-loading-snake-rotate .8s infinite linear;
+  animation: hi-loading-snake-rotate .5s infinite linear;
   border: 4px solid rgb(204, 204, 204);
   border-right-color: transparent;
   border-radius: 50%;
@@ -24,7 +24,7 @@
 }
 
 @keyframes hi-loading-snake-rotate {
-  0% {
+  from {
     transform: translate3d(-50%, -50%, 0) rotate(0deg);
   }
 

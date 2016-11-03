@@ -42,10 +42,10 @@ const config = {
     colors: true
   },
   compiler_vendor: [
+    'http',
     'moment',
     'vue',
     'vue-lazyload',
-    'vue-resource',
     'vue-router',
     'vue-touch',
     'vuex',

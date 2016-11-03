@@ -1,7 +1,7 @@
 import './directives'
 import './filters'
-import './vue-resource'
 import './vue-touch'
+import './http'
 
 // TODO should inject mock or vconsole in specific environment or when using argument `mock`
 import './mock'
