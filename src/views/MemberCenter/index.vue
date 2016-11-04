@@ -130,4 +130,3 @@
     }
   }
 </script>
-<style lang="styl" src="./index.styl" scoped/>
