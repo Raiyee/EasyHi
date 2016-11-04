@@ -22,7 +22,7 @@ export default {
     ...mapGetters(['mobile'])
   },
   methods: {
-    ...mapActions(['setEnv', 'setRoles']),
+    ...mapActions(['setEnv', 'resetRole']),
     handleInput(type, e) {
       const value = e.target.value
       const submitClicked = this.submitClicked
