@@ -1,4 +1,7 @@
+import Vue from 'vue'
 import HTTP from 'http'
+
+Vue.prototype.$http = HTTP
 
 // the get method is different from post default, we alias a same signature get method here!
 HTTP.get = (url, data, config) => {

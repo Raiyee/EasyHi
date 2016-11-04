@@ -20,7 +20,6 @@
 </template>
 <script>
   import {mapGetters} from 'vuex'
-  import HTTP from 'http'
 
   import classes from './index.styl'
 
@@ -71,7 +70,7 @@
     methods: {
       toggleCourseType(courseTypeId) {
         if (this.courseTypeId === courseTypeId) return
-        return HTTP.get('/get-schedules', {courseTypeId})
+        return this.$http.get('/get-schedules', {courseTypeId})
           .then(({data}) => {
             Object.assign(this, omitObj(data, 'courseTypes'), {
               courseTypeId,

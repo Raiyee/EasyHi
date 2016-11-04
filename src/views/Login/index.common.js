@@ -1,5 +1,4 @@
 import {mapGetters, mapActions} from 'vuex'
-import HTTP from 'http'
 
 export const mobileRegExp = /^1[35789]\d{9}$/
 export const codeRegExp = /[\d]{6}/
@@ -49,7 +48,7 @@ export default {
 
       if (!mobileRegExp.test(mobile)) return (this.mobileError = true)
 
-      HTTP.get('/getVerificationCode', {mobile}).then(({data}) => {
+      this.$http.get('/getVerificationCode', {mobile}).then(({data}) => {
         this.limit = data
         const intervalId = setInterval(() => {
           --this.limit || clearInterval(intervalId)
@@ -64,7 +63,7 @@ export default {
       const verificationCode = this.verificationCode
       const codeError = this.codeError = !codeRegExp.test(verificationCode)
       if (mobileError || codeError) return
-      HTTP.get('/verifyCode', {verificationCode, mobile}).then(({data}) => {
+      this.$http.get('/verifyCode', {verificationCode, mobile}).then(({data}) => {
         const {error} = data
         if (error) return alert(error)
         this.setEnv({mobile, authorized: true})
