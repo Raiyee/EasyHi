@@ -45,9 +45,9 @@ export default {
         {this.progress ? <HiLoading/> : ''}
         <HiProgress progress={this.progress}/>
         <transition name="bounce">
-          <keep-alive>
+          {this.$route.meta.keepAlive === false ? <router-view/> : <keep-alive>
             <router-view/>
-          </keep-alive>
+          </keep-alive>}
         </transition>
       </div>
     )

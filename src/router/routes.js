@@ -27,7 +27,8 @@ export default {
       meta: {
         init: {
           url: '/get-schedules'
-        }
+        },
+        keepAlive: false
       }
     }, {
       path: '/member-message',
