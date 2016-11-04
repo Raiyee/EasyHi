@@ -1,6 +1,6 @@
 <template>
-  <div class="membercenter-container">
-    <div class="media theme-bg membercenter-header">
+  <div :class="classes.container">
+    <div class="media theme-bg" :class="classes.header">
       <div class="media-left">
         <div class="media-object media-middle">
           <img class="img-circle" src="http://www.66tools.com/WebTools/rImage?p=400"/>
@@ -16,7 +16,7 @@
             </span>
       </div>
     </div>
-    <div class="panel panel-full subscribe-panel">
+    <div class="panel panel-full" :class="classes.subscribePanel">
       <div class="panel-heading">
         <h3 class="panel-title">
           最近课程
@@ -27,21 +27,21 @@
           </a>
         </h3>
       </div>
-      <div class="panel-body clearfix">
+      <div class="clearfix panel-body">
         <template v-if="latestCourse">
           <span class="glyphicon glyphicon-time theme-color"></span>
           <div>
             {{ courseDuration }} {{ courseName }}
             <br>
-            预订<span class="theme-color count">{{ courseCost }}</span>人
+            预订<span class="theme-color" :class="classes.count">{{ courseCost }}</span>人
             <br>
             <template v-for="courseBill in courseBills">
-              扣{{ courseBill.name }}<span class="theme-color count">{{ courseBill.count }}</span>次
+              扣{{ courseBill.name }}<span class="theme-color" :class="classes.count">{{ courseBill.count }}</span>次
             </template>
           </div>
         </template>
         <template v-else>
-          <div class="no-course text-center">
+          <div class="text-center" :class="classes.noCourse">
             <div>还没有要上的课</div>
             <button class="btn btn-theme-primary">去订课</button>
           </div>
@@ -73,7 +73,7 @@
         <h3 class="panel-title">授权信息</h3>
       </div>
       <div v-for="grant in grantList" class="panel-body text-center clearfix">
-        <div class="media membercenter-header" style="color:#b28ef2;">
+        <div class="media" :class="classes.header" style="color:#b28ef2;">
           <div class="media-left only-kf">
             <div class="media-object media-middle">
               <img class="img-circle"
@@ -112,8 +112,14 @@
   </div>
 </template>
 <script>
+  import classes from './index.styl'
   export default {
     name: 'memberCenterIndex',
+    data() {
+      return {
+        classes
+      }
+    },
     beforeCreate() {
       Object.assign(this, this.$route.meta.data)
     },
@@ -124,4 +130,3 @@
     }
   }
 </script>
-<style lang="styl" src="./index.styl" scoped/>

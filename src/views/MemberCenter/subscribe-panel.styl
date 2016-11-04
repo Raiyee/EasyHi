@@ -1,13 +1,13 @@
-@import "../../styles/_variables"
+@require "../../styles/_variables"
 
 .subscribe-panel
   padding-left 10px
   padding-right 10px
   margin-bottom 5px
-  .panel-heading
+  :global(.panel-heading)
     border-color CARD_LINE_COLOR
 
-  .panel-title
+  :global(.panel-title)
     color STRESS_COLOR
     font-size 15px
     font-weight normal
@@ -24,7 +24,7 @@
           font-size 13px
           color SUBTEXT_COLOR
 
-  .panel-body
+  :global(.panel-body)
     > span
       margin-right 5px
       transform scale(1.2)
@@ -38,7 +38,7 @@
     .glyphicon-time
       top 3px
 
-  .panel-footer
+  :global(.panel-footer)
     border-top 1px dashed DASHED_LINE_COLOR
     border-bottom-style none
     background-color REVERSE_COLOR
@@ -52,4 +52,3 @@
         height inherit
         padding-left 25px
         padding-right 25px
-

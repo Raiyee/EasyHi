@@ -69,8 +69,8 @@ router.beforeEach((to, from, next) => {
       ...to.params,
       ...to.query
     },
-    ...init.options,
-    __INIT__: true
+    __INIT__: true,
+    ...init.options
   }).then(({data}) => {
     resolveData(data, meta, next)
     if (init.restore == null || init.restore) {

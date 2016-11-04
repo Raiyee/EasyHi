@@ -1,13 +1,13 @@
 @require "../../styles/_variables"
 
-.membercenter-container
-  .membercenter-header
+.container
+  .header
     padding 20px 15px
     color REVERSE_COLOR
     margin-top 0
     margin-bottom 10px
 
-    .media-object
+    :global(.media-object)
       border-radius 50%
       border 2px solid white
 
@@ -15,7 +15,7 @@
         width 70px
         height 70px
 
-    .media-right .glyphicon-unchecked
+    :global(.media-right) :global(.glyphicon-unchecked)
       position relative
       display inline-block
 
@@ -36,7 +36,7 @@
         border 1px solid white
         transform scale(.8)
 
-@import "./subscribe-panel"
+@require "./subscribe-panel"
 
 .card-panel
   margin-bottom 5px

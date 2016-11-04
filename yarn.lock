@@ -5415,9 +5415,9 @@ vuex-actions@^1.1.1:
   version "1.1.1"
   resolved "http://registry.npm.taobao.org/vuex-actions/download/vuex-actions-1.1.1.tgz#1902d8818c35480d4aacd5e8967ee6158d457515"
 
-vuex-localstorage@^0.2.0:
-  version "0.2.1"
-  resolved "http://registry.npm.taobao.org/vuex-localstorage/download/vuex-localstorage-0.2.1.tgz#39b428533e572b362e8816c0151f93c812db6597"
+vuex-localstorage:
+  version "0.3.0"
+  resolved "http://registry.npm.taobao.org/vuex-localstorage/download/vuex-localstorage-0.3.0.tgz#0a80a2377c3219ec19a1e7840ced1a9384d1908a"
 
 vuex@^2.0.0:
   version "2.0.0"
