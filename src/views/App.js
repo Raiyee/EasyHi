@@ -45,7 +45,9 @@ export default {
         {this.progress ? <HiLoading/> : ''}
         <HiProgress progress={this.progress}/>
         <transition name="bounce">
-          <router-view/>
+          <keep-alive>
+            <router-view/>
+          </keep-alive>
         </transition>
       </div>
     )
