@@ -158,9 +158,9 @@ assert@^1.1.1:
   dependencies:
     util "0.10.3"
 
-ast-types@0.9.0:
-  version "0.9.0"
-  resolved "http://registry.npm.taobao.org/ast-types/download/ast-types-0.9.0.tgz#c8721c8747ae4d5b29b929e99c5317b4e8745623"
+ast-types@0.9.1:
+  version "0.9.1"
+  resolved "http://registry.npm.taobao.org/ast-types/download/ast-types-0.9.1.tgz#d317131f2fbed23547672ffea747bc9b6546360f"
 
 async-each@^1.0.0:
   version "1.0.1"
@@ -203,7 +203,7 @@ aws4@^1.2.1:
   version "1.5.0"
   resolved "http://registry.npm.taobao.org/aws4/download/aws4-1.5.0.tgz#0a29ffb79c31c9e712eeb087e8e7a64b4a56d755"
 
-axios:
+axios@^0.15.2:
   version "0.15.2"
   resolved "http://registry.npm.taobao.org/axios/download/axios-0.15.2.tgz#496f50980b2ce1ad2e195af93c2d03b4d035e90d"
   dependencies:
@@ -1070,8 +1070,8 @@ camelcase@^3.0.0:
   resolved "http://registry.npm.taobao.org/camelcase/download/camelcase-3.0.0.tgz#32fc4b9fcdaf845fcdf7e73bb97cac2261f0ab0a"
 
 caniuse-db@^1.0.30000187, caniuse-db@^1.0.30000539, caniuse-db@^1.0.30000554:
-  version "1.0.30000572"
-  resolved "http://registry.npm.taobao.org/caniuse-db/download/caniuse-db-1.0.30000572.tgz#81d0aa6b7de2d785c8dcab135502983276cc707d"
+  version "1.0.30000574"
+  resolved "http://registry.npm.taobao.org/caniuse-db/download/caniuse-db-1.0.30000574.tgz#4b10fb5435c50262effd10653405befd0d0bfc2c"
 
 caseless@~0.11.0:
   version "0.11.0"
@@ -1218,10 +1218,8 @@ coa@~1.0.1:
     q "^1.1.2"
 
 code-point-at@^1.0.0:
-  version "1.0.1"
-  resolved "http://registry.npm.taobao.org/code-point-at/download/code-point-at-1.0.1.tgz#1104cd34f9b5b45d3eba88f1babc1924e1ce35fb"
-  dependencies:
-    number-is-nan "^1.0.0"
+  version "1.1.0"
+  resolved "http://registry.npm.taobao.org/code-point-at/download/code-point-at-1.1.0.tgz#0d070b4d043a5bea33a2f1a40e2edb3d9a4ccf77"
 
 color-convert@^1.3.0:
   version "1.6.0"
@@ -1964,9 +1962,9 @@ eslint-plugin-html@^1.5.2:
   dependencies:
     htmlparser2 "^3.8.2"
 
-eslint-plugin-promise@^3.3.0:
-  version "3.3.0"
-  resolved "http://registry.npm.taobao.org/eslint-plugin-promise/download/eslint-plugin-promise-3.3.0.tgz#20a1ef58b4243ffdaef82ee9360a02353a7cca89"
+eslint-plugin-promise@^3.3.1:
+  version "3.3.1"
+  resolved "http://registry.npm.taobao.org/eslint-plugin-promise/download/eslint-plugin-promise-3.3.1.tgz#c1e980cf7c3cac3300731450fb31d2bb843eb226"
 
 eslint-plugin-react@^6.2.0, eslint-plugin-react@^6.4.1:
   version "6.5.0"
@@ -2264,8 +2262,8 @@ fs.realpath@^1.0.0:
   resolved "http://registry.npm.taobao.org/fs.realpath/download/fs.realpath-1.0.0.tgz#1504ad2523158caa40db4a2787cb01411994ea4f"
 
 fsevents@^1.0.0:
-  version "1.0.14"
-  resolved "http://registry.npm.taobao.org/fsevents/download/fsevents-1.0.14.tgz#558e8cc38643d8ef40fe45158486d0d25758eee4"
+  version "1.0.15"
+  resolved "http://registry.npm.taobao.org/fsevents/download/fsevents-1.0.15.tgz#fa63f590f3c2ad91275e4972a6cea545fb0aae44"
   dependencies:
     nan "^2.3.0"
     node-pre-gyp "^0.6.29"
@@ -2409,8 +2407,8 @@ globby@^5.0.0:
     pinkie-promise "^2.0.0"
 
 globby@^6.0.0:
-  version "6.0.0"
-  resolved "http://registry.npm.taobao.org/globby/download/globby-6.0.0.tgz#8f5710eda32296ac53f011a97dccc70e936685dc"
+  version "6.1.0"
+  resolved "http://registry.npm.taobao.org/globby/download/globby-6.1.0.tgz#f5a6d70e8395e21c858fb0489d64df02424d506c"
   dependencies:
     array-union "^1.0.1"
     glob "^7.0.3"
@@ -2438,8 +2436,8 @@ got@^3.2.0:
     timed-out "^2.0.0"
 
 graceful-fs@^4.1.2, graceful-fs@^4.1.6, graceful-fs@^4.1.9:
-  version "4.1.9"
-  resolved "http://registry.npm.taobao.org/graceful-fs/download/graceful-fs-4.1.9.tgz#baacba37d19d11f9d146d3578bc99958c3787e29"
+  version "4.1.10"
+  resolved "http://registry.npm.taobao.org/graceful-fs/download/graceful-fs-4.1.10.tgz#f2d720c22092f743228775c75e3612632501f131"
 
 "graceful-readlink@>= 1.0.0":
   version "1.0.1"
@@ -2880,8 +2878,8 @@ is-supported-regexp-flag@^1.0.0:
   resolved "http://registry.npm.taobao.org/is-supported-regexp-flag/download/is-supported-regexp-flag-1.0.0.tgz#8b520c85fae7a253382d4b02652e045576e13bb8"
 
 is-svg@^2.0.0:
-  version "2.0.1"
-  resolved "http://registry.npm.taobao.org/is-svg/download/is-svg-2.0.1.tgz#f93ab3bf1d6bbca30e9753cd3485b1300eebc013"
+  version "2.1.0"
+  resolved "http://registry.npm.taobao.org/is-svg/download/is-svg-2.1.0.tgz#cf61090da0d9efbcab8722deba6f032208dbb0e9"
   dependencies:
     html-comment-regex "^1.1.0"
 
@@ -3499,8 +3497,8 @@ mute-stream@0.0.5:
   resolved "http://registry.npm.taobao.org/mute-stream/download/mute-stream-0.0.5.tgz#8fbfabb0a98a253d3184331f9e8deb7372fac6c0"
 
 mz@^2.0.0, mz@^2.3.1:
-  version "2.4.0"
-  resolved "http://registry.npm.taobao.org/mz/download/mz-2.4.0.tgz#987ba9624d89395388c37cb4741e2caf4dd13b1a"
+  version "2.5.0"
+  resolved "http://registry.npm.taobao.org/mz/download/mz-2.5.0.tgz#2859025df03d46b57bb317174b196477ce64cec1"
   dependencies:
     any-promise "^1.0.0"
     object-assign "^4.0.1"
@@ -4417,10 +4415,10 @@ readline2@^1.0.1:
     mute-stream "0.0.5"
 
 recast@~0.11.12:
-  version "0.11.15"
-  resolved "http://registry.npm.taobao.org/recast/download/recast-0.11.15.tgz#3d03ee4f74b2ef4aa2f6ea2059d92db843d1316c"
+  version "0.11.16"
+  resolved "http://registry.npm.taobao.org/recast/download/recast-0.11.16.tgz#f4bc4fa7531712b7cbf8e55195efa87d1fcffe33"
   dependencies:
-    ast-types "0.9.0"
+    ast-types "0.9.1"
     esprima "~3.1.0"
     private "~0.1.5"
     source-map "~0.5.0"
@@ -4457,8 +4455,8 @@ regenerate@^1.2.1:
   resolved "http://registry.npm.taobao.org/regenerate/download/regenerate-1.3.1.tgz#0300203a5d2fdcf89116dce84275d011f5903f33"
 
 regenerator-runtime@^0.9.5:
-  version "0.9.5"
-  resolved "http://registry.npm.taobao.org/regenerator-runtime/download/regenerator-runtime-0.9.5.tgz#403d6d40a4bdff9c330dd9392dcbb2d9a8bba1fc"
+  version "0.9.6"
+  resolved "http://registry.npm.taobao.org/regenerator-runtime/download/regenerator-runtime-0.9.6.tgz#d33eb95d0d2001a4be39659707c51b0cb71ce029"
 
 regex-cache@^0.4.2:
   version "0.4.3"
@@ -4534,8 +4532,8 @@ repeating@^2.0.0:
     is-finite "^1.0.0"
 
 request@^2.75.0:
-  version "2.76.0"
-  resolved "http://registry.npm.taobao.org/request/download/request-2.76.0.tgz#be44505afef70360a0436955106be3945d95560e"
+  version "2.78.0"
+  resolved "http://registry.npm.taobao.org/request/download/request-2.78.0.tgz#e1c8dec346e1c81923b24acdb337f11decabe9cc"
   dependencies:
     aws-sign2 "~0.6.0"
     aws4 "^1.2.1"
@@ -4571,8 +4569,8 @@ require-main-filename@^1.0.1:
   resolved "http://registry.npm.taobao.org/require-main-filename/download/require-main-filename-1.0.1.tgz#97f717b69d48784f5f526a6c5aa8ffdda055a4d1"
 
 require-uncached@^1.0.2:
-  version "1.0.2"
-  resolved "http://registry.npm.taobao.org/require-uncached/download/require-uncached-1.0.2.tgz#67dad3b733089e77030124678a459589faf6a7ec"
+  version "1.0.3"
+  resolved "http://registry.npm.taobao.org/require-uncached/download/require-uncached-1.0.3.tgz#4e0d56d6c9662fd31e43011c4b95aa49955421d3"
   dependencies:
     caller-path "^0.1.0"
     resolve-from "^1.0.0"
@@ -5391,8 +5389,8 @@ vue-style-loader@^1.0.0:
     loader-utils "^0.2.7"
 
 vue-template-compiler@^2.0.0-rc.3:
-  version "2.0.3"
-  resolved "http://registry.npm.taobao.org/vue-template-compiler/download/vue-template-compiler-2.0.3.tgz#da1462e7c95afb2daa20065e97589d8125226027"
+  version "2.0.4"
+  resolved "http://registry.npm.taobao.org/vue-template-compiler/download/vue-template-compiler-2.0.4.tgz#89d144c07ffcf6a67607dcdde37a21d535280d04"
   dependencies:
     de-indent "^1.0.2"
     he "^1.1.0"
@@ -5407,15 +5405,15 @@ vue-touch@vuejs/vue-touch#next:
   dependencies:
     hammerjs "^2.0.6"
 
-vue@^2.0.3:
-  version "2.0.3"
-  resolved "http://registry.npm.taobao.org/vue/download/vue-2.0.3.tgz#3f7698f83d6ad1f0e35955447901672876c63fde"
+vue@^2.0.4:
+  version "2.0.4"
+  resolved "http://registry.npm.taobao.org/vue/download/vue-2.0.4.tgz#26f1e3c52c74012de6a6aa58595c6706395f1fb2"
 
 vuex-actions@^1.1.1:
   version "1.1.1"
   resolved "http://registry.npm.taobao.org/vuex-actions/download/vuex-actions-1.1.1.tgz#1902d8818c35480d4aacd5e8967ee6158d457515"
 
-vuex-localstorage:
+vuex-localstorage@^0.3.0:
   version "0.3.0"
   resolved "http://registry.npm.taobao.org/vuex-localstorage/download/vuex-localstorage-0.3.0.tgz#0a80a2377c3219ec19a1e7840ced1a9384d1908a"
 
