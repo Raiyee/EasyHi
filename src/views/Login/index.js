@@ -1,4 +1,4 @@
-import classes from './index.styl'
+import $style from './index.styl'
 import yoga from './yoga.png'
 
 import Login from './index.common'
@@ -21,13 +21,13 @@ export default {
   render(h) {
     return (
       <div class="container">
-        <div class={['center-block img-circle', classes.yoga]}>
+        <div class={['center-block img-circle', $style.yoga]}>
           <img class="img-circle" src={yoga} alt="瑜伽"/>
         </div>
         <div class="row">
           <div class="col-xs-12 col-sm-6 col-sm-push-3 col-lg-4 col-lg-push-4">
             <form on-submit={this.submit}>
-              <div class={[classes.formGroup, this.mobileError && 'has-error']}>
+              <div class={[$style.formGroup, this.mobileError && 'has-error']}>
                 <div class="input-group">
                   <span class="input-group-addon">
                     <span class="glyphicon glyphicon-phone"/>
@@ -40,7 +40,7 @@ export default {
                 </div>
                 {this.mobileError ? <p class="form-control-static">请输入正确的手机号码</p> : ''}
               </div>
-              <div class={[classes.formGroup, this.codeError && 'has-error']}>
+              <div class={[$style.formGroup, this.codeError && 'has-error']}>
                 <div class="input-group">
                   <span class="input-group-addon">
                     <span class="glyphicon glyphicon-lock"/>

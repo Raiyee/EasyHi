@@ -25,7 +25,8 @@ export const generateLoaders = (loader, loaders, options) => {
 }
 
 export const baseLoaders = ['css?-minimize', 'postcss']
-const cssModuleSuffix = '&modules&camelCase&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'
+export const localIdentName = '[name]__[local]___[hash:base64:5]'
+const cssModuleSuffix = `&modules&camelCase&importLoaders=1&localIdentName=${localIdentName}`
 const [css, postcss] = baseLoaders
 export const cssModuleLoaders = [css + cssModuleSuffix, postcss]
 

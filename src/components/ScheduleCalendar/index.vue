@@ -1,6 +1,6 @@
 <template>
-  <div :class="classes.scheduleCalendar">
-    <div class="panel" :class="classes.courseTypePanel">
+  <div :class="$style.scheduleCalendar">
+    <div class="panel" :class="$style.courseTypePanel">
       <div class="panel-body">
         <div :class="month">{{ activeDate | formatDate('MM')}}月</div>
         <div>
@@ -26,13 +26,13 @@
                   @toggleActiveDate="toggleActiveDate"/>
       </div>
     </div>
-    <div :class="classes.content" :style="contentStyle" ref="schedules" @scroll="onScroll">
+    <div :class="$style.content" :style="contentStyle" ref="schedules" @scroll="onScroll">
       <ol class="list-unstyled" v-if="Object.keys(activeItems).length">
         <schedule-items v-if="subscribeType == 1"
                         v-for="(scheduleItems, date, index) of activeItems"
                         ref="date"
                         :key="date"
-                        :class="classes.scheduleItems"
+                        :class="$style.scheduleItems"
                         :date="date"
                         :last="index === Object.keys(activeItems).length - 1"
                         :itemsHeight="itemsHeight"
@@ -51,8 +51,6 @@
 </template>
 <script>
   import {mapGetters} from 'vuex'
-
-  import classes from './index.styl'
 
   import Calendar from './Calendar'
   import CoachItem from './CoachItem'
@@ -92,7 +90,6 @@
     },
     data() {
       return {
-        classes,
         activeCoachId: null,
         activeDate: this.date,
         translateX: 0,
@@ -197,3 +194,4 @@
     }
   }
 </script>
+<style src="./index.styl" lang="styl" module/>

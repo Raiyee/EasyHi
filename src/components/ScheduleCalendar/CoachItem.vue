@@ -1,5 +1,5 @@
 <template>
-  <li class="media" :class="classes.media">
+  <li class="media" :class="$style.media">
     <div class="media-left media-middle">
       <img class="media-object img-circle" :src="imgPath(coachItem.coachPortrait)">
     </div>
@@ -28,15 +28,15 @@
         {{ active ? '收起' : '选择时间' }}
       </button>
     </div>
-    <div v-if="hasItems" :class="classes.timeItems" :style="style">
+    <div v-if="hasItems" :class="$style.timeItems" :style="style">
       <ol class="list-unstyled">
         <li v-for="(times, key) of activeItems"
             v-if="times.length"
-            :class="classes[key]">
+            :class="$style[key]">
           <span class="iconfont" :class="`icon-${key}`"/>
           <ol class="list-unstyled clearfix">
             <li v-for="time of times">
-              <div :class="[classes.timeItem, {active: time === activeTime}]"
+              <div :class="[$style.timeItem, {active: time === activeTime}]"
                    @click="toggleTime(time)">
                 <span>{{time}}</span>
                 <span v-show="time === activeTime" class="iconfont icon-check"/>
@@ -50,15 +50,13 @@
         <button class="btn btn-theme-primary" @click="orderSchedule">预订</button>
       </div>
     </div>
-    <div v-else :class="classes.timeItems" :style="style">
-      <div :class="classes.noItem">没有可以预订的时间</div>
+    <div v-else :class="$style.timeItems" :style="style">
+      <div :class="$style.noItem">没有可以预订的时间</div>
     </div>
   </li>
 </template>
 <script>
   import {mapGetters} from 'vuex'
-
-  import classes from './coach-item'
 
   import {REQUIRED_OBJECT} from 'utils'
   import {imgPath} from 'plugins/filters'
@@ -70,7 +68,6 @@
     },
     data() {
       return {
-        classes,
         checked: false,
         activeTime: null
       }
@@ -121,3 +118,4 @@
     }
   }
 </script>
+<style src="./coach-item" lang="styl" module/>

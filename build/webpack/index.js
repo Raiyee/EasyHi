@@ -6,7 +6,7 @@ import autoprefixer from 'autoprefixer'
 import cssnano from 'cssnano'
 import _debug from 'debug'
 import config, {paths, pkg} from '../config'
-import utils, {baseLoaders, cssModuleLoaders, generateLoaders, nodeModules} from './utils'
+import utils, {baseLoaders, localIdentName, cssModuleLoaders, generateLoaders, nodeModules} from './utils'
 const {TRUE_NODE_ENV, __DEV__, __PROD__} = config.globals
 
 const debug = _debug('koa:webpack:config')
@@ -124,7 +124,7 @@ webpackConfig.module.rules = [
   },
   {
     test: /\.vue$/,
-    loader: 'vue'
+    loader: 'vue-promise'
   },
   {
     test: /\.(png|jpe?g|gif|svg|woff2?|eot|ttf)$/,
@@ -175,7 +175,11 @@ const LOADER_OPTIONS = {
     loaders: utils.vueCssLoaders({
       sourceMap
     }),
-    autoprefixer: false
+    autoprefixer: false,
+    cssModules: {
+      camelCase: true,
+      localIdentName
+    }
   }
 }
 

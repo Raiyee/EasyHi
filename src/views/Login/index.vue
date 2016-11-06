@@ -1,12 +1,12 @@
 <template>
   <div class="container">
-    <div class="center-block img-circle" :class="classes.yoga">
+    <div class="center-block img-circle" :class="$style.yoga">
       <img class="img-circle" src="./yoga.png" alt="瑜伽"/>
     </div>
     <div class="row">
       <div class="col-xs-12 col-sm-6 col-sm-push-3 col-lg-4 col-lg-push-4">
         <form @submit="submit">
-          <div :class="[classes.formGroup, this.mobileError && 'has-error']">
+          <div :class="[$style.formGroup, this.mobileError && 'has-error']">
             <div class="input-group">
                 <span class="input-group-addon">
                   <span class="glyphicon glyphicon-phone"/>
@@ -19,7 +19,7 @@
             </div>
             <p v-if="mobileError" class="form-control-static">请输入正确的手机号码</p>
           </div>
-          <div :class="[classes.formGroup, this.codeError && 'has-error']">
+          <div :class="[$style.formGroup, this.codeError && 'has-error']">
             <div class="input-group">
               <span class="input-group-addon">
                 <span class="glyphicon glyphicon-lock"/>
@@ -41,11 +41,9 @@
 </template>
 <script>
   import Login from './index.common'
-  import classes from './index.styl'
 
   export default {
     extends: Login,
-    data: () => ({classes}),
     methods: {
       clearMobile() {
         this.loginMobile = null
@@ -54,3 +52,4 @@
     }
   }
 </script>
+<style src="./index.styl" lang="styl" module/>

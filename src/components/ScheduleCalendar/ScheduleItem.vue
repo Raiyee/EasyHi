@@ -1,5 +1,5 @@
 <template>
-  <li class="media" :class="classes.media">
+  <li class="media" :class="$style.media">
     <div class="media-body">
       <h4 class="media-heading">
         {{ scheduleStartTime | formatDate('HH:mm') }}
@@ -31,8 +31,6 @@
   </li>
 </template>
 <script>
-  import classes from './schedule-item'
-
   import {REQUIRED_NUMBER, REQUIRED_STRING} from 'utils'
   import {imgPath} from 'plugins/filters'
 
@@ -46,9 +44,6 @@
       scheduleName: REQUIRED_STRING,
       scheduleRemaining: REQUIRED_NUMBER
     },
-    data() {
-      return {classes}
-    },
     computed: {
       scheduleDuration() {
         return (this.scheduleEndTime - this.scheduleStartTime) / 1000 / 60
@@ -59,3 +54,4 @@
     }
   }
 </script>
+<style src="./schedule-item" lang="styl" module/>

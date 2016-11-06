@@ -1,27 +1,27 @@
 <template>
-  <div :class="classes.content">
+  <div :class="$style.content">
     <form action="javascript:;">
-      <div :class="classes.mmContainer">
+      <div :class="$style.mmContainer">
         <template v-if="noMessage">
-          <div :class="classes.noDetail">
+          <div :class="$style.noDetail">
             <img src="http://www.66tools.com/WebTools/rImage?p=400">
-            <span :class="classes.noMessage">{{ noMessage }}</span>
+            <span :class="$style.noMessage">{{ noMessage }}</span>
           </div>
         </template>
         <template v-else>
           <div v-for="mm in msg">
-            <div :class="classes.mmPanel">
-              <div :class="classes.mmPanelTitle">
-                <span :class="[classes.date, 'theme-color']">{{mm.date}}</span>
+            <div :class="$style.mmPanel">
+              <div :class="$style.mmPanelTitle">
+                <span :class="[$style.date, 'theme-color']">{{mm.date}}</span>
               </div>
-              <div :class="classes.mmPanelContent">
+              <div :class="$style.mmPanelContent">
                 <ul>
-                  <li v-for="ml in mm.messages" :class="[ml.readState ? classes.past :'']">
-                    <div :class="classes.mesTitle">
-                      <span :class="classes.messageType">{{ ml.type | resetType }}</span>
-                      <span :class="classes.time">{{ ml.createTime | formatDate('HH:mm') }}</span>
+                  <li v-for="ml in mm.messages" :class="[ml.readState ? $style.past :'']">
+                    <div :class="$style.mesTitle">
+                      <span :class="$style.messageType">{{ ml.type | resetType }}</span>
+                      <span :class="$style.time">{{ ml.createTime | formatDate('HH:mm') }}</span>
                     </div>
-                    <div :class="classes.mesContent">{{ ml.msgContent }}</div>
+                    <div :class="$style.mesContent">{{ ml.msgContent }}</div>
                   </li>
                 </ul>
               </div>
@@ -34,12 +34,10 @@
 </template>
 <script>
   import {resetType, reSetMsg} from './MemberMessage'
-  import classes from './member-message.styl'
   export default {
     name: 'memberMessage',
     data() {
       return {
-        classes: classes,
         msg: reSetMsg(this.$route.meta.data.data.msg),
         noMessage: this.$route.meta.data.data.noMessage
       }
@@ -49,4 +47,4 @@
     }
   }
 </script>
-
+<style src="./member-message.styl" lang="styl" module/>

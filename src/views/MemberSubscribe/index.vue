@@ -2,12 +2,12 @@
   <schedule-calendar :calendar="calendar"
                      :date="date"
                      :subscribeType="subscribeType"
-                     :month="classes.month"
+                     :month="$style.month"
                      :schedules="schedules"
                      :coaches="coaches"
                      :contentStyle="contentStyle">
     <ul class="list-unstyled clearfix scroll-list"
-        :class="classes.courseTypes"
+        :class="$style.courseTypes"
         :style="typesStyle">
       <li v-for="(courseType, index) of courseTypes"
           :class="{first: !index, active: courseTypeId === courseType.courseTypeId}"
@@ -21,8 +21,6 @@
 <script>
   import {mapGetters} from 'vuex'
 
-  import classes from './index.styl'
-
   import {pickObj, omitObj} from 'utils'
 
   import ScheduleCalendar from 'components/ScheduleCalendar'
@@ -31,7 +29,6 @@
     name: 'member-subscribe',
     data() {
       return {
-        classes,
         date: null,
         courseTypeId: null,
         courseTypeIndex: 0,
@@ -84,3 +81,4 @@
     }
   }
 </script>
+<style src="./index.styl" lang="styl" module/>

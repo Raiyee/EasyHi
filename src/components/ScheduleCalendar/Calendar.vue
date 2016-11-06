@@ -1,6 +1,6 @@
 <template>
   <ol class="list-unstyled clearfix scroll-list"
-      :class="[classes.calendar, flex && classes.flex]"
+      :class="[$style.calendar, flex && $style.flex]"
       :style="calendarStyle">
     <calendar-item v-for="(item, index) of calendar"
                    :date="item.date"
@@ -19,22 +19,15 @@
 <script>
   import {mapGetters} from 'vuex'
 
-  import classes from './calendar.styl'
-
   import CalendarItem from './CalendarItem'
 
   const periodWidth = 7 * 50 + 5
 
-  export default{
+  export default {
     props: {
       calendar: Array,
       activeIndex: Number,
       translateX: Number
-    },
-    data() {
-      return {
-        classes
-      }
     },
     computed: {
       ...mapGetters(['mode', 'rem', 'winWidth']),
@@ -73,3 +66,4 @@
     }
   }
 </script>
+<style src="./calendar.styl" lang="styl" module/>
