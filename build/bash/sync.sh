@@ -2,7 +2,7 @@
 
 set -e
 
-(git log -1 --pretty=%B | cat)
+(git log -1 --pretty=%B | cat) |
 while read -r MESSAGE
 do
   cd dist
