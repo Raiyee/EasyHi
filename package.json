@@ -24,7 +24,8 @@
     "start:test": "better-npm-run start:test",
     "stylelint": "better-npm-run stylelint",
     "test": "better-npm-run test",
-    "push": "bash build/bash/push.sh"
+    "push": "bash build/bash/push.sh",
+    "sync": "bash build/bash/sync.sh"
   },
   "betterScripts": {
     "build": {

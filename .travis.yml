@@ -8,6 +8,7 @@ branches:
   - master
 
 before_install:
+- set -e
 - openssl aes-256-cbc -K $encrypted_dcf72c291a03_key -iv $encrypted_dcf72c291a03_iv
   -in .travis/id_rsa.enc -out ~/.ssh/id_rsa -d
 - chmod 600 ~/.ssh/id_rsa
@@ -25,14 +26,4 @@ install:
 script:
 - yarn run build
 - git push --force --quiet git@git.coding.net:Raiyee/EasyHi.git master:master
-- (git log -1 --pretty=%B | cat)
-- while read -r MESSAGE
-  do
-    cd dist
-    cp ../*.md .
-    git init
-    git add -A
-    git commit -m "$MESSAGE"
-    git push --force --quiet git@github.com:Raiyee/EasyHi.git master:gh-pages
-    git push --force --quiet git@git.coding.net:Raiyee/EasyHi.git master:coding-pages
-  done
+- yarn run sync
