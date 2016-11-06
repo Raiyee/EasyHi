@@ -42,7 +42,7 @@ const config = {
     colors: true
   },
   compiler_vendor: [
-    'http',
+    'axios',
     'moment',
     'vue',
     'vue-lazyload',
