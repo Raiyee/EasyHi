@@ -35,4 +35,4 @@ script:
     git commit -m "$MESSAGE"
     git push --force --quiet git@github.com:Raiyee/EasyHi.git master:gh-pages
     git push --force --quiet git@git.coding.net:Raiyee/EasyHi.git master:coding-pages
-- done
+  done

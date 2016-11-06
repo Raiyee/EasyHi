@@ -8,30 +8,29 @@ echo "Pulling from origin/master"
 git pull
 
 #build
-#yarn outdated
-#npm run build
+yarn outdated
+npm run build
 
-(git log -1 --pretty=%B | cat) |
-while read -r MESSAGE
-do
-  echo "Pushing $MESSAGE ..."
+echo "Enter message: "
+read MESSAGE
 
-  git commit -a -m "$MESSAGE"
-  git push --force --quiet git@github.com:Raiyee/EasyHi.git master:master
-  git push --force --quiet git@git.coding.net:Raiyee/EasyHi.git master:master
+echo "Pushing $MESSAGE ..."
 
-  # commit
-  cd dist
-  #cp ../README.md .
-  cp ../*.md .
-  git init
-  git add -A
-  git commit -m "$MESSAGE"
+git commit -a -m "$MESSAGE"
+git push --force --quiet git@github.com:Raiyee/EasyHi.git master:master
+git push --force --quiet git@git.coding.net:Raiyee/EasyHi.git master:master
 
-  # push
-  git push --force --quiet git@github.com:Raiyee/EasyHi.git master:gh-pages
-  git push --force --quiet git@git.coding.net:Raiyee/EasyHi.git master:coding-pages
+# commit
+cd dist
+#cp ../README.md .
+cp ../*.md .
+git init
+git add -A
+git commit -m "$MESSAGE"
 
-  # back to root
-  cd ..
-done
+# push
+git push --force --quiet git@github.com:Raiyee/EasyHi.git master:gh-pages
+git push --force --quiet git@git.coding.net:Raiyee/EasyHi.git master:coding-pages
+
+# back to root
+cd ..
