@@ -6,7 +6,7 @@ Vue.use(VueRouter)
 
 import store from 'store'
 import routes from './routes'
-import utils from 'utils'
+import utils, {isFunction} from 'utils'
 
 const router = new VueRouter(routes)
 
@@ -58,7 +58,7 @@ router.beforeEach((to, from, next) => {
   // eslint-disable-next-line no-cond-assign
   if (cache = routeCache[fullPath]) return resolveData(cache, meta, next)
 
-  if (typeof init === 'function') return init(to, from, next)
+  if (isFunction(init)) return init(to, from, next)
 
   store.dispatch('setProgress', 70)
 
@@ -69,7 +69,7 @@ router.beforeEach((to, from, next) => {
       ...to.params,
       ...to.query
     },
-    __INIT__: true,
+    noInterceptor: true,
     ...init.options
   }).then(({data}) => {
     resolveData(data, meta, next)
