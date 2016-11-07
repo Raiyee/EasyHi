@@ -41,15 +41,6 @@ export default {
         }
       }
     }, {
-      path: '/website',
-      name: 'website',
-      component: () => System.import('views/MerchantWebsite'),
-      meta: {
-        init: {
-          url: '/get-website-edit'
-        }
-      }
-    }, {
       path: '*',
       redirect: '/'
     }
