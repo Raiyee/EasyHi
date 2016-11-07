@@ -12,7 +12,7 @@ then
   rm -rf sync/*
 
   cd sync
-  cp -rf dist/* .
+  cp -rf ../dist/* .
   cp ../*.md .
 
   git add -A
