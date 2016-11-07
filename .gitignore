@@ -16,3 +16,5 @@ test/e2e/reports
 *.iml
 out
 gen
+
+sync

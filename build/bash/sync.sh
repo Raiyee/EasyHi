@@ -8,10 +8,13 @@ then
   echo "last commit message:"
   echo "$MESSAGE"
 
-  cd dist
+  git clone git@github.com:Raiyee/EasyHi.git sync -b gh-pages
+  rm -rf sync/*
+
+  cd sync
+  cp -rf dist/* .
   cp ../*.md .
 
-  git init
   git add -A
   git commit -m "$MESSAGE"
   git push --force --quiet git@github.com:Raiyee/EasyHi.git master:gh-pages
