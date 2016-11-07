@@ -124,7 +124,7 @@ webpackConfig.module.rules = [
   },
   {
     test: /\.vue$/,
-    loader: 'vue-promise'
+    loader: 'vue'
   },
   {
     test: /\.(png|jpe?g|gif|svg|woff2?|eot|ttf)$/,
