@@ -124,7 +124,17 @@ webpackConfig.module.rules = [
   },
   {
     test: /\.vue$/,
-    loader: 'vue'
+    loader: 'vue',
+    options: {
+      loaders: utils.vueCssLoaders({
+        sourceMap
+      }),
+      autoprefixer: false,
+      cssModules: {
+        camelCase: true,
+        localIdentName
+      }
+    }
   },
   {
     test: /\.(png|jpe?g|gif|svg|woff2?|eot|ttf)$/,
@@ -169,28 +179,17 @@ const LOADER_OPTIONS = {
   minimize: __PROD__,
   debug: __DEV__,
   options: {
-    context: __dirname
-  },
-  vue: {
-    loaders: utils.vueCssLoaders({
-      sourceMap
-    }),
-    autoprefixer: false,
-    cssModules: {
-      camelCase: true,
-      localIdentName
-    }
+    context: __dirname,
+    postcss: []
   }
 }
+
+const postcss = LOADER_OPTIONS.options.postcss
 
 if (__DEV__) {
   debug(`Enable postcss processor(autoprefixer) for ${TRUE_NODE_ENV}`)
 
-  LOADER_OPTIONS.options.postcss = [
-    autoprefixer({
-      browsers
-    })
-  ]
+  postcss.push(autoprefixer({browsers}))
 
   debug('Enable plugins for live development (HMR, NoErrors).')
   webpackConfig.plugins.push(
@@ -200,24 +199,22 @@ if (__DEV__) {
 } else {
   debug(`Enable postcss processor(cssnano) for ${TRUE_NODE_ENV}`)
 
-  LOADER_OPTIONS.options.postcss = [
-    cssnano({
-      autoprefixer: {
-        add: true,
-        remove: true,
-        browsers
-      },
-      discardComments: {
-        removeAll: true
-      },
-      discardUnused: false,
-      mergeIdents: false,
-      normalizeUrl: false,
-      reduceIdents: false,
-      safe: true,
-      sourcemap: sourceMap
-    })
-  ]
+  postcss.push(cssnano({
+    autoprefixer: {
+      add: true,
+      remove: true,
+      browsers
+    },
+    discardComments: {
+      removeAll: true
+    },
+    discardUnused: false,
+    mergeIdents: false,
+    normalizeUrl: false,
+    reduceIdents: false,
+    safe: true,
+    sourcemap: sourceMap
+  }))
 
   debug(`Enable plugins for ${TRUE_NODE_ENV} (OccurenceOrder, Dedupe & UglifyJS).`)
   webpackConfig.plugins.push(
