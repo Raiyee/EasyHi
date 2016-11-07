@@ -174,17 +174,16 @@ webpackConfig.plugins = [
 ]
 
 const browsers = config.compiler_browsers
+const postcss = []
 
 const LOADER_OPTIONS = {
   minimize: __PROD__,
   debug: __DEV__,
   options: {
     context: __dirname,
-    postcss: []
+    postcss
   }
 }
-
-const postcss = LOADER_OPTIONS.options.postcss
 
 if (__DEV__) {
   debug(`Enable postcss processor(autoprefixer) for ${TRUE_NODE_ENV}`)
