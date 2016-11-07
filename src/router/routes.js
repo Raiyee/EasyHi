@@ -31,16 +31,6 @@ export default {
         keepAlive: false
       }
     }, {
-      path: '/member-message',
-      name: 'memberMessage',
-      component: () => System.import('views/MemberCenter/MemberMessage'),
-      meta: {
-        auth: true,
-        init: {
-          url: '/membermessage'
-        }
-      }
-    }, {
       path: '*',
       redirect: '/'
     }
