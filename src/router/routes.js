@@ -31,6 +31,25 @@ export default {
         keepAlive: false
       }
     }, {
+      path: '/member-message',
+      name: 'memberMessage',
+      component: () => System.import('views/MemberCenter/MemberMessage'),
+      meta: {
+        auth: true,
+        init: {
+          url: '/membermessage'
+        }
+      }
+    }, {
+      path: '/website',
+      name: 'website',
+      component: () => System.import('views/MerchantWebsite'),
+      meta: {
+        init: {
+          url: '/get-website-edit'
+        }
+      }
+    }, {
       path: '*',
       redirect: '/'
     }
