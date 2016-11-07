@@ -40,14 +40,19 @@ export default {
     ...mapGetters(['progress'])
   },
   render(h) {
+    let keepAlive = this.$route.meta.keepAlive
+    keepAlive = keepAlive == null || keepAlive
     return (
       <div id="app">
         {this.progress ? <HiLoading/> : ''}
         <HiProgress progress={this.progress}/>
         <transition name="bounce">
-          {this.$route.meta.keepAlive === false ? <router-view/> : <keep-alive>
-            <router-view/>
-          </keep-alive>}
+          <keep-alive>
+            {keepAlive ? <router-view/> : ''}
+          </keep-alive>
+        </transition>
+        <transition name="bounce">
+          {keepAlive ? '' : <router-view/>}
         </transition>
       </div>
     )
