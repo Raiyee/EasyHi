@@ -5386,7 +5386,7 @@ vue-lazyload@^0.8.3:
   dependencies:
     es6-promise "^3.1.2"
 
-vue-loader@9.8.1:
+vue-loader@^9.8.1:
   version "9.8.1"
   resolved "http://registry.npm.taobao.org/vue-loader/download/vue-loader-9.8.1.tgz#40dde1cb7fdb2d8e4718df6acfa7f679bf30fcb9"
   dependencies:
