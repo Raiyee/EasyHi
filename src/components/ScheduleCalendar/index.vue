@@ -31,7 +31,7 @@
         <schedule-items v-if="subscribeType == 1"
                         v-for="(scheduleItems, date, index) of activeItems"
                         ref="date"
-                        :key="date"
+                        :key="`${date}_${index}`"
                         :class="$style.scheduleItems"
                         :date="date"
                         :last="index === Object.keys(activeItems).length - 1"
