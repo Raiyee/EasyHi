@@ -73,7 +73,7 @@
         <h3 class="panel-title">授权信息</h3>
       </div>
       <div v-for="grant in grantList" class="panel-body text-center clearfix">
-        <div class="media" :class="$style.membercenterHeader" style="color:#b28ef2;">
+        <div class="media theme-color" :class="$style.header">
           <div class="media-left only-kf">
             <div class="media-object media-middle">
               <img class="img-circle"

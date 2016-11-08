@@ -1,5 +1,4 @@
 import Mock from 'mockjs'
-import moment from 'moment'
 const Random = Mock.Random
 Mock.mock(/\/membercenter$/, () => {
   return Mock.mock({

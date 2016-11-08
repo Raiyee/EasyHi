@@ -20,9 +20,9 @@ export const reSetMsg = (msgs) => {
   var messages = []
   msgs.forEach(function (msg) {
     var date = ''
-    var currentTime = new moment();
+    var currentTime = moment()
     var yesterday = currentTime.add(-1, 'days')
-    var msgTime = new moment({
+    var msgTime = moment({
       y: msg.hiDate.year,
       M: +msg.hiDate.month - 1,
       d: msg.hiDate.day
