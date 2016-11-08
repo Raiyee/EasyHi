@@ -123,7 +123,7 @@
     "copy-webpack-plugin": "^4.0.0",
     "css-loader": "^0.25.0",
     "cssnano": "^3.8.0",
-    "debug": "^2.2.0",
+    "debug": "^2.3.0",
     "del": "^2.2.2",
     "eslint": "^3.8.1",
     "eslint-config-standard": "^6.2.1",

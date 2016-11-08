@@ -1,10 +1,11 @@
 require('babel-register')
 
 const debug = require('debug')('koa:bin:clean')
+const paths = require('../config').paths
 
 debug('Clean files...')
 
-require('del')(require('../config').paths.dist('**'), err => {
+require('del')([paths.dist('**'), paths.base('sync/**')], err => {
   if (err) {
     debug(err)
   } else {

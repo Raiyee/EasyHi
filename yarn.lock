@@ -133,8 +133,8 @@ arrify@^1.0.0:
   resolved "http://registry.npm.taobao.org/arrify/download/arrify-1.0.1.tgz#898508da2226f380df904728456849c1501a4b0d"
 
 asn1.js@^4.0.0:
-  version "4.8.1"
-  resolved "http://registry.npm.taobao.org/asn1.js/download/asn1.js-4.8.1.tgz#3949b7f5fd1e8bedc13be3abebf477f93490c810"
+  version "4.9.0"
+  resolved "http://registry.npm.taobao.org/asn1.js/download/asn1.js-4.9.0.tgz#f71a1243f3e79d46d7b07d7fbf4824ee73af054a"
   dependencies:
     bn.js "^4.0.0"
     inherits "^2.0.1"
@@ -184,7 +184,7 @@ asynckit@^0.4.0:
   version "0.4.0"
   resolved "http://registry.npm.taobao.org/asynckit/download/asynckit-0.4.0.tgz#c79ed97f7f34cb8f2ba1bc9790bcc366474b4b79"
 
-autoprefixer:
+autoprefixer@^6.0.0, autoprefixer@^6.3.1, autoprefixer@^6.5.2:
   version "6.5.2"
   resolved "http://registry.npm.taobao.org/autoprefixer/download/autoprefixer-6.5.2.tgz#37cc910c5e1139ad341a006d5f6d441a380b742b"
   dependencies:
@@ -193,17 +193,6 @@ autoprefixer:
     normalize-range "^0.1.2"
     num2fraction "^1.2.2"
     postcss "^5.2.5"
-    postcss-value-parser "^3.2.3"
-
-autoprefixer@^6.0.0, autoprefixer@^6.3.1:
-  version "6.5.1"
-  resolved "http://registry.npm.taobao.org/autoprefixer/download/autoprefixer-6.5.1.tgz#ae759a5221e709f3da17c2d656230e67c43cbb75"
-  dependencies:
-    browserslist "~1.4.0"
-    caniuse-db "^1.0.30000554"
-    normalize-range "^0.1.2"
-    num2fraction "^1.2.2"
-    postcss "^5.2.4"
     postcss-value-parser "^3.2.3"
 
 aws-sign2@~0.6.0:
@@ -1080,13 +1069,9 @@ camelcase@^3.0.0:
   version "3.0.0"
   resolved "http://registry.npm.taobao.org/camelcase/download/camelcase-3.0.0.tgz#32fc4b9fcdaf845fcdf7e73bb97cac2261f0ab0a"
 
-caniuse-db@^1.0.30000187, caniuse-db@^1.0.30000539, caniuse-db@^1.0.30000554:
-  version "1.0.30000574"
-  resolved "http://registry.npm.taobao.org/caniuse-db/download/caniuse-db-1.0.30000574.tgz#4b10fb5435c50262effd10653405befd0d0bfc2c"
-
-caniuse-db@^1.0.30000576:
-  version "1.0.30000576"
-  resolved "http://registry.npm.taobao.org/caniuse-db/download/caniuse-db-1.0.30000576.tgz#c0623997f6b1ff3b56fa33b352fe44874f61c0ce"
+caniuse-db@^1.0.30000187, caniuse-db@^1.0.30000539, caniuse-db@^1.0.30000576:
+  version "1.0.30000578"
+  resolved "http://registry.npm.taobao.org/caniuse-db/download/caniuse-db-1.0.30000578.tgz#fc4106bda3ca19df4bd9f35e491063f3d498ff31"
 
 caseless@~0.11.0:
   version "0.11.0"
@@ -1614,7 +1599,13 @@ de-indent@^1.0.2:
   version "1.0.2"
   resolved "http://registry.npm.taobao.org/de-indent/download/de-indent-1.0.2.tgz#b2038e846dc33baa5796128d0804b455b8c1e21d"
 
-debug@*, debug@^2.1.1, debug@^2.2.0, debug@~2.2.0:
+debug@*, debug@^2.1.1, debug@^2.2.0, debug@^2.3.0:
+  version "2.3.0"
+  resolved "http://registry.npm.taobao.org/debug/download/debug-2.3.0.tgz#3912dc55d7167fc3af17d2b85c13f93deaedaa43"
+  dependencies:
+    ms "0.7.2"
+
+debug@~2.2.0:
   version "2.2.0"
   resolved "http://registry.npm.taobao.org/debug/download/debug-2.2.0.tgz#f87057e995b1a1f6ae6a4960664137bc56f039da"
   dependencies:
@@ -1972,8 +1963,8 @@ eslint-plugin-babel@^3.3.0:
   resolved "http://registry.npm.taobao.org/eslint-plugin-babel/download/eslint-plugin-babel-3.3.0.tgz#2f494aedcf6f4aa4e75b9155980837bc1fbde193"
 
 eslint-plugin-html@^1.5.2:
-  version "1.5.5"
-  resolved "http://registry.npm.taobao.org/eslint-plugin-html/download/eslint-plugin-html-1.5.5.tgz#5959f19f1b1d71d01f7d422dc9b20d8f5b85f550"
+  version "1.6.0"
+  resolved "http://registry.npm.taobao.org/eslint-plugin-html/download/eslint-plugin-html-1.6.0.tgz#81f38bec0f212b19cba60e6a7f5852b7c269ec5f"
   dependencies:
     htmlparser2 "^3.8.2"
 
@@ -1981,16 +1972,9 @@ eslint-plugin-promise@^3.3.1:
   version "3.3.1"
   resolved "http://registry.npm.taobao.org/eslint-plugin-promise/download/eslint-plugin-promise-3.3.1.tgz#c1e980cf7c3cac3300731450fb31d2bb843eb226"
 
-eslint-plugin-react:
+eslint-plugin-react@^6.2.0, eslint-plugin-react@^6.6.0:
   version "6.6.0"
   resolved "http://registry.npm.taobao.org/eslint-plugin-react/download/eslint-plugin-react-6.6.0.tgz#91ceecefa8a22d8f5d23ef9a839516a7d9fa63a1"
-  dependencies:
-    doctrine "^1.2.2"
-    jsx-ast-utils "^1.3.3"
-
-eslint-plugin-react@^6.2.0:
-  version "6.5.0"
-  resolved "http://registry.npm.taobao.org/eslint-plugin-react/download/eslint-plugin-react-6.5.0.tgz#93f894b6469974304609e59c8983a6a3dc81738c"
   dependencies:
     doctrine "^1.2.2"
     jsx-ast-utils "^1.3.3"
@@ -2254,8 +2238,8 @@ forever-agent@~0.6.1:
   resolved "http://registry.npm.taobao.org/forever-agent/download/forever-agent-0.6.1.tgz#fbc71f0c41adeb37f96c577ad1ed42d8fdacca91"
 
 form-data@~2.1.1:
-  version "2.1.1"
-  resolved "http://registry.npm.taobao.org/form-data/download/form-data-2.1.1.tgz#4adf0342e1a79afa1e84c8c320a9ffc82392a1f3"
+  version "2.1.2"
+  resolved "http://registry.npm.taobao.org/form-data/download/form-data-2.1.2.tgz#89c3534008b97eada4cbb157d58f6f5df025eae4"
   dependencies:
     asynckit "^0.4.0"
     combined-stream "^1.0.5"
@@ -2568,8 +2552,8 @@ html-minifier@^2.1.5:
     uglify-js "2.6.x"
 
 html-minifier@^3.1.0:
-  version "3.1.0"
-  resolved "http://registry.npm.taobao.org/html-minifier/download/html-minifier-3.1.0.tgz#e0b35d7a1fff89ae989e2fa51c572bc0d1f2d1f6"
+  version "3.1.1"
+  resolved "http://registry.npm.taobao.org/html-minifier/download/html-minifier-3.1.1.tgz#73bd0600fc9d68f536b13a788360245b6d76eb9c"
   dependencies:
     change-case "3.0.x"
     clean-css "3.4.x"
@@ -3505,6 +3489,10 @@ ms@0.7.1:
   version "0.7.1"
   resolved "http://registry.npm.taobao.org/ms/download/ms-0.7.1.tgz#9cd13c03adbff25b65effde7ce864ee952017098"
 
+ms@0.7.2:
+  version "0.7.2"
+  resolved "http://registry.npm.taobao.org/ms/download/ms-0.7.2.tgz#ae25cf2512b3885a1d95d7f037868d8431124765"
+
 multimatch@^2.0.0, multimatch@^2.1.0:
   version "2.1.0"
   resolved "http://registry.npm.taobao.org/multimatch/download/multimatch-2.1.0.tgz#9c7906a22fb4c02919e2f5f75161b4cdbd4b2a2b"
@@ -3663,8 +3651,8 @@ normalize-selector@^0.2.0:
   resolved "http://registry.npm.taobao.org/normalize-selector/download/normalize-selector-0.2.0.tgz#d0b145eb691189c63a78d201dc4fdb1293ef0c03"
 
 normalize-url@^1.4.0:
-  version "1.7.0"
-  resolved "http://registry.npm.taobao.org/normalize-url/download/normalize-url-1.7.0.tgz#d82452d98d38821cffddab4d77a5f8d20ce66db0"
+  version "1.8.0"
+  resolved "http://registry.npm.taobao.org/normalize-url/download/normalize-url-1.8.0.tgz#a9550b079aa3523c85d78df24eef1959fce359ab"
   dependencies:
     object-assign "^4.0.1"
     prepend-http "^1.0.0"
@@ -3707,8 +3695,8 @@ object-assign@^4.0.0, object-assign@^4.0.1, object-assign@^4.1.0:
   resolved "http://registry.npm.taobao.org/object-assign/download/object-assign-4.1.0.tgz#7a3b3d0e98063d43f4c03f2e8ae6cd51a86883a0"
 
 object-hash@^1.1.4:
-  version "1.1.4"
-  resolved "http://registry.npm.taobao.org/object-hash/download/object-hash-1.1.4.tgz#136f07f1a48af5f6b906812451ae4e43978c94aa"
+  version "1.1.5"
+  resolved "http://registry.npm.taobao.org/object-hash/download/object-hash-1.1.5.tgz#bdd844e030d0861b692ca175c6cab6868ec233d7"
 
 object.omit@^2.0.0:
   version "2.0.1"
@@ -4091,10 +4079,11 @@ postcss-minify-params@^1.0.4:
     uniqs "^2.0.0"
 
 postcss-minify-selectors@^2.0.4:
-  version "2.0.5"
-  resolved "http://registry.npm.taobao.org/postcss-minify-selectors/download/postcss-minify-selectors-2.0.5.tgz#4e1f966fb49c95266804016ba9a3c6645bb601e0"
+  version "2.0.6"
+  resolved "http://registry.npm.taobao.org/postcss-minify-selectors/download/postcss-minify-selectors-2.0.6.tgz#044b1a85ee2f909fc9a1c540f6f74b0e7613f119"
   dependencies:
     alphanum-sort "^1.0.2"
+    has "^1.0.1"
     postcss "^5.0.14"
     postcss-selector-parser "^2.0.0"
 
@@ -5362,10 +5351,6 @@ vm-browserify@0.0.4:
   dependencies:
     indexof "0.0.1"
 
-vue:
-  version "2.0.5"
-  resolved "http://registry.npm.taobao.org/vue/download/vue-2.0.5.tgz#b99dc7180a802d1148a508db3d84b52c09b5ca8e"
-
 vue-hot-reload-api@^2.0.1, vue-hot-reload-api@^2.0.6:
   version "2.0.6"
   resolved "http://registry.npm.taobao.org/vue-hot-reload-api/download/vue-hot-reload-api-2.0.6.tgz#817d4bfb30f55428aa1012d029499e07f3147d21"
@@ -5430,6 +5415,10 @@ vue-touch@vuejs/vue-touch#next:
   resolved "https://codeload.github.com/vuejs/vue-touch/tar.gz/33b9d200b36b40f75fb94e7fbd58175c8d775c57"
   dependencies:
     hammerjs "^2.0.6"
+
+vue@^2.0.5:
+  version "2.0.5"
+  resolved "http://registry.npm.taobao.org/vue/download/vue-2.0.5.tgz#b99dc7180a802d1148a508db3d84b52c09b5ca8e"
 
 vuex-actions@^1.1.1:
   version "1.1.1"
@@ -5602,8 +5591,8 @@ yargs-parser@^2.4.0, yargs-parser@^2.4.1:
     lodash.assign "^4.0.6"
 
 yargs-parser@^4.0.2:
-  version "4.0.2"
-  resolved "http://registry.npm.taobao.org/yargs-parser/download/yargs-parser-4.0.2.tgz#7f7173a8c7cca1d81dc7c18692fc07c2c2e2b1e0"
+  version "4.1.0"
+  resolved "http://registry.npm.taobao.org/yargs-parser/download/yargs-parser-4.1.0.tgz#313df030f20124124aeae8fbab2da53ec28c56d7"
   dependencies:
     camelcase "^3.0.0"
 

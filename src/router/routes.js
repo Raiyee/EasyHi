@@ -50,6 +50,13 @@ export default {
         }
       }
     }, {
+      path: '/move',
+      name: 'moveTest',
+      component: () => System.import('views/MoveTest'),
+      meta: {
+        keepAlive: false
+      }
+    }, {
       path: '*',
       redirect: '/'
     }

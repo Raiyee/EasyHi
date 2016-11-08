@@ -52,3 +52,7 @@ export const animate = (() => {
     requestId = requestAnimationFrame(animation)
   }
 })()
+
+export const on = function (el, eventTypes, handler) {
+  return this
+}
