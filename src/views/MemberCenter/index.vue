@@ -51,7 +51,7 @@
            :subscribeId="subscribeId">取消预订
       </div>
     </div>
-    <div class="panel panel-full card-panel">
+    <div class="panel panel-full" :class="$style.cardPanel">
       <div class="panel-heading">
         <h3 class="panel-title">我的卡券</h3>
       </div>
@@ -62,18 +62,18 @@
           会员卡( {{ cardNum }} )
         </div>
         <div class="enabled" data-link="#member-center/expvoucher-link/1">
-          <span class="iconfont icon-youhuiquan1 glyphicon glyphicon-credit-card theme-color"></span>
+          <span class="glyphicon glyphicon-credit-card theme-color"></span>
           <br/>
           体验券:( {{ voucherNum }} )
         </div>
       </div>
     </div>
-    <div v-if="grantList && grantList.length > 0" class="panel panel-full kf-panel" id="kf-panel">
+    <div v-if="grantList && grantList.length > 0" class="panel panel-full" :class="$style.kfPanel">
       <div class="panel-heading">
         <h3 class="panel-title">授权信息</h3>
       </div>
       <div v-for="grant in grantList" class="panel-body text-center clearfix">
-        <div class="media" :class="$style.header" style="color:#b28ef2;">
+        <div class="media" :class="$style.membercenterHeader" style="color:#b28ef2;">
           <div class="media-left only-kf">
             <div class="media-object media-middle">
               <img class="img-circle"
@@ -94,10 +94,10 @@
         </div>
       </div>
     </div>
-    <div class="panel panel-full contact-panel">
+    <div class="panel panel-full" :class="$style.contactPanel">
       <div class="panel-body text-center">
         <template v-if="hasNotice">
-          <a class="member-notice">
+          <a :class="$style.memberNotice">
             <div>会员须知></div>
           </a>
           <hr/>

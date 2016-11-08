@@ -43,27 +43,29 @@
   padding-left 10px
   padding-right 10px
 
-  .panel-heading
-    border-color CARD_LINE_COLOR
+  :global
+    .panel-heading
+      border-color CARD_LINE_COLOR
 
-  .panel-title
-    font-size 15px
-    font-weight normal
+    .panel-title
+      font-size 15px
+      font-weight normal
 
-  .panel-body > div
-    width 50%
-    float left
+    .panel-body > div
+      width 50%
+      float left
 
-    + div
-      border-left 1px solid CARD_LINE_COLOR
+      + div
+        border-left 1px solid CARD_LINE_COLOR
 
-    > span
-      font-size 30px
+      > span
+        font-size 30px
+
 
 .contact-panel
   color PRIMARY_COLOR
 
-  > .panel-body
+  > :global(.panel-body)
     padding-top 10px
     padding-bottom 10px
 
@@ -78,16 +80,18 @@
     &, &:active, &:visited
       color inherit
 
-#kf-panel
+.kf-panel
   margin-bottom 5px
   padding-left 0
   padding-right 0
-  .panel-heading
-    border-color CARD_LINE_COLOR
-    margin 0 10px
 
-  .panel-body
-    padding-bottom 0
+  :global
+    .panel-heading
+      border-color CARD_LINE_COLOR
+      margin 0 10px
+
+    .panel-body
+      padding-bottom 0
 
   .membercenter-header
     padding 20px 15px
@@ -95,39 +99,40 @@
     margin-top 0
     margin-bottom 0
 
-    .media-object
-      border-radius 50%
-      border 2px solid white
-
-      img
-        width 70px
-        height 70px
-
-    .media-body
-      width 180px
-      text-align left
-
-    .media-right
-      width 80px
-      vertical-align middle
-
-    .media-right .glyphicon-unchecked
-      position relative
-      display inline-block
-
-      &:before
-        font-size 30px
-
-      > span
-        position absolute
-        top 2px
-        right -4px
-        font-size 12px
-        width 18px
-        height 18px
-        padding 1px
-        line-height 16px
-        background-color HIGHLIGHT_COLOR
+    :global
+      .media-object
         border-radius 50%
-        border 1px solid white
-        transform scale(.8)
+        border 2px solid white
+
+        img
+          width 70px
+          height 70px
+
+      .media-body
+        width 180px
+        text-align left
+
+      .media-right
+        width 80px
+        vertical-align middle
+
+      .media-right .glyphicon-unchecked
+        position relative
+        display inline-block
+
+        &:before
+          font-size 30px
+
+        > span
+          position absolute
+          top 2px
+          right -4px
+          font-size 12px
+          width 18px
+          height 18px
+          padding 1px
+          line-height 16px
+          background-color HIGHLIGHT_COLOR
+          border-radius 50%
+          border 1px solid white
+          transform scale(.8)

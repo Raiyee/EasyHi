@@ -1,3 +1,5 @@
+import moment from 'moment'
+
 const messageType = {
   'S': '上课提醒',
   'Q': '取消预订消息',
@@ -18,20 +20,21 @@ export const reSetMsg = (msgs) => {
   var messages = []
   msgs.forEach(function (msg) {
     var date = ''
-    var currentTime = new Date()
-    var yesterday = new Date(currentTime.getTime() - 24 * 60 * 60 * 1000)
+    var currentTime = new moment();
+    var yesterday = currentTime.add(-1, 'days')
+    var msgTime = new moment({
+      y: msg.hiDate.year,
+      M: +msg.hiDate.month - 1,
+      d: msg.hiDate.day
+    })
 
-    var year = Number(msg.hiDate.year)
-    var month = Number(msg.hiDate.month)
-    var day = Number(msg.hiDate.day)
-
-    if (currentTime.getFullYear() === year && (currentTime.getMonth() + 1) === month && currentTime.getDate() === day) {
+    if (currentTime.isSame(msgTime, 'days')) {
       date = '今日'
     } else
-      if (yesterday.getFullYear() === year && (yesterday.getMonth() + 1) === month && yesterday.getDate() === day) {
+      if (yesterday.isSame(msgTime, 'days')) {
         date = '昨日'
       } else {
-        date = year + '.' + month + '.' + day + ' ' + msg.hiDate.week
+        date = msgTime.format('YYYY.MM.DD')
       }
     messages.push({'date': date, 'messages': msg.userMessageDataList})
   })
