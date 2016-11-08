@@ -53,6 +53,12 @@ export const animate = (() => {
   }
 })()
 
-export const on = function (el, eventTypes, handler) {
+export const on = function (el, events, handler, useCapture = false) {
+  events.trim().split(' ').forEach(event => el.addEventListener(event, handler, useCapture))
+  return this
+}
+
+export const off = function (el, events, handler, useCapture = false) {
+  events.trim().split(' ').forEach(event => el.removeEventListener(event, handler, useCapture))
   return this
 }

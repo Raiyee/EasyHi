@@ -50,9 +50,9 @@ export default {
         }
       }
     }, {
-      path: '/move',
-      name: 'moveTest',
-      component: () => System.import('views/MoveTest'),
+      path: '/touch',
+      name: 'touchTest',
+      component: () => System.import('views/TouchTest'),
       meta: {
         keepAlive: false
       }

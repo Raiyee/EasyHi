@@ -1,7 +1,7 @@
 <template>
   <div>
     <br>
-    <button class="btn btn-primary" v-move="{x: false, y: true, start: start}">
+    <button class="btn btn-primary" v-touch="touchOptions">
       {{ msg }}, {{ x + y }}
     </button>
     <span>{{ x }}, {{ y }}</span>
@@ -20,12 +20,27 @@
         y: 0
       }
     },
+    computed: {
+      touchOptions() {
+        return {
+          x: false,
+          y: false,
+          handler: {
+            start: this.start,
+            moving: this.moving
+          }
+        }
+      }
+    },
     methods: {
       add(prop) {
         this[prop]++
       },
       start() {
         console.log('start')
+      },
+      moving() {
+        console.log('moving')
       }
     }
   }
