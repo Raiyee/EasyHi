@@ -46,14 +46,11 @@ function init(el, {value, modifiers: {prevent, stop}}) {
   value = Object.assign({}, DEFAULT_OPTIONS, value)
 
   const {context, methods} = value
-
   const isPrevent = isPreventFunc(context)
-
   const {
     start, moveStart, moving, moveEnd, end, tap, dbTap,
     press, swipeLeft, swipeRight, swipeUp, swipeDown
   } = context && methods ? context : value
-
   const $el = touchSupport ? el : document
   const eventParam = Object.create({}, {currentTarget: {value: el, writable: false}})
   const wrapEvent = (e, params) => Object.assign(e, eventParam, params)

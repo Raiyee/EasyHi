@@ -95,7 +95,7 @@
     "bootstrap-styl": "^5.0.8",
     "fonts.css": "^1.5.0",
     "moment": "^2.15.2",
-    "v-touch": "^0.1.1",
+    "v-touch": "^0.1.2",
     "vue": "^2.0.5",
     "vue-lazyload": "^0.8.3",
     "vue-router": "^2.0.1",
