@@ -1,7 +1,7 @@
 <template>
   <div>
     <br>
-    <button class="btn btn-primary" v-touch="touchOptions">
+    <button class="btn btn-primary" :class="$style.btn" v-touch="touchOptions">
       {{ msg }}, {{ x + y }}
     </button>
     <span>{{ x }}, {{ y }}</span>
@@ -26,8 +26,27 @@
           x: false,
           y: false,
           handler: {
-            start: this.start,
-            moving: this.moving
+            tap() {
+              console.log('tap')
+            },
+            dbTap() {
+              console.log('dbTap')
+            },
+            press() {
+              console.log('press')
+            },
+            swipeLeft() {
+              console.log('swipeLeft')
+            },
+            swipeRight() {
+              console.log('swipeRight')
+            },
+            swipeUp() {
+              console.log('swipeUp')
+            },
+            swipeDown() {
+              console.log('swipeDown')
+            }
           }
         }
       }
@@ -35,12 +54,6 @@
     methods: {
       add(prop) {
         this[prop]++
-      },
-      start() {
-        console.log('start')
-      },
-      moving() {
-        console.log('moving')
       }
     }
   }
