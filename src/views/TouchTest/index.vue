@@ -1,12 +1,12 @@
 <template>
   <div class="container">
-    tap: {{ tap }},<br>
-    dbTap: {{ dbTap }},<br>
-    press: {{ press }},<br>
-    swipeLeft: {{ swipeLeft }},<br>
-    swipeRight: {{ swipeRight }},<br>
-    swipeUp: {{ swipeUp }},<br>
-    swipeDown: {{ swipeDown }}
+    tap: {{ tapNum }},<br>
+    dbTap: {{ dbTapNum }},<br>
+    press: {{ pressNum }},<br>
+    swipeLeft: {{ swipeLeftNum }},<br>
+    swipeRight: {{ swipeRightNum }},<br>
+    swipeUp: {{ swipeUpNum }},<br>
+    swipeDown: {{ swipeDownNum }}
     <br>
     <button class="btn btn-primary" :class="$style.btn" v-touch="touch">
       {{ msg }}
@@ -24,13 +24,13 @@
         msg: 'try to touch, move, swipe, press me!',
         x: false,
         y: false,
-        tap: 0,
-        dbTap: 0,
-        press: 0,
-        swipeLeft: 0,
-        swipeRight: 0,
-        swipeUp: 0,
-        swipeDown: 0
+        tapNum: 0,
+        dbTapNum: 0,
+        pressNum: 0,
+        swipeLeftNum: 0,
+        swipeRightNum: 0,
+        swipeUpNum: 0,
+        swipeDownNum: 0
       }
     },
     computed: {
@@ -38,33 +38,35 @@
         return {
           x: this.x,
           y: this.y,
-          tap: () => {
-            this.tap++
-          },
-          dbTap: () => {
-            this.dbTap++
-          },
-          press: () => {
-            this.press++
-          },
-          swipeLeft: () => {
-            this.swipeLeft++
-          },
-          swipeRight: () => {
-            this.swipeRight++
-          },
-          swipeUp: () => {
-            this.swipeUp++
-          },
-          swipeDown: () => {
-            this.swipeDown++
-          }
+          context: this,
+          methods: true
         }
       }
     },
     methods: {
       toggle(prop) {
         this[prop] = !this[prop]
+      },
+      tap() {
+        this.tapNum++
+      },
+      dbTap() {
+        this.dbTapNum++
+      },
+      press() {
+        this.pressNum++
+      },
+      swipeLeft() {
+        this.swipeLeftNum++
+      },
+      swipeRight() {
+        this.swipeRightNum++
+      },
+      swipeUp() {
+        this.swipeUpNum++
+      },
+      swipeDown() {
+        this.swipeDownNum++
       }
     }
   }
