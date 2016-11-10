@@ -51,7 +51,7 @@
           wrapperTemplate += `<${componentName}/>`
           const buildMethods = {}
           for (const [methodName, method] of Object.entries(methods)) {
-            buildMethods[methodName] = Function.apply(null, Array.isArray(method) ? method : [method])
+            buildMethods[methodName] = Function[Array.isArray(method) ? 'apply' : 'call'](null, method)
           }
 
           const component = components[componentName] = {
@@ -73,7 +73,7 @@
         try {
           const data = this.$refs.component.text
           if (!data.startsWith('[') || !data.endsWith(']') || data.match(/\beval\b *\(/)) throw Error('格式错误或使用了非法运算符')
-          const getData = Function.apply(null, `return ${data}`)
+          const getData = Function['call'](null, `return ${data}`)
           getData && this.build(getData())
         } catch (e) {
           error(e)
