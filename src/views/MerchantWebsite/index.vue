@@ -15,7 +15,8 @@
     data: () => ({
       text: ''
     }),
-    template: `<div>For example: <a href="https://jsfiddle.net/JounQin/87sv5beu/embedded/">JsFiddle</a> (Just the part of js)
+    template: `<div class="container">For example:
+<a href="https://jsfiddle.net/JounQin/87sv5beu/embedded/">JsFiddle</a> (Just the part of js)
 <textarea :class="classes.text" v-model="text"/></div>`
   }
 
@@ -71,8 +72,8 @@
         if (this.built) return this.build()
         try {
           const data = this.$refs.component.text
-          if (!data.startsWith('[') || !data.endsWith(']') || data.match(/\beval\b *\(/)) throw '格式错误或使用了非法运算符'
-          const getData = Function(`return ${data}`)
+          if (!data.startsWith('[') || !data.endsWith(']') || data.match(/\beval\b *\(/)) throw Error('格式错误或使用了非法运算符')
+          const getData = Function.apply(null, `return ${data}`)
           getData && this.build(getData())
         } catch (e) {
           error(e)
