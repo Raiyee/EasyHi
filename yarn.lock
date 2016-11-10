@@ -5338,9 +5338,9 @@ uuid@^2.0.1:
   version "2.0.3"
   resolved "http://registry.npm.taobao.org/uuid/download/uuid-2.0.3.tgz#67e2e863797215530dff318e5bf9dcebfd47b21a"
 
-v-touch@^0.1.2:
-  version "0.1.3"
-  resolved "http://registry.npm.taobao.org/v-touch/download/v-touch-0.1.3.tgz#5adc45a41371cd7ab839ead3a0a4fd80eea080c8"
+v-touch:
+  version "0.1.5"
+  resolved "http://registry.npm.taobao.org/v-touch/download/v-touch-0.1.5.tgz#999c73308600da05207c517764077ec05596b0e0"
 
 validate-npm-package-license@^3.0.1:
   version "3.0.1"
