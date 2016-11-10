@@ -14,6 +14,7 @@ then
   cd sync
   cp -rf ../dist/* .
   cp ../*.md .
+  touch .nojekyll
 
   git add -A
   git commit -m "$MESSAGE"
