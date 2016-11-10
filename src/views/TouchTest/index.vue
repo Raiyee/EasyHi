@@ -1,14 +1,15 @@
 <template>
   <div class="container">
     tap: {{ tapNum }},<br>
-    dbTap: {{ dbTapNum }},<br>
+    dblTap: {{ dblTapNum }},<br>
+    mltTap: {{ mltTapNum }}, lastMltTapped: {{ lastMltTapped }}<br>
     press: {{ pressNum }},<br>
     swipeLeft: {{ swipeLeftNum }},<br>
     swipeRight: {{ swipeRightNum }},<br>
     swipeUp: {{ swipeUpNum }},<br>
     swipeDown: {{ swipeDownNum }}
     <br>
-    <button class="btn btn-primary" :class="$style.btn" v-touch="touch">
+    <button class="btn btn-primary" :class="$style.btn" v-move="touch">
       {{ msg }}
     </button>
     <br>
@@ -25,7 +26,9 @@
         x: false,
         y: false,
         tapNum: 0,
-        dbTapNum: 0,
+        dblTapNum: 0,
+        mltTapNum: 0,
+        lastMltTapped: 0,
         pressNum: 0,
         swipeLeftNum: 0,
         swipeRightNum: 0,
@@ -50,8 +53,12 @@
       tap() {
         this.tapNum++
       },
-      dbTap() {
-        this.dbTapNum++
+      dblTap() {
+        this.dblTapNum++
+      },
+      mltTap({tapped}) {
+        this.mltTapNum++
+        this.lastMltTapped = tapped
       },
       press() {
         this.pressNum++

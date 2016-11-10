@@ -48,7 +48,7 @@ function init(el, {value, modifiers: {prevent, stop}}) {
   const {context, methods} = value
   const isPrevent = isPreventFunc(context)
   const {
-    start, moveStart, moving, moveEnd, end, tap, dbTap,
+    start, moveStart, moving, moveEnd, end, tap, dblTap, mltTap,
     press, swipeLeft, swipeRight, swipeUp, swipeDown
   } = context && methods ? context : value
   const $el = touchSupport ? el : document
@@ -158,9 +158,9 @@ function init(el, {value, modifiers: {prevent, stop}}) {
           const tapped = el._tapped
           delete el._tapped
           if (tapped < 3) {
-            const tapEvent = tapped === 1 ? tap : dbTap
+            const tapEvent = tapped === 1 ? tap : dblTap
             if (isPrevent(tapEvent, endEvent)) return
-          }
+          } else if (isPrevent(mltTap, Object.assign(endEvent, {tapped}))) return
           isPrevent(end, endEvent)
         }, 200)
       } else if (isPrevent(press, endEvent)) return
