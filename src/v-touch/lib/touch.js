@@ -175,20 +175,26 @@ function destroy(el, binding) {
   utils.off(el, EVENTS.start, el.eStart)
     .off($el, EVENTS.move, el.eMove)
     .off($el, EVENTS.end, el.eEnd)
-
   binding === true || utils.off(window, 'resize', el.eResize)
 }
+
+let resizeTimeoutId
 
 export default {
   bind(el, binding) {
     init.call(this, el, binding)
+
     utils.on(window, 'resize', el.eResize = () => {
-      const newTouchSupport = isTouchSupport()
-      if (touchSupport === newTouchSupport) return
-      destroy.call(this, el, true)
-      touchSupport = newTouchSupport
-      EVENTS = BASE_EVENTS[+touchSupport]
-      init.call(this, el, binding)
+      clearTimeout(resizeTimeoutId)
+
+      resizeTimeoutId = setTimeout(() => {
+        const newTouchSupport = isTouchSupport()
+        if (touchSupport === newTouchSupport) return
+        destroy.call(this, el, true)
+        touchSupport = newTouchSupport
+        EVENTS = BASE_EVENTS[+touchSupport]
+        init.call(this, el, binding)
+      }, 300)
     })
   },
   update(el, binding) {

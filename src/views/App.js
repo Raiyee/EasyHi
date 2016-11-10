@@ -1,6 +1,6 @@
 import {mapGetters} from 'vuex'
 
-import {deleteItem} from 'utils'
+import {deleteItem, on} from 'utils'
 import {PERMISSION} from 'store/constants'
 
 import store from 'store'
@@ -16,14 +16,19 @@ const theme = ['blue', 'green', 'purple', 'red'][~~(Math.random() * 4)]
 System.import('styles/theme-' + theme)
 
 const docEl = document.documentElement
-let resize, winHeight, winWidth
-
-addEventListener('resize', resize = () => {
+const resize = () => {
   winHeight = docEl.clientHeight
   winWidth = docEl.clientWidth
   store.dispatch('setSize', {winHeight, winWidth})
   docEl.style.fontSize = store.getters.fontSize + 'px'
-}, false)
+}
+
+let winHeight, winWidth, resizeTimeoutId
+
+on(window, 'resize', () => {
+  clearTimeout(resizeTimeoutId)
+  resizeTimeoutId = setTimeout(resize, 300)
+})
 
 resize()
 
