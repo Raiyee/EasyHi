@@ -46,7 +46,7 @@ export default {
       component: () => System.import('views/MerchantWebsite'),
       meta: {
         init: {
-          url: '/get-website-edit'
+          url: '/website-edit'
         }
       }
     }, {

@@ -24,7 +24,8 @@ const webpackConfig = {
     enforceExtension: false,
     enforceModuleExtension: false,
     alias: {
-      http: 'axios'
+      http: 'axios',
+      vue: 'vue/dist/vue'
     }
   },
   resolveLoader: {
