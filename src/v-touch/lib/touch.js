@@ -50,7 +50,7 @@ function init(el, {value, modifiers: {prevent, stop}}) {
     press, swipeLeft, swipeRight, swipeUp, swipeDown
   } = value.methods ? this : value
   const $el = touchSupport ? el : document
-  const wrapEvent = (e, params) => Object.defineProperties(e, {
+  const wrapEvent = e => Object.defineProperties(e, {
     currentTarget: {
       value: el,
       readable: true,
