@@ -8,16 +8,70 @@
   </div>
 </template>
 <script>
-  import {warn, error, isArray, isFunction} from 'utils'
+  import {warn, error, isArray, isFunction, isObject} from 'utils'
 
   const TextAreaView = {
     props: ['classes'],
     data: () => ({
       text: ''
     }),
-    template: `<div class="container">For example:
-<a href="https://jsfiddle.net/JounQin/87sv5beu/embedded/">JsFiddle</a> (Just the part of js)
+    template: `<div class="container">For example: (Just the part of js)
+<a href="https://jsfiddle.net/JounQin/87sv5beu/embedded/">JsFiddle</a><br>
+More complex:
+<a href="https://jsfiddle.net/JounQin/aq0yjj7L/embedded">JsFiddle</a>
 <textarea :class="classes.text" v-model="text"/></div>`
+  }
+
+  const objComponentsToArray = objComponents => {
+    const components = [];
+    for (const [key, value] of Object.entries(objComponents)) {
+      isObject(value) && components.push(Object.assign(value, {name: key}))
+    }
+    return components
+  }
+
+  const invalidMsg = msg => warn(`invalid ${msg} will be ignored!`)
+  const nonMsg = msg => warn(`no ${msg} found thus it will be ignored!`)
+
+  const buildComponent = (components, notFirst) => {
+    if (!components) return
+
+    if (isObject(components)) {
+      components = objComponentsToArray(components)
+    } else if (!isArray(components)) return invalidMsg('components')
+    if (!components.length) return nonMsg('components')
+
+    let wrapTemp = ''
+    let wrapComp = {}
+    let count = 0
+
+    components.forEach(({name = `_${index}`, template, data, methods, components}, index) => {
+      if (!template) return nonMsg('template')
+
+      wrapTemp += `<${name}/>`
+      const component = wrapComp[name] = {template}
+
+      if (isObject(methods)) {
+        let wrapMethods = {}
+        for (const [methodName, method] of Object.entries(methods)) {
+          wrapMethods[methodName] = isFunction(method) ? method
+            : Function[isArray(method) ? 'apply' : 'call'](null, method)
+        }
+        component.methods = wrapMethods
+      } else if (methods) return invalidMsg('methods')
+      if (data) component.data = isFunction(data) ? data : () => data
+      if (components) component.components = buildComponent(components, true)
+
+      count++
+    })
+
+    if (!count) return
+
+    return notFirst ? wrapComp : {
+      name: 'Dynamic--Root',
+      template: count === 1 ? wrapTemp : `<div>${wrapTemp}</div>`,
+      components: wrapComp
+    }
   }
 
   export default {
@@ -37,44 +91,15 @@
         this.view = TextAreaView
       },
       build(data) {
-        if (!data || !data.length) return this.buildDefaultView()
-
-        let wrapperTemplate = ''
-        let count = 0
-        const components = {}
-        data.forEach(({data, template, methods = {}}, index) => {
-          if (!template) return warn('There is no template found thus this component will be ignored!')
-
-          let componentName = `Component${index}`
-          wrapperTemplate += `<${componentName}/>`
-          const buildMethods = {}
-          for (const [methodName, method] of Object.entries(methods)) {
-            buildMethods[methodName] = isFunction(method) ? method
-              : Function[isArray(method) ? 'apply' : 'call'](null, method)
-          }
-
-          const component = components[componentName] = {
-            template,
-            methods: buildMethods
-          }
-
-          if (data) component.data = isFunction(data) ? data : () => data
-          count++
-        })
-
-        if (!count) return this.buildDefaultView()
-
+        const component = buildComponent(data)
+        if (!component) return this.buildDefaultView()
         this.built = true
-        this.view = {
-          template: count === 1 ? wrapperTemplate : `<div>${wrapperTemplate}</div>`,
-          components
-        }
+        this.view = component
       },
       rebuild() {
-        if (this.built) return this.build()
+        if (this.built) return this.buildDefaultView()
         try {
           const data = this.$refs.component.text
-          if (!data.startsWith('[') || !data.endsWith(']') || data.match(/\beval\b *\(/)) throw Error('格式错误或使用了非法运算符')
           const getData = Function['call'](null, `return ${data}`)
           getData && this.build(getData())
         } catch (e) {
