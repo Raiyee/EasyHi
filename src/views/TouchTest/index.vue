@@ -9,9 +9,12 @@
     swipeUp: {{ swipeUpNum }},<br>
     swipeDown: {{ swipeDownNum }}
     <br>
-    <button class="btn btn-primary" :class="$style.btn" v-move="touch">
-      {{ msg }}
-    </button>
+    <div v-move="touch" @dblclick="dblclickOuter">
+      <button class="btn btn-primary" :class="$style.btn" @tap="click">{{ msg }}</button>
+      <div @dblclick="dblclick">
+        <button class="btn btn-primary" :class="$style.btn">Just Another Button</button>
+      </div>
+    </div>
     <br>
     <br>
     <button class="btn btn-default" @click="toggle('x')">toggle x ({{ x }})</button>
@@ -41,7 +44,6 @@
         return {
           x: this.x,
           y: this.y,
-          context: this,
           methods: true
         }
       }
@@ -50,7 +52,7 @@
       toggle(prop) {
         this[prop] = !this[prop]
       },
-      tap() {
+      tap(e) {
         this.tapNum++
       },
       dblTap() {
@@ -74,6 +76,15 @@
       },
       swipeDown() {
         this.swipeDownNum++
+      },
+      click() {
+        console.log('clicked the first button')
+      },
+      dblclick() {
+        console.log('dblclicked the second one')
+      },
+      dblclickOuter() {
+        console.log('dblclicked')
       }
     }
   }

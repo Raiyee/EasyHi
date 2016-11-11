@@ -40,20 +40,25 @@ const actualEvent = (e, prevent, stop) => {
 }
 
 let tapTimeoutId
-const isPreventFunc = context => (event, ...params) => !!(event && event.apply(context, params) === false)
+const isPreventFunc = context => (event, ...params) => event && event.apply(context, params) === false
 
 function init(el, {value, modifiers: {prevent, stop}}) {
+  const isPrevent = isPreventFunc(this)
   value = Object.assign({}, DEFAULT_OPTIONS, value)
-
-  const {context, methods} = value
-  const isPrevent = isPreventFunc(context)
   const {
     start, moveStart, moving, moveEnd, end, tap, dblTap, mltTap,
     press, swipeLeft, swipeRight, swipeUp, swipeDown
-  } = context && methods ? context : value
+  } = value.methods ? this : value
   const $el = touchSupport ? el : document
-  const eventParam = Object.create({}, {currentTarget: {value: el, writable: false}})
-  const wrapEvent = (e, params) => Object.assign(e, eventParam, params)
+  const wrapEvent = (e, params) => Object.defineProperties(e, {
+    currentTarget: {
+      value: el,
+      readable: true,
+      writable: true,
+      enumerable: true,
+      configurable: true
+    }
+  })
 
   utils.on(el, EVENTS.start, el.eStart = e => {
     clearTimeout(tapTimeoutId)
@@ -158,8 +163,17 @@ function init(el, {value, modifiers: {prevent, stop}}) {
           const tapped = el._tapped
           delete el._tapped
           if (tapped < 3) {
-            const tapEvent = tapped === 1 ? tap : dblTap
+            const isSingle = tapped === 1
+            const tapEvent = isSingle ? tap : dblTap
             if (isPrevent(tapEvent, endEvent)) return
+            const eventInit = {
+              bubbles: true,
+              cancelable: true,
+              cancelBubble: true
+            }
+            const prefix = isSingle ? '' : 'dbl'
+            if (touchSupport && e.target.dispatchEvent(new Event(`${prefix}click`, eventInit)) === false) return
+            if (e.target.dispatchEvent(new Event(`${prefix}tap`, eventInit)) === false) return
           } else if (isPrevent(mltTap, Object.assign(endEvent, {tapped}))) return
           isPrevent(end, endEvent)
         }, 200)
@@ -181,8 +195,9 @@ function destroy(el, binding) {
 let resizeTimeoutId
 
 export default {
-  bind(el, binding) {
-    init.call(this, el, binding)
+  bind(el, binding, vnode) {
+    const {context} = vnode
+    init.call(context, el, binding)
 
     utils.on(window, 'resize', el.eResize = () => {
       clearTimeout(resizeTimeoutId)
@@ -190,16 +205,17 @@ export default {
       resizeTimeoutId = setTimeout(() => {
         const newTouchSupport = isTouchSupport()
         if (touchSupport === newTouchSupport) return
-        destroy.call(this, el, true)
+        destroy.call(context, el, true)
         touchSupport = newTouchSupport
         EVENTS = BASE_EVENTS[+touchSupport]
-        init.call(this, el, binding)
+        init.call(context, el, binding)
       }, 300)
     })
   },
-  update(el, binding) {
-    destroy.call(this, el, true)
-    init.call(this, el, binding)
+  update(el, binding, vnode) {
+    const {context} = vnode
+    destroy.call(context, el, true)
+    init.call(context, el, binding)
   },
   unbind: destroy
 }

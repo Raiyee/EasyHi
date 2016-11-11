@@ -8,7 +8,7 @@
   </div>
 </template>
 <script>
-  import {warn, error} from 'utils'
+  import {warn, error, isArray, isFunction} from 'utils'
 
   const TextAreaView = {
     props: ['classes'],
@@ -32,26 +32,25 @@
       this.build(this.$route.meta.data)
     },
     methods: {
+      buildDefaultView() {
+        this.built = false
+        this.view = TextAreaView
+      },
       build(data) {
-        if (!data || !data.length) {
-          this.built = false
-          this.view = TextAreaView
-          return
-        }
+        if (!data || !data.length) return this.buildDefaultView()
 
         let wrapperTemplate = ''
+        let count = 0
         const components = {}
         data.forEach(({data, template, methods = {}}, index) => {
-          if (!template) {
-            warn('There is no template found thus this component will be ignored!')
-            return
-          }
+          if (!template) return warn('There is no template found thus this component will be ignored!')
 
           let componentName = `Component${index}`
           wrapperTemplate += `<${componentName}/>`
           const buildMethods = {}
           for (const [methodName, method] of Object.entries(methods)) {
-            buildMethods[methodName] = Function[Array.isArray(method) ? 'apply' : 'call'](null, method)
+            buildMethods[methodName] = isFunction(method) ? method
+              : Function[isArray(method) ? 'apply' : 'call'](null, method)
           }
 
           const component = components[componentName] = {
@@ -59,12 +58,15 @@
             methods: buildMethods
           }
 
-          if (data) component.data = () => data
+          if (data) component.data = isFunction(data) ? data : () => data
+          count++
         })
+
+        if (!count) return this.buildDefaultView()
 
         this.built = true
         this.view = {
-          template: `<div>${wrapperTemplate}</div>`,
+          template: count === 1 ? wrapperTemplate : `<div>${wrapperTemplate}</div>`,
           components
         }
       },
