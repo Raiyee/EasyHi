@@ -1882,7 +1882,7 @@ es6-map@^0.1.3:
     es6-symbol "~3.1.0"
     event-emitter "~0.3.4"
 
-es6-promise@^3.0.2, es6-promise@^3.1.2:
+es6-promise@^3.0.2:
   version "3.3.1"
   resolved "http://registry.npm.taobao.org/es6-promise/download/es6-promise-3.3.1.tgz#a08cdde84ccdbf34d027a1451bc91d4bcd28a613"
 
@@ -5388,15 +5388,13 @@ vue-html-loader@^1.2.3:
     loader-utils "^0.2.15"
     object-assign "^4.1.0"
 
-vue-lazyload@^0.8.3:
-  version "0.8.3"
-  resolved "http://registry.npm.taobao.org/vue-lazyload/download/vue-lazyload-0.8.3.tgz#7118859eb2e6ed69ee132a80da5507671dc88640"
-  dependencies:
-    es6-promise "^3.1.2"
+vue-lazyload@^0.9.1:
+  version "0.9.1"
+  resolved "http://registry.npm.taobao.org/vue-lazyload/download/vue-lazyload-0.9.1.tgz#78270604d01e195db6fa3d89becefe4b3c140ea6"
 
-vue-loader:
-  version "9.8.1"
-  resolved "http://registry.npm.taobao.org/vue-loader/download/vue-loader-9.8.1.tgz#40dde1cb7fdb2d8e4718df6acfa7f679bf30fcb9"
+vue-loader@^9.9.0:
+  version "9.9.0"
+  resolved "http://registry.npm.taobao.org/vue-loader/download/vue-loader-9.9.0.tgz#cf4d9fddd5ef22e0d1642153f4722fb310001c80"
   dependencies:
     consolidate "^0.14.0"
     hash-sum "^1.0.2"
@@ -5409,8 +5407,8 @@ vue-loader:
     source-map "^0.5.6"
     vue-hot-reload-api "^2.0.1"
     vue-style-loader "^1.0.0"
-    vue-template-compiler "^2.0.4"
-    vue-template-es2015-compiler "^1.0.0"
+    vue-template-compiler "^2.0.5"
+    vue-template-es2015-compiler "^1.2.2"
 
 vue-router@^2.0.1:
   version "2.0.1"
@@ -5422,16 +5420,16 @@ vue-style-loader@^1.0.0:
   dependencies:
     loader-utils "^0.2.7"
 
-vue-template-compiler@^2.0.4:
+vue-template-compiler@^2.0.5:
   version "2.0.5"
   resolved "http://registry.npm.taobao.org/vue-template-compiler/download/vue-template-compiler-2.0.5.tgz#6a8c454e7d4ed03cc295ae9733a432e31df25ea3"
   dependencies:
     de-indent "^1.0.2"
     he "^1.1.0"
 
-vue-template-es2015-compiler@^1.0.0:
-  version "1.2.1"
-  resolved "http://registry.npm.taobao.org/vue-template-es2015-compiler/download/vue-template-es2015-compiler-1.2.1.tgz#8fb26e0477631a43b4d42ef60aed89ee3470eb1f"
+vue-template-es2015-compiler@^1.2.2:
+  version "1.2.2"
+  resolved "http://registry.npm.taobao.org/vue-template-es2015-compiler/download/vue-template-es2015-compiler-1.2.2.tgz#41aad1cb385cce2b84089fd55c4ffb39db670fb1"
 
 vue-touch@vuejs/vue-touch#next:
   version "2.0.0"
