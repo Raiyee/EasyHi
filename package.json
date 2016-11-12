@@ -49,7 +49,7 @@
     "compile": {
       "command": "node build/bin/compile",
       "env": {
-        "NODE_ENV": "production",
+        "NODE_ENV": "test",
         "DEBUG": "koa*"
       }
     },
@@ -95,7 +95,7 @@
     "bootstrap-styl": "^5.0.8",
     "fonts.css": "^1.5.0",
     "moment": "^2.16.0",
-    "v-touch": "^0.1.7",
+    "v-touch": "^0.1.9",
     "vue": "^2.0.5",
     "vue-lazyload": "^0.8.3",
     "vue-router": "^2.0.1",
@@ -126,12 +126,12 @@
     "cssnano": "^3.8.0",
     "debug": "^2.3.0",
     "del": "^2.2.2",
-    "eslint": "^3.8.1",
+    "eslint": "^3.10.0",
     "eslint-config-standard": "^6.2.1",
     "eslint-friendly-formatter": "^2.0.6",
     "eslint-loader": "^1.6.0",
     "eslint-plugin-babel": "^3.3.0",
-    "eslint-plugin-promise": "^3.3.1",
+    "eslint-plugin-promise": "^3.3.2",
     "eslint-plugin-react": "^6.6.0",
     "eslint-plugin-standard": "^2.0.1",
     "eslint-plugin-vue": "^1.0.0",
