@@ -23,7 +23,7 @@ More complex:
   }
 
   const objComponentsToArray = objComponents => {
-    const components = [];
+    const components = []
     for (const [key, value] of Object.entries(objComponents)) {
       isObject(value) && components.push(Object.assign(value, {name: key}))
     }

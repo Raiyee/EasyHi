@@ -7,7 +7,7 @@
 
   export default {
     name: 'VueDynamic',
-    data(){
+    data() {
       return {
         comps: this.$route.meta.data,
         emptyView: NoItem

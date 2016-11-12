@@ -2,10 +2,10 @@
   <comment :is="view"/>
 </template>
 <script>
-  import {warn, error, isArray, isFunction, isObject} from '../utils'
+  import {warn, isArray, isFunction, isObject} from '../utils'
 
   const objCompsToArr = objComponents => {
-    const components = [];
+    const components = []
     for (const [key, value] of Object.entries(objComponents)) {
       isObject(value) && components.push(Object.assign(value, {name: key}))
     }
@@ -67,7 +67,7 @@
         validator: value => isObject(value)
       }
     },
-    data(){
+    data() {
       return {
         view: this.emptyView
       }
@@ -76,12 +76,12 @@
       this.reBuild()
     },
     watch: {
-      comps(){
+      comps() {
         this.reBuild()
       }
     },
     methods: {
-      reBuild(){
+      reBuild() {
         const component = buildComponent(this.comps)
         this.view = component || this.emptyView
       }
