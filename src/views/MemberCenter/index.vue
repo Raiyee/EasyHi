@@ -114,8 +114,8 @@
 <script>
   export default {
     name: 'memberCenterIndex',
-    beforeCreate() {
-      Object.assign(this, this.$route.meta.data)
+    data() {
+      return this.$route.meta.data
     },
     methods: {
       memberMessage: function () {

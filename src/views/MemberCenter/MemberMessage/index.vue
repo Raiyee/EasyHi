@@ -37,9 +37,10 @@
   export default {
     name: 'memberMessage',
     data() {
+      const data = this.$route.meta.data.data
       return {
-        msg: reSetMsg(this.$route.meta.data.data.msg),
-        noMessage: this.$route.meta.data.data.noMessage
+        msg: reSetMsg(data.msg),
+        noMessage: data.noMessage
       }
     },
     filters: {

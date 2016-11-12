@@ -52,9 +52,15 @@ export default {
     }, {
       path: '/touch',
       name: 'touchTest',
-      component: () => System.import('views/TouchTest'),
+      component: () => System.import('views/TouchTest')
+    }, {
+      path: '/dynamic',
+      name: 'dynamic',
+      component: () => System.import('views/DynamicTest'),
       meta: {
-        keepAlive: false
+        init: {
+          url: '/website-edit'
+        }
       }
     }, {
       path: '*',
