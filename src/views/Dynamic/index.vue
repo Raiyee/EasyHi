@@ -8,7 +8,7 @@
   </div>
 </template>
 <script>
-  import {warn, error, isArray, isFunction, isObject} from 'utils'
+  import {error} from 'utils'
 
   import classes from './index.styl'
 
@@ -39,6 +39,7 @@ More complex:
     },
     methods: {
       rebuild() {
+        // eslint-disable-next-line no-return-assign
         if (this.built) return this.comps = null
         try {
           const data = this.$refs.component.text
@@ -49,7 +50,7 @@ More complex:
           alert('请确认输入的内容是合法的模版数组')
         }
       },
-      compBuilt(empty){
+      compBuilt(empty) {
         this.built = !empty
       }
     }
