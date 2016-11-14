@@ -41,25 +41,16 @@ export default {
         }
       }
     }, {
-      path: '/website',
-      name: 'website',
-      component: () => System.import('views/MerchantWebsite'),
-      meta: {
-        init: {
-          url: '/website-edit'
-        }
-      }
-    }, {
       path: '/touch',
       name: 'touchTest',
       component: () => System.import('views/TouchTest')
     }, {
       path: '/dynamic',
       name: 'dynamic',
-      component: () => System.import('views/DynamicTest'),
+      component: () => System.import('views/Dynamic'),
       meta: {
         init: {
-          url: '/website-edit'
+          url: '/dynamic'
         }
       }
     }, {

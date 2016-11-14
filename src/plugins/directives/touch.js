@@ -1,4 +1,4 @@
-import utils, {getTranslate, translate} from '../utils'
+import utils, {getTranslate, translate} from 'utils'
 
 const isTouchSupport = () => {
   return !!(('ontouchstart' in window &&
@@ -194,7 +194,7 @@ function destroy(el, binding) {
 
 let resizeTimeoutId
 
-export default {
+export const move = {
   bind(el, binding, vnode) {
     const {context} = vnode
     init.call(context, el, binding)

@@ -1,6 +1,6 @@
 import Mock from 'mockjs'
 
-Mock.mock(/\/website-edit$/, () => {
+Mock.mock(/\/dynamic$/, () => {
   return [{
     template: `<div>{{ msg }}</div>`,
     data: {

@@ -1,4 +1,4 @@
-import {warn, isArray, isFunction, isObject} from '../utils'
+import {warn, isArray, isFunction, isObject} from 'utils'
 
 const objCompsToArr = objComponents => {
   const components = []
@@ -53,7 +53,7 @@ const buildComponent = (comps, notFirst) => {
 }
 
 export default {
-  name: 'vue-dynamic',
+  name: 'dynamic',
   template: `<comment :is="view"/>`,
   props: {
     comps: {
@@ -81,6 +81,7 @@ export default {
     reBuild() {
       const component = buildComponent(this.comps)
       this.view = component || this.emptyView
+      this.$emit('built', this.view === this.emptyView)
     }
   }
 }
