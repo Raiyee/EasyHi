@@ -98,7 +98,7 @@
     "v-touch": "^0.1.9",
     "vue": "^2.0.5",
     "vue-lazyload": "^0.9.1",
-    "vue-router": "^2.0.1",
+    "vue-router": "^2.0.2",
     "vue-touch": "vuejs/vue-touch#next",
     "vuex": "^2.0.0",
     "vuex-actions": "^1.1.1",
@@ -126,13 +126,13 @@
     "cssnano": "^3.8.0",
     "debug": "^2.3.2",
     "del": "^2.2.2",
-    "eslint": "^3.10.0",
+    "eslint": "^3.10.1",
     "eslint-config-standard": "^6.2.1",
     "eslint-friendly-formatter": "^2.0.6",
     "eslint-loader": "^1.6.1",
     "eslint-plugin-babel": "^3.3.0",
     "eslint-plugin-promise": "^3.3.2",
-    "eslint-plugin-react": "^6.6.0",
+    "eslint-plugin-react": "^6.7.1",
     "eslint-plugin-standard": "^2.0.1",
     "eslint-plugin-vue": "^1.0.0",
     "eslint-plugin-vuefix": "^0.1.0",
@@ -159,11 +159,11 @@
     "vconsole": "^2.5.1",
     "vue-hot-reload-api": "^2.0.6",
     "vue-html-loader": "^1.2.3",
-    "vue-loader": "^9.9.0",
+    "vue-loader": "^9.9.1",
     "vue-style-loader": "^1.0.0",
     "webpack": "^2.1.0-beta.25",
     "webpack-dev-middleware": "^1.8.4",
     "webpack-hot-middleware": "^2.13.2",
-    "yargs": "^6.3.0"
+    "yargs": "^6.4.0"
   }
 }

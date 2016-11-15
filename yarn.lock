@@ -1979,9 +1979,16 @@ eslint-plugin-promise@^3.3.2:
   version "3.3.2"
   resolved "http://registry.npm.taobao.org/eslint-plugin-promise/download/eslint-plugin-promise-3.3.2.tgz#c1169ae6487a87cdeae44f659f4cf05131b8dc66"
 
-eslint-plugin-react@^6.2.0, eslint-plugin-react@^6.6.0:
+eslint-plugin-react@^6.2.0:
   version "6.6.0"
   resolved "http://registry.npm.taobao.org/eslint-plugin-react/download/eslint-plugin-react-6.6.0.tgz#91ceecefa8a22d8f5d23ef9a839516a7d9fa63a1"
+  dependencies:
+    doctrine "^1.2.2"
+    jsx-ast-utils "^1.3.3"
+
+eslint-plugin-react@^6.7.1:
+  version "6.7.1"
+  resolved "http://registry.npm.taobao.org/eslint-plugin-react/download/eslint-plugin-react-6.7.1.tgz#1af96aea545856825157d97c1b50d5a8fb64a5a7"
   dependencies:
     doctrine "^1.2.2"
     jsx-ast-utils "^1.3.3"
@@ -2003,9 +2010,9 @@ eslint-plugin-vuefix@^0.1.0:
   dependencies:
     parse5 "^2.1.5"
 
-eslint@^3.10.0:
-  version "3.10.0"
-  resolved "http://registry.npm.taobao.org/eslint/download/eslint-3.10.0.tgz#4a90079046b3a89099eaa47787eafeb081e78209"
+eslint@^3.10.1:
+  version "3.10.1"
+  resolved "http://registry.npm.taobao.org/eslint/download/eslint-3.10.1.tgz#65544c7c171986899fa8a8f9abd71badf7981ba0"
   dependencies:
     babel-code-frame "^6.16.0"
     chalk "^1.1.3"
@@ -5409,9 +5416,9 @@ vue-lazyload@^0.9.1:
   version "0.9.1"
   resolved "http://registry.npm.taobao.org/vue-lazyload/download/vue-lazyload-0.9.1.tgz#78270604d01e195db6fa3d89becefe4b3c140ea6"
 
-vue-loader@^9.9.0:
-  version "9.9.0"
-  resolved "http://registry.npm.taobao.org/vue-loader/download/vue-loader-9.9.0.tgz#cf4d9fddd5ef22e0d1642153f4722fb310001c80"
+vue-loader@^9.9.1:
+  version "9.9.1"
+  resolved "http://registry.npm.taobao.org/vue-loader/download/vue-loader-9.9.1.tgz#2867dd29027fab6d0f94bef98c607dc2d3a36304"
   dependencies:
     consolidate "^0.14.0"
     hash-sum "^1.0.2"
@@ -5427,9 +5434,9 @@ vue-loader@^9.9.0:
     vue-template-compiler "^2.0.5"
     vue-template-es2015-compiler "^1.2.2"
 
-vue-router@^2.0.1:
-  version "2.0.1"
-  resolved "http://registry.npm.taobao.org/vue-router/download/vue-router-2.0.1.tgz#88b83cdc9497bad5b20b579e847a7e7240e221dd"
+vue-router@^2.0.2:
+  version "2.0.2"
+  resolved "http://registry.npm.taobao.org/vue-router/download/vue-router-2.0.2.tgz#1cdd469cc8a037f92fd711683ca23a11840a5006"
 
 vue-style-loader@^1.0.0:
   version "1.0.0"
@@ -5628,7 +5635,7 @@ yargs-parser@^2.4.0:
     camelcase "^3.0.0"
     lodash.assign "^4.0.6"
 
-yargs-parser@^4.0.2:
+yargs-parser@^4.0.2, yargs-parser@^4.1.0:
   version "4.1.0"
   resolved "http://registry.npm.taobao.org/yargs-parser/download/yargs-parser-4.1.0.tgz#313df030f20124124aeae8fbab2da53ec28c56d7"
   dependencies:
@@ -5650,7 +5657,7 @@ yargs@^3.5.4:
     window-size "^0.1.4"
     y18n "^3.2.0"
 
-yargs@^6.0.0, yargs@^6.3.0:
+yargs@^6.0.0:
   version "6.3.0"
   resolved "http://registry.npm.taobao.org/yargs/download/yargs-6.3.0.tgz#19c6dbb768744d571eb6ebae0c174cf2f71b188d"
   dependencies:
@@ -5668,6 +5675,25 @@ yargs@^6.0.0, yargs@^6.3.0:
     window-size "^0.2.0"
     y18n "^3.2.1"
     yargs-parser "^4.0.2"
+
+yargs@^6.4.0:
+  version "6.4.0"
+  resolved "http://registry.npm.taobao.org/yargs/download/yargs-6.4.0.tgz#816e1a866d5598ccf34e5596ddce22d92da490d4"
+  dependencies:
+    camelcase "^3.0.0"
+    cliui "^3.2.0"
+    decamelize "^1.1.1"
+    get-caller-file "^1.0.1"
+    os-locale "^1.4.0"
+    read-pkg-up "^1.0.1"
+    require-directory "^2.1.1"
+    require-main-filename "^1.0.1"
+    set-blocking "^2.0.0"
+    string-width "^1.0.2"
+    which-module "^1.0.0"
+    window-size "^0.2.0"
+    y18n "^3.2.1"
+    yargs-parser "^4.1.0"
 
 yargs@~3.10.0:
   version "3.10.0"
