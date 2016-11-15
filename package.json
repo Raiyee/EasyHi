@@ -9,7 +9,7 @@
     "url": "git@git.coding.net:Raiyee/EasyHi.git"
   },
   "scripts": {
-    "build": "npm run lint:fix && npm run clean && npm run compil",
+    "build": "npm run lint:fix && npm run clean && npm run compile",
     "build:test": "npm run lint:fix && npm run clean && npm run compile:test",
     "clean": "cross-env DEBUG=koa* node build/bin/clean",
     "compile": "cross-env NODE_ENV=production DEBUG=koa* node build/bin/compile",
