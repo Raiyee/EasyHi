@@ -17,13 +17,13 @@ before_install:
 - cp .travis/ssh_config ~/.ssh/config
 - git config --global user.name 'JounQin'
 - git config --global user.email 'liujiaren1992@vip.qq.com'
-- npm i -g yarn
-- rm -rf .yarnrc yarn.lock v-touch
+#- npm i -g yarn
+#- rm -rf .yarnrc yarn.lock
 
 install:
-- yarn
+- npm i
 
 script:
-- yarn run build
+- npm run build
 - git push --force --quiet git@git.coding.net:Raiyee/EasyHi.git master:master
-- yarn run sync
+- npm run sync
