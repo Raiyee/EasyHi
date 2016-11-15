@@ -5411,9 +5411,9 @@ vue-html-loader@^1.2.3:
     loader-utils "^0.2.15"
     object-assign "^4.1.0"
 
-vue-lazyload@^0.9.1:
-  version "0.9.1"
-  resolved "http://registry.npm.taobao.org/vue-lazyload/download/vue-lazyload-0.9.1.tgz#78270604d01e195db6fa3d89becefe4b3c140ea6"
+vue-lazyload@^0.9.2:
+  version "0.9.2"
+  resolved "http://registry.npm.taobao.org/vue-lazyload/download/vue-lazyload-0.9.2.tgz#ea50d76c53fa5a0fe1f76eb7f35bb19da2d79d62"
 
 vue-loader@^9.9.1:
   version "9.9.1"
@@ -5515,7 +5515,7 @@ webpack-sources@^0.1.0:
     source-list-map "~0.1.0"
     source-map "~0.5.3"
 
-webpack@^2.1.0-beta.25:
+webpack@^2.1.0-beta.26:
   version "2.1.0-beta.26"
   resolved "http://registry.npm.taobao.org/webpack/download/webpack-2.1.0-beta.26.tgz#770eed2b04ce9863107ff138caa701a85e7b4e12"
   dependencies:
