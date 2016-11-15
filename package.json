@@ -9,86 +9,23 @@
     "url": "git@git.coding.net:Raiyee/EasyHi.git"
   },
   "scripts": {
-    "build": "better-npm-run build",
-    "build:test": "better-npm-run build:test",
-    "clean": "better-npm-run clean",
-    "compile": "better-npm-run compile",
-    "compile:test": "better-npm-run compile:test",
-    "debug": "better-npm-run dev -- --debug",
-    "dev": "better-npm-run dev",
-    "dev:mock": "better-npm-run dev -- --mock",
+    "build": "npm run lint:fix && npm run clean && npm run compil",
+    "build:test": "npm run lint:fix && npm run clean && npm run compile:test",
+    "clean": "cross-env DEBUG=koa* node build/bin/clean",
+    "compile": "cross-env NODE_ENV=production DEBUG=koa* node build/bin/compile",
+    "compile:test": "cross-env NODE_ENV=test DEBUG=koa* node build/bin/compile",
+    "debug": "nodemon build/bin/start -- --debug",
+    "dev": "nodemon build/bin/start",
+    "dev:mock": "nodemon build/bin/start -- --mock",
     "eslint": "eslint --max-warnings 10 --ext .js,.vue .",
     "lint": "npm run eslint && npm run stylelint",
     "lint:fix": "npm run eslint -- --fix && npm run stylelint",
-    "start": "better-npm-run start",
-    "start:test": "better-npm-run start:test",
-    "stylelint": "better-npm-run stylelint",
-    "test": "better-npm-run test",
+    "start": "cross-env NODE_ENV=production nodemon build/bin/start",
+    "start:test": "cross-env NODE_ENV=test nodemon build/bin/start",
+    "stylelint": "node build/bin/stylelint.js",
+    "test": "npm run compile:test && npm run start:test",
     "push": "bash build/bash/push.sh",
     "sync": "bash build/bash/sync.sh"
-  },
-  "betterScripts": {
-    "build": {
-      "command": "npm run lint:fix && npm run clean && npm run compile",
-      "env": {
-        "DEBUG": "koa*"
-      }
-    },
-    "build:test": {
-      "command": "npm run lint:fix && npm run clean && npm run compile:test",
-      "env": {
-        "DEBUG": "koa*"
-      }
-    },
-    "clean": {
-      "command": "node build/bin/clean",
-      "env": {
-        "DEBUG": "koa*"
-      }
-    },
-    "compile": {
-      "command": "node build/bin/compile",
-      "env": {
-        "NODE_ENV": "production",
-        "DEBUG": "koa*"
-      }
-    },
-    "compile:test": {
-      "command": "node build/bin/compile",
-      "env": {
-        "NODE_ENV": "production",
-        "DEBUG": "koa*"
-      }
-    },
-    "dev": {
-      "command": "nodemon build/bin/start",
-      "env": {
-        "DEBUG": "koa*"
-      }
-    },
-    "start": {
-      "command": "nodemon build/bin/start",
-      "env": {
-        "NODE_ENV": "production",
-        "DEBUG": "koa*"
-      }
-    },
-    "start:test": {
-      "command": "nodemon build/bin/start",
-      "env": {
-        "NODE_ENV": "test",
-        "DEBUG": "koa*"
-      }
-    },
-    "stylelint": {
-      "command": "node build/bin/stylelint.js",
-      "env": {
-        "DEBUG": "koa*"
-      }
-    },
-    "test": {
-      "command": "npm run compile:test && npm run start:test"
-    }
   },
   "dependencies": {
     "axios": "^0.15.2",
@@ -120,8 +57,8 @@
     "babel-preset-stage-0": "^6.16.0",
     "babel-register": "^6.18.0",
     "babel-runtime": "^6.18.0",
-    "better-npm-run": "^0.0.13",
     "copy-webpack-plugin": "^4.0.0",
+    "cross-env": "^3.1.3",
     "css-loader": "^0.25.0",
     "cssnano": "^3.8.0",
     "debug": "^2.3.2",
