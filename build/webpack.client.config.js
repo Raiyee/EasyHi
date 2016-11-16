@@ -6,11 +6,6 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const SWPrecachePlugin = require('sw-precache-webpack-plugin')
 
 const config = Object.assign({}, base, {
-  resolve: {
-    alias: Object.assign({}, base.resolve.alias, {
-      'create-api': './create-api-client.js'
-    })
-  },
   plugins: (base.plugins || []).concat([
     // strip comments in Vue code
     new webpack.DefinePlugin({
@@ -53,7 +48,7 @@ if (process.env.NODE_ENV === 'production') {
       }
     }),
     new SWPrecachePlugin({
-      cacheId: 'vue-hn',
+      cacheId: 'easyhi-vue',
       filename: 'service-worker.js',
       dontCacheBustUrlsMatching: /./,
       staticFileGlobsIgnorePatterns: [/index\.html$/, /\.map$/]

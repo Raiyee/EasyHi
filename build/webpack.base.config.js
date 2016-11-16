@@ -6,9 +6,6 @@ module.exports = {
   entry: {
     app: './src/client-entry.js',
     vendor: [
-      'es6-promise',
-      'firebase/app',
-      'firebase/database',
       'vue',
       'vue-router',
       'vuex',
@@ -26,7 +23,6 @@ module.exports = {
     }
   },
   module: {
-    noParse: /es6-promise\.js$/, // avoid webpack shimming process
     rules: [
       {
         test: /\.vue$/,
