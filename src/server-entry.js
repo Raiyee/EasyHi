@@ -1,4 +1,7 @@
-import { app, router, store } from './app'
+import Vue from 'vue'
+import {app, router, store} from './app'
+
+const _app = new Vue(app)
 
 const isDev = process.env.NODE_ENV !== 'production'
 
@@ -16,7 +19,7 @@ export default context => {
 
   // no matched routes
   if (!matchedComponents.length) {
-    return Promise.reject({ code: '404' })
+    return Promise.reject({code: '404'})
   }
 
   // Call preFetch hooks on components matched by the route.
@@ -36,6 +39,6 @@ export default context => {
     // store to pick-up the server-side state without having to duplicate
     // the initial data fetching on the client.
     context.initialState = store.state
-    return app
+    return _app
   })
 }

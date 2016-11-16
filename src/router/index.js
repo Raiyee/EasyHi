@@ -8,6 +8,6 @@ export default new Router({
   scrollBehavior: () => ({y: 0}),
   routes: [{
     path: '/',
-    component: require('views/Home')
+    component: __SERVER__ ? require('views/Home') : () => System.import('views/Home')
   }]
 })

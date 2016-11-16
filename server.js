@@ -30,7 +30,7 @@ if (isProd) {
   })
 }
 
-function createRenderer (bundle) {
+function createRenderer(bundle) {
   // https://github.com/vuejs/vue/blob/next/packages/vue-server-renderer/README.md#why-use-bundlerenderer
   return require('vue-server-renderer').createBundleRenderer(bundle, {
     cache: require('lru-cache')({
@@ -40,7 +40,7 @@ function createRenderer (bundle) {
   })
 }
 
-function parseIndex (template) {
+function parseIndex(template) {
   const contentMarker = '<!-- APP -->'
   const i = template.indexOf(contentMarker)
   return {
@@ -53,7 +53,7 @@ const serve = (path, cache) => express.static(resolve(path), {
   maxAge: cache && isProd ? 60 * 60 * 24 * 30 : 0
 })
 
-app.use(compression({ threshold: 0 }))
+app.use(compression({threshold: 0}))
 app.use(favicon('./src/static/favicon.ico'))
 app.use('/service-worker.js', serve('./dist/service-worker.js'))
 app.use('/manifest.json', serve('./manifest.json'))
@@ -66,7 +66,7 @@ app.get('*', (req, res) => {
 
   res.setHeader("Content-Type", "text/html");
   var s = Date.now()
-  const context = { url: req.url }
+  const context = {url: req.url}
   const renderStream = renderer.renderToStream(context)
 
   renderStream.once('data', () => {
@@ -81,9 +81,7 @@ app.get('*', (req, res) => {
     // embed initial store state
     if (context.initialState) {
       res.write(
-        `<script>window.__INITIAL_STATE__=${
-          serialize(context.initialState, { isJSON: true })
-        }</script>`
+        `<script>window.__INITIAL_STATE__=${serialize(context.initialState, {isJSON: true})}</script>`
       )
     }
     res.end(indexHTML.tail)
