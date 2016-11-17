@@ -1,0 +1,34 @@
+.hi-loading {
+  text-align: center;
+  position: fixed;
+  top: 50%;
+  width: 100%;
+  height: 100%;
+  transform: translate3d(0, -50%, 0);
+  background-color: rgba(0, 0, 0, .25);
+  z-index: 500;
+}
+
+.hi-loading-snake {
+  animation: hi-loading-snake-rotate .5s infinite linear;
+  border: 4px solid rgb(204, 204, 204);
+  border-right-color: transparent;
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0);
+}
+
+@keyframes hi-loading-snake-rotate {
+  from {
+    transform: translate3d(-50%, -50%, 0) rotate(0deg);
+  }
+
+  to {
+    transform: translate3d(-50%, -50%, 0) rotate(1turn);
+  }
+}

@@ -1,0 +1,28 @@
+@require "_variables"
+
+THEME_COLOR ?= THEME_PURPLE
+THEME_COLOR_DARKER ?= THEME_PURPLE_DARKER
+
+// @stylint off
+.theme-color
+  color THEME_COLOR !important
+
+.theme-bd
+  border-color THEME_COLOR !important
+
+.theme-bg
+  background-color THEME_COLOR !important
+
+.btn-theme-default
+  bbColor THEME_COLOR THEME_COLOR REVERSE_COLOR
+  bbActive THEME_COLOR_DARKER THEME_COLOR_DARKER REVERSE_COLOR
+  &.inactive
+    bbActive THEME_COLOR THEME_COLOR REVERSE_COLOR
+
+.btn-theme-primary
+  border-radius HALF_INPUT_SIZE
+  bbColor REVERSE_COLOR THEME_COLOR
+  bbActive REVERSE_COLOR THEME_COLOR_DARKER
+  &.inactive
+    bbActive REVERSE_COLOR THEME_COLOR
+// @stylint on
