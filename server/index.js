@@ -10,7 +10,9 @@ const serialize = require('serialize-javascript')
 
 const _debug = require('debug')
 const debug = _debug('hi:server')
-const error = require('debug')('hi:server:error')
+const error = _debug('hi:server:error')
+
+debug('starting server')
 
 const app = express()
 
