@@ -8,12 +8,12 @@ const debug = require('debug')('hi:webpack:base')
 const {globals, paths, compilerBrowsers, compilerDevTool, compilerPublicPath, compilerVendor} = require('../config')
 const {TRUE_NODE_ENV, __DEV__} = globals
 
+const {baseLoaders, generateLoaders, localIdentName, nodeModules, vueCssLoaders} = require('./utils')
+
 debug('Create webpack configuration.')
 
 const browsers = compilerBrowsers
 const postcss = []
-
-const vueConfig = {postcss}
 
 if (__DEV__) {
   debug(`Enable postcss processor(autoprefixer) for ${TRUE_NODE_ENV}!\n`)
@@ -38,14 +38,9 @@ if (__DEV__) {
     safe: true,
     sourcemap: !globals.__PROD__
   }))
-
-  vueConfig.loaders = {
-    stylus: ExtractTextPlugin.extract({
-      loader: 'css-loader!stylus-loader',
-      fallbackLoader: 'vue-style-loader'
-    })
-  }
 }
+
+const sourceMap = !!compilerDevTool
 
 module.exports = {
   devtool: compilerDevTool,
@@ -67,9 +62,25 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.styl$/,
+        loader: generateLoaders('stylus-loader', baseLoaders, {
+          sourceMap
+        }),
+        exclude: nodeModules
+      },
+      {
         test: /\.vue$/,
         loader: 'vue-loader',
-        options: vueConfig
+        options: {
+          loaders: vueCssLoaders({
+            sourceMap
+          }),
+          autoprefixer: false,
+          cssModules: {
+            camelCase: true,
+            localIdentName
+          }
+        }
       }, {
         test: /\.js$/,
         loader: 'buble-loader',
@@ -88,6 +99,12 @@ module.exports = {
     ]
   },
   plugins: [
-    new webpack.DefinePlugin(globals)
+    new webpack.DefinePlugin(globals),
+    new webpack.LoaderOptionsPlugin({
+      options: {
+        context: __dirname,
+        postcss
+      }
+    })
   ]
 }

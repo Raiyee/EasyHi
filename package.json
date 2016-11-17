@@ -4,7 +4,7 @@
   "author": "liujiaren1992@vip.qq.com",
   "private": true,
   "scripts": {
-    "dev": "node server",
+    "dev": "cross-env DEBUG=hi:* node server",
     "start": "cross-env NODE_ENV=production node server",
     "build": "rimraf dist && npm run build:client && npm run build:server",
     "build:client": "cross-env NODE_ENV=production DEBUG=hi:* webpack --config build/webpack/config.client.js --progress --hide-modules",
@@ -39,7 +39,9 @@
     "fonts.css": "^1.5.0",
     "memory-fs": "^0.3.0",
     "nib": "^1.1.2",
+    "postcss-loader": "^1.1.1",
     "rimraf": "^2.5.4",
+    "style-loader": "^0.13.1",
     "stylus": "^0.54.5",
     "stylus-loader": "^2.1.2",
     "stylus-px2rem": "^1.0.6",
@@ -48,6 +50,7 @@
     "vue-loader": "^9.9.3",
     "webpack": "^2.1.0-beta.26",
     "webpack-dev-middleware": "^1.6.1",
-    "webpack-hot-middleware": "^2.12.2"
+    "webpack-hot-middleware": "^2.12.2",
+    "yargs": "^6.4.0"
   }
 }

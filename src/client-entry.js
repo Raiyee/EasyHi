@@ -1,3 +1,9 @@
+const theme = ['blue', 'green', 'purple', 'red'][~~(Math.random() * 4)]
+System.import('styles/theme-' + theme)
+
+import 'styles/bootstrap'
+import 'styles/app'
+
 import Vue from 'vue'
 import {app, router, store} from './app'
 

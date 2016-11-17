@@ -19,5 +19,3 @@
     }
   }
 </script>
-<style src="styles/bootstrap.styl" lang="stylus"/>
-<style src="styles/app.styl" lang="stylus"/>
