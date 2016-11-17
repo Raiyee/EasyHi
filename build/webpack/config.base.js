@@ -2,13 +2,12 @@ const path = require('path')
 const webpack = require('webpack')
 const autoprefixer = require('autoprefixer')
 const cssnano = require('cssnano')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const debug = require('debug')('hi:webpack:base')
 
 const {globals, paths, compilerBrowsers, compilerDevTool, compilerPublicPath, compilerVendor} = require('../config')
-const {TRUE_NODE_ENV, __DEV__} = globals
+const {TRUE_NODE_ENV, __DEV__, __PROD__} = globals
 
-const {baseLoaders, generateLoaders, localIdentName, nodeModules, vueCssLoaders} = require('./utils')
+const {localIdentName, vueCssLoaders} = require('./utils')
 
 debug('Create webpack configuration.')
 
@@ -62,13 +61,6 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.styl$/,
-        loader: generateLoaders('stylus-loader', baseLoaders, {
-          sourceMap
-        }),
-        exclude: nodeModules
-      },
-      {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: {
@@ -102,6 +94,8 @@ module.exports = {
     new webpack.DefinePlugin(globals),
     new webpack.LoaderOptionsPlugin({
       options: {
+        minimize: __PROD__,
+        debug: __DEV__,
         context: __dirname,
         postcss
       }

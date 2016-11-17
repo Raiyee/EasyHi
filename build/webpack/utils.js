@@ -42,9 +42,7 @@ const debug = argv.debug
 const debugPrefix = 'hi:webpack:'
 const nodeModules = exports.nodeModules = /\bnode_modules\b/
 
-const normalizeExclude = (exclude = []) => {
-  return Array.isArray(exclude) ? exclude : [exclude]
-}
+const normalizeExclude = (exclude = []) => Array.isArray(exclude) ? exclude : [exclude]
 
 exports.commonCssLoaders = function (options = {}) {
   options.vue = false
