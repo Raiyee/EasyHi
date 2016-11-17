@@ -1,4 +1,4 @@
-import App from 'App.vue'
+import App from 'views/App'
 import store from 'store'
 import router from 'router'
 import {sync} from 'vuex-router-sync'

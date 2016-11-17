@@ -1,5 +1,8 @@
+process.env.VUE_ENV = 'server'
+
 const webpack = require('webpack')
-const base = require('./webpack.base.config')
+const {globals} = require('../config')
+const base = require('./config.base.js')
 
 module.exports = Object.assign({}, base, {
   target: 'node',
@@ -10,10 +13,9 @@ module.exports = Object.assign({}, base, {
     libraryTarget: 'commonjs2'
   }),
   plugins: [
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
+    new webpack.DefinePlugin(Object.assign({}, globals, {
       'process.env.VUE_ENV': '"server"',
       __SERVER__: true
-    })
+    }))
   ]
 })

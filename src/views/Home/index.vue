@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="home">
     {{ msg }}
   </div>
 </template>
@@ -12,3 +12,4 @@
     }
   }
 </script>
+<style src="./index.styl" lang="stylus"/>

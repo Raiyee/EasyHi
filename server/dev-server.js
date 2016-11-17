@@ -1,8 +1,8 @@
 const path = require('path')
 const webpack = require('webpack')
 const MFS = require('memory-fs')
-const clientConfig = require('./webpack.client.config')
-const serverConfig = require('./webpack.server.config')
+const clientConfig = require('../build/webpack/config.client')
+const serverConfig = require('../build/webpack/config.server')
 
 module.exports = function setupDevServer (app, opts) {
   // modify client config to work with hot middleware
