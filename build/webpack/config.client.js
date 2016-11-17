@@ -15,7 +15,6 @@ const config = Object.assign({}, base, {
     // generate output HTML
     new HtmlWebpackPlugin({
       template: 'src/index.template.html',
-      title: `${pkg.name} - ${pkg.description}`,
       hash: false,
       inject: true,
       minify: {
@@ -29,11 +28,6 @@ const config = Object.assign({}, base, {
 if (!globals.__DEV__) {
   config.plugins.push(
     new ExtractTextPlugin('styles.[contenthash].css'),
-    // this is needed in webpack 2 for minifying CSS
-    // new webpack.LoaderOptionsPlugin({
-    //   minimize: true
-    // }),
-    // minify JS
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         warnings: false

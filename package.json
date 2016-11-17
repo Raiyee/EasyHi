@@ -15,6 +15,7 @@
     "npm": ">=3.0"
   },
   "dependencies": {
+    "bootstrap-styl": "^5.0.8",
     "compression": "^1.6.2",
     "express": "^4.14.0",
     "html-webpack-plugin": "^2.24.1",
@@ -35,10 +36,13 @@
     "css-loader": "^0.25.0",
     "extract-text-webpack-plugin": "^2.0.0-beta.3",
     "file-loader": "^0.9.0",
+    "fonts.css": "^1.5.0",
     "memory-fs": "^0.3.0",
+    "nib": "^1.1.2",
     "rimraf": "^2.5.4",
     "stylus": "^0.54.5",
     "stylus-loader": "^2.1.2",
+    "stylus-px2rem": "^1.0.6",
     "sw-precache-webpack-plugin": "^0.6.0",
     "url-loader": "^0.5.7",
     "vue-loader": "^9.9.3",

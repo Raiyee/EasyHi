@@ -1,0 +1,163 @@
+vendors = vendor-prefixes = official
+flex-version = flex
+
+@require "~nib/index"
+@require "~fonts.css/fonts"
+@require "~stylus-px2rem/index"
+
+bbColor()
+  color arguments[0]
+  border-color arguments[1] || arguments[0]
+  background-color arguments[2] || arguments[1] || arguments[0]
+
+// @stylint off
+bbActive()
+  &:hover, &.focus, &:focus
+    bbColor arguments
+  &.active, &:active
+    &, &:hover, &.focus, &:focus
+      bbColor arguments
+// @stylint on
+
+/**
+ * 背景色
+ */
+BG_COLOR = #f8f8f8
+
+/** 大输入框高度
+ */
+INPUT_SIZE = 44px
+HALF_INPUT_SIZE = INPUT_SIZE / 2
+
+/** 最大字号文本
+ *  整个页面文字较少时的大标题，极少使用
+ */
+TOP_SIZE = 36px
+
+/** 强调标题
+ *  用于一级按钮或者卡片大标题
+ */
+STRESS_SIZE = 18px
+
+/** 一级内容
+ *  页面内普通的一级标题内容
+ */
+PRIMARY_SIZE = 16px
+
+/** 二级内容
+ *  普通中文二级文字
+ */
+COMMON_SIZE = 14px
+
+/** 小号文字
+ *  11px 和 12px 字号无法直接使用（考虑rem + 小屏手机）
+ *  因为浏览器不支持这么小的字号，这里只是作为展示字号
+ *  需要自行通过类似 `font-size 16px; transform: scale(11/16);` 的方式实现
+ */
+
+/** 三级内容
+ *  正文三级文字
+ */
+SMALL_SIZE = 12px
+SMALL_SCALE = 12 / 16
+
+/** 小号备注内容
+ *  一般注释性文字，非重要又不可缺少性内容
+ */
+TINY_SIZE = 11px
+TINY_SCALE = 11 / 16
+
+/** 输入框边框、列表分割线
+ *  登录输入、数据录入时正常状态时的边框
+ *  会员列表、教练列表、个人信息列表等页面的颜色
+ */
+PLACEHOLDER_COLOR = INPUT_BORDER_COLOR = LIST_LINE_COLOR = ICON_COLOR = #d0d0d0
+
+/** 虚线分割
+ *  用于卡片列表式的列表里面的分割
+ */
+DASHED_LINE_COLOR = #c2c2c2
+
+/** 卡片内部分割线
+ *  用于卡片列表里面的分割线
+ */
+CARD_LINE_COLOR = #f1f1f1
+
+/** 强调标题文本
+ *  标题类型的文本信息，一般放在一级标题或者开头的地方,列表的标题就是用此颜色
+ */
+STRESS_COLOR = #000
+
+/** 反色、背景色
+ *  目前为白色
+ */
+REVERSE_COLOR = BACK_LIGHT_COLOR = #fff
+
+/** 主体内容性文本
+ *  一级标题下面的主体内容文字，使用面积略大
+ */
+PRIMARY_COLOR = #555
+
+/** 主体内容性次级文本，叙述性文本
+ *  一级标题下面的叙述性内容文字,次于主体内容，使用面积略大
+ */
+SUBTEXT_COLOR = #808080
+
+/** 备注和非强调性文本
+ *  备注信息文字和不可用状态
+ */
+REMARK_COLOR = #b7b7b7
+
+/* 其他 */
+BACK_COLOR = #e5e5e5
+
+/** 报错文字和特殊强调文本
+ *  用于报错信息的文本和特殊强调的文本，范围不是很大
+ */
+HIGHLIGHT_COLOR = #fb351b
+
+/**
+ * 男性
+ */
+MALE_COLOR = #01bad4
+
+/**
+ * 女性
+ */
+FEMALE_COLOR = #ff839f
+
+/**
+ * 早晨
+ */
+MORNING_COLOR = #fdb736
+
+/**
+ * 下午
+ */
+AFTERNOON_COLOR = #f96a2c
+
+/**
+ * 晚上
+ */
+EVENING_COLOR = #206dc1
+
+/**
+ * 下边框阴影
+ */
+BOTTOM_SHADOW = 0 1px 1px rgba(0, 0, 0, .05)
+
+/* 杜若蓝 */
+THEME_BLUE = #4b89dc
+THEME_BLUE_DARKER = #3c6eb0
+
+/* 忍冬青 */
+THEME_GREEN = #50d2c2
+THEME_GREEN_DARKER = #40a89b
+
+/* 紫罗兰 */
+THEME_PURPLE = #b28ef2
+THEME_PURPLE_DARKER = #8e72c2
+
+/* 胭脂红 */
+THEME_RED = FEMALE_COLOR
+THEME_RED_DARKER = #cc697f

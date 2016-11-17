@@ -1,2 +1,73 @@
-body
-  background-color red
+@require "_variables"
+@require "transition"
+
+*
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0)
+
+body.bg
+  background-color BG_COLOR
+
+input
+  placeholder(color PLACEHOLDER_COLOR,) // @stylint ignore
+  &,
+  &::-webkit-inner-spin-button, // @stylint ignore
+  &::-webkit-outer-spin-button // @stylint ignore
+    appearance none
+
+.btn
+  font-hei()
+  &.btn-hg
+    padding 11px 15px
+
+.input-group-addon
+  color ICON_COLOR
+  background-color BACK_LIGHT_COLOR !important // @stylint ignore
+  &:first-child + .form-control
+    border-left 0
+    padding-left 0
+    &:not(:last-child)
+      border-right 0
+
+.form-control
+  height INPUT_SIZE
+  &, &:focus
+    box-shadow none !important // @stylint ignore
+    border-color INPUT_BORDER_COLOR
+
+.input-group-addon,
+.form-control
+  padding 6px 12px
+  &:first-child
+    padding-left 22px
+    border-radius HALF_INPUT_SIZE 0 0 HALF_INPUT_SIZE
+  &:last-child
+    border-radius 0 HALF_INPUT_SIZE HALF_INPUT_SIZE 0
+  &
+    border-color INPUT_BORDER_COLOR
+
+.has-error
+  .form-control
+    &, &:focus
+      border-color HIGHLIGHT_COLOR
+  .input-group-addon
+    color ICON_COLOR
+    border-color HIGHLIGHT_COLOR
+  .form-control-static
+    color HIGHLIGHT_COLOR
+
+.icon-character
+  font-size 14px
+  display inline-block
+  line-height 1
+  border-radius 5px
+  padding 4px
+  color REVERSE_COLOR
+  transform scale(10 / 14)
+  margin-left -2px
+  margin-right -2px
+
+.remark-color
+  color REMARK_COLOR
+
+.remark-bg
+  background-color REMARK_COLOR
