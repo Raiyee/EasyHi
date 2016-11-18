@@ -5,7 +5,7 @@ const pkg = require('../../package.json')
 
 const TRUE_NODE_ENV = process.env.NODE_ENV || 'development'
 const NODE_ENV = TRUE_NODE_ENV === 'test' ? 'production' : TRUE_NODE_ENV
-const VUE_ENV = process.env.VUE_ENV || 'browser'
+const VUE_ENV = process.env.VUE_ENV || 'client'
 
 module.exports = {
   env: TRUE_NODE_ENV,

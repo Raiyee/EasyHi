@@ -15,11 +15,11 @@ const browsers = compilerBrowsers
 const postcss = []
 
 if (__DEV__) {
-  debug(`Enable postcss processor(autoprefixer) for ${TRUE_NODE_ENV}!\n`)
+  debug(`Enable postcss processor(autoprefixer) for ${TRUE_NODE_ENV}!`)
 
   postcss.push(autoprefixer({browsers}))
 } else {
-  debug(`Enable postcss processor(cssnano) for ${TRUE_NODE_ENV}!\n`)
+  debug(`Enable postcss processor(cssnano) for ${TRUE_NODE_ENV}!`)
 
   postcss.push(cssnano({
     autoprefixer: {
