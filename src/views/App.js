@@ -17,13 +17,11 @@ System.import('styles/theme-' + theme)
 
 const docEl = document.documentElement
 const resize = () => {
-  winHeight = docEl.clientHeight
-  winWidth = docEl.clientWidth
-  store.dispatch('setSize', {winHeight, winWidth})
+  store.dispatch('setSize', {winHeight: docEl.clientHeight, winWidth: docEl.clientWidth})
   docEl.style.fontSize = store.getters.fontSize + 'px'
 }
 
-let winHeight, winWidth, resizeTimeoutId
+let resizeTimeoutId
 
 on(window, 'resize', () => {
   clearTimeout(resizeTimeoutId)
