@@ -27,11 +27,10 @@ module.exports = {
   },
   rules: {
     'array-bracket-spacing': 2,
-    'babel/generator-star-spacing': 2,
     'babel/object-curly-spacing': 2,
     'computed-property-spacing': 2,
     'eol-last': 2,
-    'generator-star-spacing': 0,
+    'generator-star-spacing': 2,
     'jsx-quotes': [
       2,
       'prefer-double'

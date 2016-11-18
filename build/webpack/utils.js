@@ -3,7 +3,7 @@ import _debug from 'debug'
 import {argv} from 'yargs'
 
 // generate loader string to be used with extract text plugin
-export const generateLoaders = (loader, loaders, options) => {
+export const generateLoaders = (loader, loaders, options = {}) => {
   const sourceLoaders = (loader ? [...loaders, loader] : loaders).map(loader => {
     const hyphen = /\?/.test(loader) ? '&' : '?'
     return loader + (options.sourceMap ? hyphen + 'sourceMap' : '')
@@ -42,9 +42,7 @@ const debug = argv.debug
 const debugPrefix = 'koa:webpack:'
 export const nodeModules = /\bnode_modules\b/
 
-const normalizeExclude = (exclude = []) => {
-  return Array.isArray(exclude) ? exclude : [exclude]
-}
+const normalizeExclude = (exclude = []) => Array.isArray(exclude) ? exclude : [exclude]
 
 export default {
   commonCssLoaders(options = {}) {
