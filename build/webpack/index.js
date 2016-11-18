@@ -5,9 +5,10 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
 import autoprefixer from 'autoprefixer'
 import cssnano from 'cssnano'
 import _debug from 'debug'
-import config, {paths, pkg} from '../config'
-import utils, {baseLoaders, localIdentName, cssModuleLoaders, generateLoaders, nodeModules} from './utils'
-const {TRUE_NODE_ENV, __DEV__, __PROD__} = config.globals
+
+import config, {globals, paths, pkg} from '../config'
+import utils, {baseLoaders, cssModuleLoaders, generateLoaders, localIdentName, nodeModules} from './utils'
+const {TRUE_NODE_ENV, __DEV__, __PROD__} = globals
 
 const debug = _debug('koa:webpack:config')
 
@@ -16,9 +17,6 @@ const webpackConfig = {
   target: 'web',
   resolve: {
     modules: [paths.src(), 'node_modules'],
-    descriptionFiles: ['package.json'],
-    mainFields: ['main', 'browser'],
-    mainFiles: ['index'],
     extensions: ['.vue', '.js', '.styl'],
     // extensions: ['.js', '.vue', '.styl'],
     enforceExtension: false,
@@ -29,13 +27,6 @@ const webpackConfig = {
     }
   },
   resolveLoader: {
-    modules: ['node_modules'],
-    descriptionFiles: ['package.json'],
-    mainFields: ['main'],
-    mainFiles: ['index'],
-    extensions: ['.js'],
-    enforceExtension: false,
-    enforceModuleExtension: false,
     moduleExtensions: ['-loader']
   },
   node: {
@@ -141,7 +132,8 @@ webpackConfig.module.rules = [
     test: /\.(png|jpe?g|gif|svg|woff2?|eot|ttf)$/,
     loader: 'url',
     query: {
-      limit: 10000
+      limit: 10000,
+      name: '[name].[hash].[ext]'
     }
   }
 ]
@@ -149,16 +141,26 @@ webpackConfig.module.rules = [
 // ------------------------------------
 // Plugins
 // ------------------------------------
+
+const postcss = []
+
 webpackConfig.plugins = [
-  new webpack.DefinePlugin(config.globals),
-  // generate dist index.html with correct asset hash for caching.
-  // you can customize output by editing /index.html
-  // see https://github.com/ampedandwired/html-webpack-plugin
+  new webpack.DefinePlugin(globals),
+  new webpack.optimize.CommonsChunkPlugin({
+    names: ['vendor']
+  }),
+  new webpack.LoaderOptionsPlugin({
+    minimize: __PROD__,
+    debug: __DEV__,
+    options: {
+      context: __dirname,
+      postcss
+    }
+  }),
   new HtmlWebpackPlugin({
     filename: 'index.html',
     template: paths.src('index.ejs'),
     title: `${pkg.name} - ${pkg.description}`,
-    // title: pkg.name,
     favicon: paths.src('static/favicon.ico'),
     hash: false,
     inject: true,
@@ -170,21 +172,11 @@ webpackConfig.plugins = [
   new CopyWebpackPlugin([{
     from: paths.src('static')
   }], {
-    // ignore: ['*.ico', '*.md']
+    ignore: ['*.ico', '*.md']
   })
 ]
 
 const browsers = config.compiler_browsers
-const postcss = []
-
-const LOADER_OPTIONS = {
-  minimize: __PROD__,
-  debug: __DEV__,
-  options: {
-    context: __dirname,
-    postcss
-  }
-}
 
 if (__DEV__) {
   debug(`Enable postcss processor(autoprefixer) for ${TRUE_NODE_ENV}`)
@@ -217,6 +209,7 @@ if (__DEV__) {
   }))
 
   debug(`Enable plugins for ${TRUE_NODE_ENV} (OccurenceOrder, Dedupe & UglifyJS).`)
+  debug(`Extract styles of app and bootstrap for ${TRUE_NODE_ENV}.`)
   webpackConfig.plugins.push(
     new webpack.optimize.UglifyJsPlugin({
       compress: {
@@ -230,12 +223,5 @@ if (__DEV__) {
     appLoader
   )
 }
-
-webpackConfig.plugins.push(
-  new webpack.LoaderOptionsPlugin(LOADER_OPTIONS),
-  new webpack.optimize.CommonsChunkPlugin({
-    names: ['vendor']
-  })
-)
 
 export default webpackConfig

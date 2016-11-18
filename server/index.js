@@ -1,11 +1,10 @@
 import Koa from 'koa'
 import logger from 'koa-logger'
-import favicon from 'koa-favicon'
 import serve from 'koa-static'
 import _debug from 'debug'
-import config from './config'
+import config from '../build/config'
 import error from './error'
-import devTools from './dev-tools'
+import dev from './dev'
 
 const debug = _debug('koa:server')
 const paths = config.paths
@@ -21,15 +20,12 @@ app.use(error())
 // Apply Webpack DEV/HMR Middleware
 // ------------------------------------
 if (app.env !== 'development') {
-  // favicon
-  app.use(favicon(paths.dist('favicon.ico')))
-
   // static with cache
   app.use(serve(paths.dist(), {
     maxAge: 365 * 24 * 60 * 60
   }))
 } else {
-  devTools(app)
+  dev(app)
 }
 
 const {
