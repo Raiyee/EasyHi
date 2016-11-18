@@ -26,13 +26,12 @@
       </div>
     </div>
     <div class="media-right media-middle">
-      <img class="media-object img-circle" :src="imgPath(coursePicUrl)">
+      <img class="media-object img-circle" :src="$options.filters.imgPath(coursePicUrl)">
     </div>
   </li>
 </template>
 <script>
   import {REQUIRED_NUMBER, REQUIRED_STRING} from 'utils'
-  import {imgPath} from 'plugins/filters'
 
   export default{
     props: {
@@ -48,9 +47,6 @@
       scheduleDuration() {
         return (this.scheduleEndTime - this.scheduleStartTime) / 1000 / 60
       }
-    },
-    methods: {
-      imgPath
     }
   }
 </script>

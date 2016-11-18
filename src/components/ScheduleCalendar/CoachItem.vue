@@ -1,7 +1,7 @@
 <template>
   <li class="media" :class="$style.media">
     <div class="media-left media-middle">
-      <img class="media-object img-circle" :src="imgPath(coachItem.coachPortrait)">
+      <img class="media-object img-circle" :src="$options.filters.imgPath(coachItem.coachPortrait)">
     </div>
     <div class="media-body media-middle">
       <h4 class="media-heading">{{coachItem.coachName}}
@@ -59,7 +59,6 @@
   import {mapGetters} from 'vuex'
 
   import {REQUIRED_OBJECT} from 'utils'
-  import {imgPath} from 'plugins/filters'
 
   export default {
     props: {
@@ -103,7 +102,6 @@
       }
     },
     methods: {
-      imgPath,
       toggleActive() {
         this.$emit('toggleActiveCoach', this.active ? null : this.coachItem.coachId)
       },
