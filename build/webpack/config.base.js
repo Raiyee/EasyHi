@@ -1,43 +1,11 @@
 const path = require('path')
 const webpack = require('webpack')
-const autoprefixer = require('autoprefixer')
-const cssnano = require('cssnano')
 const debug = require('debug')('hi:webpack:base')
 
-const {globals, paths, compilerBrowsers, compilerDevTool, compilerPublicPath, compilerVendor} = require('../config')
-const {TRUE_NODE_ENV, __DEV__, __PROD__} = globals
-
+const {paths, compilerDevTool, compilerPublicPath, compilerVendor} = require('../config')
 const {localIdentName, vueCssLoaders} = require('./utils')
 
 debug('Create webpack configuration.')
-
-const browsers = compilerBrowsers
-const postcss = []
-
-if (__DEV__) {
-  debug(`Enable postcss processor(autoprefixer) for ${TRUE_NODE_ENV}!`)
-
-  postcss.push(autoprefixer({browsers}))
-} else {
-  debug(`Enable postcss processor(cssnano) for ${TRUE_NODE_ENV}!`)
-
-  postcss.push(cssnano({
-    autoprefixer: {
-      add: true,
-      remove: true,
-      browsers
-    },
-    discardComments: {
-      removeAll: true
-    },
-    discardUnused: false,
-    mergeIdents: false,
-    normalizeUrl: false,
-    reduceIdents: false,
-    safe: true,
-    sourcemap: !globals.__PROD__
-  }))
-}
 
 const sourceMap = !!compilerDevTool
 
@@ -89,16 +57,5 @@ module.exports = {
         }
       }
     ]
-  },
-  plugins: [
-    new webpack.DefinePlugin(globals),
-    new webpack.LoaderOptionsPlugin({
-      options: {
-        minimize: __PROD__,
-        debug: __DEV__,
-        context: __dirname,
-        postcss
-      }
-    })
-  ]
+  }
 }
