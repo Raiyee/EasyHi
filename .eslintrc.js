@@ -4,13 +4,15 @@ module.exports = {
   root: true,
   parser: 'babel-eslint',
   plugins: [
-    'standard',
     'babel',
     'react',
+    'flowtype',
+    'standard',
     `vue${argv.fix ? 'fix' : ''}`
   ],
   extends: [
-    'standard'
+    'standard',
+    'plugin:flowtype/recommended'
   ],
   env: {
     browser: true

@@ -42,17 +42,20 @@ export default {
       }
     }, {
       path: '/touch',
-      name: 'touchTest',
-      component: () => System.import('views/TouchTest')
+      name: 'touch',
+      component: () => System.import('views/_Touch')
     }, {
       path: '/dynamic',
       name: 'dynamic',
-      component: () => System.import('views/Dynamic'),
+      component: () => System.import('views/_Dynamic'),
       meta: {
         init: {
           url: '/dynamic'
         }
       }
+    }, {
+      path: '/flow',
+      component: () => System.import('views/_Flow')
     }, {
       path: '*',
       redirect: '/'
