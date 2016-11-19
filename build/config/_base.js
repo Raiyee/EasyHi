@@ -41,6 +41,11 @@ const config = {
   compiler_stats: {
     colors: true
   },
+  compiler_alias: {
+    http: 'axios',
+    vue: 'vue/dist/vue',
+    'vue-touch': 'vue-touch-easyhi',
+  },
   compiler_vendor: [
     'axios',
     'moment',
@@ -73,17 +78,11 @@ config.globals = {
 // Validate Vendor Dependencies
 // ------------------------------------
 config.compiler_vendor = config.compiler_vendor
-  .filter(dep => {
-    if (config.pkg.dependencies.hasOwnProperty(dep)) {
-      return true
-    }
-
-    debug(
-      'Package "' + dep + '" was not found as an npm dependency in package.json; ' +
-      'it won\'t be included in the webpack vendor bundle.\n' +
-      'Consider removing it from compiler_vendor in "./config/_base.js"'
-    )
-  })
+  .filter(dep => ({...config.pkg.dependencies, ...config.compiler_alias}.hasOwnProperty(dep) ? true : debug(
+    'Package "' + dep + '" was not found as an npm dependency in package.json; ' +
+    'it won\'t be included in the webpack vendor bundle.\n' +
+    'Consider removing it from compiler_vendor in "./config/_base.js"'
+  )))
 
 // ------------------------------------
 // Utilities

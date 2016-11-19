@@ -21,10 +21,7 @@ const webpackConfig = {
     // extensions: ['.js', '.vue', '.styl'],
     enforceExtension: false,
     enforceModuleExtension: false,
-    alias: {
-      http: 'axios',
-      vue: 'vue/dist/vue'
-    }
+    alias: config.compiler_alias
   },
   resolveLoader: {
     moduleExtensions: ['-loader']
