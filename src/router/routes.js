@@ -57,6 +57,9 @@ export default {
       path: '/flow',
       component: () => System.import('views/_Flow')
     }, {
+      path: '/modal',
+      component: () => System.import('views/_Modal')
+    }, {
       path: '*',
       redirect: '/'
     }
