@@ -7,46 +7,20 @@ import error from './error'
 import dev from './dev'
 
 const debug = _debug('koa:server')
-const paths = config.paths
 
 // Koa application is now a class and requires the new operator.
 const app = new Koa()
 app.use(logger())
 
-// last
+// handle error
 app.use(error())
 
 // ------------------------------------
 // Apply Webpack DEV/HMR Middleware
 // ------------------------------------
-if (app.env !== 'development') {
-  // static with cache
-  app.use(serve(paths.dist(), {
-    maxAge: 365 * 24 * 60 * 60
-  }))
-} else {
-  dev(app)
-}
+config.globals.__DEV__ ? dev(app) : app.use(serve(config.paths.dist(), {maxAge: 365 * 24 * 60 * 60}))
 
-const {
-  server_host,
-  server_port
-} = config
+const args = [config.server_port, config.server_host]
 
-/* eslint-disable camelcase */
-const args = [server_port]
-
-if (server_host) {
-  args.push(server_host)
-}
-/* eslint-enable camelcase */
-
-args.push(err => {
-  if (err) {
-    debug(err)
-    return
-  }
-  debug('Server is now running at %s:%s.', server_host, server_port)
-})
-
-export default app.listen(...args)
+export default app.listen(...args, err =>
+  debug.apply(null, err ? [err] : ['Server is now running at %s:%s.', ...args.reverse()]))

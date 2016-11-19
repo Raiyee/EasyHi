@@ -16,7 +16,8 @@ module.exports = {
     browser: true
   },
   globals: {
-    __DEV__: false
+    __DEV__: false,
+    IMG_PATH_PREFIX: false
   },
   parserOptions: {
     ecmaVersion: 6,

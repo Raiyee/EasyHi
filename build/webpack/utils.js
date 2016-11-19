@@ -12,11 +12,10 @@ export const generateLoaders = (loader, loaders, options = {}) => {
   const styleLoader = `${options.vue ? 'vue-' : ''}style`
 
   let extract = options.extract
-  if (!extract) return [styleLoader, sourceLoaders].join('!')
-  return (extract.extract ? extract : ExtractTextPlugin).extract({
+  return extract ? (extract.extract ? extract : ExtractTextPlugin).extract({
     fallbackLoader: styleLoader,
     loader: sourceLoaders
-  })
+  }) : [styleLoader, sourceLoaders].join('!')
 }
 
 export const baseLoaders = ['css?-minimize', 'postcss']
@@ -62,7 +61,7 @@ export default {
       })
     }
 
-    debug && _debug(`${debugPrefix}commonLoaders`)(loader)
+    debug && _debug(`${debugPrefix}commonCssLoaders`)(loader)
 
     return loader
   },
@@ -77,7 +76,7 @@ export default {
       loader[key] = generateLoaders(value, baseLoaders, options)
     }
 
-    debug && _debug(`${debugPrefix}vueLoaders`)(loader)
+    debug && _debug(`${debugPrefix}vueCssLoaders`)(loader)
 
     return loader
   }
