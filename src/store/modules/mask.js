@@ -1,5 +1,3 @@
-import {isPromise} from 'utils'
-
 const ADD_MODAL = 'ADD_MODAL'
 const CLEAR_MODAL = 'CLEAR_MODAL'
 

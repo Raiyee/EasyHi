@@ -8,7 +8,7 @@
   import Vue from 'vue'
   import {mapActions, mapGetters} from 'vuex'
 
-  import {isPromise, pickObj} from 'utils'
+  import {isPromise} from 'utils'
 
   export default {
     beforeCreate() {

@@ -17,8 +17,6 @@
   </div>
 </template>
 <script>
-  import {addClass} from 'utils'
-
   export default {
     props: {
       fade: {

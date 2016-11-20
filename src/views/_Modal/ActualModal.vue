@@ -25,7 +25,7 @@
         id: undefined
       }
     },
-    created(){
+    created() {
       console.log(this.id)
     },
     components: {
