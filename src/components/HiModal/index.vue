@@ -30,6 +30,7 @@
     methods: {
       ...mapActions(['addModal', 'clearModal']),
       actualAdd(modal) {
+        console.log(modal)
         this.modals.push(modal)
       },
       add(modal) {

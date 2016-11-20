@@ -1,5 +1,5 @@
 <template>
-  <ModalItem v-if="show" :show="show">
+  <ModalItem v-if="show" :keep="true" :show="show">
     <template slot="header">
       <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
         class="sr-only">Close</span></button>
@@ -22,11 +22,14 @@
     data() {
       return {
         show: true,
-        id: undefined
+        id: +new Date()
       }
     },
     created() {
-      console.log(this.id)
+      console.log('created:', this.id)
+    },
+    activated() {
+      console.log('activated:', this.id)
     },
     components: {
       ModalItem

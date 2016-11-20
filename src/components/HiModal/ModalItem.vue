@@ -26,7 +26,14 @@
       show: {
         type: Boolean,
         default: false
+      },
+      keep: {
+        type: Boolean,
+        default: false
       }
+    },
+    created() {
+      console.log(this.keep)
     }
   }
 </script>
