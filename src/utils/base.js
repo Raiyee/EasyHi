@@ -12,5 +12,5 @@ export const trueTypeFunc = type => value => type === trueType(value);
  * 一些类型判断方法, 例: utils.isArray(1)
  */
 ['Arguments', 'Array', 'Boolean', 'Date', 'Error', 'Function', 'Map',
-  'Null', 'Object', 'RegExp', 'Set', 'String', 'Symbol', 'Undefined']
+  'Null', 'Object', 'Promise', 'RegExp', 'Set', 'String', 'Symbol', 'Undefined']
   .forEach(type => (module.exports[`is${type}`] = trueTypeFunc(type)))

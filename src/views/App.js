@@ -10,6 +10,7 @@ import 'styles/app'
 
 import HiLoading from 'components/HiLoading'
 import HiProgress from 'components/HiProgress'
+import HiModal from 'components/HiModal'
 
 const theme = ['blue', 'green', 'purple', 'red'][~~(Math.random() * 4)]
 
@@ -57,6 +58,7 @@ export default {
         <transition name="bounce">
           {keepAlive ? '' : <router-view/>}
         </transition>
+        <HiModal/>
       </div>
     )
   }

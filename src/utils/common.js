@@ -1,13 +1,13 @@
 import {isArrayLike} from './array'
 
 const pickOrOmit = (pickOrOmit, objOrArr, obj, ...args) => {
-  if (obj == null) return {}
+  const processed = objOrArr ? {} : []
+
+  if (obj == null) return processed
 
   if (args.length === 1 && isArrayLike(args[0])) {
     args = Array.from(args[0])
   }
-
-  const processed = objOrArr ? {} : []
 
   for (const [key, value] of Object.entries(obj)) {
     const includes = args.includes(key) || args.includes(+key)
