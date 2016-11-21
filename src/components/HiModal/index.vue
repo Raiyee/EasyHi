@@ -1,15 +1,24 @@
 <template>
   <div v-if="modals.length">
-    <div class="modal-backdrop"
-         :class="{fade: currModal.options.fade, in: currModal.options.fade && currModal.options.in}"
+    <div class="modal-backdrop in"
          v-if="currModal && currModal.options.backdrop"></div>
-    <component v-for="modal of modals"
-               :class="{fade: modal.options.fade, in: modal.options.fade && modal.options.in}"
-               :id="modal.id"
-               :props="modal.props"
-               :is="modal.component"
-               :style="{display: modal.options.show ? 'block' : 'none'}"
-    />
+    <template v-for="modal of modals">
+      <transition v-if="modal.options.transition"
+                  :name="modal.options.transition">
+        <component :id="modal.id"
+                   :is="modal.component"
+                   :key="modal.id"
+                   :props="modal.props"
+                   style="display: block"
+                   v-show="modal.options.show"/>
+      </transition>
+      <component v-else
+                 :id="modal.id"
+                 :is="modal.component"
+                 :key="modal.id"
+                 :props="modal.props"
+                 :style="{display: modal.options.show ? 'block' : 'none'}"/>
+    </template>
   </div>
 </template>
 <script>
@@ -48,7 +57,7 @@
       close(modalId) {
         const currModalId = this.currModal && this.currModal.id
         let modal
-        const index = this.modals.findIndex(m => m.id === modalId || m.id === currModalId)
+        const index = this.modals.findIndex(m => m.id === (modalId || currModalId))
         index === -1 || (modal = this.modals[index])
         modalId === currModalId && (this.currModal = null)
         if (modal) {
@@ -61,7 +70,6 @@
       modalFade(modal) {
         this.currModal && this.currModal.id === modal.id || this.close()
         const {options} = modal
-        options.fade && setTimeout(() => this.$set(options, 'in', true), 0)
         options.show && (this.currModal = modal)
       },
       actualAdd(modal) {
@@ -76,7 +84,7 @@
       },
       open(modal: {id: void | string | number, component: Object, options: void | Object, props: void | Object}) {
         modal.id = modal.id || 'modal_' + +new Date()
-        modal.options = pickObj(modal.options, ['backdrop', 'destroy', 'fade', 'show'])
+        modal.options = pickObj(modal.options, ['backdrop', 'destroy', 'show', 'transition'])
         isPromise(modal.component)
           ? modal.component.then(component => this.actualAdd(Object.assign(modal, {component}))) : this.actualAdd(modal)
         return modal.id

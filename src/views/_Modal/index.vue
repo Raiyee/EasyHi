@@ -12,7 +12,7 @@
       return {
         options: {
           backdrop: false,
-          fade: true,
+          transition: 'bounce',
           show: true
         }
       }

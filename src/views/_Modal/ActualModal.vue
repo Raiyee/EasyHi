@@ -5,10 +5,12 @@
     </template>
     <template>
       <p>Just test body</p>
-      xxxx
+      {{ reverse ? $options.filters.reverse(msg) : msg }}
+      <br>
+      <button class="btn btn-theme-primary" @click="reverseMsg">Reverse Msg</button>
     </template>
     <!--<template slot="footer">-->
-      <!--<button class="btn btn-theme-default" @click="close">Close</button>-->
+    <!--<button class="btn btn-theme-default" @click="close">Close</button>-->
     <!--</template>-->
   </ModalItem>
 </template>
@@ -22,7 +24,7 @@
       props: Object
     },
     data() {
-      return {test: true}
+      return {msg: 'My name is msg', reverse: false}
     },
     components: {
       ModalItem
@@ -42,6 +44,9 @@
             show: true
           }
         })
+      },
+      reverseMsg() {
+        this.reverse = !this.reverse
       }
     }
   }
