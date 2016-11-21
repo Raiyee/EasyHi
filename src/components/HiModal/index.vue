@@ -3,12 +3,12 @@
     <div class="modal-backdrop"
          :class="{fade: currModal.options.fade, in: currModal.options.fade && currModal.options.in}"
          v-if="currModal && currModal.options.backdrop"></div>
-    <component v-for="{id, component, options, props} of modals"
-               :class="{fade: options.fade, in: options.fade && options.in}"
-               :id="id"
-               :props="props"
-               :is="component"
-               :style="{display: options.show ? 'block' : 'none'}"
+    <component v-for="modal of modals"
+               :class="{fade: modal.options.fade, in: modal.options.fade && modal.options.in}"
+               :id="modal.id"
+               :props="modal.props"
+               :is="modal.component"
+               :style="{display: modal.options.show ? 'block' : 'none'}"
     />
   </div>
 </template>
@@ -48,7 +48,7 @@
       close(modalId) {
         const currModalId = this.currModal && this.currModal.id
         let modal
-        const index = this.modals.findIndex(m => m.id === modalId || m.id === currModalId);
+        const index = this.modals.findIndex(m => m.id === modalId || m.id === currModalId)
         index === -1 || (modal = this.modals[index])
         modalId === currModalId && (this.currModal = null)
         if (modal) {
@@ -74,7 +74,7 @@
         this.modalFade(modal)
         this.modals.push(modal)
       },
-      open(modal: {id: void | string | number, component: Object, options: void | Object}) {
+      open(modal: {id: void | string | number, component: Object, options: void | Object, props: void | Object}) {
         modal.id = modal.id || 'modal_' + +new Date()
         modal.options = pickObj(modal.options, ['backdrop', 'destroy', 'fade', 'show'])
         isPromise(modal.component)
