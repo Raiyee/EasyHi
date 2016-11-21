@@ -1,5 +1,9 @@
 <template>
-  <ModalItem :id="id" :header="'标题'" :footer="true" :confirm="confirm.bind(this)">
+  <ModalItem :header="'标题'"
+             :footer="true"
+             :confirm="confirm.bind(this)"
+             transition="bounce"
+  >
     <template slot="header">
       My Header
     </template>
@@ -40,7 +44,6 @@
           options: {
             backdrop: true,
             destroy: true,
-            fade: true,
             show: true
           }
         })
