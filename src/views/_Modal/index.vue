@@ -5,10 +5,25 @@
   </div>
 </template>
 <script>
+  let modalId
+
   export default {
+    data() {
+      return {
+        options: {
+          backdrop: false,
+          fade: true,
+          show: true
+        }
+      }
+    },
     methods: {
       addModal() {
-        this.$modal.add(System.import('./ActualModal'))
+        modalId = this.$modal.open({
+          id: modalId,
+          component: System.import('./ActualModal'),
+          options: this.options
+        })
       },
       clearModal() {
         this.$modal.clear()

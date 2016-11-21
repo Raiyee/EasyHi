@@ -1,48 +1,38 @@
 <template>
-  <ModalItem v-if="show" :keep="true" :show="show">
-    <template slot="header">
-      <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
-        class="sr-only">Close</span></button>
-      <h4 class="modal-title">Modal title</h4>
-    </template>
+  <ModalItem :id="id" :header="'标题'" :footer="true" :confirm="confirm.bind(this)">
     <template slot="body">
       <p>One fine body&hellip;</p>
       xxxx
-    </template>
-    <template slot="footer">
-      <button type="button" class="btn btn-default" @click="close">Close</button>
-      <button type="button" class="btn btn-primary" @click="confirm">Save changes</button>
     </template>
   </ModalItem>
 </template>
 <script>
   import ModalItem from 'components/HiModal/ModalItem'
+  let modalId
 
   export default {
+    props: {
+      id: false,
+      props: Object
+    },
     data() {
-      return {
-        show: true,
-        id: +new Date()
-      }
-    },
-    created() {
-      console.log('created:', this.id)
-    },
-    activated() {
-      console.log('activated:', this.id)
+      return {test: true}
     },
     components: {
       ModalItem
     },
     methods: {
-      toggleShow() {
-        this.show = !this.show
-      },
-      close() {
-        this.show = false
-      },
       confirm() {
-        setTimeout(() => this.close(), 500)
+        modalId = this.$modal.open({
+          id: modalId,
+          component: System.import('./ActualModal'),
+          options: {
+            backdrop: true,
+            destroy: true,
+            fade: true,
+            show: true
+          }
+        })
       }
     }
   }
