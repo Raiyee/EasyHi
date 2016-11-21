@@ -1,9 +1,15 @@
 <template>
   <ModalItem :id="id" :header="'标题'" :footer="true" :confirm="confirm.bind(this)">
-    <template slot="body">
-      <p>One fine body&hellip;</p>
+    <template slot="header">
+      My Header
+    </template>
+    <template>
+      <p>Just test body</p>
       xxxx
     </template>
+    <!--<template slot="footer">-->
+      <!--<button class="btn btn-theme-default" @click="close">Close</button>-->
+    <!--</template>-->
   </ModalItem>
 </template>
 <script>
@@ -22,6 +28,9 @@
       ModalItem
     },
     methods: {
+//      close() {
+//        this.$modal.close(modalId)
+//      },
       confirm() {
         modalId = this.$modal.open({
           id: modalId,

@@ -2,6 +2,7 @@
   <div class="modal" :id="id">
     <div class="modal-dialog">
       <div class="modal-content">
+        <!--header-->
         <div class="modal-header" v-if="$slots.header">
           <slot name="header"/>
         </div>
@@ -12,19 +13,18 @@
           </button>
           <h4 class="modal-title" v-html="label"></h4>
         </div>
-        <div class="modal-body" v-if="$slots.body">
-          <slot name="body"/>
+        <!--body-->
+        <div class="modal-body">
+          <slot/>
         </div>
-        <slot/>
+        <!--footer-->
         <div class="modal-footer" v-if="$slots.footer">
           <slot name="footer"/>
         </div>
-        <template v-else>
-          <div class="modal-footer" v-if="footer">
-            <button type="button" class="btn btn-default" @click="closeModal">取消</button>
-            <button type="button" class="btn btn-primary" @click="confirmModal">确定</button>
-          </div>
-        </template>
+        <div class="modal-footer" v-else v-if="footer">
+          <button type="button" class="btn btn-default" @click="closeModal">取消</button>
+          <button type="button" class="btn btn-primary" @click="confirmModal">确定</button>
+        </div>
       </div>
     </div>
   </div>
