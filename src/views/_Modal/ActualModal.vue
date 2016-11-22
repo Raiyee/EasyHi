@@ -2,13 +2,12 @@
   <ModalItem :header="'标题'"
              :footer="true"
              :confirm="confirm.bind(this)"
-             transition="bounce"
-  >
+             transition="bounce">
     <template slot="header">
       My Header
     </template>
     <template>
-      <p>Just test body</p>
+      <p>{{ bodyMsg }}</p>
       {{ reverse ? $options.filters.reverse(msg) : msg }}
       <br>
       <button class="btn btn-theme-primary" @click="reverseMsg">Reverse Msg</button>
@@ -20,12 +19,16 @@
 </template>
 <script>
   import ModalItem from 'components/HiModal/ModalItem'
+  import {reverse} from 'utils'
+
   let modalId
 
   export default {
     props: {
-      id: false,
-      props: Object
+      bodyMsg: {
+        type: String,
+        required: true
+      }
     },
     data() {
       return {msg: 'My name is msg', reverse: false}
@@ -45,6 +48,9 @@
             backdrop: true,
             destroy: true,
             show: true
+          },
+          props: {
+            bodyMsg: reverse(this.bodyMsg)
           }
         })
       },

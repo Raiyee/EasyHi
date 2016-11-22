@@ -2,10 +2,9 @@
   <div v-if="modals.length">
     <div class="modal-backdrop in" v-if="currModal && currModal.options.backdrop"></div>
     <component v-for="modal of modals"
-               :id="modal.id"
                :is="modal.component"
                :key="modal.id"
-               :props="modal.props"
+               v-bind="modal.props"
                style="display: block"
                v-show="modal.options.show"/>
   </div>

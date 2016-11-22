@@ -22,7 +22,10 @@
         modalId = this.$modal.open({
           id: modalId,
           component: System.import('./ActualModal'),
-          options: this.options
+          options: this.options,
+          props: {
+            bodyMsg: 'Just test body'
+          }
         })
       },
       clearModal() {
