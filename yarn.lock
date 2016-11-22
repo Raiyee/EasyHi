@@ -1414,7 +1414,7 @@ cookies@~0.6.1:
     depd "~1.1.0"
     keygrip "~1.0.1"
 
-copy-webpack-plugin@^4.0.0:
+copy-webpack-plugin@^4.0.1:
   version "4.0.1"
   resolved "http://registry.npm.taobao.org/copy-webpack-plugin/download/copy-webpack-plugin-4.0.1.tgz#9728e383b94316050d0c7463958f2b85c0aa8200"
   dependencies:

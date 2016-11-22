@@ -26,4 +26,6 @@ install:
 script:
 - npm run build
 - git push --force --quiet git@git.coding.net:Raiyee/EasyHi.git master:master
+
+after_success:
 - npm run sync
