@@ -18,7 +18,7 @@ then
 
   git add -A
   git status -s |
-  if read -r MESSAGE
+  if read
   then
     git commit -m "$MESSAGE"
     git push --force --quiet git@github.com:Raiyee/EasyHi.git gh-pages:gh-pages
