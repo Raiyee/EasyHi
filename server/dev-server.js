@@ -4,7 +4,7 @@ const MFS = require('memory-fs')
 const clientConfig = require('../build/webpack/config.client')
 const serverConfig = require('../build/webpack/config.server')
 
-module.exports = function setupDevServer (app, opts) {
+module.exports = function setupDevServer(app, opts) {
   // modify client config to work with hot middleware
   clientConfig.entry.app = ['webpack-hot-middleware/client', clientConfig.entry.app]
   clientConfig.output.filename = '[name].js'
@@ -24,8 +24,10 @@ module.exports = function setupDevServer (app, opts) {
   })
   app.use(devMiddleware)
   clientCompiler.plugin('done', () => {
+    const fs = devMiddleware.fileSystem
     const filePath = path.join(clientConfig.output.path, 'index.html')
-    const index = devMiddleware.fileSystem.readFileSync(filePath, 'utf-8')
+    if (!fs.existsSync(filePath)) return
+    const index = fs.readFileSync(filePath, 'utf-8')
     opts.indexUpdated(index)
   })
 
