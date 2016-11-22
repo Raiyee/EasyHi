@@ -17,7 +17,7 @@ then
   touch .nojekyll
 
   git add -A
-  git status -s
+  git status -s |
   if read -r MESSAGE
   then
     git commit -m "$MESSAGE"
