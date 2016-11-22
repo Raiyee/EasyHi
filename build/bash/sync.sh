@@ -17,7 +17,11 @@ then
   touch .nojekyll
 
   git add -A
-  git commit -m "$MESSAGE"
-  git push --force --quiet git@github.com:Raiyee/EasyHi.git gh-pages:gh-pages
-  git push --force --quiet git@git.coding.net:Raiyee/EasyHi.git gh-pages:coding-pages
+  git status -s
+  if read -r MESSAGE
+  then
+    git commit -m "$MESSAGE"
+    git push --force --quiet git@github.com:Raiyee/EasyHi.git gh-pages:gh-pages
+    git push --force --quiet git@git.coding.net:Raiyee/EasyHi.git gh-pages:coding-pages
+  fi
 fi
