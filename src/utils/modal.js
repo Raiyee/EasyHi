@@ -3,7 +3,8 @@ import Vue from 'vue'
 let modalOptions = {
   backdrop: true,
   transition: 'bounce',
-  show: true
+  show: true,
+  destroy: true
 }
 
 let mergeProps = (propOptions) => {
