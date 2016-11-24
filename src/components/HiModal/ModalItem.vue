@@ -7,7 +7,7 @@
           <div class="modal-header" v-if="$slots.header">
             <slot name="header"/>
           </div>
-          <div class="modal-header" v-else v-if="label">
+          <div class="modal-header" v-else-if="label">
             <button type="button" class="close" @click="closeModal">
               <span aria-hidden="true">&times;</span>
               <span class="sr-only">关闭</span>
@@ -22,7 +22,7 @@
           <div class="modal-footer" v-if="$slots.footer">
             <slot name="footer"/>
           </div>
-          <div class="modal-footer" v-else v-if="footer">
+          <div class="modal-footer" v-else-if="footer">
             <button type="button" class="btn btn-theme-default" @click="closeModal">取消</button>
             <button type="button" class="btn btn-theme-primary" @click="confirmModal">确定</button>
           </div>
