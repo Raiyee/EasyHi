@@ -1,3 +1,5 @@
+@require '../../styles/_variables.styl'
+
 .confirm
   display none
   overflow hidden
@@ -12,7 +14,7 @@
 
   &.fade .confirm-dialog
     transform translate(0, -25%)
-    transition transform 0.3s ease-out
+    transition transform .3s ease-out
 
   &.in .confirm-dialog
     transform translate(0, 0)
@@ -21,46 +23,38 @@
   overflow-x hidden
   overflow-y auto
 
-// Shell div to position the modal with bottom padding
 .confirm-dialog
   position relative
   width auto
   margin 10px
 
-// Actual modal
 .confirm-content
-  background-color #fff
-  border 1px solid #999 //old browsers fallback (ie8 etc)
+  background-color BACK_LIGHT_COLOR
   border 1px solid rgba(0, 0, 0, .2)
   border-radius 6px
   box-shadow 0 3px 9px rgba(0, 0, 0, .5)
   background-clip padding-box
-  // Remove focus outline from opened modal
   outline 0
-  width: 70%;
-  max-width: 448px;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  z-index: 100000;
-  transform: translate(-50%,-50%);
+  width 70%
+  max-width 448px
+  position fixed
+  top 50%
+  left 50%
+  z-index 100000
+  transform translate(-50%, -50%)
 
 .confirm-header
   padding 10px
-  border-bottom 1px solid #e5e5e5
+  border-bottom 1px solid BACK_COLOR
   clearfix()
 
-// Close icon
 .confirm-header .close
   margin-top -2px
 
-// Title text within header
 .confirm-title
   margin 0
   line-height 22px
 
-// Modal body
-// Where all modal content resides (sibling of .confirm-header and .confirm-footer)
 .confirm-body
   padding 22px
   text-align center
@@ -68,10 +62,9 @@
   p
     margin 0
 
-// Footer (for actions)
 .confirm-footer
-  text-align center // right align buttons
-  border-top 1px solid #e5e5e5
+  text-align center
+  border-top 1px solid BACK_COLOR
   .btn-footer
     display inline-block
     width 49%
@@ -79,14 +72,12 @@
     line-height 50px
 
   .btn-cancel
-    border-right 1px solid #ededed
+    border-right 1px solid BACK_COLOR
 
-  clearfix() // clear it in case folks use .pull-* classes on buttons
+  clearfix()
 
 
-// Scale up the modal
 @media (min-width 768px)
-  // Automatically set modal's width for larger viewports
   .confirm-dialog
     width 600px
     margin 30px auto

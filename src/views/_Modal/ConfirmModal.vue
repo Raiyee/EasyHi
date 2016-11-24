@@ -26,6 +26,8 @@
   </transition>
 </template>
 <script>
+  import {warn} from 'utils'
+
   export default {
     props: {
       modalHeader: String,
@@ -40,7 +42,7 @@
       remove: Function
     },
     mounted() {
-      this.isToastModal && setTimeout(function() {
+      this.isToastModal && setTimeout(function () {
         this.remove && this.remove()
         this.$modal.close()
       }.bind(this), this.timeoutMill)
