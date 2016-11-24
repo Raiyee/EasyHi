@@ -42,7 +42,7 @@ More complex:
         // eslint-disable-next-line no-return-assign
         if (this.built) return this.comps = null
         try {
-          const data = this.$refs.component.text
+          const data = this.$refs.component.$children[0].text
           const getData = Function['call'](null, `return ${data}`)
           getData && (this.comps = getData())
         } catch (e) {
