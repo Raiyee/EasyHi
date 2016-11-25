@@ -27,3 +27,7 @@ script:
 - npm run build
 - git push --force --quiet git@git.coding.net:Raiyee/EasyHi.git master:master
 - npm run sync
+
+after_success:
+- npm i coveralls
+- cat ./coverage/*/lcov.info | coveralls

@@ -10,7 +10,7 @@
   },
   "scripts": {
     "gfw": "yarn add -D cross-env && cross-env PHANTOMJS_CDNURL=http://npm.taobao.org/mirrors/phantomjs yarn",
-    "build": "npm run lint:fix && npm run clean && npm run compile",
+    "build": "npm run lint:fix && npm run unit && npm run clean && npm run compile",
     "build:test": "npm run lint:fix && npm run clean && npm run compile:test",
     "clean": "cross-env DEBUG=koa* node build/bin/clean",
     "compile": "cross-env NODE_ENV=production DEBUG=koa* node build/bin/compile",

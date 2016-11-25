@@ -1,5 +1,6 @@
 import {argv} from 'yargs'
 
+/* eslint-disable camelcase */
 const coverage_enabled = !argv.watch
 
 const coverage_reporters = [
