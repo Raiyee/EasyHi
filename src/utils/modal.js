@@ -4,20 +4,26 @@ const MODAL = System.import('../components/HiModal/CommonPrompt')
 
 const MODAL_OPTIONS = {
   backdrop: true,
-  transition: 'bounce',
   show: true,
   destroy: true
 }
 
 const MODAL_PROPS = {
   header: '头部信息',
+  footer: true,
   tipText: '系统消息',
   confirmText: '确定',
   cancelText: '取消',
-  timeout: 2000
+  isTip: false,
+  isToast: false,
+  timeout: 2000,
+  transition: 'bounce',
+  cancel() {},
+  confirm() {},
+  remove() {}
 }
 
-let mergeProps = (options) => Object.assign({}, MODAL_PROPS, options)
+let mergeProps = (options) => Object.assign({}, MODAL_PROPS, options, {id: 'common-prompt'})
 
 export const confirmOn = (options) => {
   return Vue.prototype.$modal.open({

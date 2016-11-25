@@ -12,7 +12,7 @@
               <span aria-hidden="true">&times;</span>
               <span class="sr-only">关闭</span>
             </button>
-            <h4 class="modal-title" v-html="label"></h4>
+            <h4 class="modal-title" v-html="label"/>
           </div>
           <!--body-->
           <div class="modal-body">

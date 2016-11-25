@@ -4,6 +4,7 @@
     <component v-for="{component, id, props, options} of modals"
                :is="component"
                :key="id"
+               ref="modal"
                v-bind="props"
                style="display: block"
                v-show="options.show"/>
@@ -12,7 +13,7 @@
 <script>
   import Vue from 'vue'
 
-  import {addClass, isPromise, pickObj, removeClass} from 'utils'
+  import {addClass, isPromise, pickObj, removeClass, on} from 'utils'
 
   export default {
     beforeCreate() {
@@ -45,9 +46,13 @@
         index === -1 || (modal = this.modals[index])
         modalId === currModalId && (this.currModal = null)
         if (modal) {
-          const {options} = modal
-          if (options.destroy) return this.modals.splice(index, 1)
+          const {options, props} = modal
           options.show = false
+          if (options.destroy) {
+            props && props.transition ? on(this.$refs.modal[index].$el, 'animationend transitionend', () => {
+              this.modals.splice(index, 1)
+            }) : this.modals.splice(index, 1)
+          }
         }
       },
       mount(modal) {

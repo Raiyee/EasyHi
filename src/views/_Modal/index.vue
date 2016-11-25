@@ -17,13 +17,14 @@
         options: {
           backdrop: false,
           transition: 'bounce',
-          show: true
+          show: true,
+          destroy: true
         }
       }
     },
     methods: {
       addModal() {
-        modalId = this.$modal.open({
+        this.$modal.open({
           id: modalId,
           component: System.import('./ActualModal'),
           options: this.options,
@@ -36,12 +37,11 @@
         this.$modal.clear()
       },
       confirmModal() {
-        modalId = confirmOn({
+        confirmOn({
           tipText: '测试confirm 模态框',
           confirmText: '蓝瘦,香菇23333333333',
           confirm() {
             console.log('It is after confirm btn')
-            this.$modal.close(modalId)
           },
           cancel() {
             console.log('It is after cancel modal')
@@ -49,16 +49,15 @@
         })
       },
       tipModal() {
-        modalId = tipOn({
+        tipOn({
           tipText: 'I am  a confirm modal tip Text',
           confirm() {
             console.log('It is after tip modal')
-            this.$modal.close(modalId)
           }
         })
       },
       toastModal() {
-        modalId = toastOn({
+        toastOn({
           tipText: 'I am  a confirm modal tip Text',
           remove() {
             console.log('It is a toast')

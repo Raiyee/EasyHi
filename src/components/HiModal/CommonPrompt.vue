@@ -1,34 +1,28 @@
 <template>
-  <transition :name="trasition">
-    <div :class="$style.confirm">
-      <div :class="$style.confirmDialog">
-        <div :class="$style.confirmContent">
-          <!--header-->
-          <!--<div :class="$style.confirmHeader">-->
-            <!--{{ header}}-->
-          <!--</div>-->
-          <!--body-->
-          <div :class="$style.confirmBody" v-html="tipText">
-          </div>
-          <!--footer-->
-          <div :class="$style.confirmFooter" v-if="!isToast">
-            <div v-if="isTip">
-              <div class="theme-color" :class="[$style.btnFooter, $style.btnFooterConfirm]" @click="_confirm">{{ confirmText }}</div>
-            </div>
-            <div v-else>
-              <div :class="[$style.btnFooter, $style.btnCancel]" @click="_close">{{ cancelText }}</div>
-              <div class="theme-color" :class="$style.btnFooter" @click="_confirm">{{ confirmText }}</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </transition>
+  <PromptModal
+    :class="xxxx"
+    :header="header"
+              :footer="true"
+              :_confirm="_confirm.bind(this)"
+              :_close="_close.bind(this)"
+              :remove="remove.bind(this)"
+              :transition="transition"
+              :isTip="isTip"
+              :isToast="isToast"
+              :timeout="timeout"
+              :confirmText="confirmText"
+              :cancelText="cancelText"
+              :id="id">
+     <span v-html="tipText"/>
+  </PromptModal>
 </template>
-
 <script>
+  import PromptModal from 'components/HiModal/PromptModal'
+  import classes from './commonPrompt.styl'
+
   export default {
     props: {
+      id: String,
       header: String,
       tipText: String,
       confirm: Function,
@@ -38,25 +32,24 @@
       isTip: Boolean,
       isToast: Boolean,
       timeout: Number,
-      remove: Function
+      remove: Function,
+      transition: String
     },
-    mounted() {
-      this.isToast && setTimeout(function () {
-        this.$modal.close()
-        this.remove && this.remove()
-      }.bind(this), this.timeout)
+    data() {
+      return {
+        classes
+      }
     },
     methods: {
       _close() {
         this.cancel && this.cancel()
-        this.$modal.close()
       },
       _confirm() {
         this.confirm && this.confirm()
-        this.$modal.close()
       }
+    },
+    components: {
+      PromptModal
     }
   }
 </script>
-
-<style src="./commonPrompt.styl" lang="styl" module/>
