@@ -65,17 +65,23 @@
 .confirm-footer
   text-align center
   border-top 1px solid BACK_COLOR
+  height 50px
+
   .btn-footer
     display inline-block
-    width 49%
+    width 50%
     cursor pointer
     line-height 50px
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 
   .btn-cancel
     border-right 1px solid BACK_COLOR
+    float left
 
-  clearfix()
-
+  .btn-footer-confirm
+    width 100%
 
 @media (min-width 768px)
   .confirm-dialog
