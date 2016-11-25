@@ -20,5 +20,17 @@
     ]
   ],
   "comments": false,
-  "passPerPreset": true
+  "passPerPreset": true,
+  "env": {
+    "testing": {
+      "plugins": [
+        [
+          "__coverage__",
+          {
+            "ignore": "test/"
+          }
+        ]
+      ]
+    }
+  }
 }

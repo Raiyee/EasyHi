@@ -30,12 +30,11 @@ const inManifest = path => ~__karmaWebpackManifest__.indexOf(path)
 const testsContext = require.context('./', true, /\.spec\.js$/)
 
 // only run tests that have changed after the first pass.
-const testsToRun = testsContext.keys().filter(inManifest)
-  ;
+const testsToRun = testsContext.keys().filter(inManifest);
+
 (testsToRun.length ? testsToRun : testsContext.keys()).forEach(testsContext)
 
 // require `src/**/*.(js|vue)` (for coverage reporting)
-const componentsContext = require.context('../../src/', true,
-  /^((?!index|app|router|assets|demos|routes|static|themes|views).)*\.(js|vue)$/)
+const componentsContext = require.context('../../src', true, /\.(js|vue)$/)
 
 componentsContext.keys().forEach(componentsContext)
