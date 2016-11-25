@@ -37,13 +37,13 @@
       },
       confirmModal() {
         modalId = confirmOn({
-          tipText: 'I am  a confirm modal tip Text',
-          confirmBtn: '蓝瘦',
-          afterConfirm() {
-            console.log('It is after confirm modal')
+          tipText: '测试confirm 模态框',
+          confirmText: '蓝瘦,香菇23333333333',
+          confirm() {
+            console.log('It is after confirm btn')
             this.$modal.close(modalId)
           },
-          afterCancel() {
+          cancel() {
             console.log('It is after cancel modal')
           }
         })
@@ -51,16 +51,20 @@
       tipModal() {
         modalId = tipOn({
           tipText: 'I am  a confirm modal tip Text',
-          afterConfirm() {
+          confirm() {
             console.log('It is after tip modal')
             this.$modal.close(modalId)
           }
         })
       },
       toastModal() {
-        modalId = toastOn('I am  a confirm modal tip Text', function () {
-          console.log('It is a toast')
-        }, 2000)
+        modalId = toastOn({
+          tipText: 'I am  a confirm modal tip Text',
+          remove() {
+            console.log('It is a toast')
+          },
+          timeout: 2000
+        })
       }
     }
   }

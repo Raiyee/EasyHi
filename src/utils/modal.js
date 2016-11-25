@@ -1,47 +1,44 @@
 import Vue from 'vue'
 
-let modalOptions = {
+const MODAL = System.import('../components/HiModal/CommonPrompt')
+
+const MODAL_OPTIONS = {
   backdrop: true,
   transition: 'bounce',
   show: true,
   destroy: true
 }
 
-let mergeProps = (propOptions) => {
-  return {
-    modalHeader: propOptions.modalHeader || '头部信息',
-    tipText: propOptions.tipText || '系统消息',
-    confirmBtn: propOptions.confirmBtn || '确定',
-    cancelBtn: propOptions.cancelBtn || '取消',
-    afterConfirm: propOptions.afterConfirm,
-    afterCancel: propOptions.afterCancel
-  }
+const MODAL_PROPS = {
+  header: '头部信息',
+  tipText: '系统消息',
+  confirmText: '确定',
+  cancelText: '取消',
+  timeout: 2000
 }
+
+let mergeProps = (options) => Object.assign({}, MODAL_PROPS, options)
+
 export const confirmOn = (options) => {
   return Vue.prototype.$modal.open({
-    component: System.import('../views/_Modal/ConfirmModal'),
-    options: Object.assign(modalOptions, options.options),
+    component: MODAL,
+    options: MODAL_OPTIONS,
     props: mergeProps(options)
   })
 }
 
 export const tipOn = (options) => {
   return Vue.prototype.$modal.open({
-    component: System.import('../views/_Modal/ConfirmModal'),
-    options: Object.assign(modalOptions, options.options),
-    props: Object.assign(mergeProps(options), {isTipModal: true})
+    component: MODAL,
+    options: MODAL_OPTIONS,
+    props: Object.assign({}, mergeProps(options), {isTip: true})
   })
 }
 
-export const toastOn = (tipText, remove, timeoutMill) => {
+export const toastOn = (options) => {
   return Vue.prototype.$modal.open({
-    component: System.import('../views/_Modal/ConfirmModal'),
-    options: modalOptions,
-    props: {
-      tipText: tipText,
-      isToastModal: true,
-      timeoutMill: timeoutMill,
-      remove: remove
-    }
+    component: MODAL,
+    options: MODAL_OPTIONS,
+    props: Object.assign({}, mergeProps(options), {isToast: true})
   })
 }
