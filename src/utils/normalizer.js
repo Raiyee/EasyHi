@@ -45,21 +45,21 @@
  */
 
 export default class Normalizer {
-  constructor (options = {}) {
+  constructor(options = {}) {
     Object.keys(options).forEach(key => {
       this[key] = options[key]
     })
   }
 
-  key (item) {
+  key(item) {
     return item.id
   }
 
-  value (item) {
+  value(item) {
     return item
   }
 
-  normalize (items = []) {
+  normalize(items = []) {
     if (!Array.isArray(items)) {
       items = [items]
     }

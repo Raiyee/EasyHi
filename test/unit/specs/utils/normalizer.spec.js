@@ -48,10 +48,10 @@ describe('Normalizer', () => {
 
   it('with options', () => {
     const normalizer = new Normalizer({
-      key (item) {
+      key(item) {
         return item.uuid
       },
-      value (item) {
+      value(item) {
         return item.value
       }
     })
