@@ -71,6 +71,7 @@ config.globals = {
   __DEV__: TRUE_NODE_ENV === 'development',
   __PROD__: TRUE_NODE_ENV === 'production',
   __TEST__: TRUE_NODE_ENV === 'test',
+  __TESTING__: TRUE_NODE_ENV === 'testing',
   IMG_PATH_PREFIX: JSON.stringify('http://lorempixel.com/')
 }
 
