@@ -8,7 +8,7 @@ import _debug from 'debug'
 
 import config, {globals, paths, pkg} from '../config'
 import utils, {baseLoaders, cssModuleLoaders, generateLoaders, localIdentName, nodeModules} from './utils'
-const {TRUE_NODE_ENV, __DEV__, __PROD__} = globals
+const {TRUE_NODE_ENV, __DEV__, __PROD__, __TESTING__} = globals
 
 const debug = _debug('koa:webpack:config')
 
@@ -22,9 +22,6 @@ const webpackConfig = {
     enforceExtension: false,
     enforceModuleExtension: false,
     alias: config.compiler_alias
-  },
-  resolveLoader: {
-    moduleExtensions: ['-loader']
   },
   node: {
     fs: 'empty',
@@ -69,51 +66,57 @@ webpackConfig.module.rules = [
     sourceMap,
     exclude: ['styl']
   }),
-  {
-    test: /[/\\]app\.styl/,
-    loader: generateLoaders('stylus', baseLoaders, {
+  ...__TESTING__ ? [{
+    test: /\.styl$/,
+    loader: generateLoaders('stylus-loader', baseLoaders, {
+      sourceMap
+    }),
+    exclude: nodeModules
+  }] : [{
+    test: /[/\\]app\.styl$/,
+    loader: generateLoaders('stylus-loader', baseLoaders, {
       sourceMap,
       extract: !__DEV__ && (appLoader = new ExtractTextPlugin('app.[contenthash].css'))
     }),
     exclude: nodeModules
   },
   {
-    test: /[/\\]bootstrap\.styl/,
-    loader: generateLoaders('stylus', baseLoaders, {
+    test: /[/\\]bootstrap\.styl$/,
+    loader: generateLoaders('stylus-loader', baseLoaders, {
       sourceMap,
       extract: !__DEV__ && (bootstrapLoader = new ExtractTextPlugin('bootstrap.[contenthash].css'))
     }),
     exclude: nodeModules
   },
   {
-    test: /[/\\]theme-\w+\.styl/,
-    loader: generateLoaders('stylus', baseLoaders, {
+    test: /[/\\]theme-\w+\.styl$/,
+    loader: generateLoaders('stylus-loader', baseLoaders, {
       sourceMap
     }),
     exclude: nodeModules
   },
   {
-    test: /^(?!.*[/\\](app|bootstrap|theme-\w+)\.styl).*\.styl/,
-    loader: generateLoaders('stylus', cssModuleLoaders, {
+    test: /^(?!.*[/\\](app|bootstrap|theme-\w+)\.styl$).*\.styl$/,
+    loader: generateLoaders('stylus-loader', cssModuleLoaders, {
       sourceMap
     }),
     exclude: nodeModules
-  },
+  }],
   {
-    test: /\.styl/,
-    loader: generateLoaders('stylus', baseLoaders, {
+    test: /\.styl$/,
+    loader: generateLoaders('stylus-loader', baseLoaders, {
       sourceMap
     }),
     include: nodeModules
   },
   {
     test: /\.js$/,
-    loader: 'babel',
+    loader: 'babel-loader',
     exclude: nodeModules
   },
   {
     test: /\.vue$/,
-    loader: 'vue',
+    loader: 'vue-loader',
     options: {
       loaders: utils.vueCssLoaders({
         sourceMap
@@ -127,7 +130,7 @@ webpackConfig.module.rules = [
   },
   {
     test: /\.(png|jpe?g|gif|svg|woff2?|eot|ttf)$/,
-    loader: 'url',
+    loader: 'url-loader',
     query: {
       limit: 10000,
       name: '[name].[hash].[ext]'
@@ -143,9 +146,6 @@ const postcss = []
 
 webpackConfig.plugins = [
   new webpack.DefinePlugin(globals),
-  new webpack.optimize.CommonsChunkPlugin({
-    names: ['vendor']
-  }),
   new webpack.LoaderOptionsPlugin({
     minimize: __PROD__,
     debug: __DEV__,
@@ -173,9 +173,17 @@ webpackConfig.plugins = [
   })
 ]
 
+// Don't split bundles during testing, since we only want import one bundle
+if (!__TESTING__) {
+  webpackConfig.plugins.push(
+    new webpack.optimize.CommonsChunkPlugin({
+      names: ['vendor']
+    }))
+}
+
 const browsers = config.compiler_browsers
 
-if (__DEV__) {
+if (__DEV__ || __TESTING__) {
   debug(`Enable postcss processor(autoprefixer) for ${TRUE_NODE_ENV}`)
 
   postcss.push(autoprefixer({browsers}))

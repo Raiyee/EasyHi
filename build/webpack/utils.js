@@ -9,7 +9,7 @@ export const generateLoaders = (loader, loaders, options = {}) => {
     return loader + (options.sourceMap ? hyphen + 'sourceMap' : '')
   }).join('!')
 
-  const styleLoader = `${options.vue ? 'vue-' : ''}style`
+  const styleLoader = `${options.vue ? 'vue-' : ''}style-loader`
 
   let extract = options.extract
   return extract ? (extract.extract ? extract : ExtractTextPlugin).extract({
@@ -18,7 +18,7 @@ export const generateLoaders = (loader, loaders, options = {}) => {
   }) : [styleLoader, sourceLoaders].join('!')
 }
 
-export const baseLoaders = ['css?-minimize', 'postcss']
+export const baseLoaders = ['css-loader?-minimize', 'postcss-loader']
 export const localIdentName = '[name]__[local]___[hash:base64:5]'
 const cssModuleSuffix = `&modules&camelCase&importLoaders=1&localIdentName=${localIdentName}`
 const [css, postcss] = baseLoaders
@@ -26,11 +26,11 @@ export const cssModuleLoaders = [css + cssModuleSuffix, postcss]
 
 const loaderMap = {
   css: '',
-  less: 'less',
-  sass: 'sass?indentedSyntax',
-  scss: 'sass',
-  styl: 'stylus',
-  stylus: 'stylus'
+  less: 'less-loader',
+  sass: 'sass-loader?indentedSyntax',
+  scss: 'sass-loader',
+  styl: 'stylus-loader',
+  stylus: 'stylus-loader'
 }
 const debug = argv.debug
 const debugPrefix = 'koa:webpack:'
