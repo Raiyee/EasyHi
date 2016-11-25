@@ -8,7 +8,7 @@
     </template>
     <template>
       <p>{{ bodyMsg }}</p>
-      {{ reverse ? $options.filters.reverse(msg) : msg }}
+      {{ msg }}
       <br>
       <button class="btn btn-theme-primary" @click="reverseMsg">Reverse Msg</button>
     </template>
@@ -31,7 +31,7 @@
       }
     },
     data() {
-      return {msg: 'My name is msg', reverse: false}
+      return {msg: 'My name is msg'}
     },
     components: {
       ModalItem
@@ -55,7 +55,7 @@
         })
       },
       reverseMsg() {
-        this.reverse = !this.reverse
+        this.msg = reverse(this.msg)
       }
     }
   }

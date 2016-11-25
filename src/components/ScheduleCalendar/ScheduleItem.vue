@@ -26,7 +26,7 @@
       </div>
     </div>
     <div class="media-right media-middle">
-      <img class="media-object img-circle" :src="$options.filters.imgPath(coursePicUrl)">
+      <img class="media-object img-circle" :src="coursePicUrl | imgPath">
     </div>
   </li>
 </template>
