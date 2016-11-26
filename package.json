@@ -29,7 +29,9 @@
     "push": "bash build/bash/push.sh",
     "sync": "bash build/bash/sync.sh",
     "unit": "cross-env NODE_ENV=testing DEBUG=koa* karma start ./test/unit/runner.js",
-    "unit:dev": "npm run unit -- --watch"
+    "unit:dev": "npm run unit -- --watch",
+    "coveralls": "cat ./coverage/*/lcov.info | coveralls",
+    "codecov": "cat ./coverage/*/lcov.info | codecov"
   },
   "dependencies": {
     "axios": "^0.15.2",
