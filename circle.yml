@@ -1,3 +1,9 @@
+general:
+  branches:
+    ignore:
+      - gh-pages
+      - ssr
+
 machine:
   node:
     version: 6
