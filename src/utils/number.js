@@ -3,6 +3,8 @@ import {trueTypeFunc} from './base'
 const isNumberFunc = trueTypeFunc('Number')
 const isNaNFunc = window.isNaN
 
+export const MAX_SAFE_INTEGER = 9007199254740991
+
 /**
  * 判断是否是 NaN, 与原生 isNaN 不同, 例如 String 类型传入为 false
  *
@@ -35,3 +37,5 @@ export const toNum = numText => {
 
   return +(numText && isNegative ? `-${numText}` : numText)
 }
+
+export const isLength = value => isNumber(value) && value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER
