@@ -9,8 +9,6 @@
     "stage-0"
   ],
   "plugins": [
-    "add-module-exports",
     "transform-runtime"
-  ],
-  "comments": false
+  ]
 }
