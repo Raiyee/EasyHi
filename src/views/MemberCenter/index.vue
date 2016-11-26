@@ -3,7 +3,7 @@
     <div class="media theme-bg" :class="$style.header">
       <div class="media-left">
         <div class="media-object media-middle">
-          <img class="img-circle" src="http://www.66tools.com/WebTools/rImage?p=400"/>
+          <img class="img-circle" :src="'60/60?random' | imgPath"/>
         </div>
       </div>
       <div class="media-body media-middle">

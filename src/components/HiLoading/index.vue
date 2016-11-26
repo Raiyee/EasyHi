@@ -5,10 +5,18 @@
   </div>
 </template>
 <script>
-  import HiLoading from './index.common'
-
   export default {
-    extends: HiLoading
+    name: 'hi-loading',
+    props: {
+      className: {
+        type: String,
+        default: ''
+      },
+      theme: {
+        type: String,
+        default: 'snake'
+      }
+    }
   }
 </script>
 <style src="./index.css" module/>
