@@ -1,4 +1,4 @@
-import {isArray, isFunction} from './base'
+import {isFunction} from './base'
 import {isLength} from './number'
 import {isObjectLike} from './object'
 

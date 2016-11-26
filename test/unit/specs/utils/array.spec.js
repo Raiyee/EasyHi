@@ -16,6 +16,6 @@ describe('utils-array-isArrayLike', () => {
 
 describe('utils-array-isArrayLike', () => {
   it('should return true when passing `argument`', function () {
-    expect(isArrayLike(arguments)).to.equal(true)
+    expect(isArrayLikeObject(arguments)).to.equal(true)
   })
 })

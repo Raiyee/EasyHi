@@ -38,4 +38,4 @@ export const toNum = numText => {
   return +(numText && isNegative ? `-${numText}` : numText)
 }
 
-export const isLength = value => isNumber(value) && value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER
+export const isLength = value => isNumber(value) && value > -1 && value % 1 === 0 && value <= MAX_SAFE_INTEGER
