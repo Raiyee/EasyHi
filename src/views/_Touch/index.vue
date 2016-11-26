@@ -89,4 +89,4 @@
     }
   }
 </script>
-<style src="./index.styl" lang="styl" module/>
+<style src="./index.styl" module/>

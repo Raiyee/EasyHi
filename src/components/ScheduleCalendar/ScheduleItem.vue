@@ -50,4 +50,4 @@
     }
   }
 </script>
-<style src="./schedule-item" lang="styl" module/>
+<style src="./schedule-item" module/>

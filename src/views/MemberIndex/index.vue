@@ -36,4 +36,4 @@
 <script>
   export default from './index.common'
 </script>
-<style src="./index.styl" lang="styl" module/>
+<style src="./index.styl" module/>

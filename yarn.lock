@@ -6673,6 +6673,23 @@ vue-loader@^10.0.1:
     vue-style-loader "^1.0.0"
     vue-template-es2015-compiler "^1.2.2"
 
+vue-promise-loader@^10.0.1:
+  version "10.0.1"
+  resolved "http://registry.npm.taobao.org/vue-promise-loader/download/vue-promise-loader-10.0.1.tgz#e5e831154f644e81d13cd7099fdfe41b2823d2fe"
+  dependencies:
+    consolidate "^0.14.0"
+    hash-sum "^1.0.2"
+    js-beautify "^1.6.3"
+    loader-utils "^0.2.10"
+    lru-cache "^4.0.1"
+    object-assign "^4.0.0"
+    postcss "^5.0.10"
+    postcss-selector-parser "^2.0.0"
+    source-map "^0.5.6"
+    vue-hot-reload-api "^2.0.1"
+    vue-style-loader "^1.0.0"
+    vue-template-es2015-compiler "^1.2.2"
+
 vue-router@^2.0.3:
   version "2.0.3"
   resolved "http://registry.npm.taobao.org/vue-router/download/vue-router-2.0.3.tgz#444e246fd42d65a34dea6c3be8fde3315c4ba6f7"

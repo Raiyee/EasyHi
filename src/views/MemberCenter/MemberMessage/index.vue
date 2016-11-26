@@ -48,4 +48,4 @@
     }
   }
 </script>
-<style src="./member-message.styl" lang="styl" module/>
+<style src="./member-message.styl" module/>

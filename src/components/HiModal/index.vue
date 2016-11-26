@@ -72,4 +72,4 @@
   }
 </script>
 
-<style src="./mask.styl" lang="styl" module/>
+<style src="./mask.styl" module/>
