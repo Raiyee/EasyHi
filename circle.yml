@@ -2,6 +2,13 @@ machine:
   node:
     version: 6
 
+dependencies:
+  pre:
+    - npm i -g npm yarn
+    - rm -rf .yarnrc yarn.lock
+  override:
+    - yarn
+
 test:
   override:
-    - npm run unit
+    - yarn lint && yarn unit
