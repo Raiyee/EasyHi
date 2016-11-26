@@ -1,8 +1,7 @@
 general:
   branches:
-    ignore:
-      - gh-pages
-      - ssr
+    only:
+      - master
 
 machine:
   node:
