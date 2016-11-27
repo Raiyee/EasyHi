@@ -43,7 +43,7 @@ module.hot && module.hot.accept()
 
 /* eslint no-new: 0 */
 new Vue({
-  extends: App,
+  ...App,
   el: '#app',
   store,
   router

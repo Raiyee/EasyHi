@@ -5,7 +5,7 @@
     </div>
     <div class="row">
       <div class="col-xs-12 col-sm-6 col-sm-push-3 col-lg-4 col-lg-push-4">
-        <form @submit="submit">
+        <form @submit.prevent="submit">
           <div :class="[$style.formGroup, this.mobileError && 'has-error']">
             <div class="input-group">
                 <span class="input-group-addon">
@@ -101,8 +101,7 @@
           }, 1000)
         })
       },
-      submit(e) {
-        e.preventDefault()
+      submit() {
         this.submitClicked = true
         const mobile = this.loginMobile
         const mobileError = this.mobileError = !mobileRegExp.test(mobile)
