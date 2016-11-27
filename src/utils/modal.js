@@ -10,7 +10,7 @@ const MODAL_OPTIONS = {
 
 const MODAL_PROPS = {
   header: '头部信息',
-  footer: true,
+  footer: false,
   tipText: '系统消息',
   confirmText: '确定',
   cancelText: '取消',
@@ -23,7 +23,7 @@ const MODAL_PROPS = {
   remove() {}
 }
 
-let mergeProps = (options) => Object.assign({}, MODAL_PROPS, options, {id: 'common-prompt'})
+let mergeProps = (options) => Object.assign({}, MODAL_PROPS, options)
 
 export const confirmOn = (options) => {
   return Vue.prototype.$modal.open({

@@ -1,29 +1,29 @@
 <template>
   <PromptModal
-    :class="xxxx"
+    :class="$style.commonPrompt"
     :header="header"
-              :footer="true"
-              :_confirm="_confirm.bind(this)"
-              :_close="_close.bind(this)"
-              :remove="remove.bind(this)"
-              :transition="transition"
-              :isTip="isTip"
-              :isToast="isToast"
-              :timeout="timeout"
-              :confirmText="confirmText"
-              :cancelText="cancelText"
-              :id="id">
-     <span v-html="tipText"/>
+    :transition="transition"
+    :confirmText="confirmText"
+    :cancelText="cancelText"
+    :footer="footer">
+    <span v-html="tipText"/>
+    <template slot="footer" v-if="!isToast">
+        <div v-if="isTip" class="theme-color btn-footer btn-footer-confirm" @click="confirmModal">
+          {{ confirmText }}
+        </div>
+        <div class="modal-base-footer" v-else>
+          <div class="btn-footer btn-cancel" @click="closeModal">{{ cancelText }}</div>
+          <div class="theme-color btn-footer" @click="confirmModal">{{ confirmText }}</div>
+        </div>
+    </template>
   </PromptModal>
 </template>
 <script>
-  import PromptModal from 'components/HiModal/PromptModal'
-  import classes from './commonPrompt.styl'
-
+  import PromptModal from 'components/HiModal/ModalBase'
   export default {
     props: {
-      id: String,
       header: String,
+      footer: Boolean,
       tipText: String,
       confirm: Function,
       cancel: Function,
@@ -35,16 +35,17 @@
       remove: Function,
       transition: String
     },
-    data() {
-      return {
-        classes
-      }
+    mounted() {
+      this.isToast && setTimeout(function () {
+        this.$modal.close()
+        this.remove && this.remove()
+      }.bind(this), this.timeout)
     },
     methods: {
-      _close() {
+      closeModal() {
         this.cancel && this.cancel()
       },
-      _confirm() {
+      confirmModal() {
         this.confirm && this.confirm()
       }
     },
@@ -53,3 +54,4 @@
     }
   }
 </script>
+<style src='./common-prompt.styl' lang='styl' module/>

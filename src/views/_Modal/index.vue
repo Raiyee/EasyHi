@@ -42,9 +42,11 @@
           confirmText: '蓝瘦,香菇23333333333',
           confirm() {
             console.log('It is after confirm btn')
+            this.$modal.close()
           },
           cancel() {
             console.log('It is after cancel modal')
+            this.$modal.close()
           }
         })
       },
@@ -53,6 +55,7 @@
           tipText: 'I am  a confirm modal tip Text',
           confirm() {
             console.log('It is after tip modal')
+            this.$modal.close()
           }
         })
       },
@@ -61,6 +64,7 @@
           tipText: 'I am  a confirm modal tip Text',
           remove() {
             console.log('It is a toast')
+            this.$modal.close()
           },
           timeout: 2000
         })
