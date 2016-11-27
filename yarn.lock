@@ -1797,44 +1797,7 @@ cssesc@^0.1.0:
   version "0.1.0"
   resolved "http://registry.npm.taobao.org/cssesc/download/cssesc-0.1.0.tgz#c814903e45623371a0477b40109aaafbeeaddbb4"
 
-"cssnano@>=2.6.1 <4":
-  version "3.8.0"
-  resolved "http://registry.npm.taobao.org/cssnano/download/cssnano-3.8.0.tgz#bb90ac5292f42b679d9a05f6da0e9697556bb80d"
-  dependencies:
-    autoprefixer "^6.3.1"
-    decamelize "^1.1.2"
-    defined "^1.0.0"
-    has "^1.0.1"
-    object-assign "^4.0.1"
-    postcss "^5.0.14"
-    postcss-calc "^5.2.0"
-    postcss-colormin "^2.1.8"
-    postcss-convert-values "^2.3.4"
-    postcss-discard-comments "^2.0.4"
-    postcss-discard-duplicates "^2.0.1"
-    postcss-discard-empty "^2.0.1"
-    postcss-discard-overridden "^0.1.1"
-    postcss-discard-unused "^2.2.1"
-    postcss-filter-plugins "^2.0.0"
-    postcss-merge-idents "^2.1.5"
-    postcss-merge-longhand "^2.0.1"
-    postcss-merge-rules "^2.0.3"
-    postcss-minify-font-values "^1.0.2"
-    postcss-minify-gradients "^1.0.1"
-    postcss-minify-params "^1.0.4"
-    postcss-minify-selectors "^2.0.4"
-    postcss-normalize-charset "^1.1.0"
-    postcss-normalize-url "^3.0.7"
-    postcss-ordered-values "^2.1.0"
-    postcss-reduce-idents "^2.2.2"
-    postcss-reduce-initial "^1.0.0"
-    postcss-reduce-transforms "^1.0.3"
-    postcss-svgo "^2.1.1"
-    postcss-unique-selectors "^2.0.2"
-    postcss-value-parser "^3.2.3"
-    postcss-zindex "^2.0.1"
-
-cssnano@^3.8.1:
+"cssnano@>=2.6.1 <4", cssnano@^3.8.1:
   version "3.8.1"
   resolved "http://registry.npm.taobao.org/cssnano/download/cssnano-3.8.1.tgz#008a482148ee948cf0af2ee6e44bd97c53f886ec"
   dependencies:
@@ -6754,9 +6717,9 @@ vuex-actions@^1.1.1:
   version "1.1.1"
   resolved "http://registry.npm.taobao.org/vuex-actions/download/vuex-actions-1.1.1.tgz#1902d8818c35480d4aacd5e8967ee6158d457515"
 
-vuex-localstorage@^0.3.0:
-  version "0.3.0"
-  resolved "http://registry.npm.taobao.org/vuex-localstorage/download/vuex-localstorage-0.3.0.tgz#0a80a2377c3219ec19a1e7840ced1a9384d1908a"
+vuex-localstorage@^0.4.0:
+  version "0.4.0"
+  resolved "http://registry.npm.taobao.org/vuex-localstorage/download/vuex-localstorage-0.4.0.tgz#9f438f8eae0da5b76d7be067db75ddf6c7859f8d"
 
 vuex@^2.0.0:
   version "2.0.0"

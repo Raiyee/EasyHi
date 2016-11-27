@@ -45,7 +45,7 @@
     "vue-touch-easyhi": "^2.0.0",
     "vuex": "^2.0.0",
     "vuex-actions": "^1.1.1",
-    "vuex-localstorage": "^0.3.0"
+    "vuex-localstorage": "^0.4.0"
   },
   "devDependencies": {
     "autoprefixer": "^6.5.3",

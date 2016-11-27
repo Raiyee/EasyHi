@@ -4,13 +4,21 @@ const moment = (first, ...rest) => _moment(first || [], ...rest)
 
 import {DATE_FORMAT, isoWeekdays} from './constants'
 
+/**
+ * 获取指定日期当周周几的日期
+ *
+ * @param date                日期值
+ * @param dayOfWeek           周几
+ * @param format              是否进行格式化，默认 true
+ * @returns {string|moment}   日期字符串或 moment 实例
+ */
 export const dayOfWeek = (date, dayOfWeek, format = true) => {
   const mDate = moment(date).isoWeekday(dayOfWeek)
   return format ? mDate.format(DATE_FORMAT) : mDate
 }
 
 /**
- * 获取当周第一天日期
+ * 获取指定日期当周第一天日期
  *
  * @param date        日期值
  * @param format      是否将日期格式化, 否则返回 moment 实例
@@ -19,7 +27,7 @@ export const dayOfWeek = (date, dayOfWeek, format = true) => {
 export const firstDayOfWeek = (date, format) => dayOfWeek(date, 1, format)
 
 /**
- * 获取当周最后一天日期
+ * 获取指定日期当周最后一天日期
  *
  * @param date        日期值
  * @param format      是否将日期格式化, 否则返回 moment 实例
