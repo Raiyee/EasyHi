@@ -7,8 +7,11 @@
     "sinon": false,
     "assert": false,
     "expect": false,
-    "triggerHTMLEvents": false,
-    "triggerMouseEvents": false,
-    "triggerTouchEvents": false
+    "triggerHTMLEvent": false,
+    "triggerMouseEvent": false,
+    "triggerTouchEvent": false,
+    "Vue": false,
+    "router": false,
+    "store": false
   }
 }
