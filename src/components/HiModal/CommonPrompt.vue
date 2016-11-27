@@ -2,10 +2,12 @@
   <PromptModal
     :class="$style.commonPrompt"
     :header="header"
+    :footer="footer"
     :transition="transition"
     :confirmText="confirmText"
+    :confirm="confirm"
     :cancelText="cancelText"
-    :footer="footer">
+    :cancel="cancel">
     <span v-html="tipText"/>
     <template slot="footer" v-if="!isToast">
         <div v-if="isTip" class="theme-color btn-footer btn-footer-confirm" @click="confirmModal">

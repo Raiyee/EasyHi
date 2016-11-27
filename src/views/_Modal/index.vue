@@ -66,7 +66,7 @@
             console.log('It is a toast')
             this.$modal.close()
           },
-          timeout: 2000
+          timeout: 5000
         })
       }
     }

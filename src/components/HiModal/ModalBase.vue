@@ -1,5 +1,5 @@
 <template>
-  <transition :name="transition">
+  <transition :name="transition || 'bounce'">
     <div :class="$style.modalBase">
       <div class="modal-base-dialog">
         <div class="modal-base-content">
@@ -15,8 +15,8 @@
             <slot name="footer"/>
           </div>
           <div class="modal-base-footer" v-if="footer">
-            <div class="btn-footer btn-cancel" @click="closeModal">{{ cancelText }}</div>
-            <div class="theme-color btn-footer" @click="confirmModal">{{ confirmText }}</div>
+            <div class="btn-footer btn-cancel" @click="closeModal">{{ cancelText || '取消' }}</div>
+            <div class="theme-color btn-footer" @click="confirmModal">{{ confirmText || '确定' }}</div>
           </div>
         </div>
       </div>
@@ -24,28 +24,27 @@
   </transition>
 </template>
 <script>
-  import {isBoolean, isString, warn} from 'utils'
+  import {isBoolean, isString} from 'utils'
 
   export default {
     props: {
       header: {validator: header => isBoolean(header) || isString(header)},
       footer: Boolean,
       transition: String,
-      close: Function,
+      cancel: Function,
       confirm: Function,
       confirmText: String,
       cancelText: String
     },
     methods: {
       closeModal() {
-        this.close ? this.close.apply(this, arguments)
-          : this.$modal.close(this.id || warn('there is no modal id found, then the current modal will be close!'))
+        this.cancel && this.cancel.apply(this, arguments)
       },
       confirmModal() {
         this.confirm && this.confirm.apply(this, arguments)
       }
     }
   }
-</script>
 
+</script>
 <style src='./modal-base.styl' lang="styl" module/>
