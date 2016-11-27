@@ -36,6 +36,8 @@
 <script>
   import {mapGetters} from 'vuex'
 
+  import {addClass, removeClass} from 'utils'
+
   export default {
     name: 'member-index',
     computed: {
@@ -43,11 +45,10 @@
     },
     methods: {
       animationEnd(e) {
-        const target = e.target
-        target.className = target.className.replace(/(^| +)animated($| +)/, ' ').trim()
+        removeClass(e.target, 'animated')
       },
       scale(e) {
-        e.currentTarget.nextElementSibling.className += ' animated'
+        addClass(e.currentTarget.nextElementSibling, 'animated')
       }
     }
   }

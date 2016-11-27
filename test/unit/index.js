@@ -35,6 +35,6 @@ const testsToRun = testsContext.keys().filter(inManifest);
 (testsToRun.length ? testsToRun : testsContext.keys()).forEach(testsContext)
 
 // require `src/**/*.(js|vue)` (for coverage reporting)
-const componentsContext = require.context('../../src', true, /^(((?!index|mock|routes).)*\.js)|(.*\.vue)$/)
+const componentsContext = require.context('../../src', true, /^(((?!index|mock|routes|utils).)*\.js)|(.*\.vue)$/)
 
 componentsContext.keys().forEach(componentsContext)

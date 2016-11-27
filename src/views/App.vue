@@ -2,10 +2,12 @@
   <div id="app">
     <HiLoading v-if="progress"/>
     <HiProgress :progress="progress"/>
-    <transition name="bounce">
+    <transition :name="transition">
       <keep-alive>
         <router-view v-if="keepAlive"/>
       </keep-alive>
+    </transition>
+    <transition :name="transition">
       <router-view v-if="!keepAlive"/>
     </transition>
     <HiModal/>
@@ -19,12 +21,12 @@
   import HiModal from 'components/HiModal'
 
   export default {
+    data: () => ({transition: 'bounce'}),
     computed: {
       ...mapGetters(['progress']),
       keepAlive() {
         let keepAlive = this.$route.meta.keepAlive
-        keepAlive = keepAlive == null || keepAlive
-        return keepAlive
+        return keepAlive == null || keepAlive
       }
     },
     components: {
