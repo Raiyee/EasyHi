@@ -16,16 +16,17 @@ describe('utils-dom', () => {
   })
 
   it('should run callback after 500ms', () => {
-    let x = 0, y = 0
+    let x = 0
+    let y = 0
     animate(div, 'scrollTop', {
-      callback(){
+      callback() {
         x = 1
       }
     })
 
     animate(div, {
       type: 'scrollTop',
-      callback(){
+      callback() {
         y = 1
       }
     })
