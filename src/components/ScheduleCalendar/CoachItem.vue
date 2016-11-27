@@ -116,4 +116,4 @@
     }
   }
 </script>
-<style src="./coach-item" lang="styl" module/>
+<style src="./coach-item" module/>

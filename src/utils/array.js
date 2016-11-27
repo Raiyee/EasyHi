@@ -1,4 +1,7 @@
-import {isArray, isObject} from './base'
-import {isNumber} from './number'
+import {isFunction} from './base'
+import {isLength} from './number'
+import {isObjectLike} from './object'
 
-export const isArrayLike = value => isArray(value) || isObject(value) && isNumber(value && value.length)
+export const isArrayLike = value => value != null && isLength(value.length) && !isFunction(value)
+
+export const isArrayLikeObject = value => isArrayLike(value) && isObjectLike(value)

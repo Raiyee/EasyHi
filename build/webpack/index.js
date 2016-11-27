@@ -59,6 +59,7 @@ webpackConfig.output = {
 // ------------------------------------
 
 const sourceMap = !!config.compiler_devtool
+const STYLUS_LOADER = 'stylus-loader'
 let appLoader, bootstrapLoader
 
 webpackConfig.module.rules = [
@@ -68,55 +69,50 @@ webpackConfig.module.rules = [
   }),
   ...__TESTING__ ? [{
     test: /\.styl$/,
-    loader: generateLoaders('stylus-loader', baseLoaders, {
+    loader: generateLoaders(STYLUS_LOADER, baseLoaders, {
       sourceMap
     }),
     exclude: nodeModules
   }] : [{
     test: /[/\\]app\.styl$/,
-    loader: generateLoaders('stylus-loader', baseLoaders, {
+    loader: generateLoaders(STYLUS_LOADER, baseLoaders, {
       sourceMap,
       extract: !__DEV__ && (appLoader = new ExtractTextPlugin('app.[contenthash].css'))
     }),
     exclude: nodeModules
-  },
-  {
+  }, {
     test: /[/\\]bootstrap\.styl$/,
-    loader: generateLoaders('stylus-loader', baseLoaders, {
+    loader: generateLoaders(STYLUS_LOADER, baseLoaders, {
       sourceMap,
       extract: !__DEV__ && (bootstrapLoader = new ExtractTextPlugin('bootstrap.[contenthash].css'))
     }),
     exclude: nodeModules
-  },
-  {
+  }, {
     test: /[/\\]theme-\w+\.styl$/,
-    loader: generateLoaders('stylus-loader', baseLoaders, {
+    loader: generateLoaders(STYLUS_LOADER, baseLoaders, {
       sourceMap
     }),
     exclude: nodeModules
-  },
-  {
+  }, {
     test: /^(?!.*[/\\](app|bootstrap|theme-\w+)\.styl$).*\.styl$/,
-    loader: generateLoaders('stylus-loader', cssModuleLoaders, {
+    loader: generateLoaders(STYLUS_LOADER, cssModuleLoaders, {
       sourceMap
     }),
     exclude: nodeModules
-  }],
-  {
+  }], {
     test: /\.styl$/,
-    loader: generateLoaders('stylus-loader', baseLoaders, {
+    loader: generateLoaders(STYLUS_LOADER, baseLoaders, {
       sourceMap
     }),
     include: nodeModules
-  },
-  {
+  }, {
     test: /\.js$/,
     loader: 'babel-loader',
     exclude: nodeModules
-  },
-  {
+  }, {
     test: /\.vue$/,
-    loader: 'vue-loader',
+    // loader: 'vue-loader',
+    loader: 'vue-promise-loader',
     options: {
       loaders: utils.vueCssLoaders({
         sourceMap
@@ -125,6 +121,9 @@ webpackConfig.module.rules = [
       cssModules: {
         camelCase: true,
         localIdentName
+      },
+      defaultLang: {
+        styles: 'styl'
       }
     }
   },

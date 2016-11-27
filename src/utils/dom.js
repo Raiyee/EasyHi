@@ -5,6 +5,11 @@ const classRegExp = className => new RegExp(`(^|\\s+)${className.toString().trim
 export const hasClass = (el, className) => classRegExp(className).test(el.className)
 
 export const addClass = function (el, className) {
+  let classNames = className.split(' ')
+  if (classNames.length > 1) {
+    classNames.forEach(className => addClass(el, className))
+    return this
+  }
   hasClass(el, className) || (el.className = `${el.className} ${className}`.trim())
   return this
 }
@@ -83,7 +88,8 @@ export function translate(el, x, y, z) {
 }
 
 export const getTranslate = el => {
-  const matrix = getComputedStyle(el).transform
+  const style = getComputedStyle(el)
+  const matrix = style.transform || style.webkitTransform
 
   if (!matrix.indexOf('matrix3d')) {
     const {x, y} = getTranslate3d(el)
@@ -98,7 +104,8 @@ export const getTranslate = el => {
 }
 
 export const getTranslate3d = el => {
-  const matrix = getComputedStyle(el).transform
+  const style = getComputedStyle(el)
+  const matrix = style.transform || style.webkitTransform
 
   if (matrix.indexOf('matrix3d') === -1) {
     return {

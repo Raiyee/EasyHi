@@ -66,4 +66,4 @@
     }
   }
 </script>
-<style src="./calendar.styl" lang="styl" module/>
+<style src="./calendar.styl" module/>

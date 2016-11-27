@@ -29,7 +29,6 @@ const DEFAULT_OPTIONS = {
   x: false,
   y: false,
   speed: 1,
-  context: undefined,
   methods: false
 }
 
@@ -158,8 +157,7 @@ function init(el, {value, modifiers: {prevent, stop}}) {
       el._tapped = el._tapped + 1 || 1
 
       if (duration < 200) {
-        // eslint-disable-next-line no-return-assign
-        return tapTimeoutId = setTimeout(() => {
+        return (tapTimeoutId = setTimeout(() => {
           const tapped = el._tapped
           delete el._tapped
           if (tapped < 3) {
@@ -176,7 +174,7 @@ function init(el, {value, modifiers: {prevent, stop}}) {
             if (e.target.dispatchEvent(new Event(`${prefix}tap`, eventInit)) === false) return
           } else if (isPrevent(mltTap, Object.assign(endEvent, {tapped}))) return
           isPrevent(end, endEvent)
-        }, 200)
+        }, 200))
       } else if (isPrevent(press, endEvent)) return
     }
 

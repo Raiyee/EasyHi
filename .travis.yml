@@ -29,5 +29,5 @@ script:
 - npm run sync
 
 after_success:
-- npm i coveralls
-- cat ./coverage/*/lcov.info | coveralls
+- npm i coveralls codecov
+- npm run coveralls && npm run codecov

@@ -13,7 +13,7 @@ then
 
   cd sync
   cp -rf ../dist/* .
-  cp ../*.md .
+  cp ../*.md ../circle.yml .
   touch .nojekyll
 
   git add -A

@@ -5,6 +5,7 @@
   },
   "ignore": [
     "dist",
+    "test",
     "src",
     "node_modules",
     "package.json"

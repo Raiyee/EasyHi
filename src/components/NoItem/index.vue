@@ -13,4 +13,4 @@
     }
   }
 </script>
-<style src="../NoItem/index.styl" lang="styl" module/>
+<style src="../NoItem/index.styl" module/>

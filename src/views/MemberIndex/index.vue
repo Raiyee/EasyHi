@@ -34,6 +34,23 @@
   </div>
 </template>
 <script>
-  export default from './index.common'
+  import {mapGetters} from 'vuex'
+
+  import {addClass, removeClass} from 'utils'
+
+  export default {
+    name: 'member-index',
+    computed: {
+      ...mapGetters(['winHeight'])
+    },
+    methods: {
+      animationEnd(e) {
+        removeClass(e.target, 'animated')
+      },
+      scale(e) {
+        addClass(e.currentTarget.nextElementSibling, 'animated')
+      }
+    }
+  }
 </script>
-<style src="./index.styl" lang="styl" module/>
+<style src="./index.styl" module/>
