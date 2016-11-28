@@ -39,7 +39,11 @@ const config = {
   compiler_browsers: ['> 0%'],
   compiler_public_path: '',
   compiler_stats: {
-    colors: true
+    colors: true,
+    modules: false,
+    children: false,
+    chunks: false,
+    chunkModules: false
   },
   compiler_alias: {
     http: 'axios',
