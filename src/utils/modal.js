@@ -19,18 +19,14 @@ const MODAL_PROPS = {
   transition: 'bounce'
 }
 
-let mergeProps = (o1, o2) => Object.assign({}, MODAL_PROPS, o1, o2)
+const mergeObject = (o1, o2) => ({
+  component: MODAL,
+  options: MODAL_OPTIONS,
+  props: Object.assign({}, MODAL_PROPS, o1, o2)
+})
 
-let mergeObject = (o1, o2) => Object.assign({}, {component: MODAL, options: MODAL_OPTIONS}, {props: mergeProps(o1, o2)})
+export const confirmOn = props => Vue.prototype.$modal.open(mergeObject(props))
 
-export const confirmOn = props => {
-  return Vue.prototype.$modal.open(mergeObject(props))
-}
+export const tipOn = props => Vue.prototype.$modal.open(mergeObject(props, {type: 1}))
 
-export const tipOn = (props) => {
-  return Vue.prototype.$modal.open(mergeObject(props, {type: 1}))
-}
-
-export const toastOn = (props) => {
-  return Vue.prototype.$modal.open(mergeObject(props, {type: 2}))
-}
+export const toastOn = props => Vue.prototype.$modal.open(mergeObject(props, {type: 2}))
