@@ -71,5 +71,4 @@
     }
   }
 </script>
-
 <style src="./mask.styl" module/>
