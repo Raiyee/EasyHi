@@ -9,6 +9,8 @@
     "url": "git@git.coding.net:Raiyee/EasyHi.git"
   },
   "scripts": {
+    "global": "sudo npm i -g npm yarn -r https://registry.npm.taobao.org && npm run init",
+    "init": "yarn add -D del && node_modules/del/node_modules/.bin/rimraf node_modules yarn.lock && yarn gfw",
     "gfw": "yarn add -D cross-env && cross-env PHANTOMJS_CDNURL=http://npm.taobao.org/mirrors/phantomjs yarn",
     "build": "npm run lint:fix && npm run unit && npm run clean && npm run compile",
     "build:test": "npm run lint:fix && npm run clean && npm run compile:test",
