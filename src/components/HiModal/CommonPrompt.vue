@@ -22,9 +22,11 @@
 </template>
 <script>
   import PromptModal from 'components/HiModal/ModalBase'
+  import {isBoolean, isString} from 'utils'
+
   export default {
     props: {
-      header: String,
+      header: {validator: header => isBoolean(header) || isString(header)},
       footer: Boolean,
       tipText: String,
       confirm: Function,

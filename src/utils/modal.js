@@ -9,7 +9,7 @@ const MODAL_OPTIONS = {
 }
 
 const MODAL_PROPS = {
-  header: '头部信息',
+  header: false,
   footer: false,
   tipText: '系统消息',
   confirmText: '确定',

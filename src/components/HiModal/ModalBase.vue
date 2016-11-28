@@ -1,10 +1,17 @@
 <template>
-  <transition :name="transition || 'bounce'">
+  <transition :name="transition">
     <div :class="$style.modalBase">
       <div class="modal-base-dialog">
         <div class="modal-base-content">
           <div class="modal-base-header" v-if="$slots.header">
             <slot name="header"/>
+          </div>
+          <div class="modal-base-header" v-else-if="label">
+            <button type="button" class="close" @click="closeModal">
+              <span aria-hidden="true">&times;</span>
+              <span class="sr-only">关闭</span>
+            </button>
+            <h4 class="modal-title" v-html="label"/>
           </div>
           <!--body-->
           <div class="modal-base-body">
@@ -14,7 +21,7 @@
           <div class="modal-base-footer" v-if="$slots.footer">
             <slot name="footer"/>
           </div>
-          <div class="modal-base-footer" v-if="footer">
+          <div class="modal-base-footer" v-else-if="footer">
             <div class="btn-footer btn-cancel" @click="closeModal">{{ cancelText || '取消' }}</div>
             <div class="theme-color btn-footer" @click="confirmModal">{{ confirmText || '确定' }}</div>
           </div>
@@ -24,7 +31,7 @@
   </transition>
 </template>
 <script>
-  import {isBoolean, isString} from 'utils'
+  import {isBoolean, isEmptyStr, isString} from 'utils'
 
   export default {
     props: {
@@ -35,6 +42,12 @@
       confirm: Function,
       confirmText: String,
       cancelText: String
+    },
+    computed: {
+      label() {
+        const header = this.header
+        return isEmptyStr(header) ? '&nbsp;' : header
+      }
     },
     methods: {
       closeModal() {
