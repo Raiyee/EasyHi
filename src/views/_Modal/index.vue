@@ -16,7 +16,6 @@
       return {
         options: {
           backdrop: false,
-          transition: 'bounce',
           show: true,
           destroy: true
         }
@@ -52,7 +51,7 @@
       },
       tipModal() {
         tipOn({
-          tipText: 'I am  a confirm modal tip Text',
+          tipText: 'I am  a confirm <span style="color: red">red</span> modal tip Text',
           confirm() {
             console.log('It is after tip modal')
             this.$modal.close()

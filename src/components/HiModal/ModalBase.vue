@@ -11,7 +11,7 @@
               <span aria-hidden="true">&times;</span>
               <span class="sr-only">关闭</span>
             </button>
-            <h4 class="modal-title" v-html="label"/>
+            <h4 class="modal-base-title" v-html="label"/>
           </div>
           <!--body-->
           <div class="modal-base-body">
@@ -38,7 +38,7 @@
       header: {validator: header => isBoolean(header) || isString(header)},
       footer: Boolean,
       transition: String,
-      cancel: Function,
+      close: Function,
       confirm: Function,
       confirmText: String,
       cancelText: String
@@ -46,18 +46,17 @@
     computed: {
       label() {
         const header = this.header
-        return isEmptyStr(header) ? '&nbsp;' : header
+        return (isEmptyStr(header) || header === true) ? '&nbsp;' : header
       }
     },
     methods: {
       closeModal() {
-        this.cancel && this.cancel.apply(this, arguments)
+        this.close && this.close.apply(this, arguments)
       },
       confirmModal() {
         this.confirm && this.confirm.apply(this, arguments)
       }
     }
   }
-
 </script>
 <style src='./modal-base.styl' lang="styl" module/>

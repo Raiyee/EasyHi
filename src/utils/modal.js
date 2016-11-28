@@ -14,37 +14,23 @@ const MODAL_PROPS = {
   tipText: '系统消息',
   confirmText: '确定',
   cancelText: '取消',
-  isTip: false,
-  isToast: false,
+  type: 0,
   timeout: 2000,
-  transition: 'bounce',
-  cancel() {},
-  confirm() {},
-  remove() {}
+  transition: 'bounce'
 }
 
-let mergeProps = (options) => Object.assign({}, MODAL_PROPS, options)
+let mergeProps = (o1, o2) => Object.assign({}, MODAL_PROPS, o1, o2)
 
-export const confirmOn = (options) => {
-  return Vue.prototype.$modal.open({
-    component: MODAL,
-    options: MODAL_OPTIONS,
-    props: mergeProps(options)
-  })
+let mergeObject = (o1, o2) => Object.assign({}, {component: MODAL, options: MODAL_OPTIONS}, {props: mergeProps(o1, o2)})
+
+export const confirmOn = props => {
+  return Vue.prototype.$modal.open(mergeObject(props))
 }
 
-export const tipOn = (options) => {
-  return Vue.prototype.$modal.open({
-    component: MODAL,
-    options: MODAL_OPTIONS,
-    props: Object.assign({}, mergeProps(options), {isTip: true})
-  })
+export const tipOn = (props) => {
+  return Vue.prototype.$modal.open(mergeObject(props, {type: 1}))
 }
 
-export const toastOn = (options) => {
-  return Vue.prototype.$modal.open({
-    component: MODAL,
-    options: MODAL_OPTIONS,
-    props: Object.assign({}, mergeProps(options), {isToast: true})
-  })
+export const toastOn = (props) => {
+  return Vue.prototype.$modal.open(mergeObject(props, {type: 2}))
 }

@@ -7,10 +7,10 @@
     :confirmText="confirmText"
     :confirm="confirm"
     :cancelText="cancelText"
-    :cancel="cancel">
+    :close="close">
     <span v-html="tipText"/>
-    <template slot="footer" v-if="!isToast">
-        <div v-if="isTip" class="theme-color btn-footer btn-footer-confirm" @click="confirmModal">
+    <template slot="footer" v-if="type!=2">
+        <div v-if="type==1" class="theme-color btn-footer btn-footer-confirm" @click="confirmModal">
           {{ confirmText }}
         </div>
         <div class="modal-base-footer" v-else>
@@ -33,21 +33,23 @@
       cancel: Function,
       confirmText: String,
       cancelText: String,
-      isTip: Boolean,
-      isToast: Boolean,
+      type: Number,
       timeout: Number,
       remove: Function,
       transition: String
     },
     mounted() {
-      this.isToast && setTimeout(function () {
-        this.$modal.close()
-        this.remove && this.remove()
+      this.type === 2 && setTimeout(function () {
+        this.close()
       }.bind(this), this.timeout)
     },
     methods: {
       closeModal() {
+        this.close()
+      },
+      close() {
         this.cancel && this.cancel()
+        this.remove && this.remove()
       },
       confirmModal() {
         this.confirm && this.confirm()
