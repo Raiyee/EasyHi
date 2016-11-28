@@ -59,4 +59,4 @@
     }
   }
 </script>
-<style src='./modal-base.styl' lang="styl" module/>
+<style src="./modal-base.styl" module/>

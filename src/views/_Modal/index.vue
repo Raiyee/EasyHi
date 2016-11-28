@@ -38,7 +38,7 @@
       confirmModal() {
         confirmOn({
           tipText: '测试confirm 模态框',
-          confirmText: '蓝瘦,香菇23333333333',
+          confirmText: '蓝瘦,香菇',
           confirm() {
             console.log('It is after confirm btn')
             this.$modal.close()

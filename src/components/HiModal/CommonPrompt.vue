@@ -60,4 +60,4 @@
     }
   }
 </script>
-<style src='./common-prompt.styl' lang='styl' module/>
+<style src="./common-prompt.styl" module/>
