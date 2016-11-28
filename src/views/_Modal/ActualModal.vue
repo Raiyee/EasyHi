@@ -2,7 +2,7 @@
   <ModalItem :header="'标题'"
              :footer="true"
              :confirm="confirm.bind(this)"
-             transition="bounce">
+             :transition="transition">
     <template slot="header">
       My Header
     </template>
@@ -28,7 +28,8 @@
       bodyMsg: {
         type: String,
         required: true
-      }
+      },
+      transition: String
     },
     data() {
       return {msg: 'My name is msg'}
@@ -50,7 +51,8 @@
             show: true
           },
           props: {
-            bodyMsg: reverse(this.bodyMsg)
+            bodyMsg: reverse(this.bodyMsg),
+            transition: this.transition
           }
         })
       },

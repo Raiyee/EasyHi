@@ -16,7 +16,6 @@
       return {
         options: {
           backdrop: false,
-          transition: 'bounce',
           show: true,
           destroy: true
         }
@@ -24,12 +23,13 @@
     },
     methods: {
       addModal() {
-        this.$modal.open({
+        modalId = this.$modal.open({
           id: modalId,
           component: System.import('./ActualModal'),
           options: this.options,
           props: {
-            bodyMsg: 'Just test body'
+            bodyMsg: 'Just test body',
+            transition: 'bounce'
           }
         })
       },
