@@ -24,6 +24,7 @@
     "lint": "npm run eslint && npm run stylelint",
     "lint:fix": "npm run eslint -- --fix && npm run stylelint",
     "prod": "npm run compile && npm run start",
+    "e2e": "cross-env NODE_ENV=test nodemon ./test/e2e/runner.js",
     "start": "cross-env NODE_ENV=production DEBUG=koa* node build/bin/start",
     "start:test": "cross-env NODE_ENV=test nodemon build/bin/start",
     "stylelint": "node build/bin/stylelint.js",
@@ -70,7 +71,6 @@
     "babel-register": "^6.18.0",
     "babel-runtime": "^6.18.0",
     "chai": "^3.5.0",
-    "chromedriver": "^2.25.1",
     "copy-webpack-plugin": "^4.0.1",
     "cross-env": "^3.1.3",
     "css-loader": "^0.26.0",
@@ -112,6 +112,7 @@
     "phantomjs-prebuilt": "^2.1.13",
     "postcss-loader": "^1.1.1",
     "postcss-reporter": "^2.0.0",
+    "selenium-server": "^3.0.1",
     "sinon": "^1.17.6",
     "sinon-chai": "^2.8.0",
     "style-loader": "^0.13.1",
@@ -131,6 +132,7 @@
     "vue-style-loader": "^1.0.0",
     "vue-template-compiler": "^2.1.3",
     "webpack": "^2.1.0-beta.27",
+    "webpack-dev-server": "^1.16.2",
     "yargs": "^6.4.0"
   }
 }
