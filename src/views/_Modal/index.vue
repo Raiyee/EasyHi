@@ -44,7 +44,7 @@
             console.log('It is after confirm btn')
             this.$modal.close()
           },
-          cancel() {
+          close() {
             console.log('It is after cancel modal')
             this.$modal.close()
           }
@@ -62,11 +62,10 @@
       toastModal() {
         toastOn({
           tipText: 'I am  a confirm modal tip Text',
-          remove() {
+          close() {
             console.log('It is a toast')
             this.$modal.close()
-          },
-          timeout: 5000
+          }
         })
       }
     }

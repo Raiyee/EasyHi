@@ -1,22 +1,20 @@
 <template>
   <PromptModal
     :class="$style.commonPrompt"
-    :header="header"
-    :footer="footer"
     :transition="transition"
     :confirmText="confirmText"
     :confirm="confirm"
     :cancelText="cancelText"
     :close="close">
     <span v-html="tipText"/>
-    <template slot="footer" v-if="type!=2">
-        <div v-if="type==1" class="theme-color btn-footer btn-footer-confirm" @click="confirmModal">
-          {{ confirmText }}
-        </div>
-        <div class="modal-base-footer" v-else>
-          <div class="btn-footer btn-cancel" @click="closeModal">{{ cancelText }}</div>
-          <div class="theme-color btn-footer" @click="confirmModal">{{ confirmText }}</div>
-        </div>
+    <template slot="footer" v-if="type !== 2">
+      <div v-if="type === 1" class="theme-color btn-footer" @click="confirmModal">
+        {{ confirmText }}
+      </div>
+      <template v-else>
+        <div class="btn-footer" @click="closeModal">{{ cancelText }}</div>
+        <div class="btn-footer theme-color" @click="confirmModal">{{ confirmText }}</div>
+      </div>
     </template>
   </PromptModal>
 </template>
@@ -26,30 +24,23 @@
 
   export default {
     props: {
-      header: {validator: header => isBoolean(header) || isString(header)},
-      footer: Boolean,
       tipText: String,
       confirm: Function,
-      cancel: Function,
+      close: Function,
       confirmText: String,
       cancelText: String,
       type: Number,
       timeout: Number,
-      remove: Function,
       transition: String
     },
     mounted() {
-      this.type === 2 && setTimeout(function () {
-        this.close()
-      }.bind(this), this.timeout)
+      this.type === 2 && setTimeout(() => {
+        this.closeModal()
+      }, this.timeout || 2000)
     },
     methods: {
       closeModal() {
-        this.close()
-      },
-      close() {
-        this.cancel && this.cancel()
-        this.remove && this.remove()
+        this.close ? this.close() : this.$modal.close()
       },
       confirmModal() {
         this.confirm && this.confirm()
