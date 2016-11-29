@@ -1,6 +1,6 @@
 @require '../../styles/_variables.styl'
 
-.modal-base
+.modal
   display none
   overflow hidden
   position fixed
@@ -13,39 +13,39 @@
   outline 0
 
 :global
-  .modal-base-dialog
+  .modal-dialog
     position relative
     width auto
     margin 10px
 
-  .modal-base-content
+  .modal-content
     background-color BACK_LIGHT_COLOR
     border 1px solid rgba(0, 0, 0, .2)
-    border-radius 6px
+    border-radius 10px
     box-shadow 0 3px 9px rgba(0, 0, 0, .5)
     background-clip padding-box
     position relative
     outline 0
 
-  .modal-base-header
+  .modal-header
     padding 10px
     border-bottom 1px solid BACK_COLOR
 
-  .modal-base-header .close
+  .modal-header .close
     margin-top -2px
 
-  .modal-base-title
+  .modal-title
     margin 0
     line-height 22px
 
-  .modal-base-body
+  .modal-body
     padding 22px
     text-align center
     line-height 22px
     p
       margin 0
 
-  .modal-base-footer
+  .modal-footer
     text-align center
     border-top 1px solid BACK_COLOR
     height 50px
@@ -54,17 +54,18 @@
     .btn-footer
       flex 1
       cursor pointer
-      line-height 50px
       white-space nowrap
       overflow hidden
       text-overflow ellipsis
+      height 48px
+      line-height 48px
       + .btn-footer
         border-left 1px solid BACK_COLOR
 
   @media (min-width 768px)
-    .modal-base-dialog
+    .modal-dialog
       width 600px
       margin 30px auto
 
-    .modal-base-content
+    .modal-content
       box-shadow 0 5px 15px rgba(0, 0, 0, .5)

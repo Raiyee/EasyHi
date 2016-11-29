@@ -1,9 +1,31 @@
+@require '../../styles/_variables.styl'
+
 .common-prompt
   display block
-  :global(.modal-base-content)
+  :global
+    .modal-content
       position fixed
       left 50%
       top 50%
       transform translate3d(-50%, -50%, 0)
       width 70%
       max-width 448px
+
+      .confirm-header
+        padding-top 16px
+        padding-bottom 16px
+        text-align left
+        border-bottom 1px solid BACK_COLOR
+
+      .confirm-reason
+        color REMARK_COLOR
+        width 100%
+        resize none
+        border none
+        height: 85px
+        font-size 14px
+        margin-bottom -5px
+        background-color BG_COLOR
+        padding 15px 25px 0 25px
+        outline none
+

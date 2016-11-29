@@ -5,10 +5,12 @@
     <button class="btn btn-theme-default" @click="confirmModal">Confirm modal</button>
     <button class="btn btn-theme-default" @click="tipModal">Tip modal</button>
     <button class="btn btn-theme-default" @click="toastModal">Toast modal</button>
+    <button class="btn btn-theme-default" @click="confirmReason">edit confirm modal</button>
+    <div class="theme-color" v-html="reason"></div>
   </div>
 </template>
 <script>
-  import {confirmOn, tipOn, toastOn} from 'utils'
+  import {confirm, tip, toast, confirmReason} from 'utils'
 
   let modalId
 
@@ -19,7 +21,8 @@
           backdrop: false,
           show: true,
           destroy: true
-        }
+        },
+        reason: ''
       }
     },
     methods: {
@@ -38,7 +41,7 @@
         this.$modal.clear()
       },
       confirmModal() {
-        confirmOn({
+        confirm({
           tipText: '测试confirm 模态框',
           confirmText: '蓝瘦,香菇',
           confirm() {
@@ -52,19 +55,27 @@
         })
       },
       tipModal() {
-        tipOn({
+        tip({
           tipText: 'I am  a confirm <span style="color: red">red</span> modal tip Text',
           confirm() {
-            console.log('It is after tip modal')
             this.$modal.close()
           }
         })
       },
       toastModal() {
-        toastOn({
+        toast({
           tipText: 'I am  a confirm modal tip Text',
           close() {
             console.log('It is a toast')
+            this.$modal.close()
+          }
+        })
+      },
+      confirmReason() {
+        confirmReason({
+          tipText: '还不赶紧写原因？',
+          confirm: reason => {
+            console.log(this.reason = reason)
             this.$modal.close()
           }
         })
