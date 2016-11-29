@@ -129,7 +129,7 @@ webpackConfig.module.rules = [
   },
   {
     test: /\.(png|jpe?g|gif)$/,
-    loader: 'url-loader?limit=10000&name=[name].[hash].[ext]!img-loader?minimize&progressive=true',
+    loader: 'url-loader?limit=10000&name=[name].[hash].[ext]!img-loader?minimize&progressive=true'
   },
   {
     test: /\.(svg|woff2?|eot|ttf)$/,
