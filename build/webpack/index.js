@@ -128,7 +128,11 @@ webpackConfig.module.rules = [
     }
   },
   {
-    test: /\.(png|jpe?g|gif|svg|woff2?|eot|ttf)$/,
+    test: /\.(png|jpe?g|gif)$/,
+    loader: 'url-loader?limit=10000&name=[name].[hash].[ext]!img-loader?minimize&progressive=true',
+  },
+  {
+    test: /\.(svg|woff2?|eot|ttf)$/,
     loader: 'url-loader',
     query: {
       limit: 10000,

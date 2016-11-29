@@ -40,7 +40,6 @@
         const currModalId = this.currModal && this.currModal.id
         modalId = modalId || currModalId
         if (!modalId) return
-
         let modal
         const index = this.modals.findIndex(m => m.id === modalId)
         index === -1 || (modal = this.modals[index])
