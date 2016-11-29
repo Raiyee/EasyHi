@@ -1,5 +1,5 @@
 <template>
-  <ModalItem :header="'标题'"
+  <ModalItem header="标题"
              :footer="true"
              :confirm="confirm.bind(this)"
              :transition="transition">

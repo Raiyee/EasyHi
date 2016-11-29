@@ -1527,17 +1527,9 @@ concat-map@0.0.1:
   version "0.0.1"
   resolved "http://registry.npm.taobao.org/concat-map/download/concat-map-0.0.1.tgz#d8a96bd77fd68df7793a73036a3ba0d5405d477b"
 
-concat-stream@1.5.0:
+concat-stream@1.5.0, concat-stream@^1.4.6:
   version "1.5.0"
   resolved "http://registry.npm.taobao.org/concat-stream/download/concat-stream-1.5.0.tgz#53f7d43c51c5e43f81c8fdd03321c631be68d611"
-  dependencies:
-    inherits "~2.0.1"
-    readable-stream "~2.0.0"
-    typedarray "~0.0.5"
-
-concat-stream@^1.4.6:
-  version "1.5.2"
-  resolved "http://registry.npm.taobao.org/concat-stream/download/concat-stream-1.5.2.tgz#708978624d856af41a5a741defdd261da752c266"
   dependencies:
     inherits "~2.0.1"
     readable-stream "~2.0.0"
@@ -2400,9 +2392,9 @@ eslint-plugin-vuefix@^0.1.0:
   dependencies:
     parse5 "^2.1.5"
 
-eslint@^3.11.0:
-  version "3.11.0"
-  resolved "http://registry.npm.taobao.org/eslint/download/eslint-3.11.0.tgz#41d34f8b3e69949beee5c097ff4e75ad13ba2d00"
+eslint@^3.11.1:
+  version "3.11.1"
+  resolved "http://registry.npm.taobao.org/eslint/download/eslint-3.11.1.tgz#408be581041385cba947cd8d1cd2227782b55dbf"
   dependencies:
     babel-code-frame "^6.16.0"
     chalk "^1.1.3"
@@ -2863,7 +2855,7 @@ glob@3.2.3:
     inherits "2"
     minimatch "~0.2.11"
 
-glob@7.0.4, glob@7.0.x:
+glob@7.0.4:
   version "7.0.4"
   resolved "http://registry.npm.taobao.org/glob/download/glob-7.0.4.tgz#3b44afa0943bdc31b2037b934791e2e084bcb7f6"
   dependencies:
@@ -2874,7 +2866,7 @@ glob@7.0.4, glob@7.0.x:
     once "^1.3.0"
     path-is-absolute "^1.0.0"
 
-glob@7.0.5:
+glob@7.0.5, glob@7.0.x:
   version "7.0.5"
   resolved "http://registry.npm.taobao.org/glob/download/glob-7.0.5.tgz#b4202a69099bbb4d292a7c1b95b6682b67ebdc95"
   dependencies:
@@ -4123,11 +4115,7 @@ lowercase-keys@^1.0.0:
   version "1.0.0"
   resolved "http://registry.npm.taobao.org/lowercase-keys/download/lowercase-keys-1.0.0.tgz#4e3366b39e7f5457e35f1324bdf6f88d0bfc7306"
 
-lru-cache@2:
-  version "2.7.3"
-  resolved "http://registry.npm.taobao.org/lru-cache/download/lru-cache-2.7.3.tgz#6d4524e8b955f95d4f5b58851ce21dd72fb4e952"
-
-lru-cache@2.2.x:
+lru-cache@2, lru-cache@2.2.x:
   version "2.2.4"
   resolved "http://registry.npm.taobao.org/lru-cache/download/lru-cache-2.2.4.tgz#6c658619becf14031d0d0b594b16042ce4dc063d"
 
@@ -5283,13 +5271,9 @@ qjobs@^1.1.4:
   version "1.1.5"
   resolved "http://registry.npm.taobao.org/qjobs/download/qjobs-1.1.5.tgz#659de9f2cf8dcc27a1481276f205377272382e73"
 
-qs@6.2.0:
+qs@6.2.0, qs@~6.2.0:
   version "6.2.0"
   resolved "http://registry.npm.taobao.org/qs/download/qs-6.2.0.tgz#3b7848c03c2dece69a9522b0fae8c4126d745f3b"
-
-qs@~6.2.0:
-  version "6.2.1"
-  resolved "http://registry.npm.taobao.org/qs/download/qs-6.2.1.tgz#ce03c5ff0935bc1d9d69a9f14cbd18e568d67625"
 
 qs@~6.3.0:
   version "6.3.0"
@@ -6671,9 +6655,9 @@ vue-lazyload@^0.9.3:
   version "0.9.4"
   resolved "http://registry.npm.taobao.org/vue-lazyload/download/vue-lazyload-0.9.4.tgz#51d2d462aad053ddc97bbc842c710e3878e1cd4c"
 
-vue-loader@^10.0.1:
-  version "10.0.1"
-  resolved "http://registry.npm.taobao.org/vue-loader/download/vue-loader-10.0.1.tgz#ff711807176371f1a1ffba81c8eb494399a54181"
+vue-loader@^10.0.2:
+  version "10.0.2"
+  resolved "http://registry.npm.taobao.org/vue-loader/download/vue-loader-10.0.2.tgz#6fe7bcefb32c5439bd0338464aa22673ad62299c"
   dependencies:
     consolidate "^0.14.0"
     hash-sum "^1.0.2"

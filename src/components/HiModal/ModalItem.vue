@@ -32,7 +32,7 @@
   </transition>
 </template>
 <script>
-  import {isBoolean, isEmptyStr, isNumber, isString, warn} from 'utils'
+  import {isEmptyStr, warn, error} from 'utils'
 
   export default {
     props: {
