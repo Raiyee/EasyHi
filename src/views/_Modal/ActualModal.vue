@@ -29,7 +29,7 @@
         type: String,
         required: true
       },
-      transition: String
+      transition: [Boolean, String]
     },
     data() {
       return {msg: 'My name is msg'}

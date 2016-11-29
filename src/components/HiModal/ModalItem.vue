@@ -1,5 +1,5 @@
 <template>
-  <transition :name="transition">
+  <transition :name="transition === true ? 'bounce' : transition">
     <div class="modal" :id="id">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -36,10 +36,10 @@
 
   export default {
     props: {
-      id: {validator: id => isNumber(id) || isString(id)},
-      header: {validator: header => isBoolean(header) || isString(header)},
+      id: [Number, String],
+      header: [Boolean, String],
       footer: Boolean,
-      transition: String,
+      transition: [Boolean, String],
       close: Function,
       confirm: Function
     },
@@ -55,7 +55,8 @@
           : this.$modal.close(this.id || warn('there is no modal id found, then the current modal will be close!'))
       },
       confirmModal() {
-        this.confirm && this.confirm.apply(this, arguments)
+        this.confirm ? this.confirm.apply(this, arguments)
+          : error('you should handle the click event on the confirm btn by yourself!')
       }
     }
   }
