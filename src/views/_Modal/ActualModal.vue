@@ -1,5 +1,5 @@
 <template>
-  <ModalItem :header="'标题'"
+  <ModalItem header="标题"
              :footer="true"
              :confirm="confirm.bind(this)"
              :transition="transition">
@@ -29,7 +29,7 @@
         type: String,
         required: true
       },
-      transition: String
+      transition: [Boolean, String]
     },
     data() {
       return {msg: 'My name is msg'}

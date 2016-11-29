@@ -9,6 +9,7 @@
 </template>
 <script>
   import {confirmOn, tipOn, toastOn} from 'utils'
+
   let modalId
 
   export default {
@@ -29,7 +30,7 @@
           options: this.options,
           props: {
             bodyMsg: 'Just test body',
-            transition: 'bounce'
+            transition: true
           }
         })
       },

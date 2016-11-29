@@ -1,6 +1,6 @@
 <template>
-  <transition :name="transition">
-    <div :class="$style.modalBase">
+  <transition :name="transition === true ? 'bounce' : transition">
+    <div :class="$style.modalBase" :id="id">
       <div class="modal-base-dialog">
         <div class="modal-base-content">
           <div class="modal-base-header" v-if="$slots.header">
@@ -14,7 +14,8 @@
             <h4 class="modal-base-title" v-html="label"/>
           </div>
           <!--body-->
-          <div class="modal-base-body">
+          <slot name="body" v-if="$slots.body"/>
+          <div class="modal-base-body" v-else>
             <slot/>
           </div>
           <!--footer-->
@@ -31,13 +32,14 @@
   </transition>
 </template>
 <script>
-  import {isBoolean, isEmptyStr, isString} from 'utils'
+  import {isEmptyStr, warn, error} from 'utils'
 
   export default {
     props: {
-      header: {validator: header => isBoolean(header) || isString(header)},
+      id: [Number, String],
+      header: [Boolean, String],
       footer: Boolean,
-      transition: String,
+      transition: [Boolean, String],
       close: Function,
       confirm: Function,
       confirmText: String,
@@ -46,15 +48,17 @@
     computed: {
       label() {
         const header = this.header
-        return (isEmptyStr(header) || header === true) ? '&nbsp;' : header
+        return isEmptyStr(header) ? '&nbsp;' : header
       }
     },
     methods: {
       closeModal() {
-        this.close && this.close.apply(this, arguments)
+        this.close ? this.close.apply(this, arguments)
+          : this.$modal.close(this.id || warn('there is no modal id found, then the current modal will be close!'))
       },
       confirmModal() {
-        this.confirm && this.confirm.apply(this, arguments)
+        this.confirm ? this.confirm.apply(this, arguments)
+          : error('you should handle the click event on the confirm btn by yourself!')
       }
     }
   }
