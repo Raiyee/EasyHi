@@ -1,7 +1,21 @@
 @require '../../styles/_variables.styl'
 
-.common-prompt
+.btn-footer
+  flex 1
+  cursor pointer
+  white-space nowrap
+  overflow hidden
+  text-overflow ellipsis
+  height 48px
+  line-height 48px
+  text-align center
+
+  + .btn-footer
+    border-left 1px solid BACK_COLOR
+
+.prompt
   display block
+
   :global // @stylint ignore
     .modal-content
       position fixed
@@ -11,21 +25,24 @@
       width 70%
       max-width 448px
 
-      .confirm-header
-        padding-top 16px
-        padding-bottom 16px
-        text-align left
-        border-bottom 1px solid BACK_COLOR
+      .modal-footer
+        display flex
+        padding 0
 
-      .confirm-reason
-        color REMARK_COLOR
-        width 100%
-        resize none
-        border 0
-        height 85px
-        font-size 14px
-        margin-bottom -5px
-        background-color BG_COLOR
-        padding 15px 25px 0
-        outline 0
+.prompt-text
+  padding 15px
+  background-color BG_COLOR
 
+  textarea
+    background-color transparent
+    color REMARK_COLOR
+    width 100%
+    resize none
+    border 0
+    height 60px
+    outline 0
+    padding 0
+    display block
+
+    &:focus
+      outline-offset 0

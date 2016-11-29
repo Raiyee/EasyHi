@@ -1,22 +1,26 @@
 <template>
-  <PromptModal
-    :class="$style.commonPrompt"
+  <modal-item
+    :class="$style.prompt"
     :transition="transition">
-    <template slot="body">
-      <div class="modal-body" :class="type === 3 ? 'confirm-header' : ''" v-html="tipText || '系统消息'"/>
-      <textarea v-if="type === 3" v-model="reason" class="confirm-reason"
-                placeholder="在此填写原因(50字以内)，或者直接点击“确定”"/>
+    <template v-if="type === 3">
+      <div class="modal-title" slot="header">{{ tipText }}</div>
+      <div class="modal-body" :class="$style.promptText" slot="body">
+        <textarea v-model="text" :placeholder="placeholder"/>
+      </div>
+    </template>
+    <template slot="body" v-else>
+      <div class="modal-body" v-html="tipText || '系统消息'"/>
     </template>
     <template slot="footer" v-if="type">
-      <div class="btn-footer" @click="closeModal" v-if="type - 1">{{ cancelText || '取消' }}</div>
-      <div class="btn-footer theme-color" @click="confirmModal">{{ confirmText || '确定' }}</div>
+      <div :class="$style.btnFooter" @click="closeModal" v-if="type - 1">{{ cancelText || '取消' }}</div>
+      <div :class="$style.btnFooter" class="theme-color" @click="confirmModal">{{ confirmText || '确定' }}</div>
     </template>
-  </PromptModal>
+  </modal-item>
 </template>
 <script>
   import {error} from 'utils'
 
-  import PromptModal from 'components/HiModal/ModalBase'
+  import ModalItem from 'components/HiModal/ModalItem'
 
   export default {
     name: 'prompt',
@@ -28,11 +32,13 @@
       cancelText: String,
       type: Number,
       timeout: Number,
-      transition: [Boolean, String]
+      transition: [Boolean, String],
+      promptText: String,
+      placeholder: String
     },
     data() {
       return {
-        reason: 'text'
+        text: this.promptText
       }
     },
     mounted() {
@@ -45,12 +51,12 @@
         this.close ? this.close.apply(this, arguments) : this.$modal.close()
       },
       confirmModal() {
-        this.confirm ? this.confirm.apply(this, this.type === 3 ? [this.reason, ...arguments] : arguments)
+        this.confirm ? this.confirm.apply(this, this.type === 3 ? [this.text, ...arguments] : arguments)
           : error('you should handle the click event on the confirm btn by yourself!')
       }
     },
     components: {
-      PromptModal
+      ModalItem
     }
   }
 </script>

@@ -5,12 +5,12 @@
     <button class="btn btn-theme-default" @click="confirmModal">Confirm modal</button>
     <button class="btn btn-theme-default" @click="tipModal">Tip modal</button>
     <button class="btn btn-theme-default" @click="toastModal">Toast modal</button>
-    <button class="btn btn-theme-default" @click="confirmReason">edit confirm modal</button>
-    <div class="theme-color" v-html="reason"></div>
+    <button class="btn btn-theme-default" @click="promptModal">edit confirm modal</button>
+    <div class="theme-color" v-html="promptText"></div>
   </div>
 </template>
 <script>
-  import {confirm, tip, toast, confirmReason} from 'utils'
+  import {confirm, tip, toast, prompt} from 'utils'
 
   let modalId
 
@@ -22,7 +22,7 @@
           show: true,
           destroy: true
         },
-        reason: ''
+        promptText: ''
       }
     },
     methods: {
@@ -71,11 +71,13 @@
           }
         })
       },
-      confirmReason() {
-        confirmReason({
+      promptModal() {
+        prompt({
           tipText: '还不赶紧写原因？',
-          confirm: reason => {
-            console.log(this.reason = reason)
+          promptText: this.promptText,
+          placeholder: '在此填写原因(50字以内)，或者直接点击"确定"',
+          confirm: promptText => {
+            this.promptText = promptText
             this.$modal.close()
           }
         })

@@ -7585,9 +7585,9 @@ vue-promise-loader@^10.0.1:
     vue-style-loader "^1.0.0"
     vue-template-es2015-compiler "^1.2.2"
 
-vue-router@^2.0.3:
-  version "2.0.3"
-  resolved "http://registry.npm.taobao.org/vue-router/download/vue-router-2.0.3.tgz#444e246fd42d65a34dea6c3be8fde3315c4ba6f7"
+vue-router@^2.1.0:
+  version "2.1.0"
+  resolved "http://registry.npm.taobao.org/vue-router/download/vue-router-2.1.0.tgz#c04d5ed79517571d4d668e00a85c8ea0d92c4f87"
 
 vue-style-loader@^1.0.0:
   version "1.0.0"

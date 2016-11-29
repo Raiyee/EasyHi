@@ -1,9 +1,8 @@
 <template>
   <transition :name="transition === true ? 'bounce' : transition">
-    <div class="modal" :id="id">
+    <div :class="$style.modal" :id="id">
       <div class="modal-dialog">
         <div class="modal-content">
-          <!--header-->
           <div class="modal-header" v-if="$slots.header">
             <slot name="header"/>
           </div>
@@ -15,7 +14,8 @@
             <h4 class="modal-title" v-html="label"/>
           </div>
           <!--body-->
-          <div class="modal-body">
+          <slot name="body" v-if="$slots.body"/>
+          <div class="modal-body" v-else>
             <slot/>
           </div>
           <!--footer-->
@@ -23,8 +23,8 @@
             <slot name="footer"/>
           </div>
           <div class="modal-footer" v-else-if="footer">
-            <button type="button" class="btn btn-theme-default" @click="closeModal">取消</button>
-            <button type="button" class="btn btn-theme-primary" @click="confirmModal">确定</button>
+            <div class="btn btn-theme-default" @click="closeModal">{{ cancelText || '取消' }}</div>
+            <div class="btn btn-theme-primary" @click="confirmModal">{{ confirmText || '确定' }}</div>
           </div>
         </div>
       </div>
@@ -41,7 +41,9 @@
       footer: Boolean,
       transition: [Boolean, String],
       close: Function,
-      confirm: Function
+      confirm: Function,
+      confirmText: String,
+      cancelText: String
     },
     computed: {
       label() {
@@ -61,3 +63,4 @@
     }
   }
 </script>
+<style src="./modal-item.styl" module/>

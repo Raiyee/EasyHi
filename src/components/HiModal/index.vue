@@ -1,6 +1,6 @@
 <template>
   <div v-if="modals.length">
-    <div :class="[$style.mask, $style.in]" v-if="currModal && currModal.options.backdrop"></div>
+    <div :class="$style.modalBackdrop" v-if="currModal && currModal.options.backdrop"></div>
     <component v-for="{component, id, props, options} of modals"
                :is="component"
                :key="id"
