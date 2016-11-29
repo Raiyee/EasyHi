@@ -7,20 +7,14 @@
     :cancelText="cancelText"
     :close="close">
     <span v-html="tipText"/>
-    <template slot="footer" v-if="type !== 2">
-      <div v-if="type === 1" class="theme-color btn-footer" @click="confirmModal">
-        {{ confirmText }}
-      </div>
-      <template v-else>
-        <div class="btn-footer" @click="closeModal">{{ cancelText }}</div>
-        <div class="btn-footer theme-color" @click="confirmModal">{{ confirmText }}</div>
-      </div>
+    <template slot="footer"  v-if="type !== 2">
+      <div class="btn-footer" @click="closeModal" v-if="type === 0">{{ cancelText }}</div>
+      <div class="btn-footer theme-color" @click="confirmModal">{{ confirmText }}</div>
     </template>
   </PromptModal>
 </template>
 <script>
   import PromptModal from 'components/HiModal/ModalBase'
-  import {isBoolean, isString} from 'utils'
 
   export default {
     props: {
