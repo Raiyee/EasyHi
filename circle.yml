@@ -9,7 +9,8 @@ machine:
 
 dependencies:
   pre:
-    - npm i -g npm node-gyp yarn
+    - npm i -g npm yarn
+    - yarn cache clean
     - rm -rf .yarnrc yarn.lock
   override:
     - yarn

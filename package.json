@@ -24,7 +24,7 @@
     "lint": "npm run eslint && npm run stylelint",
     "lint:fix": "npm run eslint -- --fix && npm run stylelint",
     "prod": "npm run compile && npm run start",
-    "e2e": "cross-env NODE_ENV=test nodemon ./test/e2e/runner.js",
+    "e2e": "cross-env NODE_ENV=testing nodemon ./test/e2e/runner.js",
     "start": "cross-env NODE_ENV=production DEBUG=koa* node build/bin/start",
     "start:test": "cross-env NODE_ENV=test nodemon build/bin/start",
     "stylelint": "node build/bin/stylelint.js",
