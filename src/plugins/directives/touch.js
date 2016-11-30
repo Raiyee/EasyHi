@@ -1,4 +1,4 @@
-import utils, {getTranslate, translate} from 'utils'
+import utils from 'utils'
 
 const isTouchSupport = () => {
   return !!(('ontouchstart' in window &&
@@ -28,7 +28,6 @@ let EVENTS = BASE_EVENTS[+touchSupport]
 const DEFAULT_OPTIONS = {
   x: false,
   y: false,
-  speed: 1,
   methods: false
 }
 
@@ -66,18 +65,15 @@ function init(el, {value, modifiers: {prevent, stop}}) {
     Object.assign(el, {
       _clientX: e.clientX,
       _clientY: e.clientY,
-      _translate: getTranslate(el),
       _startTime: +new Date()
     })
     isPrevent(start, wrapEvent(e)) && (el._doNotMove = true)
   }).on($el, EVENTS.move, el.eMove = e => {
-    const originalTranslate = el._translate
-    if (!originalTranslate || el._doNotMove) return
+    if (el._doNotMove) return
     e = actualEvent(e, prevent, stop)
 
     const {clientX, clientY} = e
     const {_clientX: originalClientX, _clientY: originalClientY} = el
-    const {x: originalTranslateX, y: originalTranslateY} = originalTranslate
 
     const changedX = clientX - originalClientX
     const changedY = clientY - originalClientY
@@ -91,26 +87,14 @@ function init(el, {value, modifiers: {prevent, stop}}) {
       el._moveStarted = true
     }
 
-    let translateX = value.x ? originalTranslateX + value.speed * changedX : originalTranslateX
-    let translateY = value.y ? originalTranslateY + value.speed * changedY : originalTranslateY
-
-    const movingEvent = Object.assign(wrappedEvent, {
-      translateX,
-      translateY,
+    isPrevent(moving, Object.assign(wrappedEvent, {
       changedX,
       changedY
-    })
-
-    if (isPrevent(moving, movingEvent)) return
-
-    translateX = movingEvent.translateX
-    translateY = movingEvent.translateY
-
-    translate(el, translateX, translateY)
+    }))
   }).on($el, EVENTS.end, el.eEnd = e => {
     e = actualEvent(e, prevent, stop)
 
-    const {_clientX: clientX, _clientY: clientY, _translate: translate, _moved: moved, _startTime: startTime} = el
+    const {_clientX: clientX, _clientY: clientY, _moved: moved, _startTime: startTime} = el
 
     delete el._clientX
     delete el._clientY
@@ -118,9 +102,6 @@ function init(el, {value, modifiers: {prevent, stop}}) {
     delete el._moved
     delete el._moveStarted
     delete el._startTime
-    delete el._translate
-
-    if (!translate) return
 
     const endEvent = wrapEvent(e)
 
@@ -152,33 +133,33 @@ function init(el, {value, modifiers: {prevent, stop}}) {
         }
         if (isPrevent(event, endEvent)) return
       }
-    } else {
-      const duration = +new Date() - startTime
-      el._tapped = el._tapped + 1 || 1
 
-      if (duration < 200) {
-        return (tapTimeoutId = setTimeout(() => {
-          const tapped = el._tapped
-          delete el._tapped
-          if (tapped < 3) {
-            const isSingle = tapped === 1
-            const tapEvent = isSingle ? tap : dblTap
-            if (isPrevent(tapEvent, endEvent)) return
-            const eventInit = {
-              bubbles: true,
-              cancelable: true,
-              cancelBubble: true
-            }
-            const prefix = isSingle ? '' : 'dbl'
-            if (touchSupport && e.target.dispatchEvent(new Event(`${prefix}click`, eventInit)) === false) return
-            if (e.target.dispatchEvent(new Event(`${prefix}tap`, eventInit)) === false) return
-          } else if (isPrevent(mltTap, Object.assign(endEvent, {tapped}))) return
-          isPrevent(end, endEvent)
-        }, 200))
-      } else if (isPrevent(press, endEvent)) return
+      return isPrevent(end, endEvent)
     }
 
-    isPrevent(end, endEvent)
+    const duration = +new Date() - startTime
+    el._tapped = el._tapped + 1 || 1
+
+    if (duration > 200) return isPrevent(press, endEvent) && isPrevent(end, endEvent)
+
+    tapTimeoutId = setTimeout(() => {
+      const tapped = el._tapped
+      delete el._tapped
+      if (tapped < 3) {
+        const isSingle = tapped === 1
+        const tapEvent = isSingle ? tap : dblTap
+        if (isPrevent(tapEvent, endEvent)) return
+        const eventInit = {
+          bubbles: true,
+          cancelable: true,
+          cancelBubble: true
+        }
+        const prefix = isSingle ? '' : 'dbl'
+        if (touchSupport && e.target.dispatchEvent(new Event(`${prefix}click`, eventInit)) === false) return
+        if (e.target.dispatchEvent(new Event(`${prefix}tap`, eventInit)) === false) return
+      } else if (isPrevent(mltTap, Object.assign(endEvent, {tapped}))) return
+      isPrevent(end, endEvent)
+    }, 200)
   })
 }
 
