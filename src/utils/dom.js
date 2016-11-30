@@ -1,12 +1,14 @@
-import {isObject} from './base'
+import {isObject, isWindow} from './base'
 import {each} from './common'
+
+const domEach = (el, ...args) => each(isWindow(el) ? [el] : el, ...args)
 
 const classRegExp = className => new RegExp(`(^|\\s+)${className.toString().trim()}(\\s+|$)`, 'g')
 
 export const hasClass = (el, className) => classRegExp(className).test(el.className)
 
 export const addClass = function (el, className) {
-  each(el, el => {
+  domEach(el, el => {
     let classNames = className.split(' ')
     classNames.length > 1 ? each(classNames, className => addClass(el, className))
       : hasClass(el, className) || (el.className = `${el.className} ${className}`.trim())
@@ -15,7 +17,7 @@ export const addClass = function (el, className) {
 }
 
 export const removeClass = function (el, className) {
-  each(el, el => (el.className = el.className.replace(classRegExp(className), ' ').trim()))
+  domEach(el, el => (el.className = el.className.replace(classRegExp(className), ' ').trim()))
   return this
 }
 
@@ -30,7 +32,7 @@ export const animate = (() => {
   }
 
   return function (el, type, options) {
-    each(el, el => {
+    domEach(el, el => {
       // 如果只有两个参数且第二个参数是对象时，将 type 视为 options，且 type 包含在 options 对象中
       if (arguments.length === 2 && isObject(type)) {
         options = type
@@ -59,11 +61,11 @@ export const animate = (() => {
 })()
 
 export const on = function (el, events, handler, useCapture = false) {
-  each(el, el => events.trim().split(' ').forEach(event => el.addEventListener(event, handler, useCapture)))
+  domEach(el, el => events.trim().split(' ').forEach(event => el.addEventListener(event, handler, useCapture)))
   return this
 }
 
 export const off = function (el, events, handler, useCapture = false) {
-  each(el, el => events.trim().split(' ').forEach(event => el.removeEventListener(event, handler, useCapture)))
+  domEach(el, el => events.trim().split(' ').forEach(event => el.removeEventListener(event, handler, useCapture)))
   return this
 }
