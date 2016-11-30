@@ -11,7 +11,7 @@ dependencies:
   pre:
     - npm i -g npm yarn
     - yarn cache clean
-    - rm -rf .yarnrc yarn.lock
+    - rm -rf .yarnrc yarn.lock node_modules
   override:
     - yarn
 
