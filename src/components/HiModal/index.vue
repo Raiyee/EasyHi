@@ -1,6 +1,6 @@
 <template>
   <div v-if="modals.length">
-    <div :class="[$style.mask, $style.in]" v-if="currModal && currModal.options.backdrop"></div>
+    <div :class="$style.modalBackdrop" v-if="currModal && currModal.options.backdrop"></div>
     <component v-for="{component, id, props, options} of modals"
                :is="component"
                :key="id"
@@ -40,7 +40,6 @@
         const currModalId = this.currModal && this.currModal.id
         modalId = modalId || currModalId
         if (!modalId) return
-
         let modal
         const index = this.modals.findIndex(m => m.id === modalId)
         index === -1 || (modal = this.modals[index])

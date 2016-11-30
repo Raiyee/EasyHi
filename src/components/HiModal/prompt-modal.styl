@@ -1,9 +1,48 @@
-.common-prompt
+@require '../../styles/_variables.styl'
+
+.btn-footer
+  flex 1
+  cursor pointer
+  white-space nowrap
+  overflow hidden
+  text-overflow ellipsis
+  height 48px
+  line-height 48px
+  text-align center
+
+  + .btn-footer
+    border-left 1px solid BACK_COLOR
+
+.prompt
   display block
-  :global(.modal-base-content)
+
+  :global // @stylint ignore
+    .modal-content
       position fixed
       left 50%
       top 50%
       transform translate3d(-50%, -50%, 0)
       width 70%
       max-width 448px
+
+      .modal-footer
+        display flex
+        padding 0
+
+.prompt-text
+  padding 15px
+  background-color BG_COLOR
+
+  textarea
+    background-color transparent
+    color REMARK_COLOR
+    width 100%
+    resize none
+    border 0
+    height 60px
+    outline 0
+    padding 0
+    display block
+
+    &:focus
+      outline-offset 0
