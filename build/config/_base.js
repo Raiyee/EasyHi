@@ -47,8 +47,7 @@ const config = {
   },
   compiler_alias: {
     http: 'axios',
-    vue: 'vue/dist/vue',
-    'vue-touch': 'vue-touch-easyhi'
+    vue: 'vue/dist/vue'
   },
   compiler_vendor: [
     'axios',

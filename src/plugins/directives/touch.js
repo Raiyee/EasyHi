@@ -159,17 +159,17 @@ function init(el, {value, modifiers: {prevent, stop}}) {
   })
 }
 
-function destroy(el, binding) {
+function destroy(el) {
   const $el = touchSupport ? el : document
   utils.off(el, EVENTS.start, el.eStart)
     .off($el, EVENTS.move, el.eMove)
     .off($el, EVENTS.end, el.eEnd)
-  binding === true || utils.off(window, 'resize', el.eResize)
+  utils.off(window, 'resize', el.eResize)
 }
 
 let resizeTimeoutId
 
-export const move = {
+export const touch = {
   bind(el, binding, vnode) {
     const {context} = vnode
     init.call(context, el, binding)
@@ -186,11 +186,6 @@ export const move = {
         init.call(context, el, binding)
       }, 300)
     })
-  },
-  update(el, binding, vnode) {
-    const {context} = vnode
-    destroy.call(context, el, true)
-    init.call(context, el, binding)
   },
   unbind: destroy
 }
