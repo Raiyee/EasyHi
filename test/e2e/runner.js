@@ -8,7 +8,6 @@ var server = new WebpackDevServer(require('webpack')(require('../../build/webpac
 server.listen(3000, '127.0.0.1', function () {
   console.log('Starting server on http://127.0.0.1:3000')
 })
-
 // 2. run the nightwatch test suite against it
 // to run in additional browsers:
 //    1. add an entry in test/e2e/nightwatch.conf.json under "test_settings"
