@@ -1,4 +1,4 @@
-import {addClass, removeClass, animate, getTranslate, getTranslate3d} from 'utils/dom'
+import {addClass, removeClass, animate} from 'utils/dom'
 
 describe('utils-dom', () => {
   const div = document.createElement('div')
@@ -36,10 +36,5 @@ describe('utils-dom', () => {
       expect(x).to.equal(1)
       expect(y).to.equal(1)
     }, 500)
-  })
-
-  it('should get zero on common element', () => {
-    expect(getTranslate(div)).to.deep.equal({x: 0, y: 0})
-    expect(getTranslate3d(div)).to.deep.equal({x: 0, y: 0, z: 0})
   })
 })
