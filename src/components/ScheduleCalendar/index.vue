@@ -140,7 +140,7 @@
         })
         this.activeDate = date
       },
-      start() {
+      moveStart() {
         if (!this.mode) return
         this.translateStart = this.translateX
         this.translating = this.panning = true
@@ -149,7 +149,7 @@
         if (!this.mode) return
         this.translateX = this.translateStart + e.changedX
       },
-      end(e) {
+      moveEnd(e) {
         if (!this.mode) return
         this.panning = false
         const currentIndex = -Math.round(this.translateStart / periodWidth / this.rem)
