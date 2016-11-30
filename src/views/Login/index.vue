@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="center-block img-circle" :class="$style.yoga">
-      <img class="img-circle" src="./yoga.png" alt="瑜伽"/>
+      <img class="img-circle" src="./yoga.jpg" alt="瑜伽"/>
     </div>
     <div class="row">
       <div class="col-xs-12 col-sm-6 col-sm-push-3 col-lg-4 col-lg-push-4">
