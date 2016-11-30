@@ -4,7 +4,7 @@
     :transition="transition">
     <template v-if="type === 3">
       <div class="modal-title" slot="header">{{ tipText }}</div>
-      <div class="modal-body" :class="$style.promptText" slot="body">
+      <div :class="$style.promptText" slot="body">
         <textarea v-model="text" :placeholder="placeholder"/>
       </div>
     </template>
