@@ -26,8 +26,6 @@ const BASE_EVENTS = [{
 let EVENTS = BASE_EVENTS[+touchSupport]
 
 const DEFAULT_OPTIONS = {
-  x: false,
-  y: false,
   methods: false
 }
 
@@ -113,26 +111,24 @@ function init(el, {value, modifiers: {prevent, stop}}) {
 
       if (isPrevent(moveEnd, endEvent)) return
 
-      if (!value.x && !value.y) {
-        const absChangedX = Math.abs(changedX)
-        const absChangedY = Math.abs(changedY)
+      const absChangedX = Math.abs(changedX)
+      const absChangedY = Math.abs(changedY)
 
-        let event
-        if (absChangedX < 20) {
-          if (changedY > 50) {
-            event = swipeDown
-          } else if (changedY < -50) {
-            event = swipeUp
-          }
-        } else if (absChangedY < 20) {
-          if (changedX > 50) {
-            event = swipeRight
-          } else if (changedX < -50) {
-            event = swipeLeft
-          }
+      let event
+      if (absChangedX < 20) {
+        if (changedY > 50) {
+          event = swipeDown
+        } else if (changedY < -50) {
+          event = swipeUp
         }
-        if (isPrevent(event, endEvent)) return
+      } else if (absChangedY < 20) {
+        if (changedX > 50) {
+          event = swipeRight
+        } else if (changedX < -50) {
+          event = swipeLeft
+        }
       }
+      if (isPrevent(event, endEvent)) return
 
       return isPrevent(end, endEvent)
     }
