@@ -11,9 +11,7 @@
     <div class="panel">
       <div class="panel-body" ref="calendar">
         <calendar v-if="mode"
-                  v-touch:panstart="onPanStart"
-                  v-touch:pan="onPan"
-                  v-touch:panend="onPanEnd"
+                  v-touch="{methods: true}"
                   :calendar="calendar"
                   :activeIndex="activeIndex"
                   :translateX="translateX"
@@ -142,20 +140,20 @@
         })
         this.activeDate = date
       },
-      onPanStart() {
+      moveStart() {
         if (!this.mode) return
         this.translateStart = this.translateX
         this.translating = this.panning = true
       },
-      onPan(e) {
+      moving(e) {
         if (!this.mode) return
-        this.translateX = this.translateStart + e.deltaX
+        this.translateX = this.translateStart + e.changedX
       },
-      onPanEnd(e) {
+      moveEnd(e) {
         if (!this.mode) return
         this.panning = false
         const currentIndex = -Math.round(this.translateStart / periodWidth / this.rem)
-        const nextIndex = e.deltaX < 0
+        const nextIndex = e.changedX < 0
           ? Math.min(this.calendar.length / 7 - 1, currentIndex + 1) : Math.max(0, currentIndex - 1)
         this.translateX = -nextIndex * periodWidth * this.rem
         if (currentIndex === nextIndex) return

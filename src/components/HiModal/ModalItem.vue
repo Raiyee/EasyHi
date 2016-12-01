@@ -1,12 +1,12 @@
 <template>
-  <transition :name="transition === true ? 'bounce' : transition">
+  <transition :name="transition === true ? 'bounce' : transition || undefined">
     <div :class="$style.modal" :id="id">
       <div class="modal-dialog">
         <div class="modal-content">
-          <div class="modal-header" v-if="$slots.header">
+          <div v-if="$slots.header" class="modal-header">
             <slot name="header"/>
           </div>
-          <div class="modal-header" v-else-if="label">
+          <div v-else-if="label" class="modal-header">
             <button type="button" class="close" @click="closeModal">
               <span aria-hidden="true">&times;</span>
               <span class="sr-only">关闭</span>
@@ -14,15 +14,15 @@
             <h4 class="modal-title" v-html="label"/>
           </div>
           <!--body-->
-          <slot name="body" v-if="$slots.body"/>
+          <slot v-if="$slots.body" name="body"/>
           <div class="modal-body" v-else>
             <slot/>
           </div>
           <!--footer-->
-          <div class="modal-footer" v-if="$slots.footer">
+          <div v-if="$slots.footer" class="modal-footer">
             <slot name="footer"/>
           </div>
-          <div class="modal-footer" v-else-if="footer">
+          <div v-else-if="footer" class="modal-footer">
             <div class="btn btn-theme-default" @click="closeModal">{{ cancelText || '取消' }}</div>
             <div class="btn btn-theme-primary" @click="confirmModal">{{ confirmText || '确定' }}</div>
           </div>

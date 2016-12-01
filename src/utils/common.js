@@ -1,3 +1,4 @@
+import {isObject} from './base'
 import {isArrayLike} from './array'
 
 const pickOrOmit = (pickOrOmit, objOrArr, obj, ...args) => {
@@ -33,4 +34,15 @@ export const pickArr = (...args) => {
 
 export const omitArr = (...args) => {
   return pickOrOmit(false, false, ...args)
+}
+
+export const each = (collection, iteratee: Function, context) => {
+  iteratee = context ? iteratee.bind(context) : iteratee
+  if (isArrayLike(collection)) [].forEach.call(collection, iteratee)
+  else if (isObject(collection)) {
+    for (const [key, value] of Object.entries(collection)) {
+      iteratee(value, key, collection)
+    }
+  } else each([collection], iteratee, context)
+  return this
 }

@@ -1,19 +1,15 @@
 <template>
-  <modal-item
-    :class="$style.prompt"
-    :transition="transition">
+  <modal-item :class="$style.prompt" :transition="transition">
     <template v-if="type === 3">
-      <div class="modal-title" slot="header">{{ tipText }}</div>
-      <div :class="$style.promptText" slot="body">
+      <div slot="header" class="modal-title">{{ tipText }}</div>
+      <div slot="body" :class="$style.promptText">
         <textarea v-model="text" :placeholder="placeholder"/>
       </div>
     </template>
-    <template slot="body" v-else>
-      <div class="modal-body" v-html="tipText || '系统消息'"/>
-    </template>
-    <template slot="footer" v-if="type">
-      <div :class="$style.btnPrompt" @click="closeModal" v-if="type - 1">{{ cancelText || '取消' }}</div>
-      <div :class="$style.btnPrompt" class="theme-color" @click="confirmModal">{{ confirmText || '确定' }}</div>
+    <div v-else slot="body" class="modal-body" v-html="tipText || '系统消息'"/>
+    <template v-if="type" slot="footer">
+      <div v-if="type - 1" :class="$style.btnFooter" @click="closeModal">{{ cancelText || '取消' }}</div>
+      <div class="theme-color" :class="$style.btnFooter" @click="confirmModal">{{ confirmText || '确定' }}</div>
     </template>
   </modal-item>
 </template>
