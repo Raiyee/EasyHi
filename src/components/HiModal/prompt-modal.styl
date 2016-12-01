@@ -1,35 +1,31 @@
 @require '../../styles/_variables.styl'
 
 .prompt
-  display block
-
   :global // @stylint ignore
     .modal-content
       position fixed
       left 50%
       top 50%
       transform translate3d(-50%, -50%, 0)
-      width 70%
-      max-width 448px
+      width 240px
 
       .modal-body
+        padding-top 24px
+        padding-bottom 24px
         text-align center
-        padding 22px
 
       .modal-footer
         display flex
         padding 0
+
 .btn-prompt
   flex 1
+  padding 15px
   cursor pointer
-  white-space nowrap
-  overflow hidden
-  text-overflow ellipsis
-  height 48px
-  line-height 48px
   text-align center
-  padding 0
-  border-radius 0
+  overflow hidden
+  white-space nowrap
+  text-overflow ellipsis
 
   + .btn-prompt
     border-left 1px solid BACK_COLOR
@@ -39,15 +35,15 @@
   background-color BG_COLOR
 
   textarea
-    background-color transparent
-    color REMARK_COLOR
+    display block
+    padding 0
     width 100%
+    height 60px
     resize none
     border 0
-    height 60px
     outline 0
-    padding 0
-    display block
+    color REMARK_COLOR
+    background-color transparent
 
     &:focus
       outline-offset 0
