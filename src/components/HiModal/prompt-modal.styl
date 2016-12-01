@@ -1,18 +1,5 @@
 @require '../../styles/_variables.styl'
 
-.btn-footer
-  flex 1
-  cursor pointer
-  white-space nowrap
-  overflow hidden
-  text-overflow ellipsis
-  height 48px
-  line-height 48px
-  text-align center
-
-  + .btn-footer
-    border-left 1px solid BACK_COLOR
-
 .prompt
   display block
 
@@ -32,6 +19,20 @@
       .modal-footer
         display flex
         padding 0
+.btn-prompt
+  flex 1
+  cursor pointer
+  white-space nowrap
+  overflow hidden
+  text-overflow ellipsis
+  height 48px
+  line-height 48px
+  text-align center
+  padding 0
+  border-radius 0
+
+  + .btn-prompt
+    border-left 1px solid BACK_COLOR
 
 .prompt-text
   padding 15px

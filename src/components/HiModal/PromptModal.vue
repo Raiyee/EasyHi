@@ -12,8 +12,8 @@
       <div class="modal-body" v-html="tipText || '系统消息'"/>
     </template>
     <template slot="footer" v-if="type">
-      <div :class="$style.btnFooter" @click="closeModal" v-if="type - 1">{{ cancelText || '取消' }}</div>
-      <div :class="$style.btnFooter" class="theme-color" @click="confirmModal">{{ confirmText || '确定' }}</div>
+      <div :class="$style.btnPrompt" @click="closeModal" v-if="type - 1">{{ cancelText || '取消' }}</div>
+      <div :class="$style.btnPrompt" class="theme-color" @click="confirmModal">{{ confirmText || '确定' }}</div>
     </template>
   </modal-item>
 </template>
