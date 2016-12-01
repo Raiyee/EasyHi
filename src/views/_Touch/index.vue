@@ -9,16 +9,12 @@
     swipeUp: {{ swipeUpNum }},<br>
     swipeDown: {{ swipeDownNum }}
     <br>
-    <div v-move="touch" @dblclick="dblclickOuter">
+    <div v-touch="{methods: true}" @dblclick="dblclickOuter">
       <button class="btn btn-primary" :class="$style.btn" @tap="click">{{ msg }}</button>
       <div @dblclick="dblclick">
         <button class="btn btn-primary" :class="$style.btn">Just Another Button</button>
       </div>
     </div>
-    <br>
-    <br>
-    <button class="btn btn-default" @click="toggle('x')">toggle x ({{ x }})</button>
-    <button class="btn btn-default" @click="toggle('y')">toggle y ({{ y }})</button>
   </div>
 </template>
 <script>
@@ -26,8 +22,6 @@
     data() {
       return {
         msg: 'try to touch, move, swipe, press me!',
-        x: false,
-        y: false,
         tapNum: 0,
         dblTapNum: 0,
         mltTapNum: 0,
@@ -37,15 +31,6 @@
         swipeRightNum: 0,
         swipeUpNum: 0,
         swipeDownNum: 0
-      }
-    },
-    computed: {
-      touch() {
-        return {
-          x: this.x,
-          y: this.y,
-          methods: true
-        }
       }
     },
     methods: {
