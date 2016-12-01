@@ -8,8 +8,8 @@
     </template>
     <div v-else slot="body" class="modal-body" v-html="tipText || '系统消息'"/>
     <template v-if="type" slot="footer">
-      <div v-if="type - 1" :class="$style.btnFooter" @click="closeModal">{{ cancelText || '取消' }}</div>
-      <div class="theme-color" :class="$style.btnFooter" @click="confirmModal">{{ confirmText || '确定' }}</div>
+      <div v-if="type - 1" :class="$style.btnPrompt" @click="closeModal">{{ cancelText || '取消' }}</div>
+      <div class="theme-color" :class="$style.btnPrompt" @click="confirmModal">{{ confirmText || '确定' }}</div>
     </template>
   </modal-item>
 </template>
