@@ -11,7 +11,7 @@ const isTouchSupport = () => {
   false)
 }
 
-let touchSupport = isTouchSupport()
+let touchSupport
 
 const BASE_EVENTS = [{
   start: 'mousedown',
@@ -23,7 +23,7 @@ const BASE_EVENTS = [{
   end: 'touchend'
 }]
 
-let EVENTS = BASE_EVENTS[+touchSupport]
+let EVENTS
 
 const DEFAULT_OPTIONS = {
   methods: false
@@ -32,7 +32,7 @@ const DEFAULT_OPTIONS = {
 const actualEvent = (e, prevent, stop) => {
   prevent && e.preventDefault && e.preventDefault()
   stop && e.stopPropagation && e.stopPropagation()
-  return touchSupport ? e.changedTouches[0] : e
+  return touchSupport && e.changedTouches ? e.changedTouches[0] : e
 }
 
 let tapTimeoutId
@@ -159,18 +159,20 @@ function init(el, {value, modifiers: {prevent, stop}}) {
   })
 }
 
-function destroy(el) {
+function destroy(el, binding) {
   const $el = touchSupport ? el : document
   utils.off(el, EVENTS.start, el.eStart)
     .off($el, EVENTS.move, el.eMove)
     .off($el, EVENTS.end, el.eEnd)
-  utils.off(window, 'resize', el.eResize)
+  binding === true || utils.off(window, 'resize', el.eResize)
 }
 
 let resizeTimeoutId
 
 export const touch = {
   bind(el, binding, vnode) {
+    touchSupport = isTouchSupport()
+    EVENTS = BASE_EVENTS[+touchSupport]
     const {context} = vnode
     init.call(context, el, binding)
 
