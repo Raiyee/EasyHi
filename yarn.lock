@@ -53,8 +53,8 @@ agent-base@2:
     semver "~5.0.1"
 
 ajv-keywords@^1.0.0, ajv-keywords@^1.1.1:
-  version "1.1.1"
-  resolved "http://registry.npm.taobao.org/ajv-keywords/download/ajv-keywords-1.1.1.tgz#02550bc605a3e576041565628af972e06c549d50"
+  version "1.2.0"
+  resolved "http://registry.npm.taobao.org/ajv-keywords/download/ajv-keywords-1.2.0.tgz#676c4f087bfe1e8b12dca6fda2f3c74f417b099c"
 
 ajv@^4.7.0:
   version "4.9.0"
@@ -1305,8 +1305,8 @@ camelcase@^3.0.0:
   resolved "http://registry.npm.taobao.org/camelcase/download/camelcase-3.0.0.tgz#32fc4b9fcdaf845fcdf7e73bb97cac2261f0ab0a"
 
 caniuse-db@^1.0.30000187, caniuse-db@^1.0.30000539, caniuse-db@^1.0.30000578:
-  version "1.0.30000588"
-  resolved "http://registry.npm.taobao.org/caniuse-db/download/caniuse-db-1.0.30000588.tgz#20baa051c5bd7e33ae32c7781b5379289c3d39d2"
+  version "1.0.30000590"
+  resolved "http://registry.npm.taobao.org/caniuse-db/download/caniuse-db-1.0.30000590.tgz#306e2b133ce467e8341b2accd223256b4040b2be"
 
 capture-stack-trace@^1.0.0:
   version "1.0.0"
@@ -1867,9 +1867,9 @@ css-color-names@0.0.4:
   version "0.0.4"
   resolved "http://registry.npm.taobao.org/css-color-names/download/css-color-names-0.0.4.tgz#808adc2e79cf84738069b646cb20ec27beb629e0"
 
-css-loader@^0.26.0:
-  version "0.26.0"
-  resolved "http://registry.npm.taobao.org/css-loader/download/css-loader-0.26.0.tgz#160d378f5b8e0fd4ff6daf4f3580e2219b33025f"
+css-loader@^0.26.1:
+  version "0.26.1"
+  resolved "http://registry.npm.taobao.org/css-loader/download/css-loader-0.26.1.tgz#2ba7f20131b93597496b3e9bb500785a49cd29ea"
   dependencies:
     babel-code-frame "^6.11.0"
     css-selector-tokenizer "^0.7.0"
@@ -2608,9 +2608,9 @@ eslint-plugin-babel@^4.0.0:
   version "4.0.0"
   resolved "http://registry.npm.taobao.org/eslint-plugin-babel/download/eslint-plugin-babel-4.0.0.tgz#a92114e2c493ac3034b030d7ecf96e174a76ef3f"
 
-eslint-plugin-flowtype@^2.25.0:
-  version "2.28.2"
-  resolved "http://registry.npm.taobao.org/eslint-plugin-flowtype/download/eslint-plugin-flowtype-2.28.2.tgz#2430ac1bf434db878e16cfde454f64b13896317b"
+eslint-plugin-flowtype@^2.29.1:
+  version "2.29.1"
+  resolved "http://registry.npm.taobao.org/eslint-plugin-flowtype/download/eslint-plugin-flowtype-2.29.1.tgz#74cc5603ff0baff6e224482bbd17406b0980f6c3"
   dependencies:
     lodash "^4.15.0"
 
@@ -3705,8 +3705,8 @@ http-proxy-middleware@~0.17.1:
     micromatch "^2.3.11"
 
 http-proxy@^1.13.0, http-proxy@^1.15.1:
-  version "1.15.2"
-  resolved "http://registry.npm.taobao.org/http-proxy/download/http-proxy-1.15.2.tgz#642fdcaffe52d3448d2bda3b0079e9409064da31"
+  version "1.16.0"
+  resolved "http://registry.npm.taobao.org/http-proxy/download/http-proxy-1.16.0.tgz#f9b52305e9f864811835277e4a486051b5d4a523"
   dependencies:
     eventemitter3 "1.x.x"
     requires-port "1.x.x"
@@ -4852,7 +4852,11 @@ lpad@^2.0.1:
   version "2.0.1"
   resolved "http://registry.npm.taobao.org/lpad/download/lpad-2.0.1.tgz#28316b4e7b2015f511f6591459afc0e5944008ad"
 
-lru-cache@2, lru-cache@2.2.x:
+lru-cache@2:
+  version "2.7.3"
+  resolved "http://registry.npm.taobao.org/lru-cache/download/lru-cache-2.7.3.tgz#6d4524e8b955f95d4f5b58851ce21dd72fb4e952"
+
+lru-cache@2.2.x:
   version "2.2.4"
   resolved "http://registry.npm.taobao.org/lru-cache/download/lru-cache-2.2.4.tgz#6c658619becf14031d0d0b594b16042ce4dc063d"
 
@@ -6102,9 +6106,13 @@ qjobs@^1.1.4:
   version "1.1.5"
   resolved "http://registry.npm.taobao.org/qjobs/download/qjobs-1.1.5.tgz#659de9f2cf8dcc27a1481276f205377272382e73"
 
-qs@6.2.0, qs@~6.2.0:
+qs@6.2.0:
   version "6.2.0"
   resolved "http://registry.npm.taobao.org/qs/download/qs-6.2.0.tgz#3b7848c03c2dece69a9522b0fae8c4126d745f3b"
+
+qs@~6.2.0:
+  version "6.2.1"
+  resolved "http://registry.npm.taobao.org/qs/download/qs-6.2.1.tgz#ce03c5ff0935bc1d9d69a9f14cbd18e568d67625"
 
 qs@~6.3.0:
   version "6.3.0"
@@ -6814,8 +6822,8 @@ sort-keys@^1.0.0:
     is-plain-obj "^1.0.0"
 
 source-list-map@^0.1.4, source-list-map@~0.1.0:
-  version "0.1.6"
-  resolved "http://registry.npm.taobao.org/source-list-map/download/source-list-map-0.1.6.tgz#e1e6f94f0b40c4d28dcf8f5b8766e0e45636877f"
+  version "0.1.7"
+  resolved "http://registry.npm.taobao.org/source-list-map/download/source-list-map-0.1.7.tgz#d4b5ce2a46535c72c7e8527c71a77d250618172e"
 
 source-map-support@^0.4.2:
   version "0.4.6"
@@ -7459,8 +7467,8 @@ tunnel-agent@^0.4.0, tunnel-agent@~0.4.1:
   resolved "http://registry.npm.taobao.org/tunnel-agent/download/tunnel-agent-0.4.3.tgz#6373db76909fe570e08d73583365ed828a74eeeb"
 
 tweetnacl@^0.14.3, tweetnacl@~0.14.0:
-  version "0.14.3"
-  resolved "http://registry.npm.taobao.org/tweetnacl/download/tweetnacl-0.14.3.tgz#3da382f670f25ded78d7b3d1792119bca0b7132d"
+  version "0.14.4"
+  resolved "http://registry.npm.taobao.org/tweetnacl/download/tweetnacl-0.14.4.tgz#8c9dbfb52795686f166cd2023794bcf103d13c2b"
 
 type-check@~0.3.2:
   version "0.3.2"
@@ -7658,9 +7666,9 @@ uuid@^3.0.0:
   version "3.0.1"
   resolved "http://registry.npm.taobao.org/uuid/download/uuid-3.0.1.tgz#6544bba2dfda8c1cf17e629a3a305e2bb1fee6c1"
 
-v-touch@^0.1.9:
-  version "0.1.9"
-  resolved "http://registry.npm.taobao.org/v-touch/download/v-touch-0.1.9.tgz#15172efe77886d2f857760ff58612b5088f4d502"
+v-touch@^1.0.6:
+  version "1.0.6"
+  resolved "http://registry.npm.taobao.org/v-touch/download/v-touch-1.0.6.tgz#b9073764667ed48424df0470bac16636dbf3fcf4"
 
 vali-date@^1.0.0:
   version "1.0.0"
@@ -7805,9 +7813,9 @@ vue-promise-loader@^10.0.1:
     vue-style-loader "^1.0.0"
     vue-template-es2015-compiler "^1.2.2"
 
-vue-router@^2.1.0:
-  version "2.1.0"
-  resolved "http://registry.npm.taobao.org/vue-router/download/vue-router-2.1.0.tgz#c04d5ed79517571d4d668e00a85c8ea0d92c4f87"
+vue-router@^2.1.1:
+  version "2.1.1"
+  resolved "http://registry.npm.taobao.org/vue-router/download/vue-router-2.1.1.tgz#10c31bbdcb6da92bd3e0223fa12345e73018625a"
 
 vue-style-loader@^1.0.0:
   version "1.0.0"
@@ -7815,9 +7823,9 @@ vue-style-loader@^1.0.0:
   dependencies:
     loader-utils "^0.2.7"
 
-vue-template-compiler@^2.1.3:
-  version "2.1.3"
-  resolved "http://registry.npm.taobao.org/vue-template-compiler/download/vue-template-compiler-2.1.3.tgz#af252df5848c15980cbf32d88a253db053290949"
+vue-template-compiler@^2.1.4:
+  version "2.1.4"
+  resolved "http://registry.npm.taobao.org/vue-template-compiler/download/vue-template-compiler-2.1.4.tgz#ce99cb9c2f5842062d3b744c716224b613f198d4"
   dependencies:
     de-indent "^1.0.2"
     he "^1.1.0"
@@ -7826,9 +7834,9 @@ vue-template-es2015-compiler@^1.2.2:
   version "1.3.2"
   resolved "http://registry.npm.taobao.org/vue-template-es2015-compiler/download/vue-template-es2015-compiler-1.3.2.tgz#c04080227514929ba540de7a7a93ac430467bdc0"
 
-vue@^2.1.3:
-  version "2.1.3"
-  resolved "http://registry.npm.taobao.org/vue/download/vue-2.1.3.tgz#20161b8684777754fd9823134b38f13c1e197882"
+vue@^2.1.4:
+  version "2.1.4"
+  resolved "http://registry.npm.taobao.org/vue/download/vue-2.1.4.tgz#d490f8fcf696847d8cf7f8eb9168e9a5dd806bfc"
 
 vuex-actions@^1.1.1:
   version "1.1.1"
@@ -8066,9 +8074,9 @@ yargs-parser@^2.4.0:
     camelcase "^3.0.0"
     lodash.assign "^4.0.6"
 
-yargs-parser@^4.1.0:
-  version "4.1.0"
-  resolved "http://registry.npm.taobao.org/yargs-parser/download/yargs-parser-4.1.0.tgz#313df030f20124124aeae8fbab2da53ec28c56d7"
+yargs-parser@^4.2.0:
+  version "4.2.0"
+  resolved "http://registry.npm.taobao.org/yargs-parser/download/yargs-parser-4.2.0.tgz#6ced869cd05a3dca6a1eaee38b68aeed4b0b4101"
   dependencies:
     camelcase "^3.0.0"
 
@@ -8106,9 +8114,9 @@ yargs@^3.5.4:
     window-size "^0.1.4"
     y18n "^3.2.0"
 
-yargs@^6.0.0, yargs@^6.4.0:
-  version "6.4.0"
-  resolved "http://registry.npm.taobao.org/yargs/download/yargs-6.4.0.tgz#816e1a866d5598ccf34e5596ddce22d92da490d4"
+yargs@^6.0.0, yargs@^6.5.0:
+  version "6.5.0"
+  resolved "http://registry.npm.taobao.org/yargs/download/yargs-6.5.0.tgz#a902e23a1f0fe912b2a03f6131b7ed740c9718ff"
   dependencies:
     camelcase "^3.0.0"
     cliui "^3.2.0"
@@ -8123,7 +8131,7 @@ yargs@^6.0.0, yargs@^6.4.0:
     which-module "^1.0.0"
     window-size "^0.2.0"
     y18n "^3.2.1"
-    yargs-parser "^4.1.0"
+    yargs-parser "^4.2.0"
 
 yargs@~3.10.0:
   version "3.10.0"
