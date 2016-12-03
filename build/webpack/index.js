@@ -69,9 +69,7 @@ webpackConfig.module.rules = [
   }),
   ...__TESTING__ ? [{
     test: /\.styl$/,
-    loader: generateLoaders(STYLUS_LOADER, baseLoaders, {
-      sourceMap
-    }),
+    loader: 'null-loader',
     exclude: nodeModules
   }] : [{
     test: /[/\\]app\.styl$/,

@@ -108,6 +108,7 @@
     "nib": "^1.1.2",
     "nightwatch": "^0.9.9",
     "nodemon": "^1.11.0",
+    "null-loader": "^0.1.1",
     "phantomjs-polyfill": "^0.0.2",
     "phantomjs-prebuilt": "^2.1.13",
     "postcss-loader": "^1.1.1",
