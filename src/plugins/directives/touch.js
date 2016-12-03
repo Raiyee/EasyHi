@@ -11,8 +11,6 @@ const isTouchSupport = () => {
   false)
 }
 
-let touchSupport
-
 const BASE_EVENTS = [{
   start: 'mousedown',
   move: 'mousemove',
@@ -23,11 +21,11 @@ const BASE_EVENTS = [{
   end: 'touchend'
 }]
 
-let EVENTS
-
 const DEFAULT_OPTIONS = {
   methods: false
 }
+
+let touchSupport, EVENTS
 
 const actualEvent = (e, prevent, stop) => {
   prevent && e.preventDefault && e.preventDefault()

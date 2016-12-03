@@ -55,7 +55,6 @@ const config = {
     'vue',
     'vue-lazyload',
     'vue-router',
-    'vue-touch',
     'vuex',
     'vuex-actions',
     'vuex-localstorage'
