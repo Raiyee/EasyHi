@@ -4489,9 +4489,9 @@ koa-static@^3.0.0:
     debug "*"
     koa-send "^3.2.0"
 
-koa-webpack@^0.1.9:
-  version "0.1.9"
-  resolved "http://registry.npm.taobao.org/koa-webpack/download/koa-webpack-0.1.9.tgz#4f9401e95a0f6f3c1cf19b575ec0bf1ed445610c"
+koa-webpack@^0.1.10:
+  version "0.1.10"
+  resolved "http://registry.npm.taobao.org/koa-webpack/download/koa-webpack-0.1.10.tgz#c3f076110a846b04601666fe6a5065d30d2841e1"
   dependencies:
     app-root-path "^2.0.1"
     koa-compose "^3.1.0"
@@ -7714,9 +7714,9 @@ uuid@^3.0.0:
   version "3.0.1"
   resolved "http://registry.npm.taobao.org/uuid/download/uuid-3.0.1.tgz#6544bba2dfda8c1cf17e629a3a305e2bb1fee6c1"
 
-v-touch@^1.0.6:
-  version "1.0.6"
-  resolved "http://registry.npm.taobao.org/v-touch/download/v-touch-1.0.6.tgz#b9073764667ed48424df0470bac16636dbf3fcf4"
+v-touch@^1.0.7:
+  version "1.0.7"
+  resolved "http://registry.npm.taobao.org/v-touch/download/v-touch-1.0.7.tgz#314a0b1e82e34d6beabc8ca6df5f42f509ceb2bb"
 
 vali-date@^1.0.0:
   version "1.0.0"
