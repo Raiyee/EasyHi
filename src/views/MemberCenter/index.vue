@@ -11,10 +11,15 @@
         <div class="media-body">{{ memberMobile }}</div>
       </div>
       <div class="media-right" @click="memberMessage">
-            <span class="glyphicon glyphicon-unchecked">
+            <span class="iconfont icon-message">
               <span class="text-center">{{ messageCount > 9 ? '9+' : messageCount }}</span>
             </span>
       </div>
+    </div>
+    <div class="panel panel-full" :class="$style.memberShow" v-if="sceneId">
+      <span class="iconfont icon-xiaoxi theme-color"></span>
+      您有一个"会员秀", 正在等待您的召唤
+      <span class="iconfont icon-arrow-right"></span>
     </div>
     <div class="panel panel-full" :class="$style.subscribePanel">
       <div class="panel-heading">
@@ -29,7 +34,7 @@
       </div>
       <div class="clearfix panel-body">
         <template v-if="latestCourse">
-          <span class="glyphicon glyphicon-time theme-color"></span>
+          <span class="iconfont icon-clock theme-color"></span>
           <div>
             {{ courseDuration }} {{ courseName }}
             <br>
@@ -57,14 +62,19 @@
       </div>
       <div class="panel-body text-center clearfix">
         <div class="enabled" data-link="#member-center/member-card">
-          <span class="glyphicon glyphicon-credit-card theme-color"></span>
+          <span class="iconfont icon-huiyuanqia theme-color"></span>
           <br/>
           会员卡( {{ cardNum }} )
         </div>
         <div class="enabled" data-link="#member-center/expvoucher-link/1">
-          <span class="glyphicon glyphicon-credit-card theme-color"></span>
+          <span class="iconfont icon-youhuiquan1 theme-color"></span>
           <br/>
           体验券:( {{ voucherNum }} )
+        </div>
+        <div class="enabled" data-link="#member-center/member-card">
+          <span class="iconfont icon-dingdan1 theme-color"></span>
+          <br/>
+          订单
         </div>
       </div>
     </div>

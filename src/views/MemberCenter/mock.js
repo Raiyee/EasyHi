@@ -7,6 +7,7 @@ Mock.mock(/\/membercenter$/, () => Mock.mock({
   memberName: Random.cname(),
   memberMobile: '@integer(10, 11)',
   messageCount: '@integer(10, 20)',
+  sceneId: '@string(0, 11)',
   latestCourse: '@boolean()',
   courseDuration: '@datetime(hh:mm)-@datetime(hh:mm)',
   courseDate: '@datetime(yyyy-MM-dd)周@cword("一二三四五六日")',

@@ -20,6 +20,10 @@
 
 .icon-radio:before { content: "\e609"; }
 
+.icon-dingdan1:before { content: "\e6ae"; }
+
+.icon-arrow-right:before { content: "\e60b"; }
+
 .icon-copy:before { content: "\e600"; }
 
 .icon-delete:before { content: "\e601"; }
@@ -28,9 +32,19 @@
 
 .icon-share:before { content: "\e603"; }
 
+.icon-huiyuanqia:before { content: "\e60d"; }
+
+.icon-youhuiquan1:before { content: "\e619"; }
+
+.icon-message:before { content: "\e623"; }
+
+.icon-clock:before { content: "\e624"; }
+
 .icon-male:before { content: "\e604"; }
 
 .icon-female:before { content: "\e605"; }
+
+.icon-xiaoxi:before { content: "\e693"; }
 
 .icon-afternoon:before { content: "\e606"; }
 
