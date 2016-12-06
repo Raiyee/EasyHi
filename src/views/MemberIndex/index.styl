@@ -1,7 +1,79 @@
 @require "../../styles/_variables"
 
-FOCUS_OUTLINE_COLOR = #79ffbc
 BTN_COLOR = #dfd28a
+
+.pic
+  position absolute
+  top 0
+  left 0
+  width 100%
+  height 100%
+  overflow hidden
+  background-size cover
+  background-position center center
+  background-repeat no-repeat
+
+.pic1
+  image("../MemberIndex/member-index-01.jpg")
+  animation pic1 6s linear infinite
+
+.pic2
+  image("../MemberIndex/member-index-02.jpg")
+  animation pic2 6s linear infinite
+
+.slogan-title
+  font-size TOP_SIZE
+  transform translate3d(0, 100%, 0)
+  animation sloganTitle .6s forwards 2.6s
+  max-height (20 / 14) * TOP_SIZE
+  width 288px
+  border 0
+  background none
+  text-align center
+  padding 0
+  resize none
+  outline 0
+  overflow hidden
+  font-kai()
+
+.slogan-body
+  width 160px * (16 / 12)
+  overflow hidden
+  transform translate3d(-100%, 0, 0)
+  animation sloganBody 1s forwards 3.3s
+  font-song()
+
+.slogan-text
+  padding 0
+  font-size PRIMARY_SIZE
+  width 100%
+  text-align center
+  background none
+  resize none
+  border 0
+  outline 0
+  transform translate3d(100%, 0, 0) scale(SMALL_SCALE)
+  animation sloganText 1s forwards 3.3s
+
+.line
+  border-bottom 1px solid black
+  transform translate3d(-100%, 0, 0)
+  animation line 1s forwards 1.5s
+  margin-left auto
+  margin-right auto
+
+.outside-circle
+  position relative
+  width 105px
+  height 105px
+  border 2px solid BTN_COLOR
+  border-radius 101px
+  backface-visibility visible
+
+  &:global(.animated)
+    opacity 0
+    transform scale(0)
+    animation showCircle 1s .5s
 
 .content
   position relative
@@ -11,141 +83,47 @@ BTN_COLOR = #dfd28a
   min-height 480px
   overflow-y hidden
 
-  .pic1
-    image("../MemberIndex/member-index-01.jpg")
-    animation pic1 6s linear infinite
+.slogan
+  position absolute
+  left 50%
+  top 30%
+  transform translate3d(-50%, 0, 0)
+  text-align center
+  z-index 300
 
-  .pic2
-    image("../MemberIndex/member-index-02.jpg")
-    animation pic2 6s linear infinite
+.slogan-header
+  display inline-block
+  overflow hidden
 
-  .slogan-title
-    font-size TOP_SIZE
-    transform translate3d(0, 100%, 0)
-    animation sloganTitle .6s forwards 2.6s
-    max-height (20 / 14) * TOP_SIZE
-    width 288px
-    border 0
-    background none
-    text-align center
-    padding 0
-    resize none
-    outline 0
-    overflow hidden
-    font-kai()
+.member-menu
+  position absolute
+  bottom 30%
+  z-index 300
+  left 50%
+  transform translate3d(-50%, 0, 0)
+  width 250px
 
-    &.active:focus
-      outline 1px solid FOCUS_OUTLINE_COLOR
+.inside-circle
+  width 90px
+  height 90px
+  position absolute
+  left 50%
+  top 50%
+  color white
+  transform translate3d(-50%, -50%, 0)
+  border-radius 90px
+  background-color BTN_COLOR
+  text-align center
+  padding 8px 0
 
-  .slogan-body
-    /* TIPS: textarea 默认有 2px 的 padding */
-    width 160px * (16 / 12)
-    margin-top 8px
-    overflow hidden
-    transform translate3d(-100%, 0, 0)
-    animation sloganBody 1s forwards 3.3s
-    font-song()
+.menu-icon
+  font-size 24px
+  display block
+  margin-top 8px
+  margin-bottom 5px
 
-  .slogan-text
-    font-size PRIMARY_SIZE
-    width 100%
-    text-align center
-    background none
-    resize none
-    border 0
-    outline 0
-    transform translate3d(100%, 0, 0) scale(SMALL_SCALE)
-    animation sloganText 1s forwards 3.3s
-
-    &.active:focus
-      outline 1px solid FOCUS_OUTLINE_COLOR
-
-  .line
-    border-bottom 1px solid black
-    transform translate3d(-100%, 0, 0)
-    animation line 1s forwards 1.5s
-    margin-left auto
-    margin-right auto
-
-  .outside-circle
-    position relative
-    width 105px
-    height 105px
-    border 2px solid BTN_COLOR
-    border-radius 101px
-    backface-visibility visible
-
-    &:global(.animated)
-      opacity 0
-      transform scale(0)
-      animation showCircle 1s .5s
-
-  .inside-circle-replace
-    position absolute
-    top 0
-    width 90px
-    height 90px
-    background white
-    border-radius 90px
-    transform scale(0)
-    z-index 9999
-
-    &:global(.animated)
-      animation replaceCircle 1s ease
-
-  :global // @stylint ignore
-    .pic
-      position absolute
-      top 0
-      left 0
-      width 100%
-      height 100%
-      overflow hidden
-      background-size cover
-      background-position center center
-      background-repeat no-repeat
-
-    .slogan
-      position absolute
-      left 50%
-      top 30%
-      transform translate3d(-50%, 0, 0)
-      text-align center
-      z-index 300
-
-      .slogan-header
-        display inline-block
-        overflow hidden
-
-    .member-menu
-      position absolute
-      bottom 17%
-      z-index 300
-      left 50%
-      transform translate3d(-50%, 0, 0)
-      width 250px
-
-      .inside-circle
-        width 90px
-        height 90px
-        position absolute
-        left 50%
-        top 50%
-        color white
-        transform translate3d(-50%, -50%, 0)
-        border-radius 90px
-        background-color BTN_COLOR
-        text-align center
-        padding 8px 0
-
-        .menu-icon
-          font-size 24px
-          display block
-          margin-top 8px
-          margin-bottom 5px
-
-        .menu-text
-          font-size 15px
+.menu-text
+  font-size 15px
 
 @keyframes pic1
   from
@@ -235,10 +213,3 @@ BTN_COLOR = #dfd28a
   to
     transform scale(1)
     opacity 1
-
-@keyframes replaceCircle
-  from
-    transform scale(0)
-
-  to
-    transform scale(50)
