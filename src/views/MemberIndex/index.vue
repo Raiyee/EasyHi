@@ -36,7 +36,7 @@
 <script>
   import {mapGetters} from 'vuex'
 
-  import {addClass, removeClass} from 'utils'
+  import {removeClass} from 'utils'
 
   export default {
     name: 'member-index',
