@@ -2,6 +2,8 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import _debug from 'debug'
 import {argv} from 'yargs'
 
+import globals from '../config'
+
 // generate loader string to be used with extract text plugin
 export const generateLoaders = (loader, loaders, options = {}) => {
   const sourceLoaders = (loader ? [...loaders, loader] : loaders).map(loader => {
@@ -19,7 +21,7 @@ export const generateLoaders = (loader, loaders, options = {}) => {
 }
 
 export const baseLoaders = ['css-loader?-minimize', 'postcss-loader']
-export const localIdentName = '[name]__[local]___[hash:base64:5]'
+export const localIdentName = globals.__DEV__ ? '[name]__[local]___[hash:base64:5]' : '[hash:base64]'
 const cssModuleSuffix = `&modules&camelCase&importLoaders=2&localIdentName=${localIdentName}`
 const [css, postcss] = baseLoaders
 export const cssModuleLoaders = [css + cssModuleSuffix, postcss]
