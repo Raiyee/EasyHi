@@ -1,6 +1,6 @@
 div(:class="classes.content",:style="{height: winHeight + 'px'}")
-  div(:class="[classes.pic, classes.pic1]")
-  div(:class="[classes.pic, classes.pic2]")
+  each val in [1,2]
+    div(:class="[classes.pic, classes.pic" + val + "]")
   div(:class="classes.slogan")
     div(:class="classes.sloganHeader")
       input(:class="classes['slogan-title']" title="请输入标题" value="遇见瑜伽" readonly)
@@ -8,13 +8,9 @@ div(:class="classes.content",:style="{height: winHeight + 'px'}")
     div(:class="classes['slogan-body']" class="center-block")
       textarea(:class="classes['slogan-text']" title="请输入内容" readonly) 当心得到控制，平静下来时，剩下的便是灵魂
   div(:class="classes.memberMenu")
-    div(:class="classes.outsideCircle" class="pull-left animated",@animationend="animationEnd")
-      router-link(:class="classes.insideCircle" to="/member-subscribe" tag="div")
-        span(:class="classes.menuIcon" class="glyphicon glyphicon-book")
-        span(:class="classes.menuText") 预订课程
-      div(:class="classes.insideCircleReplace")
-    div(:class="classes.outsideCircle" class="pull-right animated",@animationend="animationEnd")
-      router-link(:class="classes.insideCircle" to="/member-center" tag="div")
-        span(:class="classes.menuIcon" class="glyphicon glyphicon-user")
-        span(:class="classes.menuText") 个人中心
-      div(:class="classes.insideCircleReplace")
+    each val in [{pull:'left',link:'/member-subscribe',icon:'glyphicon-book',menu:'预订课程'},{pull:'right',link:'/member-center',icon:'glyphicon-user',menu:'个人中心'}]
+      div(:class="classes.outsideCircle" class="pull-" + val.pull + " animated",@animationend="animationEnd")
+        router-link(:class="classes.insideCircle" to=val.link tag="div")
+          span(:class="classes.menuIcon" class="glyphicon " + val.icon)
+          span(:class="classes.menuText") #{val.menu}
+        div(:class="classes.insideCircleReplace")
