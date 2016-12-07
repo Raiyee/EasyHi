@@ -24,7 +24,7 @@ install:
 - yarn
 
 script:
-- yarn build
+- yarn build:mock
 - git push --force --quiet git@git.coding.net:Raiyee/EasyHi.git master:master
 - yarn sync
 

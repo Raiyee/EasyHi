@@ -1,3 +1,4 @@
+import fs from 'fs'
 import webpack from 'webpack'
 import CopyWebpackPlugin from 'copy-webpack-plugin'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
@@ -7,9 +8,11 @@ import cssnano from 'cssnano'
 import _debug from 'debug'
 import pug from 'pug'
 
+import HtmlRewritePlugin from './HtmlRewritePlugin'
+
 import config, {globals, paths, pkg} from '../config'
 import utils, {baseLoaders, cssModuleLoaders, generateLoaders, localIdentName, nodeModules} from './utils'
-const {TRUE_NODE_ENV, __DEV__, __PROD__, __TESTING__} = globals
+const {TRUE_NODE_ENV, __DEV__, __PROD__, __TESTING__, __MOCK__} = globals
 
 const debug = _debug('koa:webpack:config')
 
@@ -147,7 +150,13 @@ webpackConfig.module.rules = [
 // Plugins
 // ------------------------------------
 
+__MOCK__ && debug(`enable mock for ${TRUE_NODE_ENV}`)
+
 const postcss = []
+
+let templateContent = fs.readFileSync(paths.src('index.pug')).toString()
+
+__MOCK__ && (templateContent = templateContent.replace(/\/\/pre /g, ''))
 
 webpackConfig.plugins = [
   new webpack.DefinePlugin(globals),
@@ -160,18 +169,23 @@ webpackConfig.plugins = [
     }
   }),
   new HtmlWebpackPlugin({
-    filename: 'index.html',
-    templateContent: pug.renderFile(paths.src('index.pug'), {
-      pretty: !config.compiler_html_minify,
+    filename: `index.${__MOCK__ ? 'html' : 'pug'}`,
+    templateContent: pug.render(templateContent, {
+      pretty: !__MOCK__ || !config.compiler_html_minify,
       title: `${pkg.name} - ${pkg.description}`
     }),
     favicon: paths.src('static/favicon.ico'),
     hash: false,
     inject: true,
     minify: {
-      collapseWhitespace: config.compiler_html_minify,
+      collapseWhitespace: __MOCK__ && config.compiler_html_minify,
       minifyJS: config.compiler_html_minify
     }
+  }),
+  new HtmlRewritePlugin({
+    afterHtmlProcessing: __MOCK__ || (htmlPluginData => {
+      htmlPluginData.html = htmlPluginData.html.replace(/(<!--pre )(.*)(-->)/g, (math, $1, $2, $3) => $2)
+    })
   }),
   new CopyWebpackPlugin([{
     from: paths.src('static')
