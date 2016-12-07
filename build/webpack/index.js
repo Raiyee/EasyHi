@@ -21,8 +21,7 @@ const webpackConfig = {
   target: 'web',
   resolve: {
     modules: [paths.src(), 'node_modules'],
-    extensions: ['.vue', '.js', '.styl'],
-    // extensions: ['.js', '.vue', '.styl'],
+    extensions: ['.js', '.vue', '.styl', '.pug'],
     enforceExtension: false,
     enforceModuleExtension: false,
     alias: config.compiler_alias
@@ -115,7 +114,7 @@ webpackConfig.module.rules = [
     exclude: nodeModules
   }, {
     test: /\.pug$/,
-    loader: 'vue-template-compiler-loader!pug-html-loader?exports=false',
+    loader: `vue-template-compiler-loader!pug-html-loader?exports=false&pretty=${__DEV__}`,
     exclude: nodeModules
   }, {
     test: /\.vue$/,
