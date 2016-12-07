@@ -19,6 +19,7 @@ module.exports = {
   },
   globals: {
     __DEV__: false,
+    __MOCK__: false,
     IMG_PATH_PREFIX: false
   },
   parserOptions: {
