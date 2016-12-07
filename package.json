@@ -113,6 +113,8 @@
     "phantomjs-prebuilt": "^2.1.13",
     "postcss-loader": "^1.2.0",
     "postcss-reporter": "^2.0.0",
+    "pug": "^2.0.0-beta6",
+    "pug-loader": "^2.3.0",
     "selenium-server": "^3.0.1",
     "sinon": "^1.17.6",
     "sinon-chai": "^2.8.0",

@@ -60,6 +60,9 @@ export default {
       path: '/modal',
       component: () => System.import('views/_Modal')
     }, {
+      path: '/pug',
+      component: () => System.import('views/_Pug')
+    }, {
       path: '*',
       redirect: '/'
     }

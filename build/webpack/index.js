@@ -5,6 +5,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
 import autoprefixer from 'autoprefixer'
 import cssnano from 'cssnano'
 import _debug from 'debug'
+import pug from 'pug'
 
 import config, {globals, paths, pkg} from '../config'
 import utils, {baseLoaders, cssModuleLoaders, generateLoaders, localIdentName, nodeModules} from './utils'
@@ -123,6 +124,7 @@ webpackConfig.module.rules = [
         localIdentName
       },
       defaultLang: {
+        // template: 'pug',
         styles: 'styl'
       }
     }
@@ -159,8 +161,10 @@ webpackConfig.plugins = [
   }),
   new HtmlWebpackPlugin({
     filename: 'index.html',
-    template: paths.src('index.ejs'),
-    title: `${pkg.name} - ${pkg.description}`,
+    templateContent: pug.renderFile(paths.src('index.pug'), {
+      pretty: !config.compiler_html_minify,
+      title: `${pkg.name} - ${pkg.description}`
+    }),
     favicon: paths.src('static/favicon.ico'),
     hash: false,
     inject: true,

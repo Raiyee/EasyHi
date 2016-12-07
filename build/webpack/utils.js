@@ -2,7 +2,7 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import _debug from 'debug'
 import {argv} from 'yargs'
 
-import globals from '../config'
+import {globals} from '../config'
 
 // generate loader string to be used with extract text plugin
 export const generateLoaders = (loader, loaders, options = {}) => {
