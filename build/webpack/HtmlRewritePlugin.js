@@ -1,8 +1,4 @@
-import _debug from 'debug'
-
 import {isFunction} from '../../src/utils/base'
-
-const debug = _debug('koa:HtmlReWritePlugin')
 
 const EVENTS = [
   'beforeHtmlGeneration',
@@ -22,14 +18,9 @@ export default class {
 
   apply(compiler) {
     compiler.plugin('compilation', compilation => {
-      debug('The compiler is starting a new compilation of HtmlReWritePlugin...')
-
       EVENTS.forEach(event => {
         compilation.plugin(`html-webpack-plugin-${camelToHyphen(event)}`, (htmlPluginData, callback) => {
-          if (isFunction(this[event])) {
-            debug(`calling event named ${event}`)
-            this[event](htmlPluginData)
-          }
+          isFunction(this[event]) && this[event](htmlPluginData)
           isFunction(callback) && callback(null, htmlPluginData)
         })
       })

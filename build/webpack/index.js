@@ -114,6 +114,10 @@ webpackConfig.module.rules = [
     loader: 'babel-loader',
     exclude: nodeModules
   }, {
+    test: /\.pug$/,
+    loader: 'vue-template-compiler-loader!pug-html-loader?exports=false',
+    exclude: nodeModules
+  }, {
     test: /\.vue$/,
     // loader: 'vue-loader',
     loader: 'vue-promise-loader',

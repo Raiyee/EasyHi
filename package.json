@@ -117,7 +117,7 @@
     "postcss-loader": "^1.2.0",
     "postcss-reporter": "^2.0.0",
     "pug": "^2.0.0-beta6",
-    "pug-loader": "^2.3.0",
+    "pug-html-loader": "^1.0.9",
     "selenium-server": "^3.0.1",
     "sinon": "^1.17.6",
     "sinon-chai": "^2.8.0",
@@ -137,6 +137,7 @@
     "vue-promise-loader": "^10.0.2",
     "vue-style-loader": "^1.0.0",
     "vue-template-compiler": "^2.1.4",
+    "vue-template-compiler-loader": "^1.0.4",
     "webpack": "^2.1.0-beta.27",
     "webpack-dev-server": "^2.1.0-beta.12",
     "yargs": "^6.5.0"
