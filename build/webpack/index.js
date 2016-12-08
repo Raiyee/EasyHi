@@ -112,7 +112,7 @@ webpackConfig.module.rules = [
     include: nodeModules
   }, {
     test: /\.js$/,
-    loader: 'babel-loader',
+    loader: 'babel-loader?cacheDirectory',
     exclude: nodeModules
   }, {
     test: /\.pug$/,
