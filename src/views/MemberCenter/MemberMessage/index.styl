@@ -2,12 +2,8 @@
 
 IMG_SIZE = 160px
 
-.container
-  padding-bottom 60px
-
 .panel-title
   padding 10px
-  background-color BG_COLOR
 
 .date
   padding-left 5px
@@ -15,46 +11,33 @@ IMG_SIZE = 160px
   font-family "Helvetica Neue", Helvetica, Arial, sans-serif
 
 .panel-content
-  ul
-    margin-bottom 0
-    padding-left 0
+  padding-left 0
 
-    li
-      display block
-      padding 15px 10px
-      font-size 14px
-      line-height 19px
-      background BACK_LIGHT_COLOR
+  span
+    display inline-block
+
+  li
+    padding 10px
+    background BACK_LIGHT_COLOR
+
+    + li
       border-top 1px solid BACK_COLOR
-
-      &:first-child
-        border-top 0
-
-.msg-title
-  overflow hidden
 
 .time
   float right
-  font-size 13px
-  line-height 16px
+  smallSize()
 
 .msg-content
-  font-size 13px
   margin-top 10px
-
-.past
-  color REMARK_COLOR
+  smallSize()
 
 .no-detail
   text-align center
-  padding-top 90px
+  padding-top 20px
+  font-size 15px
+  color SUBTEXT_COLOR
 
   img
     width IMG_SIZE
     height IMG_SIZE
-
-.no-message
-  display block
-  font-size 15px
-  color SUBTEXT_COLOR
-  margin-top 30px
+    margin-bottom 30px

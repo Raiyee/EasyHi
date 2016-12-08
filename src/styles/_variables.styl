@@ -5,6 +5,9 @@ flex-version = flex
 @require "~fonts.css/fonts"
 @require "~stylus-pxtorem/index"
 
+clearUnit(val)
+  return unit(val, '')
+
 bbColor()
   color arguments[0]
   border-color arguments[1] || arguments[0]
@@ -50,7 +53,7 @@ PRIMARY_SIZE = 16px
 COMMON_SIZE = 14px
 
 /** 小号文字
- *  11px 和 12px 字号无法直接使用（考虑rem + 小屏手机）
+ *  11、12、13px 字号无法直接使用（考虑rem + 小屏手机）
  *  因为浏览器不支持这么小的字号，这里只是作为展示字号
  *  需要自行通过类似 `font-size 16px; transform: scale(11/16);` 的方式实现
  */
@@ -58,14 +61,21 @@ COMMON_SIZE = 14px
 /** 三级内容
  *  正文三级文字
  */
-SMALL_SIZE = 12px
-SMALL_SCALE = 12 / 16
+SMALL_SIZE = 13px
+
+SMALLER_SIZE = 12px
 
 /** 小号备注内容
  *  一般注释性文字，非重要又不可缺少性内容
  */
 TINY_SIZE = 11px
-TINY_SCALE = 11 / 16
+
+TINIER_SIZE = 10px
+
+smallSize(size = SMALL_SIZE, origin = left)
+  font-size 14px
+  transform scale(clearUnit(size / COMMON_SIZE))
+  transform-origin origin
 
 /** 输入框边框、列表分割线
  *  登录输入、数据录入时正常状态时的边框

@@ -1,14 +1,12 @@
-div(:class="classes.container")
-  template(v-if="messages && messages.length")
-    div(v-for="{date, msgs} in messages")
-      div(:class="classes.panelTitle")
-        span(:class="[classes.date, 'theme-color']") {{ date | dateText('YYYY.MM.DD') }}
-      div(:class="classes.panelContent")
-        ul
-          li(v-for="{read, type, createTime, msgContent} in msgs", :class="read && classes.past")
-            span {{ type | msgType }}
-            span(:class="classes.time") {{ createTime | formatDate('HH:mm') }}
-            div(:class="classes.msgContent") {{ msgContent }}
-  div(v-else, :class="classes.noDetail")
-    img(:src="'200/200?random' | imgPath")
-    span(:class="classes.noMessage") 亲~您还没有任何消息哟~
+ol.list-unstyled(v-if="messages && messages.length")
+  li(v-for="{date, msgs} in messages")
+    div(:class="classes.panelTitle")
+      span(:class="[classes.date, 'theme-color']") {{ date | dateText('YYYY.MM.DD') }}
+    ol(:class="classes.panelContent")
+      li(v-for="{read, type, createTime, msgContent} in msgs", :class="{'remark-color': read}")
+        span {{ type | msgType }}
+        span(:class="classes.time") {{ createTime | formatDate('HH:mm') }}
+        div(:class="classes.msgContent") {{ msgContent }}
+div(v-else, :class="classes.noDetail")
+  img.center-block(:src="'200/200?random' | imgPath")
+  | 亲~您还没有任何消息哟~
