@@ -1,8 +1,5 @@
 div(:class="classes.container")
-  div(v-if="noMessage", :class="classes.noDetail")
-    img(:src="'200/200?random' | imgPath")
-    span(:class="classes.noMessage") {{noMessage}}
-  div(v-else, v-for="mm in msg")
+  div(v-if="msg && msg.length", v-for="mm in msg")
     div(:class="classes.panelTitle")
       span(:class="[classes.date, 'theme-color']") {{mm.date}}
     div(:class="classes.panelContent")
@@ -12,3 +9,6 @@ div(:class="classes.container")
             span(:class="classes.messageType") {{message.type|resetMsgType}}
             span(:class="classes.time") {{message.createTime|formatDate('HH:mm')}}
           div(:class="classes.mesContent") {{message.msgContent}}
+  div(v-else, :class="classes.noDetail")
+    img(:src="'200/200?random' | imgPath")
+    span(:class="classes.noMessage") 亲~您还没有任何消息哟~

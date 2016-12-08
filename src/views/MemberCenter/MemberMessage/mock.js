@@ -1,11 +1,11 @@
 import Mock from 'mockjs'
 import moment from 'moment'
+
 const Random = Mock.Random
 
-Mock.mock(/\/membermessage$/, () => {
-  var today = moment()
-  var msg = new Array(Random.integer(1, 5)).fill(0).map(() => {
-    let currDate = today.add(-Random.integer(1, 3), 'd')
+Mock.mock(/\/membermessage$/, () => ({
+  msg: new Array(Random.integer(0, 5)).fill(0).map(() => {
+    let currDate = moment().add(-Random.integer(0, 3), 'd')
     return {
       date: currDate,
       hiDate: {
@@ -23,12 +23,4 @@ Mock.mock(/\/membermessage$/, () => {
       }))
     }
   })
-
-  return {
-    code: '0',
-    data: {
-      noMessage: Random.boolean() ? '亲~您还没有任何消息哟~' : '',
-      msg: msg
-    }
-  }
-})
+}))
