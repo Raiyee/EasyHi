@@ -6,7 +6,7 @@ export default {
   data() {
     const data = this.$route.meta.data.data
     return {
-      classes: require('./member-message.styl'),
+      classes: require('./index.styl'),
       msg: reSetMsg(data.msg),
       noMessage: data.noMessage
     }
