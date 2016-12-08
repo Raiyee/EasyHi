@@ -26,6 +26,9 @@ const webpackConfig = {
     enforceModuleExtension: false,
     alias: config.compiler_alias
   },
+  resolveLoader: {
+    modules: [paths.base('packages'), 'node_modules']
+  },
   node: {
     fs: 'empty',
     net: 'empty'
@@ -114,7 +117,7 @@ webpackConfig.module.rules = [
     exclude: nodeModules
   }, {
     test: /\.pug$/,
-    loader: `vue-template-compiler-loader!pug-html-loader?exports=false&pretty=${__DEV__}`,
+    loader: `vue-template-es2015-loader!pug-html-loader?exports=false&pretty=${__DEV__}`,
     exclude: nodeModules
   }, {
     test: /\.vue$/,
