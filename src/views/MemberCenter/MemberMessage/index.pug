@@ -1,14 +1,14 @@
 div(:class="classes.content")
   form(action="javascript:;")
-    div(:class="classes.mmContainer")
+    div(:class="classes.container")
       div(v-if="noMessage", :class="classes.noDetail")
         img(src="http://www.66tools.com/WebTools/rImage?p=400")
         span(:class="classes.noMessage") {{noMessage}}
       div(v-else, v-for="mm in msg")
-        div(:class="classes.mmPanel")
-          div(:class="classes.mmPanelTitle")
+        div(:class="classes.panel")
+          div(:class="classes.panelTitle")
             span(:class="[classes.date, 'theme-color']") {{mm.date}}
-          div(:class="classes.mmPanelContent")
+          div(:class="classes.panelContent")
             ul
               li(v-for="ml in mm.messages", :class="[ml.readState ? classes.past :'']")
                 div(:class="classes.mesTitle")
