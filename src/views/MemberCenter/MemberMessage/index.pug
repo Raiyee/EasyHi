@@ -1,0 +1,17 @@
+div(:class="classes.content")
+  form(action='javascript:;')
+    div(:class="classes.mmContainer")
+      div(v-if="noMessage", :class="classes.noDetail")
+          img(src="")
+          span(:class="classes.noMessage") #{noMessage}
+      div(v-else, v-for="mm in msg")
+          div(:class="classes.mmPanel")
+            div(:class="classes.mmPanelTitle")
+              span(:class="[classes.date, 'theme-color']") {{mm.date}}
+            div(:class="classes.mmPanelContent")
+              ul
+                li(v-for="ml in mm.messages", :class="[ml.readState ? classes.past :'']")
+                  div(:class="classes.mesTitle")
+                    span(:class="classes.messageType") {{ml.type|resetType}}
+                    span(:class="classes.time") {{ml.createTime|formatDate('HH:mm')}}
+                  div(:class="classes.mesContent") {{ml.msgContent}}
