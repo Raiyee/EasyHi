@@ -65,7 +65,7 @@ div(:class="classes.container")
       .media.theme-color(:class="classes.header")
         .media-left.only-kf
           .media-object.media-middle
-            img.img-circle(src="http://www.66tools.com/WebTools/rImage?p=400")
+            img.img-circle(:src="'60/60?random' | imgPath")
 
         .media-body.media-middle.only-kf
           .media-heading {{ grant.sourceName }}

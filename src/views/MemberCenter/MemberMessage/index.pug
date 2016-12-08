@@ -1,14 +1,14 @@
 div(:class="classes.container")
   div(v-if="noMessage", :class="classes.noDetail")
-    img(src="http://www.66tools.com/WebTools/rImage?p=400")
+    img(:src="'200/200?random' | imgPath")
     span(:class="classes.noMessage") {{noMessage}}
   div(v-else, v-for="mm in msg")
     div(:class="classes.panelTitle")
       span(:class="[classes.date, 'theme-color']") {{mm.date}}
     div(:class="classes.panelContent")
       ul
-        li(v-for="ml in mm.messages", :class="[ml.readState ? classes.past :'']")
+        li(v-for="message in mm.messages", :class="[message.readState ? classes.past :'']")
           div(:class="classes.mesTitle")
-            span(:class="classes.messageType") {{ml.type|resetType}}
-            span(:class="classes.time") {{ml.createTime|formatDate('HH:mm')}}
-          div(:class="classes.mesContent") {{ml.msgContent}}
+            span(:class="classes.messageType") {{message.type|resetMsgType}}
+            span(:class="classes.time") {{message.createTime|formatDate('HH:mm')}}
+          div(:class="classes.mesContent") {{message.msgContent}}
