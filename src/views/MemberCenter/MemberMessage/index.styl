@@ -1,5 +1,7 @@
 @require "../../../styles/_variables"
 
+IMG_SIZE = 160px
+
 .container
   padding-bottom 60px
 
@@ -28,18 +30,15 @@
       &:first-child
         border-top 0
 
-.mes-title
+.msg-title
   overflow hidden
-
-.message-type
-  float left
 
 .time
   float right
   font-size 13px
   line-height 16px
 
-.mes-content
+.msg-content
   font-size 13px
   margin-top 10px
 
@@ -51,7 +50,8 @@
   padding-top 90px
 
   img
-    width 156px
+    width IMG_SIZE
+    height IMG_SIZE
 
 .no-message
   display block

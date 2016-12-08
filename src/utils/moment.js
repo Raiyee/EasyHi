@@ -72,3 +72,8 @@ export const weekDates = (date, weeks = 1, format = DATE_FORMAT) => {
   const monday = firstDayOfWeek(date, false)
   return new Array(7 * weeks).fill(0).map((date, index) => monday.add(+!!index, 'd').format(format))
 }
+
+['Yesterday', 'Today', 'Tomorrow'].forEach((day, index) => {
+  module.exports[`is${day}`] =
+    date => moment().add(index - 1, 'd').format(DATE_FORMAT) === moment(date).format(DATE_FORMAT)
+})
