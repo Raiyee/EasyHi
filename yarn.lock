@@ -7428,9 +7428,9 @@ stylus-loader@^2.4.0:
     loader-utils "^0.2.9"
     when "~3.6.x"
 
-stylus-px2rem@^1.0.6:
+stylus-pxtorem@^1.0.6:
   version "1.0.6"
-  resolved "http://registry.npm.taobao.org/stylus-px2rem/download/stylus-px2rem-1.0.6.tgz#296746f4ed7deec4b46ffd824b60afab8791117b"
+  resolved "http://registry.npm.taobao.org/stylus-pxtorem/download/stylus-pxtorem-1.0.6.tgz#7853953e425f464078d8e2f9e6b312eb8fe04eed"
   dependencies:
     stylus "^0.54.2"
 
