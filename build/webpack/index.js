@@ -3,12 +3,11 @@ import webpack from 'webpack'
 import CopyWebpackPlugin from 'copy-webpack-plugin'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
+import HtmlRewriteWebpackPlugin from 'html-rewrite-webpack-plugin'
 import autoprefixer from 'autoprefixer'
 import cssnano from 'cssnano'
 import _debug from 'debug'
 import pug from 'pug'
-
-import HtmlRewritePlugin from './HtmlRewritePlugin'
 
 import config, {globals, paths, pkg} from '../config'
 import utils, {baseLoaders, cssModuleLoaders, generateLoaders, localIdentName, nodeModules} from './utils'
@@ -20,11 +19,14 @@ debug('Create configuration.')
 const webpackConfig = {
   target: 'web',
   resolve: {
-    modules: [paths.src(), 'node_modules'],
+    modules: [paths.src(), 'node_modules', paths.base('packages')],
     extensions: ['.js', '.vue', '.styl', '.pug'],
     enforceExtension: false,
     enforceModuleExtension: false,
     alias: config.compiler_alias
+  },
+  resolveLoader: {
+    modules: ['node_modules', paths.base('packages')]
   },
   node: {
     fs: 'empty',
@@ -114,7 +116,7 @@ webpackConfig.module.rules = [
     exclude: nodeModules
   }, {
     test: /\.pug$/,
-    loader: `vue-template-compiler-loader!pug-html-loader?exports=false&pretty=${__DEV__}`,
+    loader: `vue-template-es2015-loader!pug-html-loader?exports=false&pretty=${__DEV__}`,
     exclude: nodeModules
   }, {
     test: /\.vue$/,
@@ -185,17 +187,18 @@ webpackConfig.plugins = [
       minifyJS: config.compiler_html_minify
     }
   }),
-  new HtmlRewritePlugin({
-    afterHtmlProcessing: __MOCK__ || (htmlPluginData => {
-      htmlPluginData.html = htmlPluginData.html.replace(/(<!--pre )(.*)(-->)/g, (math, $1, $2, $3) => $2)
-    })
-  }),
   new CopyWebpackPlugin([{
     from: paths.src('static')
   }], {
     ignore: ['*.ico', '*.md']
   })
 ]
+
+__MOCK__ || webpackConfig.plugins.push(new HtmlRewriteWebpackPlugin({
+  afterHtmlProcessing: htmlPluginData => {
+    htmlPluginData.html = htmlPluginData.html.replace(/(<!--pre )(.*)(-->)/g, (math, $1, $2, $3) => $2)
+  }
+}))
 
 // Don't split bundles during testing, since we only want import one bundle
 if (!__TESTING__) {

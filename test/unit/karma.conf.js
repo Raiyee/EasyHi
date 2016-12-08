@@ -35,6 +35,7 @@ const karmaConfig = {
   webpack: {
     devtool: webpackConfig.devtool,
     resolve: {...webpackConfig.resolve, alias},
+    resolveLoader: webpackConfig.resolveLoader,
     plugins: webpackConfig.plugins,
     module: {
       rules: webpackConfig.module.rules
