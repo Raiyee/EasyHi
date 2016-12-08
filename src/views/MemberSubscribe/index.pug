@@ -1,16 +1,13 @@
-schedule-calendar(
-:calendar="calendar",
+schedule-calendar(:calendar="calendar",
 :date="date",
 :subscribeType="subscribeType",
 :month="classes.month",
 :schedules="schedules",
 :coaches="coaches",
 :contentStyle="contentStyle")
-  ul(class="list-unstyled clearfix scroll-list",
-  :class="classes.courseTypes",
-  :style="typesStyle")
+  ul.list-unstyled.clearfix.scroll-list(:class="classes.courseTypes", :style="typesStyle")
     li(v-for="(courseType, index) of courseTypes",
     :class="{first: !index, active: courseTypeId === courseType.courseTypeId}",
     @click="toggleCourseType(courseType.courseTypeId)").
       {{ courseType.courseTypeName }}
-    li(class="theme-bg scroll-bg active",:style="{transform}")
+    li.theme-bg.scroll-bg.active(:style="{transform}")
