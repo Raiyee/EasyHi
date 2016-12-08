@@ -1,0 +1,25 @@
+div(class="container")
+  div(class="center-block img-circle", :class="classes.yoga")
+    img(class="img-circle", src="./yoga.jpg", alt="瑜伽")
+  div(class="row")
+    div(class="col-xs-12 col-sm-6 col-sm-push-3 col-lg-4 col-lg-push-4")
+      form(@submit.prevent="submit")
+        div(:class="[classes.formGroup, this.mobileError && 'has-error']")
+          div(class="input-group")
+            span(class="input-group-addon")
+              span(class="glyphicon glyphicon-phone")
+            input(type="number", class="form-control", placeholder="请输入手机号",
+            @input="handleInput('mobile', $event)", v-model="loginMobile", ref="mobile")
+            span(v-if="loginMobile", class="input-group-addon", @click="clearMobile")
+              span(class="glyphicon glyphicon-remove-sign")
+          p(v-if="mobileError", class="form-control-static") 请输入正确的手机号码
+        div(:class="[classes.formGroup, this.codeError && 'has-error']")
+          div(class="input-group")
+            span(class="input-group-addon")
+              span(class="glyphicon glyphicon-lock")
+            input(type="number", class="form-control", placeholder="请输入验证码",
+            @input="handleInput('verificationCode', $event)", v-model="verificationCode")
+            span(class="input-group-addon theme-color",
+            @click="getVerificationCode") {{this.limit ? this.limit + 's' : '获取验证码'}}
+          p(v-if="codeError", class="form-control-static") 请输入正确的验证码
+        button(type="submit", class="btn btn-theme-primary btn-block btn-hg") 登 录
