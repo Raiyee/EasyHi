@@ -1929,6 +1929,10 @@ css-select@^1.1.0:
     domutils "1.5.1"
     nth-check "~1.0.1"
 
+css-selector-parser@^1.1.0:
+  version "1.3.0"
+  resolved "http://registry.npm.taobao.org/css-selector-parser/download/css-selector-parser-1.3.0.tgz#5f1ad43e2d8eefbfdc304fcd39a521664943e3eb"
+
 css-selector-tokenizer@^0.6.0:
   version "0.6.0"
   resolved "http://registry.npm.taobao.org/css-selector-tokenizer/download/css-selector-tokenizer-0.6.0.tgz#6445f582c7930d241dcc5007a43d6fcb8f073152"
@@ -3042,6 +3046,10 @@ find-cache-dir@^0.1.1:
     commondir "^1.0.1"
     mkdirp "^0.5.1"
     pkg-dir "^1.0.0"
+
+find-line-column@^0.5.2:
+  version "0.5.2"
+  resolved "http://registry.npm.taobao.org/find-line-column/download/find-line-column-0.5.2.tgz#db00238ff868551a182e74a103416d295a98c8ca"
 
 find-up@^1.0.0:
   version "1.1.2"
@@ -5383,10 +5391,6 @@ nth-check@~1.0.1:
   dependencies:
     boolbase "~1.0.0"
 
-null-loader@^0.1.1:
-  version "0.1.1"
-  resolved "http://registry.npm.taobao.org/null-loader/download/null-loader-0.1.1.tgz#17be9abfcd3ff0e1512f6fc4afcb1f5039378fae"
-
 num2fraction@^1.2.2:
   version "1.2.2"
   resolved "http://registry.npm.taobao.org/num2fraction/download/num2fraction-1.2.2.tgz#6f682b6a027a4e9ddfa4564cd2589d1d4e669ede"
@@ -6236,7 +6240,7 @@ pug-html-loader@^1.0.9:
     loader-utils "^0.2.14"
     pug "^2.0.0-beta6"
 
-pug-lexer@^2.2.0:
+pug-lexer@^2.0.1, pug-lexer@^2.2.0:
   version "2.3.0"
   resolved "http://registry.npm.taobao.org/pug-lexer/download/pug-lexer-2.3.0.tgz#b841ac4cd8d27501281e0f9c88fb4243297aff3a"
   dependencies:
@@ -6250,6 +6254,24 @@ pug-linker@^1.0.1:
   dependencies:
     pug-error "^1.3.0"
     pug-walk "^1.0.0"
+
+pug-lint@^2.3.0:
+  version "2.3.0"
+  resolved "http://registry.npm.taobao.org/pug-lint/download/pug-lint-2.3.0.tgz#46c362cbb97eca02d97d7b1ac4ebce03ed55f146"
+  dependencies:
+    acorn "^3.1.0"
+    commander "^2.9.0"
+    css-selector-parser "^1.1.0"
+    find-line-column "^0.5.2"
+    glob "^7.0.3"
+    minimatch "^3.0.0"
+    path-is-absolute "^1.0.0"
+    pug-attrs "^2.0.1"
+    pug-error "^1.3.0"
+    pug-lexer "^2.0.1"
+    resolve "^1.1.7"
+    strip-json-comments "^2.0.1"
+    void-elements "^2.0.1"
 
 pug-load@^2.0.3:
   version "2.0.3"
@@ -6706,7 +6728,7 @@ resolve-path@^1.3.1:
     http-errors "~1.5.0"
     path-is-absolute "1.0.1"
 
-resolve@1.1.x, resolve@^1.1.6:
+resolve@1.1.x, resolve@^1.1.6, resolve@^1.1.7:
   version "1.1.7"
   resolved "http://registry.npm.taobao.org/resolve/download/resolve-1.1.7.tgz#203114d82ad2c5ed9e8e0411b3932875e889e97b"
 
@@ -7290,7 +7312,7 @@ strip-indent@^1.0.1:
   dependencies:
     get-stdin "^4.0.1"
 
-strip-json-comments@2.0.1:
+strip-json-comments@2.0.1, strip-json-comments@^2.0.1:
   version "2.0.1"
   resolved "http://registry.npm.taobao.org/strip-json-comments/download/strip-json-comments-2.0.1.tgz#3c531942e908c2697c0ec344858c286c7ca0a60a"
 
