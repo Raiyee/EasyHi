@@ -19,14 +19,14 @@ debug('Create configuration.')
 const webpackConfig = {
   target: 'web',
   resolve: {
-    modules: [paths.src(), 'node_modules', paths.base('packages')],
+    modules: [paths.src(), paths.base('packages'), 'node_modules'],
     extensions: ['.js', '.vue', '.styl', '.pug'],
     enforceExtension: false,
     enforceModuleExtension: false,
     alias: config.compiler_alias
   },
   resolveLoader: {
-    modules: ['node_modules', paths.base('packages')]
+    modules: [paths.base('packages'), 'node_modules']
   },
   node: {
     fs: 'empty',
