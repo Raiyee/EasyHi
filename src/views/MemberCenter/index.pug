@@ -1,0 +1,21 @@
+div(:class="classes.container")
+  div(:class="classes.header" class="media theme-bg")
+    div(class="media-left")
+      div(class="media-object media-middle")
+        img(class="" :src="'60/60?random' | imgPath")
+    div(class="media-body media-middle")
+      div(class="media-heading") {{ memberName }}
+      div(class="media-body") {{ memberMobile }}
+    div(@click="memberMessage" class="media-right")
+      span(class="iconfont icon-message")
+        span(class="text-center") {{ messageCount > 9 ? '9+' : messageCount }}
+
+
+  div(:class="classes.memberShow" class="panel panel-full" v-if="sceneId")
+    span(class="iconfont icon-xiaoxi theme-color")
+    #{'您有一个"会员秀", 正在等待您的召唤'}
+    span(class="iconfont icon-arrow-right")
+
+  div(:class="classes.subscribePanel" class="panel panel-full")
+    div(class="panel-heading")
+      h3()
