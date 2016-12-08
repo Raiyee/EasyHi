@@ -8041,10 +8041,6 @@ vue-style-loader@^1.0.0:
   dependencies:
     loader-utils "^0.2.7"
 
-vue-template-compiler-loader@^1.0.4:
-  version "1.0.4"
-  resolved "http://registry.npm.taobao.org/vue-template-compiler-loader/download/vue-template-compiler-loader-1.0.4.tgz#073f27a524cf90ce700fb5c1ec031e3b17c21ee6"
-
 vue-template-compiler@^2.1.4:
   version "2.1.4"
   resolved "http://registry.npm.taobao.org/vue-template-compiler/download/vue-template-compiler-2.1.4.tgz#ce99cb9c2f5842062d3b744c716224b613f198d4"
