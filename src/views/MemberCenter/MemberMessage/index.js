@@ -1,4 +1,4 @@
-import {resetType, reSetMsg} from './MemberMessage'
+import {resetMsgType, resetMsg} from './util'
 
 export default {
   ...require('./index.pug'),
@@ -6,12 +6,12 @@ export default {
   data() {
     const data = this.$route.meta.data.data
     return {
-      classes: require('./member-message.styl'),
-      msg: reSetMsg(data.msg),
+      classes: require('./index.styl'),
+      msg: resetMsg(data.msg),
       noMessage: data.noMessage
     }
   },
   filters: {
-    resetType
+    resetMsgType
   }
 }

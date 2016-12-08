@@ -1,6 +1,6 @@
 import moment from 'moment'
 
-const messageType = {
+const msgType = {
   'S': '上课提醒',
   'Q': '取消预订消息',
   'Y': '预订消息',
@@ -12,11 +12,9 @@ const messageType = {
   'G': '购买成功提醒',
   'R': '退款提醒'
 }
-export const resetType = (type) => {
-  return messageType[type] || '消息提醒'
-}
+export const resetMsgType = type => { return msgType[type] || '消息提醒' }
 
-export const reSetMsg = (msgs) => {
+export const resetMsg = msgs => {
   var messages = []
   msgs.forEach(function (msg) {
     var date = ''
