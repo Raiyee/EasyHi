@@ -2,7 +2,7 @@ div(:class="classes.container")
   div(:class="classes.header" class="media theme-bg")
     div(class="media-left")
       div(class="media-object media-middle")
-        img(class="" :src="'60/60?random' | imgPath")
+        img(class="img-circle", :src="'60/60?random' | imgPath")
     div(class="media-body media-middle")
       div(class="media-heading") {{ memberName }}
       div(class="media-body") {{ memberMobile }}
@@ -10,12 +10,75 @@ div(:class="classes.container")
       span(class="iconfont icon-message")
         span(class="text-center") {{ messageCount > 9 ? '9+' : messageCount }}
 
-
-  div(:class="classes.memberShow" class="panel panel-full" v-if="sceneId")
+  div(:class="classes.memberShow", class="panel panel-full", v-if="sceneId")
     span(class="iconfont icon-xiaoxi theme-color")
-    #{'您有一个"会员秀", 正在等待您的召唤'}
+    span 您有一个"会员秀", 正在等待您的召唤
     span(class="iconfont icon-arrow-right")
 
-  div(:class="classes.subscribePanel" class="panel panel-full")
+  div(:class="classes.subscribePanel", class="panel panel-full")
     div(class="panel-heading")
-      h3()
+      h3(class="panel-title") 最近课程
+        small(v-if="latestCourse") （ {{ courseDate }} ）
+        a(class="pull-right", href="'/'") 查看全部预订
+          span(class="iconfont icon-arrow-right")
+    div(class="clearfix panel-body")
+      template(v-if="latestCourse")
+        span(class="iconfont icon-clock theme-color")
+        div {{ courseDuration }} {{ courseName }}
+          br
+          span 预订
+          span(class="theme-color", :class="classes.count") {{ courseCost }}
+          span 人
+          br
+          template(v-for="courseBill in courseBills")
+            | 扣 {{ courseBill.name }}
+            span(class="theme-color", :class="classes.count") {{ courseBill.count }}
+            | 次
+      template(v-else)
+        div(class="text-center", :class="classes.noCourse")
+          div 还没有要上的课
+          button(class="btn btn-theme-primary") 去订课
+    div(v-if="latestCourse", id="cancel-subscribe", class="panel-footer theme-color text-right", :subscribeId="subscribeId") 取消预订
+
+  div(class="panel panel-full", :class="classes.cardPanel")
+    div(class="panel-heading")
+      h3(class="panel-title") 我的卡券
+    div(class="panel-body text-center clearfix")
+      div(class="enabled")
+        span(class="iconfont icon-huiyuanqia theme-color")
+        br
+        | 会员卡: ( {{ cardNum }} )
+      div(class="enabled")
+        span(class="iconfont icon-youhuiquan1 theme-color")
+        br
+        | 体验券: ( {{ voucherNum }} )
+      div(class="enabled")
+        span(class="iconfont icon-dingdan1 theme-color")
+        br
+        | 订单
+
+  div(v-if="grantList && grantList.length > 0", class="panel panel-full", :class="classes.kfPanel")
+    div(class="panel-heading")
+      h3(class="panel-title") 授权信息
+
+    div(v-for="grant in grantList", class="panel-body text-center clearfix")
+      div(class="media theme-color", :class="classes.header")
+        div(class="media-left only-kf")
+          div(class="media-object media-middle")
+            img(class="img-circle", src="http://www.66tools.com/WebTools/rImage?p=400")
+
+        div(class="media-body media-middle only-kf")
+          div(class="media-heading") {{ grant.sourceName }}
+          div(class="media-body") {{ grant.sourceMobile }}
+
+        div(:class="['media-right', 'only-kf', grant.selected=='0'? 'accept-oauth' : 'release-oauth']")
+          span {{ grant.selected == '0' ? '开启授权' : '解除授权' }}
+
+  div(class="panel panel-full", :class="classes.contactPanel")
+    div(class="panel-body text-center")
+      template(v-if="hasNotice")
+        a(:class="classes.memberNotice")
+          div 会员须知
+        hr
+      a(:href="'tel:'+ ownerMobile")
+        div 联系客服 {{ ownerMobile }}
