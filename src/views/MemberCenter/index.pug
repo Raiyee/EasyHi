@@ -6,20 +6,20 @@ div(:class="classes.container")
     .media-body.media-middle
       .media-heading {{ memberName }}
       .media-body {{ memberMobile }}
-    .media-right(@click="memberMessage")
+    router-link.media-right(to="/member-message", tag="div")
       span.iconfont.icon-message
         span.text-center {{ messageCount > 9 ? '9+' : messageCount }}
 
   .panel.panel-full(:class="classes.memberShow", v-if="sceneId")
     span.iconfont.icon-xiaoxi.theme-color
-    span 您有一个"会员秀", 正在等待您的召唤
+    | 您有一个"会员秀", 正在等待您的召唤
     span.iconfont.icon-arrow-right
 
   .panel.panel-full(:class="classes.subscribePanel")
     .panel-heading
       h3.panel-title 最近课程
         small(v-if="latestCourse") （ {{ courseDate }} ）
-        a.pull-right(href="'/'") 查看全部预订
+        router-link.pull-right(to="/") 查看全部预订
           span.iconfont.icon-arrow-right
     .clearfix.panel-body
       template(v-if="latestCourse")
@@ -77,7 +77,7 @@ div(:class="classes.container")
   .panel.panel-full(:class="classes.contactPanel")
     .panel-body.text-center
       template(v-if="hasNotice")
-        a(:class="classes.memberNotice")
+        router-link(to="/", :class="classes.memberNotice")
           div 会员须知
         hr
       a(:href="'tel:'+ ownerMobile")
