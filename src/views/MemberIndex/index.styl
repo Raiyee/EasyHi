@@ -4,8 +4,7 @@ BTN_COLOR = #dfd28a
 
 .pic
   absolute(top left)
-  width 100%
-  height 100%
+  size 100%
   overflow hidden
   background-size cover
   background-position center center
@@ -60,9 +59,8 @@ BTN_COLOR = #dfd28a
   margin-right auto
 
 .outside-circle
-  position relative
-  width 105px
-  height 105px
+  relative()
+  size 105px
   border 2px solid BTN_COLOR
   border-radius 101px
   backface-visibility visible
@@ -73,7 +71,7 @@ BTN_COLOR = #dfd28a
     animation showCircle 1s .5s
 
 .content
-  position relative
+  relative()
   margin-left auto
   margin-right auto
   max-width 768px
@@ -81,7 +79,7 @@ BTN_COLOR = #dfd28a
   overflow-y hidden
 
 .slogan
-  position absolute
+  absolute()
   left 50%
   top 30%
   transform translate3d(-50%, 0, 0)
@@ -93,7 +91,7 @@ BTN_COLOR = #dfd28a
   overflow hidden
 
 .member-menu
-  position absolute
+  absolute()
   bottom 30%
   z-index 3
   left 50%
@@ -101,8 +99,7 @@ BTN_COLOR = #dfd28a
   width 250px
 
 .inside-circle
-  width 90px
-  height 90px
+  size 90px
   middleCenter()
   color white
   border-radius 90px

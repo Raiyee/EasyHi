@@ -6,12 +6,8 @@
 
 // Container that the modal scrolls within
 .modal
+  fixed(left top right bottom)
   overflow hidden
-  position fixed
-  top 0
-  right 0
-  bottom 0
-  left 0
   z-index 1050
   -webkit-overflow-scrolling touch
 
@@ -26,13 +22,13 @@
   :global // @stylint ignore
     // Shell div to position the modal with bottom padding
     .modal-dialog
-      position relative
+      relative()
       width auto
       margin 10px
 
     // Actual modal
     .modal-content
-      position relative
+      relative()
       background-color BACK_LIGHT_COLOR
       border 1px solid LIGHTER_STRESS_COLOR // old browsers fallback (ie8 etc)
       border 1px solid rgba(0, 0, 0, .2)
@@ -61,7 +57,7 @@
     // Modal body
     // Where all modal content resides (sibling of .modal-header and .modal-footer)
     .modal-body
-      position relative
+      relative()
       padding 15px
 
     // Footer (for actions)
