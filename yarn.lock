@@ -4938,11 +4938,7 @@ lpad@^2.0.1:
   version "2.0.1"
   resolved "http://registry.npm.taobao.org/lpad/download/lpad-2.0.1.tgz#28316b4e7b2015f511f6591459afc0e5944008ad"
 
-lru-cache@2:
-  version "2.7.3"
-  resolved "http://registry.npm.taobao.org/lru-cache/download/lru-cache-2.7.3.tgz#6d4524e8b955f95d4f5b58851ce21dd72fb4e952"
-
-lru-cache@2.2.x:
+lru-cache@2, lru-cache@2.2.x:
   version "2.2.4"
   resolved "http://registry.npm.taobao.org/lru-cache/download/lru-cache-2.2.4.tgz#6c658619becf14031d0d0b594b16042ce4dc063d"
 
@@ -6331,13 +6327,9 @@ qjobs@^1.1.4:
   version "1.1.5"
   resolved "http://registry.npm.taobao.org/qjobs/download/qjobs-1.1.5.tgz#659de9f2cf8dcc27a1481276f205377272382e73"
 
-qs@6.2.0:
+qs@6.2.0, qs@~6.2.0:
   version "6.2.0"
   resolved "http://registry.npm.taobao.org/qs/download/qs-6.2.0.tgz#3b7848c03c2dece69a9522b0fae8c4126d745f3b"
-
-qs@~6.2.0:
-  version "6.2.1"
-  resolved "http://registry.npm.taobao.org/qs/download/qs-6.2.1.tgz#ce03c5ff0935bc1d9d69a9f14cbd18e568d67625"
 
 qs@~6.3.0:
   version "6.3.0"
@@ -7445,9 +7437,9 @@ stylus-loader@^2.4.0:
     loader-utils "^0.2.9"
     when "~3.6.x"
 
-stylus-pxtorem@^1.0.6:
-  version "1.0.6"
-  resolved "http://registry.npm.taobao.org/stylus-pxtorem/download/stylus-pxtorem-1.0.6.tgz#7853953e425f464078d8e2f9e6b312eb8fe04eed"
+stylus-pxtorem@^1.0.7:
+  version "1.0.7"
+  resolved "http://registry.npm.taobao.org/stylus-pxtorem/download/stylus-pxtorem-1.0.7.tgz#dba632c44056cac41ff18a212c1ad031a58f03ff"
   dependencies:
     stylus "^0.54.2"
 
