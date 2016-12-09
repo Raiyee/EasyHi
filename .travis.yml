@@ -17,17 +17,16 @@ before_install:
 - cp .travis/ssh_config ~/.ssh/config
 - git config --global user.name 'JounQin'
 - git config --global user.email 'liujiaren1992@vip.qq.com'
-- npm i -g npm yarn@rc
-- rm -rf .yarnrc yarn.lock
+- npm i -g npm
 
 install:
-- yarn
+- npm i
 
 script:
-- yarn build:mock
+- npm run build:mock
 - git push --force --quiet git@git.coding.net:Raiyee/EasyHi.git master:master
-- yarn sync
+- npm run sync
 
 after_success:
-- yarn add -D coveralls codecov
-- yarn coveralls && yarn codecov
+- npm i -D coveralls codecov
+- npm run coveralls && npm run codecov
