@@ -72,7 +72,7 @@ TINY_SIZE = 11px
 
 TINIER_SIZE = 10px
 
-smallSize(size = SMALL_SIZE, baseSize = null, transform = null, origin = null)
+scaleSize(size = SMALL_SIZE, baseSize = null, transform = null, origin = null)
   if (baseSize) { font-size unit(baseSize, 'px') }
   transform transform scale(clearUnit(size / (baseSize || COMMON_SIZE)))
   if (origin) { transform-origin origin }
