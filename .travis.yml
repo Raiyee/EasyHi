@@ -17,7 +17,7 @@ before_install:
 - cp .travis/ssh_config ~/.ssh/config
 - git config --global user.name 'JounQin'
 - git config --global user.email 'liujiaren1992@vip.qq.com'
-- npm i -g npm yarn
+- npm i -g npm yarn@rc
 - rm -rf .yarnrc yarn.lock
 
 install:

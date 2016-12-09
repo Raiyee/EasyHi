@@ -47,7 +47,7 @@ const config = {
   },
   compiler_alias: {
     http: 'axios',
-    vue: 'vue/dist/vue'
+    vue: 'vue/dist/vue.common'
   },
   compiler_vendor: [
     'axios',
