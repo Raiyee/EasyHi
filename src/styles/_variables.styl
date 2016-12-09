@@ -72,10 +72,10 @@ TINY_SIZE = 11px
 
 TINIER_SIZE = 10px
 
-smallSize(size = SMALL_SIZE, origin = left)
-  font-size 14px
-  transform scale(clearUnit(size / COMMON_SIZE))
-  transform-origin origin
+smallSize(size = SMALL_SIZE, baseSize = null, transform = null, origin = null)
+  if (baseSize) { font-size unit(baseSize, 'px') }
+  transform transform scale(clearUnit(size / (baseSize || COMMON_SIZE)))
+  if (origin) { transform-origin origin }
 
 /** 输入框边框、列表分割线
  *  登录输入、数据录入时正常状态时的边框

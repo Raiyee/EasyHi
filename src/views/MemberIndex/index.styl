@@ -3,9 +3,7 @@
 BTN_COLOR = #dfd28a
 
 .pic
-  position absolute
-  top 0
-  left 0
+  absolute(top left)
   width 100%
   height 100%
   overflow hidden
@@ -37,7 +35,7 @@ BTN_COLOR = #dfd28a
   font-kai()
 
 .slogan-body
-  width 160px * (16 / 12)
+  width 160px * (14 / 12)
   overflow hidden
   transform translate3d(-100%, 0, 0)
   animation sloganBody 1s forwards 3.3s
@@ -45,14 +43,13 @@ BTN_COLOR = #dfd28a
 
 .slogan-text
   padding 0
-  font-size PRIMARY_SIZE
   width 100%
   text-align center
   background none
   resize none
   border 0
   outline 0
-  transform translate3d(100%, 0, 0) scale(SMALL_SCALE)
+  smallSize(SMALLER_SIZE, , translate3d(100%, 0, 0))
   animation sloganText 1s forwards 3.3s
 
 .line
@@ -89,7 +86,7 @@ BTN_COLOR = #dfd28a
   top 30%
   transform translate3d(-50%, 0, 0)
   text-align center
-  z-index 300
+  z-index 3
 
 .slogan-header
   display inline-block
@@ -98,7 +95,7 @@ BTN_COLOR = #dfd28a
 .member-menu
   position absolute
   bottom 30%
-  z-index 300
+  z-index 3
   left 50%
   transform translate3d(-50%, 0, 0)
   width 250px
@@ -129,53 +126,53 @@ BTN_COLOR = #dfd28a
   from
     transform scale(1.2)
     opacity 1
-    z-index 200
+    z-index 2
 
   40%
     transform scale(1.04)
     opacity 1
-    z-index 200
+    z-index 2
 
   50%
     transform scale(1)
     opacity 0
-    z-index 100
+    z-index 1
 
   90%
     transform scale(1.25)
     opacity 0
-    z-index 100
+    z-index 1
 
   to
     transform scale(1.2)
     opacity 1
-    z-index 200
+    z-index 2
 
 @keyframes pic2
   from
     transform scale(1)
     opacity 0
-    z-index 100
+    z-index 1
 
   40%
     transform scale(1.25)
     opacity 0
-    z-index 100
+    z-index 1
 
   50%
     transform scale(1.2)
     opacity 1
-    z-index 200
+    z-index 2
 
   90%
     transform scale(1.04)
     opacity 1
-    z-index 200
+    z-index 2
 
   to
     transform scale(1)
     opacity 0
-    z-index 100
+    z-index 1
 
 @keyframes sloganTitle
   from
@@ -193,10 +190,10 @@ BTN_COLOR = #dfd28a
 
 @keyframes sloganText
   from
-    transform translate3d(100%, 0, 0) scale(SMALL_SCALE)
+    smallSize(SMALLER_SIZE, , translate3d(100%, 0, 0))
 
   to
-    transform translate3d(0, 0, 0) scale(SMALL_SCALE)
+    smallSize(SMALLER_SIZE, , translate3d(0, 0, 0))
 
 @keyframes line
   from
