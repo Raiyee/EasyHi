@@ -2,7 +2,7 @@ div(:class="classes.container")
   .media.theme-bg(:class="classes.header")
     .media-left
       .media-object.media-middle
-        img.img-circle(:src="'60/60?random' | imgPath")
+        img.img-circle(:src="'people?w=60&h=60&random=1' | imgPath")
     .media-body.media-middle
       .media-heading {{ memberName }}
       .media-body {{ memberMobile }}
@@ -65,7 +65,7 @@ div(:class="classes.container")
       .media.theme-color(:class="classes.header")
         .media-left.only-kf
           .media-object.media-middle
-            img.img-circle(:src="'60/60?random' | imgPath")
+            img.img-circle(:src="'people?w=60&h=60&random=2' | imgPath")
 
         .media-body.media-middle.only-kf
           .media-heading {{ grant.sourceName }}

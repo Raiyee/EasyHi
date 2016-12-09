@@ -73,7 +73,7 @@ config.globals = {
   __TEST__: TRUE_NODE_ENV === 'test',
   __TESTING__: TRUE_NODE_ENV === 'testing',
   __MOCK__: !!argv.mock,
-  IMG_PATH_PREFIX: JSON.stringify('http://lorempixel.com/')
+  IMG_PATH_PREFIX: JSON.stringify('https://placem.at/')
 }
 
 // ------------------------------------

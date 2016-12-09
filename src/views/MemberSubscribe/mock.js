@@ -1,7 +1,7 @@
 import Mock from 'mockjs'
 import moment from 'moment'
 
-import {DATE_FORMAT, HOUR_FORMAT, firstDayOfWeek, omitObj} from 'utils'
+import {DATE_FORMAT, HOUR_FORMAT, firstDayOfWeek, omitObj, randomImg} from 'utils'
 
 const Random = Mock.Random
 Mock.mock(/\/get-schedules$/, (() => {
@@ -61,7 +61,7 @@ Mock.mock(/\/get-schedules$/, (() => {
       startTime = moment(scheduleDate).add(Random.integer(6, 12), 'h')
       endTime = moment(scheduleDate).add(Random.integer(18, 22), 'h');
       (isPrivate ? coaches : schedules)[scheduleDate] = new Array(Random.integer(1, 5)).fill(0).map((value, index) => {
-        const picUrl = `60/60/?random-${dateIndex}-${index}`
+        const picUrl = randomImg(60, 60, dateIndex + '-' + index)
 
         if (isPrivate) {
           const min060 = {}
