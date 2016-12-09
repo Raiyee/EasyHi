@@ -46,7 +46,58 @@
     :global(.icon-arrow-right)
       font-size 14px
 
-@require "./subscribe-panel"
+.subscribe-panel
+  padding-left 10px
+  padding-right 10px
+  margin-bottom 5px
+  :global(.panel-heading)
+    border-color CARD_LINE_COLOR
+
+  :global(.panel-title)
+    color STRESS_COLOR
+    font-size 15px
+    font-weight normal
+
+    small
+      color PRIMARY_COLOR
+
+      + a
+        font-size 13px
+        font-weight 100
+        text-decoration none
+
+        > span
+          font-size 13px
+          color SUBTEXT_COLOR
+
+  :global(.panel-body)
+    > span
+      margin-right 5px
+      transform scale(1.2)
+
+      &, + div
+        float left
+
+    .count
+      font-size 18px
+
+    .icon-clock
+      top 3px
+
+  :global(.panel-footer)
+    border-top 1px dashed DASHED_LINE_COLOR
+    border-bottom-style none
+    background-color REVERSE_COLOR
+
+  .no-course
+    > div
+      color SUBTEXT_COLOR
+      margin-bottom 20px
+
+      + .btn
+        height inherit
+        padding-left 25px
+        padding-right 25px
 
 .card-panel
   margin-bottom 5px
@@ -74,7 +125,6 @@
 
         > span
           font-size 30px
-
 
 .contact-panel
   color PRIMARY_COLOR

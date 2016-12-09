@@ -1,7 +1,5 @@
 import {mapGetters} from 'vuex'
 
-import {removeClass} from 'utils'
-
 export default {
   ...require('./index.pug'),
   name: 'member-index',
@@ -13,7 +11,7 @@ export default {
   },
   methods: {
     animationEnd(e) {
-      removeClass(e.target, 'animated')
+      this.$util.removeClass(e.target, 'animated')
     }
   }
 }

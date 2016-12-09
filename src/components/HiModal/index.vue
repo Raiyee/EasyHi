@@ -16,10 +16,10 @@
 
   export default {
     beforeCreate() {
-      __DEV__ ? (Vue.prototype.$modal = this) : Object.defineProperty(Vue.prototype, '$modal', {
+      Object.defineProperty(Vue.prototype, '$modal', {
         value: this,
         readable: true,
-        writable: false
+        writable: __DEV__
       })
     },
     data() {

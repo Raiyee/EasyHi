@@ -1,0 +1,27 @@
+bbColor()
+  color arguments[0]
+  border-color arguments[1] || arguments[0]
+  background-color arguments[2] || arguments[1] || arguments[0]
+
+// @stylint off
+bbActive()
+  &:hover, &.focus, &:focus
+    bbColor arguments
+  &.active, &:active
+    &, &:hover, &.focus, &:focus
+      bbColor arguments
+// @stylint on
+
+clearUnit(val)
+  return unit(val, '')
+
+middleCenter(position = absolute)
+  position()
+  left 50%
+  top 50%
+  transform translate3d(-50%, -50%, 0)
+
+scaleSize(size = SMALL_SIZE, baseSize = null, transform = null, origin = null)
+  if (baseSize) { font-size unit(baseSize, 'px') }
+  transform transform scale(clearUnit(size / (baseSize || COMMON_SIZE)))
+  if (origin) { transform-origin origin }

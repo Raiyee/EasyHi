@@ -1,9 +1,10 @@
-import classes from './index.styl'
-
 export default {
   ...require('./index.pug'),
   name: 'member-center',
   data() {
-    return Object.assign({}, this.$route.meta.data, {classes})
+    return {
+      classes: require('./index.styl'),
+      ...this.$route.meta.data
+    }
   }
 }

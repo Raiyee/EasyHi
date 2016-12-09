@@ -6,8 +6,14 @@ import store from 'store'
 import router from 'router'
 import App from 'views/App'
 
-import {deleteItem, on} from 'utils'
+import utils, {deleteItem, on} from 'utils'
 import {PERMISSION} from 'store/constants'
+
+Object.defineProperty(Vue.prototype, '$util', {
+  value: utils,
+  readable: true,
+  writable: __DEV__
+})
 
 import 'styles/bootstrap'
 import 'styles/app'

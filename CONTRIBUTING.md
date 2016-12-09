@@ -346,10 +346,7 @@ IMG_WRAP_MARGIN = 40px
 
   > img
     size 90px
-    absolute()
-    left 50%
-    top 50%
-    transform translate3d(-50%, -50%, 0)
+    middleCenter()
 
 .form-group
   margin-bottom 25px
