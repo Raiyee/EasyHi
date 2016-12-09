@@ -164,6 +164,7 @@ let templateContent = fs.readFileSync(paths.src('index.pug')).toString()
 __MOCK__ && (templateContent = templateContent.replace(/\/\/pre /g, ''))
 
 webpackConfig.plugins = [
+  new webpack.ContextReplacementPlugin(/\.\/locale$/, 'empty-module', false, /js$/),
   new webpack.DefinePlugin(globals),
   new webpack.LoaderOptionsPlugin({
     minimize: __PROD__,
