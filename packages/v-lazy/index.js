@@ -79,8 +79,9 @@ export default (Vue, Options = {}) => {
   }
 
   const checkCanShow = listener => {
-    if (imageCache.indexOf(listener.src) !== -1)
+    if (imageCache.indexOf(listener.src) !== -1) {
       return setElRender(listener.el, listener.bindType, listener.src, 'loaded')
+    }
 
     let rect = listener.el.getBoundingClientRect()
     let preLoad = Init.preLoad
