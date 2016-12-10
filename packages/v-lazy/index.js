@@ -111,7 +111,7 @@ export default (Vue, Options = {}) => {
     if (imageCache.indexOf(item.src) !== -1) return setElRender(item.el, item.bindType, item.src, 'loaded')
     imageCache.push(item.src)
 
-    loadImageAsync(item => {
+    loadImageAsync(item, () => {
       setElRender(item.el, item.bindType, item.src, 'loaded', item)
       remove(Listeners, item)
     }, () => {
@@ -121,7 +121,7 @@ export default (Vue, Options = {}) => {
   }
 
   const loadImageAsync = (item, resolve, reject) => {
-    let image = new Image()
+    const image = new Image()
 
     on(image, 'load', () => {
       resolve({
