@@ -1,6 +1,4 @@
-import {isWindow, isString, on, off, remove} from 'utils'
-
-const inBrowser = typeof window !== 'undefined' && isWindow(window)
+import {isString, on, off, remove} from 'utils'
 
 export default (Vue, Options = {}) => {
   const isVueNext = Vue.version.split('.')[0] === '2'
@@ -41,7 +39,6 @@ export default (Vue, Options = {}) => {
     error: Options.error || DEFAULT_URL,
     loading: Options.loading || DEFAULT_URL,
     attempt: Options.attempt || 3,
-    scale: Options.scale || inBrowser ? window.devicePixelRatio : 1,
     hasbind: false
   }
 
@@ -163,7 +160,7 @@ export default (Vue, Options = {}) => {
     let imageError = Init.error
     let containerRef
 
-    if (!isString(value)) {
+    if (value && !isString(value)) {
       imageSrc = value.src
       imageLoading = value.loading || Init.loading
       imageError = value.error || Init.error
@@ -173,7 +170,8 @@ export default (Vue, Options = {}) => {
     if (imageCache.indexOf(imageSrc) > -1) return setElRender(el, arg, imageSrc, 'loaded')
 
     Vue.nextTick(() => {
-      parentEl = containerRef ? $refs[containerRef].$el || $refs[containerRef]
+      let parent
+      parentEl = containerRef && (parent = $refs[containerRef]) ? parent.$el || parent
         : window.document.getElementById(Object.keys(modifiers)[0])
 
       let listener = {
