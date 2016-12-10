@@ -1,4 +1,4 @@
-import {isWindow, on, off, remove} from 'utils'
+import {isWindow, isString, on, off, remove} from 'utils'
 
 const inBrowser = typeof window !== 'undefined' && isWindow(window)
 
@@ -154,27 +154,30 @@ export default (Vue, Options = {}) => {
     return Vue.nextTick(lazyLoadHandler)
   }
 
-  const addListener = (el, binding) => {
+  const addListener = (el, {arg, value, modifiers}, {context: {$refs}}) => {
     if (el.getAttribute('lazy') === 'loaded' || checkElExist(el)) return
 
-    let parentEl = null
-    let imageSrc = binding.value
+    let parentEl
+    let imageSrc = value
     let imageLoading = Init.loading
     let imageError = Init.error
+    let containerRef
 
-    if (imageSrc && typeof imageSrc !== 'string') {
-      imageLoading = imageSrc.loading || Init.loading
-      imageError = imageSrc.error || Init.error
-      imageSrc = imageSrc.src
+    if (!isString(value)) {
+      imageSrc = value.src
+      imageLoading = value.loading || Init.loading
+      imageError = value.error || Init.error
+      containerRef = value.containerRef
     }
 
-    if (imageCache.indexOf(imageSrc) > -1) return setElRender(el, binding.arg, imageSrc, 'loaded')
+    if (imageCache.indexOf(imageSrc) > -1) return setElRender(el, arg, imageSrc, 'loaded')
 
     Vue.nextTick(() => {
-      if (binding.modifiers) parentEl = window.document.getElementById(Object.keys(binding.modifiers)[0])
+      parentEl = containerRef ? $refs[containerRef].$el || $refs[containerRef]
+        : window.document.getElementById(Object.keys(modifiers)[0])
 
       let listener = {
-        bindType: binding.arg,
+        bindType: arg,
         attempt: 0,
         parentEl: parentEl,
         el: el,
@@ -184,7 +187,7 @@ export default (Vue, Options = {}) => {
 
       Listeners.push(listener)
 
-      setElRender(el, binding.arg, imageLoading, 'loading', listener)
+      setElRender(el, arg, imageLoading, 'loading', listener)
 
       lazyLoadHandler()
 
