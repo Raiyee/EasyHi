@@ -61,7 +61,7 @@ Mock.mock(/\/get-schedules$/, (() => {
       startTime = moment(scheduleDate).add(Random.integer(6, 12), 'h')
       endTime = moment(scheduleDate).add(Random.integer(18, 22), 'h');
       (isPrivate ? coaches : schedules)[scheduleDate] = new Array(Random.integer(1, 5)).fill(0).map((value, index) => {
-        const picUrl = randomImg(60, 60, dateIndex + '-' + index)
+        const picUrl = randomImg(60, 60, courseTypeId + '-' + dateIndex + '-' + index)
 
         if (isPrivate) {
           const min060 = {}

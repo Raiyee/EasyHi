@@ -29,7 +29,7 @@
         <schedule-items v-if="subscribeType == 1"
                         v-for="(scheduleItems, date, index) of activeItems"
                         ref="date"
-                        :key="`${date}_${index}`"
+                        :key="keyPrefix + date + index"
                         :class="$style.scheduleItems"
                         :date="date"
                         :last="index === Object.keys(activeItems).length - 1"
@@ -38,7 +38,7 @@
         <coach-item v-if="subscribeType == 2"
                     v-for="coachItem of activeItems[activeDate]"
                     ref="date"
-                    :key="coachItem.coachId"
+                    :key="keyPrefix + coachItem.coachId"
                     :coachItem="coachItem"
                     :activeCoachId="activeCoachId"
                     @toggleActiveCoach="toggleActiveCoach"/>
@@ -84,6 +84,10 @@
       subscribeType: {
         type: Number,
         default: 1
+      },
+      keyPrefix: {
+        type: [Number, String],
+        default: ''
       }
     },
     data() {
