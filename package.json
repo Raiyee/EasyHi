@@ -132,6 +132,7 @@
     "stylus-loader": "^2.4.0",
     "stylus-pxtorem": "^1.0.7",
     "url-loader": "^0.5.7",
+    "v-lazy": "^0.9.4",
     "vconsole": "^2.5.1",
     "vue-hot-reload-api": "^2.0.6",
     "vue-html-loader": "^1.2.3",

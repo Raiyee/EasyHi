@@ -26,7 +26,7 @@
       </div>
     </div>
     <div class="media-right media-middle">
-      <img class="media-object img-circle" :src="coursePicUrl | imgPath">
+      <img class="media-object img-circle" v-lazy="$util.imgPath(coursePicUrl)" lazy="loading">
     </div>
   </li>
 </template>

@@ -1,7 +1,7 @@
 <template>
   <li class="media" :class="$style.media">
     <div class="media-left media-middle">
-      <img class="media-object img-circle" :src="coachItem.coachPortrait | imgPath">
+      <img class="media-object img-circle"  v-lazy="$util.imgPath(coachItem.coachPortrait)" lazy="loading">
     </div>
     <div class="media-body media-middle">
       <h4 class="media-heading">{{coachItem.coachName}}
