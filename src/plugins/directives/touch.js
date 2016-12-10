@@ -168,7 +168,7 @@ function destroy(el, binding) {
 
 let resizeTimeoutId
 
-export const touch = {
+export default {
   bind(el, binding, vnode) {
     touchSupport = isTouchSupport()
     EVENTS = BASE_EVENTS[+touchSupport]

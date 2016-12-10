@@ -1,8 +1,8 @@
 import Vue from 'vue'
-import VueLazyload from 'vue-lazyload'
+import VLazy from 'v-lazy'
 
 import loading from 'assets/loading.svg'
 
-Vue.use(VueLazyload, {
+Vue.use(VLazy, {
   loading
 })

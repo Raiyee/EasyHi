@@ -7923,10 +7923,6 @@ uuid@^3.0.0:
   version "3.0.1"
   resolved "http://registry.npm.taobao.org/uuid/download/uuid-3.0.1.tgz#6544bba2dfda8c1cf17e629a3a305e2bb1fee6c1"
 
-v-lazy@^0.9.4:
-  version "0.9.4"
-  resolved "http://registry.npm.taobao.org/v-lazy/download/v-lazy-0.9.4.tgz#058112940310a0774535c4ff3634cb7cb53028a7"
-
 v-touch@^1.0.7:
   version "1.0.7"
   resolved "http://registry.npm.taobao.org/v-touch/download/v-touch-1.0.7.tgz#314a0b1e82e34d6beabc8ca6df5f42f509ceb2bb"
@@ -8035,10 +8031,6 @@ vue-html-loader@^1.2.3:
     html-minifier "^2.1.5"
     loader-utils "^0.2.15"
     object-assign "^4.1.0"
-
-vue-lazyload@^0.9.4:
-  version "0.9.4"
-  resolved "http://registry.npm.taobao.org/vue-lazyload/download/vue-lazyload-0.9.4.tgz#51d2d462aad053ddc97bbc842c710e3878e1cd4c"
 
 vue-loader@^10.0.2:
   version "10.0.2"

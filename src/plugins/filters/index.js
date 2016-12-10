@@ -1,3 +1,1 @@
-import {inject} from '../utils'
-
-export default inject(require.context('.', false, /\.js$/), 'filter')
+require('../inject')(require.context('.', false, /\.js$/), 'filter')

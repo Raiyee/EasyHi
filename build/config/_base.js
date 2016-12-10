@@ -47,14 +47,12 @@ const config = {
   },
   compiler_alias: {
     http: 'axios',
-    vue: 'vue/dist/vue.common',
-    'vue-lazyload': 'v-lazy'
+    vue: 'vue/dist/vue.common'
   },
   compiler_vendor: [
     'axios',
     'moment',
     'vue',
-    'vue-lazyload',
     'vue-router',
     'vuex',
     'vuex-actions',
