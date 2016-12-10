@@ -1,6 +1,6 @@
-import {on, off, remove} from 'utils'
+import {isWindow, on, off, remove} from 'utils'
 
-const inBrowser = typeof window !== 'undefined'
+const inBrowser = typeof window !== 'undefined' && isWindow(window)
 
 export default (Vue, Options = {}) => {
   const isVueNext = Vue.version.split('.')[0] === '2'
@@ -150,34 +150,28 @@ export default (Vue, Options = {}) => {
   }
 
   const checkElExist = el => {
-    let hasIt = Listeners.some(item => item.el === el)
-
-    if (!hasIt) return
-
+    if (!Listeners.some(item => item.el === el)) return
     return Vue.nextTick(lazyLoadHandler)
   }
 
   const addListener = (el, binding) => {
-    if (el.getAttribute('lazy') === 'loaded') return
-    if (checkElExist(el)) return
+    if (el.getAttribute('lazy') === 'loaded' || checkElExist(el)) return
 
     let parentEl = null
     let imageSrc = binding.value
     let imageLoading = Init.loading
     let imageError = Init.error
 
-    if (binding.value && typeof (binding.value) !== 'string') {
-      imageSrc = binding.value.src
-      imageLoading = binding.value.loading || Init.loading
-      imageError = binding.value.error || Init.error
+    if (imageSrc && typeof imageSrc !== 'string') {
+      imageLoading = imageSrc.loading || Init.loading
+      imageError = imageSrc.error || Init.error
+      imageSrc = imageSrc.src
     }
 
     if (imageCache.indexOf(imageSrc) > -1) return setElRender(el, binding.arg, imageSrc, 'loaded')
 
     Vue.nextTick(() => {
-      if (binding.modifiers) {
-        parentEl = window.document.getElementById(Object.keys(binding.modifiers)[0])
-      }
+      if (binding.modifiers) parentEl = window.document.getElementById(Object.keys(binding.modifiers)[0])
 
       let listener = {
         bindType: binding.arg,
@@ -197,10 +191,7 @@ export default (Vue, Options = {}) => {
       if (Listeners.length > 0 && !Init.hasbind) {
         Init.hasbind = true
         onListen(window, true)
-
-        if (parentEl) {
-          onListen(parentEl, true)
-        }
+        parentEl && onListen(parentEl, true)
       }
     })
   }
