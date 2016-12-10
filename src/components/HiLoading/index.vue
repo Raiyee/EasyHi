@@ -19,4 +19,4 @@
     }
   }
 </script>
-<style src="./index.css" module/>
+<style src="./index.styl" module/>
