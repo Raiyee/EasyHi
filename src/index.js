@@ -47,7 +47,7 @@ window._logout_ = () => {
 
 module.hot && module.hot.accept()
 
-/* eslint no-new: 0 */
+// eslint-disable-next-line no-new
 new Vue({
   ...App,
   el: '#app',

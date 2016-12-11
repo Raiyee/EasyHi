@@ -38,7 +38,8 @@
         if (!this.last) return
         const itemsLength = this.scheduleItems.length
         return {
-          marginBottom: `${this.itemsHeight - (28 + 113 * itemsLength) * this.rem - itemsLength}px`
+          // eslint-disable-next-line max-len
+          marginBottom: `${this.itemsHeight - (28 + 113 * itemsLength) * Math.floor(this.rem * 100) / 100 - itemsLength}px`
         }
       }
     },
