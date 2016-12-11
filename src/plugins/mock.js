@@ -1,8 +1,8 @@
 import utils, {getItem} from 'utils'
+import * as random from './random'
 import {PERMISSION} from 'store/constants'
 
-utils.randomImg = (w, h = w, random = 1, type = 'people') =>
-  `${type}?w=${w}&h=${h}&random=${random}&txtclr=0000&overlay_color=0000`
+Object.assign(utils, random)
 
 window.__INITIALIZE_STATE__ = getItem(PERMISSION)
 

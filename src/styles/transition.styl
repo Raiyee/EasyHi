@@ -1,11 +1,13 @@
 @require "_variables"
 
-.bounce-enter-active
+.bounce-enter-active, .bounce-leave-active
   absolute top left
+  width 100%
+
+.bounce-enter-active
   animation bounceInLeft .5s
 
 .bounce-leave-active
-  absolute top left
   animation bounceOutRight .5s
 
 @keyframes bounceInLeft

@@ -3,14 +3,20 @@
 @require "transition"
 
 body.bg
-    background-color BG_COLOR
+  background-color BG_COLOR
 
+a
+  &, &:active, &:visited
+    color inherit
+
+// @stylint off
 input
-  placeholder(color PLACEHOLDER_COLOR,) // @stylint ignore
+  placeholder(color PLACEHOLDER_COLOR,)
   &,
-  &::-webkit-inner-spin-button, // @stylint ignore
-  &::-webkit-outer-spin-button // @stylint ignore
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button
     appearance none
+// @stylint on
 
 .btn
   font-hei()
@@ -68,3 +74,15 @@ input
 
 .remark-bg
   background-color REMARK_COLOR
+
+.panel-full
+  padding-left 10px
+  padding-right 10px
+  border-radius 0
+
+  .panel-heading
+    border-color CARD_LINE_COLOR
+
+  .panel-heading, .panel-body, .panel-footer
+    padding-left 0
+    padding-right 0

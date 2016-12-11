@@ -1,22 +1,28 @@
 @require "../../styles/_variables"
 
 .container
-  .header
+  :global(.media-object)
+    size 70px
+    border 2px solid white
+    background-color REVERSE_COLOR
+
+  :global(.media-right)
+    white-space no-wrap
+
+  :global(.panel-full)
+    margin-top 5px
+    margin-bottom 0
+
+  :global(.panel-title)
+    color STRESS_COLOR
+    font-size 15px
+    font-weight normal
+
+  > :first-child
     padding 20px 15px
     color REVERSE_COLOR
-    margin-top 0
-    margin-bottom 10px
 
-    :global(.media-object)
-      border-radius 50%
-      border 2px solid white
-
-      img
-        width 70px
-        height 70px
-
-    :global(.media-right) :global(.icon-message)
-      position relative
+    :global(.media-right .icon-message)
       display inline-block
 
       &:before
@@ -24,178 +30,74 @@
 
       > span
         absolute()
-        top 2px
-        right -4px
-        font-size 12px
-        size 18px
-        padding 1px
-        line-height 16px
+        right -6px
+        size 28px
+        padding 2px
         background-color HIGHLIGHT_COLOR
         border-radius 50%
         border 1px solid white
-        transform scale(.8)
+        scaleSize(8)
 
-  .member-show
-    margin-bottom 10px
-    margin-top -10px
-    padding-left 10px
-    background-color BACK_COLOR
-    color STRESS_COLOR
+.show
+  padding-left 10px
+  background-color BACK_COLOR
+  color STRESS_COLOR
 
-    :global(.icon-arrow-right)
+  span
+    display inline-block
+
+    &:last-child
       font-size 14px
 
-.subscribe-panel
-  padding-left 10px
-  padding-right 10px
-  margin-bottom 5px
-  :global(.panel-heading)
-    border-color CARD_LINE_COLOR
+.count
+  font-size 18px
 
-  :global(.panel-title)
-    color STRESS_COLOR
-    font-size 15px
-    font-weight normal
+.subscription-panel
+  :global // @stylint ignore
+    .panel-title
+      small
+        color PRIMARY_COLOR
 
-    small
-      color PRIMARY_COLOR
+      a
+        scaleSize()
 
-      + a
-        font-size 13px
-        font-weight 100
-        text-decoration none
-
-        > span
-          font-size 13px
+        span
           color SUBTEXT_COLOR
 
-  :global(.panel-body)
-    > span
-      margin-right 5px
-      transform scale(1.2)
-
-      &, + div
-        float left
-
-    .count
-      font-size 18px
-
-    .icon-clock
-      top 3px
-
-  :global(.panel-footer)
-    border-top 1px dashed DASHED_LINE_COLOR
-    border-bottom-style none
-    background-color REVERSE_COLOR
-
-  .no-course
-    > div
-      color SUBTEXT_COLOR
-      margin-bottom 20px
-
-      + .btn
-        height inherit
-        padding-left 25px
-        padding-right 25px
-
-.card-panel
-  margin-bottom 5px
-  padding-left 10px
-  padding-right 10px
-
-  :global // @stylint ignore
-    .panel-heading
-      border-color CARD_LINE_COLOR
-
-    .panel-title
-      font-size 15px
-      font-weight normal
-
     .panel-body
-      display flex
-      padding 15px 0
-
       > div
-        width 50%
-        float left
+        display table-cell
 
-        + div
-          border-left 1px solid CARD_LINE_COLOR
+    .panel-footer
+      border-top 1px dashed DASHED_LINE_COLOR
+      border-bottom-style none
+      background-color REVERSE_COLOR
 
-        > span
-          font-size 30px
+.no-course
+  color gray
+
+  :global(.btn)
+    margin-top 20px
+    padding 2px 25px
+
+.card-panel ul
+  display flex
+
+  li
+    flex 1
+
+    + li
+      border-left 1px solid CARD_LINE_COLOR
+
+    > span
+      font-size 30px
 
 .contact-panel
   color PRIMARY_COLOR
 
-  > :global(.panel-body)
-    padding-top 10px
-    padding-bottom 10px
+  hr
+    margin-top 10px
+    margin-bottom 10px
 
-  .member-notice
-    + hr
-      margin-top 10px
-      margin-bottom 10px
-
-  a
-    text-decoration none
-
-    &, &:active, &:visited
-      color inherit
-
-.kf-panel
-  margin-bottom 5px
-  padding-left 0
-  padding-right 0
-
-  :global // @stylint ignore
-    .panel-heading
-      border-color CARD_LINE_COLOR
-      margin 0 10px
-
-    .panel-body
-      padding-bottom 0
-
-  .header
-    padding 20px 15px
-    color REVERSE_COLOR
-    margin-top 0
-    margin-bottom 0
-
-    :global // @stylint ignore
-      .media-object
-        border-radius 50%
-        border 2px solid white
-
-        img
-          width 70px
-          height 70px
-
-      .media-body
-        width 180px
-        text-align left
-
-      .media-right
-        width 80px
-        vertical-align middle
-
-      .media-right .icon-message
-        relative()
-        display inline-block
-
-        &:before
-          font-size 30px
-
-        > span
-          absolute()
-          top 2px
-          right -4px
-          font-size 12px
-          width 18px
-          height 18px
-          padding 1px
-          line-height 16px
-          background-color HIGHLIGHT_COLOR
-          border-radius 50%
-          border 1px solid white
-          transform scale(.8)
+  :global(.panel-body)
+    padding 10px 0

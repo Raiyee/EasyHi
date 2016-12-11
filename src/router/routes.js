@@ -16,7 +16,7 @@ export default {
       meta: {
         auth: true,
         init: {
-          url: '/membercenter',
+          url: '/member-center',
           restore: false
         }
       }

@@ -1,40 +1,44 @@
-import Mock from 'mockjs'
-const Random = Mock.Random
+import Mock, {Random} from 'mockjs'
+import moment from 'moment'
 
-Mock.mock(/\/membercenter$/, () => Mock.mock({
-  memberGender: '@boolean()',
-  icon: '@string(0, 11)',
-  memberName: Random.cname(),
-  memberMobile: '@integer(10, 11)',
-  messageCount: '@integer(10, 20)',
-  sceneId: '@string(0, 11)',
-  latestCourse: '@boolean()',
-  courseDuration: '@datetime(hh:mm)-@datetime(hh:mm)',
-  courseDate: '@datetime(yyyy-MM-dd)周@cword("一二三四五六日")',
-  startTime: Random.date('T'),
-  endTime: Random.date('T'),
-  courseName: Random.cname(),
-  courseCost: '@integer(0, 11)',
-  cardNum: '@integer(0,1)',
-  subscribeId: '@integer(11)',
-  voucherNum: '@integer(0, 11)',
-  hasNotice: '@boolean()',
-  ownerMobile: '@integer(0, 11)',
-  courseBills: Mock.mock({
-    'array|1-2': [
-      {
-        'count': '@integer(1, 5)',
-        'name': Random.cname()
-      }
-    ]
-  }).array,
-  grantList: Mock.mock({
-    'grantList|0-1': [
-      {
-        sourceName: Random.cname(),
-        selected: Random.string('number', 0, 1),
-        sourceMobile: Random.character('number', 11)
-      }
-    ]
-  }).grantList
-}))
+import {randomImg, randomMobile} from 'utils'
+
+Mock.mock(/\/member-center$/, () => {
+  let recentCourse = Random.boolean()
+
+  if (recentCourse) {
+    const startTime = +moment().add(Random.integer(-5, 0), 'd')
+    recentCourse = {
+      startTime,
+      endTime: +moment(startTime).add(Random.pick([60, 120]), 'm'),
+      bookingNum: '@integer(1,10)',
+      'costDetails|1-2': [
+        {
+          'costCount': '@integer(1, 5)',
+          'costName': '@cword(3,5)卡'
+        }
+      ],
+      subscriptionId: '@id(11)'
+    }
+  }
+
+  return Mock.mock({
+    memberGender: '@boolean',
+    memberPortrait: randomImg(60),
+    memberName: Random.cname(),
+    memberMobile: randomMobile(),
+    messageCount: '@integer(0,15)',
+    showId: Random.boolean() && '@id',
+    recentCourse,
+    cardNum: '@integer(0,10)',
+    voucherNum: '@integer(0,10)',
+    hasNotice: '@boolean',
+    serverMobile: randomMobile(),
+    authorization: Random.range(0, 3).map(index => ({
+      authorized: '@boolean',
+      serverName: '@cname',
+      serverMobile: randomMobile(),
+      serverPortrait: randomImg(60, 60, 2 * index)
+    }))
+  })
+})

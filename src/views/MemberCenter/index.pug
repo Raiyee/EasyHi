@@ -1,84 +1,80 @@
 div(:class="classes.container")
-  .media.theme-bg(:class="classes.header")
-    .media-left
-      .media-object.media-middle
-        img.img-circle(:src="'people?w=60&h=60&random=1' | imgPath")
+  .media.theme-bg
+    .media-left.media-middle
+      .media-object.img-circle(v-lazy:background-image="$util.imgPath(memberPortrait)")
     .media-body.media-middle
       .media-heading {{ memberName }}
       .media-body {{ memberMobile }}
     router-link.media-right(to="/member-message", tag="div")
       span.iconfont.icon-message
-        span.text-center {{ messageCount > 9 ? '9+' : messageCount }}
+        span.text-center {{ messageCount > 9 ? '9+' : messageCount || '' }}
 
-  .panel.panel-full(:class="classes.memberShow", v-if="sceneId")
+  div(:class="classes.show", v-if="showId")
     span.iconfont.icon-xiaoxi.theme-color
-    | 您有一个"会员秀", 正在等待您的召唤
+    span 您有一个"会员秀", 正在等待您的召唤
     span.iconfont.icon-arrow-right
 
-  .panel.panel-full(:class="classes.subscribePanel")
+  .panel.panel-full(:class="classes.subscriptionPanel")
     .panel-heading
       h3.panel-title 最近课程
-        small(v-if="latestCourse") （ {{ courseDate }} ）
+        small(v-if="recentCourse") （{{ recentCourse.startTime | formatDate }})
         router-link.pull-right(to="/") 查看全部预订
           span.iconfont.icon-arrow-right
-    .clearfix.panel-body
-      template(v-if="latestCourse")
+    .panel-body(v-if="recentCourse")
+      div
         span.iconfont.icon-clock.theme-color
-        div {{ courseDuration }} {{ courseName }}
-          br
-          | 预订
-          span.theme-color(:class="classes.count") {{ courseCost }}
-          | 人
-          br
-          template(v-for="courseBill in courseBills")
-            | 扣 {{ courseBill.name }}
-            span.theme-color(:class="classes.count") {{ courseBill.count }}
-            | 次
-      template(v-else)
-        .text-center(:class="classes.noCourse")
-          div 还没有要上的课
-          button.btn.btn-theme-primary 去订课
-    .panel-footer.theme-color.text-right(v-if="latestCourse", id="cancel-subscribe", :subscribeId="subscribeId") 取消预订
+      div {{ recentCourse.startTime | formatDate('HH:mm') }}-{{ recentCourse.endTime | formatDate('HH:mm') }} {{ recentCourse.courseName }}
+        br
+        | 预订
+        span.theme-color(:class="classes.count") {{ recentCourse.bookingNum }}
+        | 人
+        br
+        template(v-for="{costName, costCount} in recentCourse.costDetails")
+          | 扣 {{ costName }}
+          span.theme-color(:class="classes.count") {{ costCount }}
+          | 次
+    .panel-body.text-center(v-else, :class="classes.noCourse")
+      | 还没有要上的课
+      br
+      button.btn.btn-theme-primary 去订课
+    .panel-footer.theme-color.text-right(v-if="recentCourse") 取消预订
 
   .panel.panel-full(:class="classes.cardPanel")
     .panel-heading
       h3.panel-title 我的卡券
-    .panel-body.text-center.clearfix
-      .enabled
+    ul.list-unstyled.panel-body.text-center
+      li
         span.iconfont.icon-huiyuanqia.theme-color
         br
         | 会员卡: ( {{ cardNum }} )
-      .enabled
+      li
         span.iconfont.icon-youhuiquan1.theme-color
         br
         | 体验券: ( {{ voucherNum }} )
-      .enabled
+      li
         span.iconfont.icon-dingdan1.theme-color
         br
         | 订单
 
-  .panel.panel-full(v-if="grantList && grantList.length > 0", :class="classes.kfPanel")
+  .panel.panel-full(v-if="authorization && authorization.length")
     .panel-heading
       h3.panel-title 授权信息
 
-    .panel-body.text-center.clearfix(v-for="grant in grantList")
-      .media.theme-color(:class="classes.header")
-        .media-left.only-kf
-          .media-object.media-middle
-            img.img-circle(:src="'people?w=60&h=60&random=2' | imgPath")
+    .panel-body
+      .media.theme-color(v-for="{authorized, serverName, serverMobile, serverPortrait} in authorization")
+        .media-left.media-middle
+          .media-object.img-circle(v-lazy:background-image="$util.imgPath(serverPortrait)")
 
-        .media-body.media-middle.only-kf
-          .media-heading {{ grant.sourceName }}
-          .media-body {{ grant.sourceMobile }}
+        .media-body.media-middle {{ serverName }}
+          br
+          | {{ serverMobile }}
 
-        div(:class="['media-right', 'only-kf', grant.selected=='0'? 'accept-oauth' : 'release-oauth']")
-          span {{ grant.selected == '0' ? '开启授权' : '解除授权' }}
+        .media-right.media-middle
+          | {{ authorized ? '解除' : '开启' }}授权
 
   .panel.panel-full(:class="classes.contactPanel")
     .panel-body.text-center
       template(v-if="hasNotice")
-        router-link(to="/", :class="classes.memberNotice")
-          div 会员须知
+        router-link(to="/") 会员须知
         hr
-      a(:href="'tel:'+ ownerMobile")
-        div 联系客服 {{ ownerMobile }}
+      a(:href="'tel:'+ serverMobile") 联系客服 {{ serverMobile }}
