@@ -39,7 +39,7 @@
         const itemsLength = this.scheduleItems.length
         return {
           marginBottom: `${this.itemsHeight - (28 + 113 * itemsLength) *
-          Math.floor(this.rem * 10) / 10 - itemsLength + (this.rem - 1 && 5)}px`
+          Math.floor(this.rem * 10) / 10 - itemsLength + 10}px`
         }
       }
     },
