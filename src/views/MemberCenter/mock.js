@@ -15,7 +15,7 @@ Mock.mock(/\/member-center$/, () => {
       'costDetails|1-2': [
         {
           'costCount': '@integer(1, 5)',
-          'costName': '@cword(3,5)卡'
+          'costName': '@cword(3,5)@pick(["卡","券"])'
         }
       ],
       subscriptionId: '@id(11)'
@@ -25,7 +25,7 @@ Mock.mock(/\/member-center$/, () => {
   return Mock.mock({
     memberGender: '@boolean',
     memberPortrait: randomImg(60),
-    memberName: Random.cname(),
+    memberName: '@cname',
     messageCount: '@integer(0,15)',
     showId: Random.boolean() && '@id',
     recentCourse,
