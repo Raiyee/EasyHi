@@ -1,0 +1,13 @@
+li(:style="itemsStyle")
+  .theme-bg.schedule-weekday {{ date | getWeekday }}
+  ol.list-unstyled(v-if="scheduleItems.length")
+    schedule-item(v-for="(scheduleItem, index) of scheduleItems",
+    :key="scheduleItem.scheduleId",
+    :class="{disabled: !scheduleItem.scheduleRemaining}",
+    :coursePicUrl="scheduleItem.coursePicUrl",
+    :scheduleBooked="scheduleItem.scheduleBooked",
+    :scheduleCoach="scheduleItem.scheduleCoach",
+    :scheduleStartTime="scheduleItem.scheduleStartTime",
+    :scheduleEndTime="scheduleItem.scheduleEndTime",
+    :scheduleName="scheduleItem.scheduleName",
+    :scheduleRemaining="scheduleItem.scheduleRemaining")

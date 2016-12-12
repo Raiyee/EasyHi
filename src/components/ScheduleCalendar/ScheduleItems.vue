@@ -1,23 +1,4 @@
-<template>
-  <li :style="itemsStyle">
-    <div class="theme-bg schedule-weekday">
-      {{ date | getWeekday }}
-    </div>
-    <ol class="list-unstyled" v-if="scheduleItems.length">
-      <schedule-item v-for="(scheduleItem, index) of scheduleItems"
-                     :key="scheduleItem.scheduleId"
-                     :class="{disabled: !scheduleItem.scheduleRemaining}"
-                     :coursePicUrl="scheduleItem.coursePicUrl"
-                     :scheduleBooked="scheduleItem.scheduleBooked"
-                     :scheduleCoach="scheduleItem.scheduleCoach"
-                     :scheduleStartTime="scheduleItem.scheduleStartTime"
-                     :scheduleEndTime="scheduleItem.scheduleEndTime"
-                     :scheduleName="scheduleItem.scheduleName"
-                     :scheduleRemaining="scheduleItem.scheduleRemaining"
-      />
-    </ol>
-  </li>
-</template>
+<template src="./schedule-items.pug"/>
 <script>
   import {mapGetters} from 'vuex'
 

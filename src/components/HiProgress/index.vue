@@ -1,5 +1,5 @@
 <template>
-  <div :class="[$style.hiProgress, className]" :style="{width: progress + '%'}"></div>
+  div(:class="[$style.hiProgress, className]", :style="{width: progress + '%'}")
 </template>
 <script>
   export default {
@@ -16,4 +16,4 @@
     }
   }
 </script>
-<style src="./index.css" module/>
+<style src="./index.styl" module/>

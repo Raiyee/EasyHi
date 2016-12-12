@@ -1,4 +1,4 @@
-<template>
+<template lang="html">
   <ModalItem header="标题"
              :footer="true"
              :confirm="confirm.bind(this)"

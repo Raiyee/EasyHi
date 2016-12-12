@@ -1,4 +1,4 @@
-<template>
+<template lang="html">
   <div class="container">
     tap: {{ tapNum }},<br>
     dblTap: {{ dblTapNum }},<br>

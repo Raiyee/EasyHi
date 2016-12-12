@@ -1,10 +1,4 @@
-<template>
-  <div :class="[$style.noItem, className]">
-    <img src="./no-item.png">
-    <br>
-    {{text}}
-  </div>
-</template>
+<template src="./index.pug"/>
 <script>
   export default {
     props: {

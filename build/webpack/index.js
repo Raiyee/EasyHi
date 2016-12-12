@@ -116,23 +116,25 @@ webpackConfig.module.rules = [
     exclude: nodeModules
   }, {
     test: /\.pug$/,
-    loader: `vue-template-es2015-loader!pug-html-loader?exports=false&pretty=${__DEV__}`,
+    loader: `pug-html-loader?pretty=${__DEV__}`,
     exclude: nodeModules
   }, {
     test: /\.vue$/,
     // loader: 'vue-loader',
     loader: 'vue-promise-loader',
     options: {
-      loaders: utils.vueCssLoaders({
-        sourceMap
-      }),
+      loaders: {
+        ...utils.vueCssLoaders({
+          sourceMap
+        })
+      },
       autoprefixer: false,
       cssModules: {
         camelCase: true,
         localIdentName
       },
       defaultLang: {
-        // template: 'pug',
+        template: 'pug',
         styles: 'styl'
       }
     }

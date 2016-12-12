@@ -1,21 +1,4 @@
-<template>
-  <ol class="list-unstyled clearfix scroll-list"
-      :class="[$style.calendar, flex && $style.flex]"
-      :style="calendarStyle">
-    <calendar-item v-for="(item, index) of calendar"
-                   :date="item.date"
-                   :status="item.status"
-                   :class="{first: !(index % 7)}"
-                   :active="activeIndex === index"
-                   :key="item.date"
-                   @toggleActive="toggleActive"/>
-    <li class="scroll-bg"
-        :class="{active: activeIndex !== -1}"
-        :style="{transform}">
-      <div class="theme-bg"/>
-    </li>
-  </ol>
-</template>
+<template src="./calendar.pug"/>
 <script>
   import {mapGetters} from 'vuex'
 

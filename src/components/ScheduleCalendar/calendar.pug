@@ -1,0 +1,11 @@
+ol.list-unstyled.clearfix.scroll-list(:class="[$style.calendar, flex && $style.flex]",
+:style="calendarStyle")
+  calendar-item(v-for="({date, status}, index) of calendar",
+  :date="date",
+  :status="status",
+  :class="{first: !(index % 7)}",
+  :active="activeIndex === index",
+  :key="date",
+  @toggleActive="toggleActive")
+  li.scroll-bg(:class="{active: activeIndex !== -1}", :style="{transform}")
+    .theme-bg

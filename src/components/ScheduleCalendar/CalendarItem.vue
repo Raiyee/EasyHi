@@ -1,11 +1,4 @@
-<template>
-  <li :class="{active, disabled}" @click="toggleActive">
-    <div>
-      <span>{{ day }}</span>
-      <span :class="{'theme-color': !active && 2 === status}">{{ statusText }}</span>
-    </div>
-  </li>
-</template>
+<template src="./calendar-item.pug"/>
 <script>
   import {REQUIRED_BOOLEAN, REQUIRED_NUMBER, REQUIRED_STRING, getDatetime, getWeekday} from 'utils'
 

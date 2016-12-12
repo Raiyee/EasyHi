@@ -1,0 +1,8 @@
+div(v-if="modals.length")
+  div(v-if="currModal && currModal.options.backdrop", :class="$style.modalBackdrop")
+  component(v-for="{component, id, props, options} of modals",
+  :is="component",
+  :key="id",
+  ref="modal",
+  v-bind="props",
+  v-show="options.show")

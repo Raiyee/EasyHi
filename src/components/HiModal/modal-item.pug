@@ -1,0 +1,22 @@
+transition(:name="transition === true ? 'bounce' : transition || undefined")
+  div(:class="$style.modal", :id="id")
+    .modal-dialog
+      .modal-content
+        // header
+        .modal-header(v-if="$slots.header")
+          slot(name="header")
+        .modal-header(v-else-if="label")
+          button.close(type="button", @click="closeModal")
+            span(aria-hidden="true") ×
+            span.sr-only 关闭
+          h4.modal-title(v-html="label")
+        // body
+        slot(v-if="$slots.body", name="body")
+        .modal-body(v-else)
+          slot
+        // footer
+        .modal-footer(v-if="$slots.footer")
+          slot(name="footer")
+        .modal-footer(v-else-if="footer")
+          .btn.btn-theme-default(@click="closeModal") {{ cancelText || "取消" }}
+          .btn.btn-theme-primary(@click="confirmModal") {{ confirmText || "确定" }}

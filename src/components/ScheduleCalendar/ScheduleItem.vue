@@ -1,35 +1,4 @@
-<template>
-  <li class="media" :class="$style.media">
-    <div class="media-body">
-      <h4 class="media-heading">
-        {{ scheduleStartTime | formatDate('HH:mm') }}
-        {{ scheduleName }}
-      </h4>
-      <div class="media-content">
-        时长：{{ scheduleDuration }}min
-        <br>
-        老师：{{ scheduleCoach }}
-        <br>
-        <template v-if="scheduleRemaining">
-          <span class="icon-character theme-bg">预</span>
-          还可预订{{ scheduleRemaining }}人
-        </template>
-        <template v-else>
-          <span class="icon-character remark-bg">满</span>
-          已订满
-        </template>
-        <template v-if="scheduleBooked">
-            <span class="icon-character"
-                  :class="{'theme-bg': scheduleRemaining, 'remark-bg': !scheduleRemaining}">我</span>
-          已预订{{ scheduleBooked }}人
-        </template>
-      </div>
-    </div>
-    <div class="media-right media-middle">
-      <div class="media-object img-circle" v-lazy:background-image="$util.imgPath(coursePicUrl)" lazy="loading"/>
-    </div>
-  </li>
-</template>
+<template src="./schedule-item.pug"/>
 <script>
   import {REQUIRED_NUMBER, REQUIRED_STRING} from 'utils'
 

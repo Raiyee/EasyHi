@@ -1,9 +1,4 @@
-<template>
-  <div :class="[$style.hiLoading, className]">
-    <div :class="$style['hi-loading-' + theme]"></div>
-    <slot/>
-  </div>
-</template>
+<template src="./index.pug"/>
 <script>
   export default {
     name: 'hi-loading',

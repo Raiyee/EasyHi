@@ -1,0 +1,4 @@
+li(:class="{active, disabled}", @click="toggleActive")
+  div
+    span {{ day }}
+    span(:class="{'theme-color': !active && 2 === status}") {{ statusText }}

@@ -1,0 +1,34 @@
+li.media(:class="$style.media")
+  .media-left.media-middle
+    .media-object.img-circle(v-lazy:background-image="$util.imgPath(coachItem.coachPortrait)", lazy="loading")
+  .media-body.media-middle
+    h4.media-heading {{coachItem.coachName}}
+      span.iconfont(:class="`icon-${coachItem.coachGender ? '' : 'fe'}male`")
+    template(v-if="active")
+      span(@click="toggleChecked(false)")
+        span.iconfont.icon-radio(:class="checked ? 'inactive' : 'theme-color'")
+        | 60min
+      span(@click="toggleChecked(true)")
+        span.iconfont.icon-radio(:class="checked ? 'theme-color' : 'inactive'")
+        | 120min
+    template(v-else="")
+      span.iconfont.icon-morning(v-if="coachItem.min060.morning.length")
+        span.iconfont.icon-afternoon(v-if="coachItem.min060.afternoon.length")
+          span.iconfont.icon-evening(v-if="coachItem.min060.evening.length")
+  .media-right.media-middle
+    button.btn.btn-theme-default(@click="toggleActive")
+      | {{ active ? "收起" : "选择时间" }}
+  div(v-if="hasItems", :class="$style.timeItems", :style="style")
+    ol.list-unstyled
+      li(v-for="(times, key) of activeItems", v-if="times.length", :class="$style[key]")
+        span.iconfont(:class="`icon-${key}`")
+        ol.list-unstyled.clearfix
+          li(v-for="time of times")
+            div(:class="[$style.timeItem, {active: time === activeTime}]", @click="toggleTime(time)")
+              span {{time}}
+              span.iconfont.icon-check(v-show="time === activeTime")
+              span 开始
+    .text-center
+      button.btn.btn-theme-primary(@click="orderSchedule") 预订
+  div(v-else="", :class="$style.timeItems", :style="style")
+    div(:class="$style.noItem") 没有可以预订的时间
