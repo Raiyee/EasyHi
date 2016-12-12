@@ -3,7 +3,7 @@ modal-item(:class="$style.prompt", :transition="transition")
     .modal-title(slot="header") {{ tipText }}
     div(slot="body", :class="$style.promptText")
       textarea(v-model="text", :placeholder="placeholder")
-  .modal-body(v-else="", slot="body", v-html="tipText || '系统消息'")
-    template(v-if="type", slot="footer")
-      div(v-if="type - 1", :class="$style.btnPrompt", @click="closeModal") {{ cancelText || "取消" }}
-      .theme-color(:class="$style.btnPrompt", @click="confirmModal") {{ confirmText || "确定" }}
+  .modal-body(v-else, slot="body", v-html="tipText || '系统消息'")
+  template(v-if="type", slot="footer")
+    div(v-if="type - 1", :class="$style.btnPrompt", @click="closeModal") {{ cancelText || "取消" }}
+    .theme-color(:class="$style.btnPrompt", @click="confirmModal") {{ confirmText || "确定" }}
