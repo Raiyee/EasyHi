@@ -10,7 +10,6 @@
     name: 'member-subscribe',
     data() {
       return {
-        classes: require('./index.styl'),
         date: null,
         courseTypeId: null,
         courseTypeIndex: 0,
@@ -63,3 +62,4 @@
     }
   }
 </script>
+<style src="./index.styl" module/>

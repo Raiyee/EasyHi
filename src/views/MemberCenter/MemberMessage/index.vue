@@ -1,12 +1,12 @@
-<template src="./index.pug" lang="pug"/>
+<template src="./index.pug"/>
 <script>
   export default {
     name: 'memberMessage',
     data() {
       return {
-        classes: require('./index.styl'),
         ...this.$route.meta.data
       }
     }
   }
 </script>
+<style src="./index.styl" module/>

@@ -6,7 +6,6 @@
     name: 'member-center',
     data() {
       return {
-        classes: require('./index.styl'),
         ...this.$route.meta.data
       }
     },
@@ -15,3 +14,4 @@
     }
   }
 </script>
+<style src="./index.styl" module/>

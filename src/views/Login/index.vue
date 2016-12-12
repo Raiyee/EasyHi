@@ -9,7 +9,6 @@
     name: 'login',
     data() {
       return {
-        classes: require('./index.styl'),
         limit: 0,
         loginMobile: null,
         verificationCode: null,
@@ -80,3 +79,4 @@
     }
   }
 </script>
+<style src="./index.styl" module/>

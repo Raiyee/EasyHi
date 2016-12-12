@@ -1,7 +1,5 @@
 <template src="./prompt-modal.pug"/>
 <script>
-  import {error} from 'utils'
-
   import ModalItem from 'components/HiModal/ModalItem'
   import $style from './prompt-modal.styl'
 
@@ -38,7 +36,7 @@
       },
       confirmModal() {
         this.confirm ? this.confirm.apply(this, this.type === 3 ? [this.text, ...arguments] : arguments)
-          : error('you should handle the click event on the confirm btn by yourself!')
+          : this.$util.error('you should handle the click event on the confirm btn by yourself!')
       }
     },
     components: {

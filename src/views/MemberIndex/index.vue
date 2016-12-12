@@ -4,9 +4,6 @@
 
   export default {
     name: 'member-index',
-    data: () => ({
-      classes: require('./index.styl')
-    }),
     computed: {
       ...mapGetters(['winHeight'])
     },
@@ -17,3 +14,4 @@
     }
   }
 </script>
+<style src="./index.styl" module/>

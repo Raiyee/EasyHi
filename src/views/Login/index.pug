@@ -1,10 +1,10 @@
 .container
-  .center-block.img-circle(:class="classes.yoga")
+  .center-block.img-circle(:class="$style.yoga")
     img.img-circle(src="./yoga.jpg", alt="瑜伽")
   .row
     .col-xs-12.col-sm-6.col-sm-push-3.col-lg-4.col-lg-push-4
       form(action="javascript:;", @submit.prevent="submit")
-        div(:class="[classes.formGroup, this.mobileError && 'has-error']")
+        div(:class="[$style.formGroup, this.mobileError && 'has-error']")
           .input-group
             span.input-group-addon
               span.glyphicon.glyphicon-phone
@@ -13,7 +13,7 @@
             span.input-group-addon(v-if="loginMobile", @click="clearMobile")
               span.glyphicon.glyphicon-remove-sign
           p.form-control-static(v-if="mobileError") 请输入正确的手机号码
-        div(:class="[classes.formGroup, this.codeError && 'has-error']")
+        div(:class="[$style.formGroup, this.codeError && 'has-error']")
           .input-group
             span.input-group-addon
               span.glyphicon.glyphicon-lock
