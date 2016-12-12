@@ -41,10 +41,6 @@ export default {
         }
       }
     }, {
-      path: '/touch',
-      name: 'touch',
-      component: () => System.import('views/_Touch')
-    }, {
       path: '/dynamic',
       name: 'dynamic',
       component: () => System.import('views/_Dynamic'),
@@ -54,14 +50,8 @@ export default {
         }
       }
     }, {
-      path: '/flow',
-      component: () => System.import('views/_Flow')
-    }, {
       path: '/modal',
       component: () => System.import('views/_Modal')
-    }, {
-      path: '/pug',
-      component: () => System.import('views/_Pug')
     }, {
       path: '*',
       redirect: '/'
