@@ -174,6 +174,12 @@ webpackConfig.plugins = [
     options: {
       context: __dirname,
       postcss
+    },
+    stylus: {
+      default: {
+        preferPathResolver: 'webpack',
+        import: [paths.src('styles/_variables.styl')]
+      }
     }
   }),
   new HtmlWebpackPlugin({
