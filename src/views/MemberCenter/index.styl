@@ -13,6 +13,9 @@
     margin-top 5px
     margin-bottom 0
 
+    &:last-child
+      margin-bottom 15px
+
   :global(.panel-title)
     color STRESS_COLOR
     font-size 15px
@@ -30,7 +33,7 @@
 
       > span
         absolute()
-        right -6px
+        right -8px
         size 28px
         padding 2px
         background-color HIGHLIGHT_COLOR
@@ -39,12 +42,13 @@
         scaleSize(8)
 
 .show
-  padding-left 10px
   background-color BACK_COLOR
   color STRESS_COLOR
+  line-height 22px
+  padding-left 10px
 
   span
-    display inline-block
+    float left
 
     &:last-child
       font-size 14px
@@ -67,6 +71,11 @@
     .panel-body
       > div
         display table-cell
+
+        :global(.iconfont)
+          display inline-block
+          margin-right 10px
+          scaleSize(18)
 
     .panel-footer
       border-top 1px dashed DASHED_LINE_COLOR

@@ -4,12 +4,12 @@ div(:class="classes.container")
       .media-object.img-circle(v-lazy:background-image="$util.imgPath(memberPortrait)")
     .media-body.media-middle
       .media-heading {{ memberName }}
-      .media-body {{ memberMobile }}
+      .media-body {{ mobile }}
     router-link.media-right(to="/member-message", tag="div")
       span.iconfont.icon-message
-        span.text-center {{ messageCount > 9 ? '9+' : messageCount || '' }}
+        span.text-center(v-if="messageCount") {{ messageCount > 9 ? '9+' : messageCount }}
 
-  div(:class="classes.show", v-if="showId")
+  div.clearfix(:class="classes.show", v-if="showId")
     span.iconfont.icon-xiaoxi.theme-color
     span 您有一个"会员秀", 正在等待您的召唤
     span.iconfont.icon-arrow-right
@@ -28,8 +28,8 @@ div(:class="classes.container")
         | 预订
         span.theme-color(:class="classes.count") {{ recentCourse.bookingNum }}
         | 人
-        br
         template(v-for="{costName, costCount} in recentCourse.costDetails")
+          br
           | 扣 {{ costName }}
           span.theme-color(:class="classes.count") {{ costCount }}
           | 次
@@ -46,11 +46,11 @@ div(:class="classes.container")
       li
         span.iconfont.icon-huiyuanqia.theme-color
         br
-        | 会员卡: ( {{ cardNum }} )
+        | 会员卡({{ cardNum }})
       li
         span.iconfont.icon-youhuiquan1.theme-color
         br
-        | 体验券: ( {{ voucherNum }} )
+        | 体验券({{ voucherNum }})
       li
         span.iconfont.icon-dingdan1.theme-color
         br
@@ -59,18 +59,14 @@ div(:class="classes.container")
   .panel.panel-full(v-if="authorization && authorization.length")
     .panel-heading
       h3.panel-title 授权信息
-
     .panel-body
       .media.theme-color(v-for="{authorized, serverName, serverMobile, serverPortrait} in authorization")
         .media-left.media-middle
           .media-object.img-circle(v-lazy:background-image="$util.imgPath(serverPortrait)")
-
         .media-body.media-middle {{ serverName }}
           br
           | {{ serverMobile }}
-
-        .media-right.media-middle
-          | {{ authorized ? '解除' : '开启' }}授权
+        .media-right.media-middle {{ authorized ? '解除' : '开启' }}授权
 
   .panel.panel-full(:class="classes.contactPanel")
     .panel-body.text-center

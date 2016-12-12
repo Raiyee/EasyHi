@@ -7,7 +7,7 @@ Mock.mock(/\/member-center$/, () => {
   let recentCourse = Random.boolean()
 
   if (recentCourse) {
-    const startTime = +moment().add(Random.integer(-5, 0), 'd')
+    const startTime = +moment().add(Random.integer(0, 5), 'd')
     recentCourse = {
       startTime,
       endTime: +moment(startTime).add(Random.pick([60, 120]), 'm'),
@@ -26,7 +26,6 @@ Mock.mock(/\/member-center$/, () => {
     memberGender: '@boolean',
     memberPortrait: randomImg(60),
     memberName: Random.cname(),
-    memberMobile: randomMobile(),
     messageCount: '@integer(0,15)',
     showId: Random.boolean() && '@id',
     recentCourse,
