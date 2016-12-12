@@ -9,7 +9,7 @@ div(:class="classes.container")
       span.iconfont.icon-message
         span.text-center(v-if="messageCount") {{ messageCount > 9 ? '9+' : messageCount }}
 
-  div.clearfix(:class="classes.show", v-if="showId")
+  .clearfix(:class="classes.show", v-if="showId")
     span.iconfont.icon-xiaoxi.theme-color
     span 您有一个"会员秀", 正在等待您的召唤
     span.iconfont.icon-arrow-right
