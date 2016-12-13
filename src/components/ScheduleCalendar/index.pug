@@ -42,7 +42,7 @@ div(:class="classes.scheduleCalendar")
       ref="date",
       :key="keyPrefix + coachItem.coachId",
       :coachItem="coachItem",
-      :activeCoachid="activeCoachId",
+      :activeCoachId="activeCoachId",
       @toggleActiveCoach="toggleActiveCoach")
 
     no-item(v-else, text="本周没有安排任何课程")

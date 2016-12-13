@@ -16,8 +16,7 @@ li.media(:class="classes.media")
         span.iconfont.icon-afternoon(v-if="coachItem.min060.afternoon.length")
           span.iconfont.icon-evening(v-if="coachItem.min060.evening.length")
   .media-right.media-middle
-    button.btn.btn-theme-default(@click="toggleActive")
-      | {{ active ? "收起" : "选择时间" }}
+    button.btn.btn-theme-default(@click="toggleActive") {{ active ? "收起" : "选择时间" }}
   div(v-if="hasItems", :class="classes.timeItems", :style="style")
     ol.list-unstyled
       li(v-for="(times, key) of activeItems", v-if="times.length", :class="classes[key]")
@@ -30,5 +29,5 @@ li.media(:class="classes.media")
               span 开始
     .text-center
       button.btn.btn-theme-primary(@click="orderSchedule") 预订
-  div(v-else="", :class="classes.timeItems", :style="style")
+  div(v-else, :class="classes.timeItems", :style="style")
     div(:class="classes.noItem") 没有可以预订的时间

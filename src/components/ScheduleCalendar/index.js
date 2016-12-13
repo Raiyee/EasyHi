@@ -7,9 +7,9 @@ import NoItem from 'components/NoItem'
 
 import classes from './index.styl'
 
-const periodWidth = 7 * 50 + 5
-
 import {REQUIRED_ARRAY, animate, formatDate, lastDayOfWeek, weekDates, toNum} from 'utils'
+
+const periodWidth = 7 * 50 + 5
 
 const reset = function () {
   this.translateX = 0
