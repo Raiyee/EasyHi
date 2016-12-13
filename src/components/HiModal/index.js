@@ -32,14 +32,17 @@ export default require('./index.pug')({
       let modal
       const index = this.modals.findIndex(m => m.id === modalId)
       index === -1 || (modal = this.modals[index])
-      modalId === currModalId && (this.currModal = null)
       if (!modal) return
       const {options, props} = modal
       options.show = false
       if (!options.destroy) return
       props && props.transition ? on(this.$refs.modal[index].$el, 'animationend transitionend', () => {
-        this.modals.splice(index, 1)
-      }) : this.modals.splice(index, 1)
+        this.closeModal(modalId)
+      }) : this.closeModal(modalId)
+    },
+    closeModal(modalId) {
+      modalId === this.currModal && (this.currModal = null)
+      this.modals.splice(this.modals.findIndex(m => m.id === modalId), 1)
     },
     mount(modal) {
       const m = this.modals.find(m => m.id === modal.id)
