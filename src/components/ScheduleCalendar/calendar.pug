@@ -1,4 +1,4 @@
-ol.list-unstyled.clearfix.scroll-list(:class="[$style.calendar, flex && $style.flex]",
+ol.list-unstyled.clearfix.scroll-list(:class="[classes.calendar, flex && classes.flex]",
 :style="calendarStyle")
   calendar-item(v-for="({date, status}, index) of calendar",
   :date="date",

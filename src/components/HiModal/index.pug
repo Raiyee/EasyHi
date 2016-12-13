@@ -1,5 +1,5 @@
 div(v-if="modals.length")
-  div(v-if="currModal && currModal.options.backdrop", :class="$style.modalBackdrop")
+  div(v-if="currModal && currModal.options.backdrop", :class="classes.modalBackdrop")
   component(v-for="{component, id, props, options} of modals",
   :is="component",
   :key="id",

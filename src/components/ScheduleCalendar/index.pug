@@ -1,5 +1,5 @@
-div(:class="$style.scheduleCalendar")
-  .panel(:class="$style.courseTypePanel")
+div(:class="classes.scheduleCalendar")
+  .panel(:class="classes.courseTypePanel")
     .panel-body
       div(:class="month") {{ activeDate | formatDate("MM")}}月
       div
@@ -21,7 +21,7 @@ div(:class="$style.scheduleCalendar")
       :translateX="translateX",
       @toggleActiveDate="toggleActiveDate")
 
-  div(:class="$style.content",
+  div(:class="classes.content",
   :style="contentStyle",
   ref="schedules",
   @scroll="onScroll")
@@ -31,7 +31,7 @@ div(:class="$style.scheduleCalendar")
       v-for="(scheduleItems, date, index) of activeItems",
       ref="date",
       :key="keyPrefix + date + index",
-      :class="$style.scheduleItems",
+      :class="classes.scheduleItems",
       :date="date",
       :last="index === Object.keys(activeItems).length - 1",
       :itemsHeight="itemsHeight",

@@ -1,16 +1,16 @@
-div(:class="$style.content", :style="{height: winHeight + 'px'}")
+div(:class="classes.content", :style="{height: winHeight + 'px'}")
   each val in [1,2]
-    div(:class="[$style.pic, $style.pic" + val + "]")
-  div(:class="$style.slogan")
-    div(:class="$style.sloganHeader")
-      input(:class="$style['slogan-title']", title="请输入标题", value="遇见瑜伽", readonly)
-      div(:class="$style.line")
-    .center-block(:class="$style['slogan-body']")
-      textarea(:class="$style['slogan-text']", title="请输入内容", readonly) 当心得到控制，平静下来时，剩下的便是灵魂
-  div(:class="$style.memberMenu")
+    div(:class="[classes.pic, classes.pic" + val + "]")
+  div(:class="classes.slogan")
+    div(:class="classes.sloganHeader")
+      input(:class="classes['slogan-title']", title="请输入标题", value="遇见瑜伽", readonly)
+      div(:class="classes.line")
+    .center-block(:class="classes['slogan-body']")
+      textarea(:class="classes['slogan-text']", title="请输入内容", readonly) 当心得到控制，平静下来时，剩下的便是灵魂
+  div(:class="classes.memberMenu")
     each val in [{pull:'left',link:'/member-subscribe',icon:'glyphicon-book',menu:'预订课程'},{pull:'right',link:'/member-center',icon:'glyphicon-user',menu:'个人中心'}]
-      div(:class="$style.outsideCircle", class="pull-" + val.pull + " animated", @animationend="animationEnd")
-        router-link(:class="$style.insideCircle", to=val.link, tag="div")
-          span(:class="$style.menuIcon", class="glyphicon " + val.icon)
-          span(:class="$style.menuText") #{val.menu}
-        div(:class="$style.insideCircleReplace")
+      div(:class="classes.outsideCircle", class="pull-" + val.pull + " animated", @animationend="animationEnd")
+        router-link(:class="classes.insideCircle", to=val.link, tag="div")
+          span(:class="classes.menuIcon", class="glyphicon " + val.icon)
+          span(:class="classes.menuText") #{val.menu}
+        div(:class="classes.insideCircleReplace")

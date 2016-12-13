@@ -1,0 +1,9 @@
+modal-item(header="标题", :footer="true", :confirm="confirm.bind(this)", :transition="transition")
+  template(slot="header") My Header
+  template
+    p {{ bodyMsg }}
+    | {{ msg }}
+    br
+    button.btn.btn-theme-primary(@click="reverseMsg") Reverse Msg
+  //template(slot="footer")
+  //button.btn.btn-theme-default(@click="close") Close

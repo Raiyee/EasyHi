@@ -1,4 +1,4 @@
-li.media(:class="$style.media")
+li.media(:class="classes.media")
   .media-left.media-middle
     .media-object.img-circle(v-lazy:background-image="$util.imgPath(coachItem.coachPortrait)", lazy="loading")
   .media-body.media-middle
@@ -18,17 +18,17 @@ li.media(:class="$style.media")
   .media-right.media-middle
     button.btn.btn-theme-default(@click="toggleActive")
       | {{ active ? "收起" : "选择时间" }}
-  div(v-if="hasItems", :class="$style.timeItems", :style="style")
+  div(v-if="hasItems", :class="classes.timeItems", :style="style")
     ol.list-unstyled
-      li(v-for="(times, key) of activeItems", v-if="times.length", :class="$style[key]")
+      li(v-for="(times, key) of activeItems", v-if="times.length", :class="classes[key]")
         span.iconfont(:class="`icon-${key}`")
         ol.list-unstyled.clearfix
           li(v-for="time of times")
-            div(:class="[$style.timeItem, {active: time === activeTime}]", @click="toggleTime(time)")
+            div(:class="[classes.timeItem, {active: time === activeTime}]", @click="toggleTime(time)")
               span {{time}}
               span.iconfont.icon-check(v-show="time === activeTime")
               span 开始
     .text-center
       button.btn.btn-theme-primary(@click="orderSchedule") 预订
-  div(v-else="", :class="$style.timeItems", :style="style")
-    div(:class="$style.noItem") 没有可以预订的时间
+  div(v-else="", :class="classes.timeItems", :style="style")
+    div(:class="classes.noItem") 没有可以预订的时间

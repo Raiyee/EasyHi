@@ -116,7 +116,7 @@ webpackConfig.module.rules = [
     exclude: nodeModules
   }, {
     test: /\.pug$/,
-    loader: `pug-html-loader?pretty=${__DEV__}`,
+    loader: `vue-template-es2015-loader!pug-html-loader?exports=false&pretty=${__DEV__}`,
     exclude: nodeModules
   }, {
     test: /\.vue$/,

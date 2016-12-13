@@ -1,0 +1,5 @@
+div
+  .text-center
+    button.btn(:class="classes.btn", @click="rebuild") {{ built ? "Clear" : "Rebuild" }} your own view
+  hr
+  dynamic(ref="component", :comps="comps", :emptyview="emptyView", @built="compBuilt")

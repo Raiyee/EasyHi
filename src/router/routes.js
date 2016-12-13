@@ -9,7 +9,8 @@ export default {
       path: '/login',
       name: 'login',
       component: () => System.import('views/Login')
-    }, {
+    },
+    {
       path: '/member-center',
       name: 'memberCenter',
       component: () => System.import('views/MemberCenter'),
@@ -20,7 +21,8 @@ export default {
           restore: false
         }
       }
-    }, {
+    },
+    {
       path: '/member-subscribe',
       name: 'memberSubscribe',
       component: () => System.import('views/MemberSubscribe'),
@@ -30,7 +32,8 @@ export default {
         },
         keepAlive: false
       }
-    }, {
+    },
+    {
       path: '/member-message',
       name: 'memberMessage',
       component: () => System.import('views/MemberCenter/MemberMessage'),
