@@ -1,3 +1,5 @@
+import classes from './index.styl'
+
 export default require('./index.pug')({
   name: 'hi-loading',
   props: {
@@ -12,7 +14,7 @@ export default require('./index.pug')({
   },
   data() {
     return {
-      classes: require('./index.styl')
+      classes
     }
   }
 })

@@ -1,4 +1,5 @@
 import ModalItem from 'components/HiModal/ModalItem'
+import classes from './prompt-modal.styl'
 
 export default require('./prompt-modal.pug')({
   name: 'prompt',
@@ -16,7 +17,7 @@ export default require('./prompt-modal.pug')({
   },
   data() {
     return {
-      classes: require('./prompt-modal.styl'),
+      classes,
       text: this.promptText
     }
   },

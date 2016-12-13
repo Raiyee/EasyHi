@@ -1,5 +1,7 @@
 import {mapGetters, mapActions} from 'vuex'
 
+import classes from './index.styl'
+
 const mobileRegExp = /^1[35789]\d{9}$/
 const codeRegExp = /[\d]{6}/
 
@@ -7,7 +9,7 @@ export default require('./index.pug')({
   name: 'login',
   data() {
     return {
-      classes: require('./index.styl'),
+      classes,
       limit: 0,
       loginMobile: null,
       verificationCode: null,

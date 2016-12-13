@@ -5,6 +5,8 @@ import CoachItem from './CoachItem'
 import ScheduleItems from './ScheduleItems'
 import NoItem from 'components/NoItem'
 
+import classes from './index.styl'
+
 const periodWidth = 7 * 50 + 5
 
 import {REQUIRED_ARRAY, animate, formatDate, lastDayOfWeek, weekDates, toNum} from 'utils'
@@ -42,7 +44,7 @@ export default require('./index.pug')({
   },
   data() {
     return {
-      classes: require('./index.styl'),
+      classes,
       activeCoachId: null,
       activeDate: this.date,
       translateX: 0,

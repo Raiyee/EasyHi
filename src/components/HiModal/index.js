@@ -1,6 +1,7 @@
 import Vue from 'vue'
 
 import {addClass, isPromise, pickObj, removeClass, on} from 'utils'
+import classes from './index.styl'
 
 export default require('./index.pug')({
   beforeCreate() {
@@ -12,7 +13,7 @@ export default require('./index.pug')({
   },
   data() {
     return {
-      classes: require('./index.styl'),
+      classes,
       currModal: null,
       modals: []
     }

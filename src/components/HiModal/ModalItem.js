@@ -1,4 +1,5 @@
 import {isEmptyStr, warn, error} from 'utils'
+import classes from './modal-item.styl'
 
 export default require('./modal-item.pug')({
   props: {
@@ -11,11 +12,7 @@ export default require('./modal-item.pug')({
     confirmText: String,
     cancelText: String
   },
-  data() {
-    return {
-      classes: require('./modal-item.styl')
-    }
-  },
+  data: () => ({classes}),
   computed: {
     label() {
       const header = this.header

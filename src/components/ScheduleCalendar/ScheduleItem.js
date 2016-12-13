@@ -1,3 +1,5 @@
+import classes from './schedule-item.styl'
+
 import {REQUIRED_NUMBER, REQUIRED_STRING} from 'utils'
 
 export default require('./schedule-item.pug')({
@@ -10,9 +12,7 @@ export default require('./schedule-item.pug')({
     scheduleName: REQUIRED_STRING,
     scheduleRemaining: REQUIRED_NUMBER
   },
-  data() {
-    return {classes: require('./schedule-item.styl')}
-  },
+  data: () => ({classes}),
   computed: {
     scheduleDuration() {
       return (this.scheduleEndTime - this.scheduleStartTime) / 1000 / 60

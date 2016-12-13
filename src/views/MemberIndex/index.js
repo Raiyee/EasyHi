@@ -1,12 +1,10 @@
 import {mapGetters} from 'vuex'
 
+import classes from './index.styl'
+
 export default require('./index.pug')({
   name: 'member-index',
-  data() {
-    return {
-      classes: require('./index.styl')
-    }
-  },
+  data: () => ({classes}),
   computed: {
     ...mapGetters(['winHeight'])
   },

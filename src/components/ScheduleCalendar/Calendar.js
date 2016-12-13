@@ -2,6 +2,8 @@ import {mapGetters} from 'vuex'
 
 import CalendarItem from './CalendarItem'
 
+import classes from './calendar.styl'
+
 const periodWidth = 7 * 50 + 5
 
 export default require('./calendar.pug')({
@@ -10,9 +12,7 @@ export default require('./calendar.pug')({
     activeIndex: Number,
     translateX: Number
   },
-  data() {
-    return {classes: require('./calendar.styl')}
-  },
+  data: () => ({classes}),
   computed: {
     ...mapGetters(['mode', 'rem', 'winWidth']),
     baseWidth() {

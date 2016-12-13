@@ -1,5 +1,7 @@
 import {mapGetters} from 'vuex'
 
+import classes from './coach-item.styl'
+
 import {REQUIRED_OBJECT} from 'utils'
 
 export default require('./coach-item.pug')({
@@ -9,7 +11,7 @@ export default require('./coach-item.pug')({
   },
   data() {
     return {
-      classes: require('./coach-item.styl'),
+      classes,
       checked: false,
       activeTime: null
     }

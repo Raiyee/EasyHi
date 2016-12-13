@@ -1,8 +1,10 @@
+import classes from './index.styl'
+
 export default require('./index.pug')({
   name: 'memberMessage',
   data() {
     return {
-      classes: require('./index.styl'),
+      classes,
       ...this.$route.meta.data
     }
   }

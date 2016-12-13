@@ -1,14 +1,16 @@
 import {mapGetters} from 'vuex'
 
-import {pickObj, omitObj} from 'utils'
-
 import ScheduleCalendar from 'components/ScheduleCalendar'
+
+import classes from './index.styl'
+
+import {pickObj, omitObj} from 'utils'
 
 export default require('./index.pug')({
   name: 'member-subscribe',
   data() {
     return {
-      classes: require('./index.styl'),
+      classes,
       date: null,
       courseTypeId: null,
       courseTypeIndex: 0,

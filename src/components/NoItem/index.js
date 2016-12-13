@@ -1,3 +1,5 @@
+import classes from './index.styl'
+
 export default require('./index.pug')({
   props: {
     text: String,
@@ -5,7 +7,7 @@ export default require('./index.pug')({
   },
   data() {
     return {
-      classes: require('./index.styl')
+      classes
     }
   }
 })
