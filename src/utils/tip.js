@@ -24,9 +24,7 @@ export const TIP_MODAL_ID = `__tip__${+new Date()}`;
       transition: true,
       ...isString(props) ? {
         tipText: props,
-        confirm() {
-          return closeModal(TIP_MODAL_ID)
-        }
+        confirm: () => closeModal(TIP_MODAL_ID)
       } : props,
       type
     }

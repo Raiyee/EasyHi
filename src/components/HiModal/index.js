@@ -52,8 +52,9 @@ export default require('./index.pug')({
       const m = this.modals.find(m => m.id === modal.id)
       m ? (modal = Object.assign(m, modal)) : this.modals.push(modal)
       const {show, preserve} = modal.options
-      if (preserve) return
-      this.currModalId === modal.id || this.close()
+      const currModalId = this.currModalId
+      if (currModalId && preserve) return
+      currModalId === modal.id || this.close()
       show && (this.currModal = modal)
     },
     open(modal: {id: void | string | number, component: Object, options: void | Object, props: void | Object}) {
