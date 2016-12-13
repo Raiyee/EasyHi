@@ -53,7 +53,7 @@ module.exports = function (content) {
   const isServer = this.options.target === 'node'
 
   const query = loaderUtils.parseQuery(this.query)
-  const vueOptions = this.options.__vueOptions__ = Object.assign({}, this.options.vue, this.vue, query)
+  const vueOptions = this.options.__vueOptions__ = this.options.__vueOptions__ || Object.assign({}, this.options.vue, this.vue, query)
 
   if (vueOptions.transformToRequire) {
     transformToRequire = Object.assign(
