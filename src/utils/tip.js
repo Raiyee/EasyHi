@@ -2,7 +2,7 @@ import Vue from 'vue'
 
 import {isString} from './base'
 
-export const closeModal = id => Vue.prototype.$modal.close(id);
+export const closeModal = id => Vue.prototype.$modal.close(id)
 
 export const TIP_MODAL_ID = `__tip__${+new Date()}`;
 
@@ -24,7 +24,7 @@ export const TIP_MODAL_ID = `__tip__${+new Date()}`;
       transition: true,
       ...isString(props) ? {
         tipText: props,
-        confirm(){
+        confirm() {
           return closeModal(TIP_MODAL_ID)
         }
       } : props,

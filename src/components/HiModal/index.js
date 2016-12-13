@@ -51,7 +51,7 @@ export default require('./index.pug')({
     mount(modal) {
       const m = this.modals.find(m => m.id === modal.id)
       m ? (modal = Object.assign(m, modal)) : this.modals.push(modal)
-      const {show, preserve}= modal.options
+      const {show, preserve} = modal.options
       this.currModalId !== modal.id && !preserve && this.close()
       show && !preserve && (this.currModal = modal)
     },
