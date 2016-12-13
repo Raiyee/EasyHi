@@ -1,4 +1,4 @@
-import {confirm, tip, toast, prompt} from 'utils'
+import {confirm, tip, toast, prompt, closeModal} from 'utils'
 
 let modalId
 
@@ -34,28 +34,23 @@ export default require('./index.pug')({
         confirmText: '蓝瘦,香菇',
         confirm() {
           console.log('It is after confirm btn')
-          this.$modal.close()
+          closeModal()
         },
         close() {
           console.log('It is after cancel modal')
-          this.$modal.close()
+          closeModal()
         }
       })
     },
     tipModal() {
-      tip({
-        tipText: 'I am  a confirm <span style="color: red">red</span> modal tip Text',
-        confirm() {
-          this.$modal.close()
-        }
-      })
+      tip('I am  a confirm <span style="color: red">red</span> modal tip Text')
     },
     toastModal() {
       toast({
         tipText: 'I am  a confirm modal tip Text',
         close() {
           console.log('It is a toast')
-          this.$modal.close()
+          closeModal()
         }
       })
     },
@@ -66,7 +61,7 @@ export default require('./index.pug')({
         placeholder: '在此填写原因(50字以内)，或者直接点击"确定"',
         confirm: promptText => {
           this.promptText = promptText
-          this.$modal.close()
+          closeModal()
         }
       })
     }

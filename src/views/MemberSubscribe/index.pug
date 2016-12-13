@@ -9,6 +9,5 @@ schedule-calendar(:calendar="calendar",
   ul.list-unstyled.clearfix.scroll-list(:class="classes.courseTypes", :style="typesStyle")
     li(v-for="(courseType, index) of courseTypes",
     :class="{first: !index, active: courseTypeId === courseType.courseTypeId}",
-    @click="toggleCourseType(courseType.courseTypeId)").
-      {{ courseType.courseTypeName }}
+    @click="toggleCourseType(courseType.courseTypeId)") {{ courseType.courseTypeName }}
     li.theme-bg.scroll-bg.active(:style="{transform}")
