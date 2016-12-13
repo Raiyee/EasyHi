@@ -20,7 +20,7 @@ import 'styles/app'
 
 const theme = ['blue', 'green', 'purple', 'red'][~~(Math.random() * 4)]
 
-System.import('styles/theme-' + theme)
+System.import(`styles/theme-${theme}`)
 
 const docEl = document.documentElement
 const resize = () => {

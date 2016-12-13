@@ -33,7 +33,10 @@ const webpackConfig = {
     net: 'empty'
   },
   devtool: config.compiler_devtool,
-  module: {}
+  module: {},
+  performance: {
+    hints: !__DEV__
+  }
 }
 
 // ------------------------------------

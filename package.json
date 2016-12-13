@@ -139,7 +139,7 @@
     "vue-style-loader": "^1.0.0",
     "vue-template-compiler": "^2.1.5",
     "vue-template-es2015-loader": "^2.0.0",
-    "webpack": "^2.1.0-beta.27",
+    "webpack": "^2.1.0-beta.28",
     "webpack-dev-server": "^2.1.0-beta.12",
     "yargs": "^6.5.0"
   }
