@@ -1,4 +1,4 @@
-import {confirm, tip, toast, prompt, closeModal} from 'utils'
+import {alert, confirm, toast, prompt, closeModal} from 'utils'
 
 let modalId
 
@@ -42,8 +42,8 @@ export default require('./index.pug')({
         }
       })
     },
-    tipModal() {
-      tip('I am  a confirm <span style="color: red">red</span> modal tip Text')
+    alertModal() {
+      alert('I am  an alert <span style="color: red">red</span> modal Text')
     },
     toastModal() {
       toast({

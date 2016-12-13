@@ -5,9 +5,9 @@ import {isString} from './base'
 export const closeModal = () => Vue.prototype.$modal.close();
 
 // do not change the order of array because the index is used to the type of PromptModal!
-['toast', 'tip', 'confirm', 'prompt'].forEach((value, type) => {
+['toast', 'alert', 'confirm', 'prompt'].forEach((value, type) => {
   module.exports[value] = props => Vue.prototype.$modal.open({
-    component: System.import('components/HiModal/PromptModal'),
+    component: System.import('components/HiModal/TipModal'),
     options: {
       backdrop: true,
       show: true,

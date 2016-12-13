@@ -1,8 +1,8 @@
 import ModalItem from 'components/HiModal/ModalItem'
 
-import classes from './prompt-modal.styl'
+import classes from './tip-modal.styl'
 
-export default require('./prompt-modal.pug')({
+export default require('./tip-modal.pug')({
   name: 'prompt',
   props: {
     tipText: String,
