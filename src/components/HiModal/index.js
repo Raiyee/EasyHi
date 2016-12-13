@@ -18,6 +18,11 @@ export default require('./index.pug')({
       modals: []
     }
   },
+  computed: {
+    currModalId() {
+      return this.currModal && this.currModal.id
+    }
+  },
   watch: {
     currModal: modal => (modal ? addClass : removeClass)(document.body, 'modal-open')
   },
@@ -26,8 +31,7 @@ export default require('./index.pug')({
       this.modals = []
     },
     close(modalId) {
-      const currModalId = this.currModal && this.currModal.id
-      modalId = modalId || currModalId
+      modalId = modalId || this.currModalId
       if (!modalId) return
       let modal
       const index = this.modals.findIndex(m => m.id === modalId)
@@ -37,22 +41,23 @@ export default require('./index.pug')({
       options.show = false
       if (!options.destroy) return
       props && props.transition ? on(this.$refs.modal[index].$el, 'animationend transitionend', () => {
-        this.closeModal(modalId)
-      }) : this.closeModal(modalId)
+        this.removeModal(modalId)
+      }) : this.removeModal(modalId)
     },
-    closeModal(modalId) {
-      modalId === this.currModal && (this.currModal = null)
+    removeModal(modalId) {
+      modalId === this.currModalId && (this.currModal = null)
       this.modals.splice(this.modals.findIndex(m => m.id === modalId), 1)
     },
     mount(modal) {
       const m = this.modals.find(m => m.id === modal.id)
       m ? (modal = Object.assign(m, modal)) : this.modals.push(modal)
-      this.currModal && this.currModal.id === modal.id || this.close()
-      modal.options.show && (this.currModal = modal)
+      const {show, preserve}= modal.options
+      this.currModalId !== modal.id && !preserve && this.close()
+      show && !preserve && (this.currModal = modal)
     },
     open(modal: {id: void | string | number, component: Object, options: void | Object, props: void | Object}) {
       modal.id = modal.id || 'modal_' + +new Date()
-      modal.options = pickObj(modal.options, ['backdrop', 'destroy', 'show'])
+      modal.options = pickObj(modal.options, ['backdrop', 'destroy', 'show', 'preserve'])
       isPromise(modal.component)
         ? modal.component.then(component => this.mount(Object.assign(modal, {component}))) : this.mount(modal)
       return modal.id

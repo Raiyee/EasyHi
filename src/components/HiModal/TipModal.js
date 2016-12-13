@@ -5,6 +5,7 @@ import classes from './tip-modal.styl'
 export default require('./tip-modal.pug')({
   name: 'prompt',
   props: {
+    id: String,
     tipText: String,
     confirm: Function,
     close: Function,
@@ -29,7 +30,7 @@ export default require('./tip-modal.pug')({
   },
   methods: {
     closeModal() {
-      this.close ? this.close.apply(this, arguments) : this.$modal.close()
+      this.close ? this.close.apply(this, arguments) : this.$modal.close(this.id)
     },
     confirmModal() {
       this.confirm ? this.confirm.apply(this, this.type === 3 ? [this.text, ...arguments] : arguments)
