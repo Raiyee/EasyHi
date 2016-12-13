@@ -5,16 +5,18 @@ const transpile = require('vue-template-es2015-compiler')
 const genId = require('./gen-id')
 
 // vue compiler module for using transforming `<tag>:<attribute>` to `require`
-var defaultTransformToRequire = {
+const defaultTransformToRequire = {
   img: 'src'
 }
-var transformToRequire = defaultTransformToRequire
-var defaultCompileOptions = {
+
+let transformToRequire = defaultTransformToRequire
+
+const defaultCompileOptions = {
   modules: [{
     postTransformNode(el) {
-      for (var tag in transformToRequire) {
+      for (const tag in transformToRequire) {
         if (el.tag === tag && el.attrs) {
-          var attributes = transformToRequire[tag]
+          const attributes = transformToRequire[tag]
           if (typeof attributes === 'string') {
             el.attrs.some(attr => rewrite(attr, attributes))
           } else if (Array.isArray(attributes)) {
@@ -28,12 +30,12 @@ var defaultCompileOptions = {
 
 function rewrite(attr, name) {
   if (attr.name === name) {
-    var value = attr.value
-    var isStatic = value.charAt(0) === '"' && value.charAt(value.length - 1) === '"'
+    let value = attr.value
+    const isStatic = value.charAt(0) === '"' && value.charAt(value.length - 1) === '"'
     if (!isStatic) {
       return
     }
-    var firstChar = value.charAt(1)
+    const firstChar = value.charAt(1)
     if (firstChar === '.' || firstChar === '~') {
       if (firstChar === '~') {
         value = '"' + value.slice(2)
@@ -79,8 +81,7 @@ module.exports = function (content) {
 
   // mark with stripped (this enables Vue to use correct runtime proxy detection)
   if (!isProduction && (
-      !bubleOptions ||
-      !bubleOptions.transforms ||
+      !bubleOptions || !bubleOptions.transforms ||
       bubleOptions.transforms.stripWith !== false
     )) {
     output += `\nrender._withStripped = true`
