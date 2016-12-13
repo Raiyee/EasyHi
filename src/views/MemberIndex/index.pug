@@ -8,9 +8,9 @@ div(:class="classes.content", :style="{height: winHeight + 'px'}")
     .center-block(:class="classes['slogan-body']")
       textarea(:class="classes['slogan-text']", title="请输入内容", readonly) 当心得到控制，平静下来时，剩下的便是灵魂
   div(:class="classes.memberMenu")
-    each val in [{pull:'left',link:'/member-subscribe',icon:'glyphicon-book',menu:'预订课程'},{pull:'right',link:'/member-center',icon:'glyphicon-user',menu:'个人中心'}]
+    each val in [{pull:'left',link:'/member-subscribe',icon:'icon-book',menu:'预订课程'},{pull:'right',link:'/member-center',icon:'icon-person',menu:'个人中心'}]
       div(:class="classes.outsideCircle", class="pull-" + val.pull + " animated", @animationend="animationEnd")
         router-link(:class="classes.insideCircle", to=val.link, tag="div")
-          span(:class="classes.menuIcon", class="glyphicon " + val.icon)
+          span(:class="classes.menuIcon", class="iconfont " + val.icon)
           span(:class="classes.menuText") #{val.menu}
         div(:class="classes.insideCircleReplace")
