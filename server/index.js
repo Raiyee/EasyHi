@@ -4,7 +4,7 @@ import serve from 'koa-static'
 import _debug from 'debug'
 import config from '../build/config'
 import error from './error'
-import dev from './dev'
+import dev from './dev-tools'
 
 const debug = _debug('koa:server')
 
