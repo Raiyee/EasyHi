@@ -8,9 +8,9 @@ export default require('./index.pug')({
   computed: {
     ...mapGetters(['winHeight'])
   },
-  methods: {
-    animationEnd(e) {
-      this.$util.removeClass(e.target, 'animated')
-    }
+  mounted() {
+    this.$util.ensure(Object.values(this.$refs), 'animationend', (e, el) => {
+      this.$util.removeClass(e ? e.target : el, 'animated')
+    }, 1600)
   }
 })

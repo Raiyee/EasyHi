@@ -1,6 +1,6 @@
 import Vue from 'vue'
 
-import {addClass, isPromise, pickObj, removeClass, on, TIP_ID} from 'utils'
+import {addClass, isPromise, pickObj, removeClass, ensure, TIP_ID} from 'utils'
 import classes from './index.styl'
 
 export default require('./index.pug')({
@@ -40,15 +40,9 @@ export default require('./index.pug')({
       const {options, props} = modal
       options.show = false
       if (!options.destroy) return
-      if (!props || !props.transition) return this.removeModal(modalId)
-      let end
-      on(this.$refs.modal[index].$el, 'animationend transitionend', () => {
-        end = true
+      props && props.transition ? ensure(this.$refs.modal[index].$el, 'animationend transitionend', () => {
         this.removeModal(modalId)
-      })
-      setTimeout(() => {
-        if (!end) this.removeModal(modalId)
-      }, 500)
+      }) : this.removeModal(modalId)
     },
     removeModal(modalId) {
       modalId === this.currModalId && (this.currModal = null)
