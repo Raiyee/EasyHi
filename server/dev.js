@@ -18,7 +18,4 @@ export default app => {
       stats: compiler.compiler_stats
     }
   }))
-
-  if (compiler.server_mock) { // eslint-disable-line camelcase
-  }
 }

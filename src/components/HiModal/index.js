@@ -1,6 +1,6 @@
 import Vue from 'vue'
 
-import {addClass, isPromise, pickObj, removeClass, on} from 'utils'
+import {addClass, isPromise, pickObj, removeClass, on, TIP_ID} from 'utils'
 import classes from './index.styl'
 
 export default require('./index.pug')({
@@ -40,7 +40,7 @@ export default require('./index.pug')({
       const {options, props} = modal
       options.show = false
       if (!options.destroy) return
-      props && props.transition ? on(this.$refs.modal[index].$el, 'animationend transitionend', () => {
+      props && props.transition ? on(this.$refs.modal[index].$el, 'webkitAnimationEnd webkitTransitionEnd animationend transitionend', () => {
         this.removeModal(modalId)
       }) : this.removeModal(modalId)
     },
@@ -49,20 +49,20 @@ export default require('./index.pug')({
       this.modals.splice(this.modals.findIndex(m => m.id === modalId), 1)
     },
     mount(modal) {
-      const m = this.modals.find(m => m.id === modal.id)
+      const modalId = modal.id
+      const m = this.modals.find(m => m.id === modalId)
       m ? (modal = Object.assign(m, modal)) : this.modals.push(modal)
-      const {show, preserve} = modal.options
       const currModalId = this.currModalId
-      if (currModalId && preserve) return
-      currModalId === modal.id || this.close()
-      show && (this.currModal = modal)
+      if (currModalId && modalId === TIP_ID) return
+      currModalId === modalId || this.close()
+      modal.options.show && (this.currModal = modal)
     },
     open(modal: {id: void | string | number | Symbol,
       component: Object,
       options: void | Object,
       props: void | Object}) {
       modal.id = modal.id || 'modal_' + +new Date()
-      modal.options = pickObj(modal.options, ['backdrop', 'destroy', 'show', 'preserve'])
+      modal.options = pickObj(modal.options, ['backdrop', 'destroy', 'show'])
       isPromise(modal.component)
         ? modal.component.then(component => this.mount(Object.assign(modal, {component}))) : this.mount(modal)
       return modal.id

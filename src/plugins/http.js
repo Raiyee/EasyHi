@@ -2,6 +2,7 @@ import Vue from 'vue'
 import HTTP, {interceptors} from 'http'
 
 import store from 'store'
+import {alert} from 'utils'
 
 Vue.prototype.$http = HTTP
 

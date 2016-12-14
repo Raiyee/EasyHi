@@ -6,7 +6,7 @@ Vue.use(VueRouter)
 
 import store from 'store'
 import routes from './routes'
-import utils, {isFunction} from 'utils'
+import utils, {alert, isFunction} from 'utils'
 
 const router = new VueRouter(routes)
 
