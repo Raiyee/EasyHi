@@ -57,7 +57,7 @@ export default require('./index.pug')({
       currModalId === modal.id || this.close()
       show && (this.currModal = modal)
     },
-    open(modal: {id: void | string | number, component: Object, options: void | Object, props: void | Object}) {
+    open(modal: {id: void | string | number | Symbol, component: Object, options: void | Object, props: void | Object}) {
       modal.id = modal.id || 'modal_' + +new Date()
       modal.options = pickObj(modal.options, ['backdrop', 'destroy', 'show', 'preserve'])
       isPromise(modal.component)

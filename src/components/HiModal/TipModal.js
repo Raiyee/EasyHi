@@ -29,7 +29,7 @@ export default require('./tip-modal.pug')({
   },
   methods: {
     closeModal() {
-      this.close ? this.close.apply(this, arguments) : this.$modal.close(this.$util.TIP_MODAL_ID)
+      this.close ? this.close.apply(this, arguments) : this.$modal.close(this.$util.TIP_ID)
     },
     confirmModal() {
       this.confirm ? this.confirm.apply(this, this.type === 3 ? [this.text, ...arguments] : arguments)

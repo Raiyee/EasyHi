@@ -4,12 +4,12 @@ import {isString} from './base'
 
 export const closeModal = id => Vue.prototype.$modal.close(id)
 
-export const TIP_MODAL_ID = `__tip__${+new Date()}`;
+export const TIP_ID = Symbol('tip');
 
 // do not change the order of array because the index is used to the type of PromptModal!
 ['toast', 'alert', 'confirm', 'prompt'].forEach((value, type) => {
   module.exports[value] = props => Vue.prototype.$modal.open({
-    id: TIP_MODAL_ID,
+    id: TIP_ID,
     component: System.import('components/HiModal/TipModal'),
     options: {
       backdrop: true,
@@ -24,7 +24,7 @@ export const TIP_MODAL_ID = `__tip__${+new Date()}`;
       transition: true,
       ...isString(props) ? {
         tipText: props,
-        confirm: () => closeModal(TIP_MODAL_ID)
+        confirm: () => closeModal(TIP_ID)
       } : props,
       type
     }
