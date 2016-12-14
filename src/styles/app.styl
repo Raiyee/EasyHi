@@ -16,6 +16,7 @@ input
   &::-webkit-inner-spin-button,
   &::-webkit-outer-spin-button
     appearance none
+
 // @stylint on
 
 .btn
@@ -86,3 +87,82 @@ input
   .panel-heading, .panel-body, .panel-footer
     padding-left 0
     padding-right 0
+
+// 1px fallback
+.border
+  border 1px solid BORDER_COLOR
+
+.border-t
+  border-top 1px solid BORDER_COLOR
+
+.border-b
+  border-bottom 1px solid BORDER_COLOR
+
+.border-tb
+  border-top BORDER_COLOR 1px solid
+  border-bottom BORDER_COLOR 1px solid
+  background-image none
+
+.border-l
+  border-left 1px solid BORDER_COLOR
+
+.border-r
+  border-right 1px solid BORDER_COLOR
+
+.border-radius
+  borderRadius()
+
+@media (-webkit-min-device-pixel-ratio 2)
+  .border
+    position relative
+    border 0
+
+  .border-t, .border-b, .border-l, .border-r, .border-tb
+    border 0
+
+  .border-t
+    background-position left top
+    background-image BORDER_T
+
+  .border-b
+    background-position left bottom
+    background-image BORDER_B
+
+  .border-t,
+  .border-b,
+  .border-tb
+    background-repeat repeat-x
+    background-size 100% 1px
+
+  .border-tb
+    background-image BORDER_T, BORDER_B
+    background-position top, bottom
+
+  .border-l
+    background-position left top
+    background-image BORDER_L
+
+  .border-r
+    background-position right top
+    background-image BORDER_R
+
+  .border-l,
+  .border-r
+    background-repeat repeat-y
+    background-size 1px 100%
+
+  .border:after
+    content ""
+    width 100%
+    height 100%
+    position absolute
+    top 0
+    left 0
+    background-image BORDER_T, BORDER_R, BORDER_B, BORDER_L
+    background-size 100% 1px, 1px 100%, 100% 1px, 1px 100%
+    background-repeat no-repeat
+    background-position top, right, bottom, left
+    padding 1px
+    box-sizing border-box
+    z-index Z_INDEX_BORDER
+    pointer-events none

@@ -141,6 +141,20 @@ EVENING_COLOR = #206dc1
  */
 BOTTOM_SHADOW = 0 1px 1px rgba(0, 0, 0, .05)
 
+/**
+ * 1px fallback
+ */
+BORDER_COLOR = #e0e0e0
+BORDER_T = -webkit-gradient(linear, left bottom, left top, color-stop(.5, rgba(0, 0, 0, 0)), color-stop(.5, BORDER_COLOR))
+BORDER_B = -webkit-gradient(linear, left top, left bottom, color-stop(.5, rgba(0, 0, 0, 0)), color-stop(.5, BORDER_COLOR))
+BORDER_L = -webkit-gradient(linear, right top, left top, color-stop(.5, rgba(0, 0, 0, 0)), color-stop(.5, BORDER_COLOR))
+BORDER_R = -webkit-gradient(linear, left top, right top, color-stop(.5, rgba(0, 0, 0, 0)), color-stop(.5, BORDER_COLOR))
+
+BORDER_RADIUS_BASE = 4px
+BORDER_RADIUS_LG = 8px
+
+Z_INDEX_BORDER = 10
+
 /* 杜若蓝 */
 THEME_BLUE = #4b89dc
 THEME_BLUE_DARKER = #3c6eb0

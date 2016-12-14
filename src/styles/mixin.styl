@@ -10,6 +10,7 @@ bbActive()
   &.active, &:active
     &, &:hover, &.focus, &:focus
       bbColor arguments
+
 // @stylint on
 
 clearUnit(val)
@@ -22,6 +23,31 @@ middleCenter(position = absolute)
   transform translate3d(-50%, -50%, 0)
 
 scaleSize(size = SMALL_SIZE, baseSize = null, transform = null, origin = null)
-  if (baseSize) { font-size unit(baseSize, 'px') }
+  if (baseSize)
+    font-size unit(baseSize, 'px')
   transform transform scale(clearUnit(size / (baseSize || COMMON_SIZE)))
-  if (origin) { transform-origin origin }
+  if (origin)
+    transform-origin origin
+
+// 1px fallback
+borderRadius(borderColor = BORDER_COLOR, borderRadius = BORDER_RADIUS_BASE, borderBeforeRadius = BORDER_RADIUS_LG)
+  border 1px solid borderColor
+  border-radius borderRadius
+
+  @media (-webkit-min-device-pixel-ratio 2)
+    position relative
+    border 0
+    &:before
+      content ""
+      width 200%
+      height 200%
+      position absolute
+      top 0
+      left 0
+      border 1px solid borderColor
+      transform scale(.5)
+      transform-origin 0 0
+      padding 1px
+      box-sizing border-box
+      border-radius borderBeforeRadius
+      pointer-events none
