@@ -40,9 +40,15 @@ export default require('./index.pug')({
       const {options, props} = modal
       options.show = false
       if (!options.destroy) return
-      props && props.transition ? on(this.$refs.modal[index].$el, 'webkitAnimationEnd webkitTransitionEnd animationend transitionend', () => {
+      if (!props || !props.transition) return this.removeModal(modalId)
+      let end
+      on(this.$refs.modal[index].$el, 'animationend transitionend', () => {
+        end = true
         this.removeModal(modalId)
-      }) : this.removeModal(modalId)
+      })
+      setTimeout(() => {
+        if (!end) this.removeModal(modalId)
+      }, 500)
     },
     removeModal(modalId) {
       modalId === this.currModalId && (this.currModal = null)
