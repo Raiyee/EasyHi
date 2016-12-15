@@ -11,7 +11,7 @@ export default require('./index.pug')({
     }
   },
   methods: {
-    changeTab: function(item, index, e) {
+    changeTab: function (item, index, e) {
       console.log(item, index)
       this.tabName = isString(item) ? item : item.tabName
     }

@@ -33,14 +33,14 @@ export default require('./tab.pug')({
     },
     liWidth() {
       let len = this.tabArray.length
-      return len == 1 ? '100%' : len == 2 ? '50%' : 100 / len + '%'
+      return len === 1 ? '100%' : len === 2 ? '50%' : 100 / len + '%'
     },
     tabIndex() {
       return this.itemIndex >= 0 ? this.itemIndex : this.index ? this.index : 0
     }
   },
   methods: {
-    clickItem: function(item, index, e) {
+    clickItem: function (item, index, e) {
       this.itemIndex = index
       this.$emit('changeTab', item, index, e)
     }
