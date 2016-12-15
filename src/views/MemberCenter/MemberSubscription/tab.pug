@@ -1,0 +1,6 @@
+div(:class="classes.container")
+  div(:class="classes.ulContainer", :style="{float: float || 'left', width: width || '100%'}")
+    ul.theme-color(:style="{width: ulWidth}")
+      li(v-for="(tab, index) in tabArray", :class="index === tabIndex ? classes.active : ''", :style="{width: liWidth}", @click="clickItem(tab, index, $event)")
+        span
+          | {{ tab | tabNameFilter }}

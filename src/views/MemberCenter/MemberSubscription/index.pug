@@ -1,0 +1,10 @@
+div
+  tab(
+  :tabArray="tabArray",
+  :width="'100%'",
+  :float="'left'",
+  :pageNum="4",
+  @changeTab="changeTab")
+
+  div
+    | {{ tabName || 'undefined' }}
