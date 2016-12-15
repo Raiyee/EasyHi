@@ -16,27 +16,24 @@ HTTP.get = (url, params, config) => HTTP({
 
 const setProgress = (config, progress) => config.noInterceptor || store.dispatch('setProgress', progress)
 
-const intercept = response => Object.keys(handler).includes(+response.status)
+interceptors.request.use(config => setProgress(config, 50) && config)
 
-const handler = {
+const HANDLER = {
   404() {
     alert('未找到匹配的 url 请求!')
   }
 }
 
-interceptors.request.use(config => setProgress(config, 50) && config)
-
 interceptors.response.use(response => setProgress(response.config, 100) && response, error => {
   const {response} = error
-  const {config} = response
+  const {config, status} = response
   setProgress(config, 0)
-  !config.noInterceptor && intercept(response) && handler[response.status]()
-  return Promise.reject(response)
+  config.noInterceptor || HANDLER[status] && HANDLER[status]()
+  return Promise.reject(error)
 })
 
 // only chrome supports this event for now
 on(window, 'unhandledrejection', e => {
-  const {reason} = e
-  if (!reason) return warn(e)
-  intercept(reason) && e.preventDefault()
+  e.preventDefault()
+  e.reason && HANDLER[e.reason.status] || warn(e)
 })
