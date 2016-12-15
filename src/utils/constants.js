@@ -13,3 +13,5 @@ export const isoWeekdays = [...rest, first];
 })
 
 export const EMPTY_FUNC = () => {}
+
+export const TIP_ID = Symbol('tip')

@@ -1,10 +1,7 @@
 import Vue from 'vue'
 
 import {isString} from './base'
-
-export const closeModal = id => Vue.prototype.$modal.close(id)
-
-export const TIP_ID = Symbol('tip');
+import {TIP_ID} from './constants'
 
 // do not change the order of array because the index is used to the type of PromptModal!
 ['toast', 'alert', 'confirm', 'prompt'].forEach((value, type) => {
@@ -14,8 +11,7 @@ export const TIP_ID = Symbol('tip');
     options: {
       backdrop: true,
       show: true,
-      destroy: true,
-      preserve: true
+      destroy: true
     },
     props: {
       cancelText: '取消',
@@ -24,7 +20,7 @@ export const TIP_ID = Symbol('tip');
       transition: true,
       ...isString(props) ? {
         tipText: props,
-        confirm: () => closeModal(TIP_ID)
+        confirm: () => Vue.prototype.$modal.close(TIP_ID)
       } : props,
       type
     }

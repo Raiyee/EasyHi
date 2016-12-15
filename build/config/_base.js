@@ -26,7 +26,6 @@ const config = {
   // ----------------------------------
   server_host: 'local.1stg.me',
   server_port: process.env.PORT || 3000,
-  server_mock: !!argv.mock,
 
   // ----------------------------------
   // Compiler Configuration

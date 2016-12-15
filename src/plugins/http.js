@@ -2,13 +2,14 @@ import Vue from 'vue'
 import HTTP, {interceptors} from 'http'
 
 import store from 'store'
+import {alert} from 'utils'
 
 Vue.prototype.$http = HTTP
 
 // the `get` method is different from `post` by default, we alias it as a same-signature method here!
-HTTP.get = (url, data, config) => HTTP({
+HTTP.get = (url, params, config) => HTTP({
   method: 'get',
-  data,
+  params,
   url,
   ...config
 })
