@@ -71,7 +71,7 @@ export default require('./index.pug')({
       if (mobileError || codeError) return
       this.$http.post('/verifyCode', {verificationCode, mobile}).then(({data}) => {
         const {error} = data
-        if (error) return alert(error)
+        if (error) return this.$util.alert(error)
         this.setEnv({mobile, authorized: true})
         this.resetRole(data)
         this.$router.replace(this.$route.query.from || '/')
