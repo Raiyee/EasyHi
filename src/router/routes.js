@@ -49,7 +49,7 @@ export default {
       name: 'memberSubscription',
       component: () => System.import('views/MemberCenter/MemberSubscription'),
       meta: {
-        auth: true,
+        auth: false,
         init: {
           url: '/member-subscriptions'
         }

@@ -1,9 +1,10 @@
-div(:class="classes.container")
-  div(:class="classes.ulContainer", :style="{float: direction || 'left', width: width || '100%'}")
-    ul(class="theme-color", :style="{width: ulWidth}")
-      li.theme-bd(v-for="tag in tagArray", :style="{width: liWidth}", @click="clickItem(tag)")
-        span
-          | {{ tag.tagName }}
+div
+  tab(
+  :tabArray="tabArray",
+  :width="'100%'",
+  :float="'left'",
+  :pageNum="4",
+  @changeTab="changeTab")
 
-  div(@click="testClick")
-    | 按钮
+  div
+    | {{ tabName || 'undefined' }}

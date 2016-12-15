@@ -2,7 +2,6 @@
 .container
   .ul-container
     overflow-x scroll
-    float left
 
     ul
       padding 0
@@ -11,7 +10,8 @@
         float left
         list-style none
         text-align center
-        border-bottom 1px solid
+        transition all 5s ease
+        border-bottom 0
 
         span
           display block
@@ -20,3 +20,5 @@
           text-overflow ellipsis
           padding 10px 10px
 
+      .active
+        border-bottom 1px solid
