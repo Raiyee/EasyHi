@@ -146,14 +146,10 @@ export default (Vue, Options = {}) => {
     Init.hasbind && !Listeners.length && onListen(window, false)
   }
 
-  const checkElExist = el => {
-    if (!Listeners.some(item => item.el === el)) return
-    return Vue.nextTick(lazyLoadHandler)
-  }
+  const checkElExist = (el, src) =>
+  Listeners.some(item => item.el === el && item.src === src) && Vue.nextTick(lazyLoadHandler)
 
   const addListener = (el, {arg, value, modifiers}, {context: {$refs}}) => {
-    if (el.getAttribute('lazy') === 'loaded' || checkElExist(el)) return
-
     let parentEl
     let imageSrc = value
     let imageLoading = Init.loading
@@ -166,6 +162,8 @@ export default (Vue, Options = {}) => {
       imageError = value.error || Init.error
       containerRef = value.containerRef
     }
+
+    if (el.getAttribute('lazy') === 'loaded' && checkElExist(el, imageSrc)) return
 
     if (imageCache.indexOf(imageSrc) > -1) return setElRender(el, arg, imageSrc, 'loaded')
 

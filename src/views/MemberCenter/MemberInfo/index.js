@@ -19,7 +19,7 @@ export default require('./index.pug')({
       const file = e.target.files[0]
 
       if (!/image\/\w+/.test(file.type)) {
-        alert(null, '请确保文件为图像类型')
+        alert('请确保文件为图像类型')
         return
       }
 
