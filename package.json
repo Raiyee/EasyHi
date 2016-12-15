@@ -134,6 +134,7 @@
     "vconsole": "^2.5.1",
     "vue-hot-reload-api": "^2.0.6",
     "vue-html-loader": "^1.2.3",
+    "vue-lazyload": "^1.0.0-rc4",
     "vue-loader": "^10.0.2",
     "vue-promise-loader": "^10.0.2",
     "vue-style-loader": "^1.0.0",

@@ -1,4 +1,4 @@
 import Vue from 'vue'
-import VLazy from 'v-lazy'
+import VueLazyload from 'vue-lazyload'
 
-Vue.use(VLazy)
+Vue.use(VueLazyload)
