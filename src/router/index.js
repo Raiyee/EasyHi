@@ -63,7 +63,7 @@ router.beforeEach((to, from, next) => {
   store.dispatch('setProgress', 70)
 
   HTTP({
-    method: init.type || 'get',
+    method: init.type || 'post',
     url: init.url,
     data: {
       ...to.params,
