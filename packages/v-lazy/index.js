@@ -146,42 +146,40 @@ export default (Vue, Options = {}) => {
     Init.hasbind && !Listeners.length && onListen(window, false)
   }
 
-  const checkElExist = (el, src) =>
-  Listeners.some(item => item.el === el && item.src === src) && Vue.nextTick(lazyLoadHandler)
+  const getExistListener = el => Listeners.find(item => item.el === el)
 
   const addListener = (el, {arg, value, modifiers}, {context: {$refs}}) => {
-    let parentEl
     let imageSrc = value
     let imageLoading = Init.loading
     let imageError = Init.error
-    let containerRef
 
     if (value && !isString(value)) {
       imageSrc = value.src
       imageLoading = value.loading || Init.loading
       imageError = value.error || Init.error
-      containerRef = value.containerRef
     }
 
-    if (el.getAttribute('lazy') === 'loaded' && checkElExist(el, imageSrc)) return
+    const existListener = getExistListener(el) || {}
+    const loaded = el.getAttribute('lazy') === 'loaded'
+
+    if (existListener.src === imageSrc) return loaded || Vue.nextTick(lazyLoadHandler)
 
     if (imageCache.indexOf(imageSrc) > -1) return setElRender(el, arg, imageSrc, 'loaded')
 
     Vue.nextTick(() => {
-      let parent
-      parentEl = containerRef && (parent = $refs[containerRef]) ? parent.$el || parent
-        : window.document.getElementById(Object.keys(modifiers)[0])
+      const parent = $refs[Object.keys(modifiers)[0]]
+      const parentEl = parent && parent.$el || parent
 
-      let listener = {
+      const listener = {
         bindType: arg,
         attempt: 0,
-        parentEl: parentEl,
-        el: el,
+        parentEl,
+        el,
         error: imageError,
         src: imageSrc
       }
 
-      Listeners.push(listener)
+      existListener.src ? Object.assign(existListener, listener) : Listeners.push(listener)
 
       setElRender(el, arg, imageLoading, 'loading', listener)
 
