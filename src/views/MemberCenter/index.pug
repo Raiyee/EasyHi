@@ -1,8 +1,8 @@
 div(:class="classes.container")
   .media.theme-bg
-    .media-left.media-middle
+    router-link.media-left.media-middle(to="/member-information", tag="div")
       .media-object.img-circle(v-lazy:background-image="$util.imgPath(memberPortrait)")
-    .media-body.media-middle
+    router-link.media-body.media-middle(to="/member-information", tag="div")
       .media-heading {{ memberName }}
       .media-body {{ mobile }}
     router-link.media-right(to="/member-message", tag="div")

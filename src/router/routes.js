@@ -34,6 +34,16 @@ export default {
       }
     },
     {
+      path: '/member-information',
+      name: 'memberInfo',
+      component: () => System.import('views/MemberCenter/MemberInfo'),
+      meta: {
+        auth: true,
+        init: {
+          url: '/get-member-information'
+        }
+      }
+    }, {
       path: '/member-message',
       name: 'memberMessage',
       component: () => System.import('views/MemberCenter/MemberMessage'),
