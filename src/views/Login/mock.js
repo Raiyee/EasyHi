@@ -27,7 +27,7 @@ const minusTimeLint = (verification) => {
   return intervalId
 }
 
-Mock.mock(/\/getVerificationCode/, ({body}) => {
+Mock.mock(/\/getVerificationCode$/, ({body}) => {
   const mobile = JSON.parse(body).mobile
   let verification = verificationCache[mobile]
   let timeLimit

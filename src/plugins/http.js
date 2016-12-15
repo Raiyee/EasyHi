@@ -2,7 +2,7 @@ import Vue from 'vue'
 import HTTP, {interceptors} from 'http'
 
 import store from 'store'
-import {alert} from 'utils'
+import {alert, on, warn} from 'utils'
 
 Vue.prototype.$http = HTTP
 
@@ -18,12 +18,22 @@ const setProgress = (config, progress) => config.noInterceptor || store.dispatch
 
 interceptors.request.use(config => setProgress(config, 50) && config)
 
-interceptors.response.use(response => setProgress(response.config, 100) && response, ({response}) => {
-  const {config} = response
-  setProgress(config, 0)
-  if (response.status === 404 && !config.noInterceptor) {
+const HANDLER = {
+  404() {
     alert('未找到匹配的 url 请求!')
-    return false
   }
-  return Promise.reject(response)
+}
+
+interceptors.response.use(response => setProgress(response.config, 100) && response, error => {
+  const {response} = error
+  const {config, status} = response
+  setProgress(config, 0)
+  config.noInterceptor || HANDLER[status] && HANDLER[status]()
+  return Promise.reject(error)
+})
+
+// only chrome supports this event for now
+on(window, 'unhandledrejection', e => {
+  e.preventDefault()
+  e.reason && HANDLER[e.reason.status] || warn(e)
 })

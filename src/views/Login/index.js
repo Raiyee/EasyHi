@@ -55,7 +55,7 @@ export default require('./index.pug')({
 
       if (!mobileRegExp.test(mobile)) return (this.mobileError = true)
 
-      this.$http.get('/getVerificationCode', {mobile}).then(({data}) => {
+      this.$http.post('/getVerificationCode', {mobile}).then(({data}) => {
         this.limit = data
         const intervalId = setInterval(() => {
           --this.limit || clearInterval(intervalId)
@@ -69,9 +69,9 @@ export default require('./index.pug')({
       const verificationCode = this.verificationCode
       const codeError = this.codeError = !codeRegExp.test(verificationCode)
       if (mobileError || codeError) return
-      this.$http.get('/verifyCode', {verificationCode, mobile}).then(({data}) => {
+      this.$http.post('/verifyCode', {verificationCode, mobile}).then(({data}) => {
         const {error} = data
-        if (error) return alert(error)
+        if (error) return this.$util.alert(error)
         this.setEnv({mobile, authorized: true})
         this.resetRole(data)
         this.$router.replace(this.$route.query.from || '/')
