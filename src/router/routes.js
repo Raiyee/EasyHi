@@ -43,7 +43,19 @@ export default {
           url: '/membermessage'
         }
       }
-    }, {
+    },
+    {
+      path: '/member-subscription',
+      name: 'memberSubscription',
+      component: () => System.import('views/MemberCenter/MemberSubscription'),
+      meta: {
+        auth: true,
+        init: {
+          url: '/member-subscriptions'
+        }
+      }
+    },
+    {
       path: '/dynamic',
       name: 'dynamic',
       component: () => System.import('views/_Dynamic'),
