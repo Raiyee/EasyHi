@@ -13,7 +13,4 @@ Mock.mock(/\/get-member-information$/, {
   memberAddress: Random.county(true)
 })
 
-Mock.mock(/\/saveMemberDetail$/, {
-  code: '200',
-  msg: '保存成功!'
-})
+Mock.mock(/\/saveMemberDetail$/, '保存成功!')
