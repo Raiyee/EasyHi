@@ -3,10 +3,10 @@ div(:class="classes.content", :style="{height: winHeight + 'px'}")
     div(:class="[classes.pic, classes.pic" + val + "]")
   div(:class="classes.slogan")
     div(:class="classes.sloganHeader")
-      input(:class="classes['slogan-title']", title="请输入标题", value="遇见瑜伽", readonly)
+      input(title="请输入标题", value="遇见瑜伽", readonly)
       div(:class="classes.line")
     .center-block(:class="classes['slogan-body']")
-      textarea(:class="classes['slogan-text']", title="请输入内容", readonly) 当心得到控制，平静下来时，剩下的便是灵魂
+      textarea(title="请输入内容", readonly) 当心得到控制，平静下来时，剩下的便是灵魂
   div(:class="classes.memberMenu")
     each val, index in [{pull:'left',link:'/member-subscribe',icon:'icon-book',menu:'预订课程'},{pull:'right',link:'/member-center',icon:'icon-person',menu:'个人中心'}]
       div(:class="classes.outsideCircle", class="pull-" + val.pull + " animated", ref="circle" + index)

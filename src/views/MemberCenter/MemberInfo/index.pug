@@ -5,7 +5,7 @@ div(:class="classes.container")
         li(:class="classes.firstChild")
           .font-black(:class="classes.portraitTitle") 头像
           span.iconfont.icon-arrow-right(:class="classes.iconRight")
-          input.dom-hide(type="file", @change="previewFile", ref="file")
+          input.hidden(type="file", @change="previewFile", ref="file")
           div(@click="changePortrait", :class="[classes.itemRight, classes.memberPortrait]", v-lazy:background-image="$util.imgPath(memberPortrait)")
         li.border-t
           .font-black(:class="classes.itemLeft") 用户名

@@ -1,8 +1,17 @@
 @require "iconfont"
 @require "transition"
 
-body.bg
-  background-color BG_COLOR
+::-webkit-scrollbar
+  size 0
+  display none
+  background transparent
+
+body
+  overflow-x hidden
+  overflow-y auto
+
+  &.bg
+    background-color BG_COLOR
 
 a
   &, &:active, &:hover, &:visited
@@ -114,9 +123,6 @@ input
 
 .font-black
   color STRESS_COLOR !important // @stylint ignore
-
-.dom-hide
-  display none !important // @stylint ignore
 
 @media (min-resolution 2dppx)
   .border

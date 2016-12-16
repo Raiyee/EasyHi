@@ -73,12 +73,12 @@ export default (Vue, Options = {}) => {
   const elRenderer = (data, state, notify) => {
     const {el, bindType, src} = data
 
-    if (!bindType) {
-      if (el.getAttribute('src') !== src) {
-        el.setAttribute('src', src)
-      }
-    } else {
+    if (!el) return
+
+    if (bindType) {
       el.style[bindType] = 'url(' + src + ')'
+    } else if (el.getAttribute('src') !== src) {
+      el.setAttribute('src', src)
     }
 
     el.setAttribute('lazy', state)

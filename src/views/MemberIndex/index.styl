@@ -1,5 +1,13 @@
 BTN_COLOR = #dfd28a
 
+.content
+  relative()
+  margin-left auto
+  margin-right auto
+  max-width 768px
+  min-height 480px
+  overflow hidden
+
 .pic
   absolute(top left)
   size 100%
@@ -16,66 +24,6 @@ BTN_COLOR = #dfd28a
   image("../MemberIndex/member-index-02.jpg")
   animation pic2 6s linear infinite
 
-.slogan-title
-  font-size TOP_SIZE
-  transform translate3d(0, 100%, 0)
-  animation sloganTitle .6s forwards 2.6s
-  max-height (20 / 14) * TOP_SIZE
-  width 288px
-  border 0
-  background none
-  text-align center
-  padding 0
-  resize none
-  outline 0
-  overflow hidden
-  font-kai()
-
-.slogan-body
-  width 160px * (14 / 12)
-  overflow hidden
-  transform translate3d(-100%, 0, 0)
-  animation sloganBody 1s forwards 3.3s
-  font-song()
-
-.slogan-text
-  padding 0
-  width 100%
-  text-align center
-  background none
-  resize none
-  border 0
-  outline 0
-  scaleSize(SMALLER_SIZE, , translate3d(100%, 0, 0))
-  animation sloganText 1s forwards 3.3s
-
-.line
-  border-bottom 1px solid STRESS_COLOR
-  transform translate3d(-100%, 0, 0)
-  animation line 1s forwards 1.5s
-  margin-left auto
-  margin-right auto
-
-.outside-circle
-  relative()
-  size 105px
-  border 2px solid BTN_COLOR
-  border-radius 101px
-  backface-visibility visible
-
-  &:global(.animated)
-    opacity 0
-    transform scale(0)
-    animation showCircle 1s .5s
-
-.content
-  relative()
-  margin-left auto
-  margin-right auto
-  max-width 768px
-  min-height 480px
-  overflow-y hidden
-
 .slogan
   absolute()
   left 50%
@@ -88,6 +36,46 @@ BTN_COLOR = #dfd28a
   display inline-block
   overflow hidden
 
+  input
+    font-size TOP_SIZE
+    transform translate3d(0, 100%, 0)
+    animation sloganTitle .6s forwards 2.6s
+    max-height (20 / 14) * TOP_SIZE
+    width 288px
+    border 0
+    background none
+    text-align center
+    padding 0
+    resize none
+    outline 0
+    overflow hidden
+    font-kai()
+
+.line
+  border-bottom 1px solid STRESS_COLOR
+  transform translate3d(-100%, 0, 0)
+  animation line 1s forwards 1.5s
+  margin-left auto
+  margin-right auto
+
+.slogan-body
+  width 160px * (14 / 12)
+  overflow hidden
+  transform translate3d(-100%, 0, 0)
+  animation sloganBody 1s forwards 3.3s
+  font-song()
+
+  textarea
+    padding 0
+    width 100%
+    text-align center
+    background none
+    resize none
+    border 0
+    outline 0
+    scaleSize(SMALLER_SIZE, , translate3d(100%, 0, 0))
+    animation sloganText 1s forwards 3.3s
+
 .member-menu
   absolute()
   bottom 30%
@@ -95,6 +83,18 @@ BTN_COLOR = #dfd28a
   left 50%
   transform translate3d(-50%, 0, 0)
   width 250px
+
+.outside-circle
+  relative()
+  size 105px
+  border 2px solid BTN_COLOR
+  border-radius 101px
+  backface-visibility visible
+
+  &:global(.animated)
+    opacity 0
+    transform scale(0)
+    animation showCircle 1s .5s
 
 .inside-circle
   size 90px
