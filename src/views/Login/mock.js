@@ -6,7 +6,7 @@ import {COACH, MERCHANT, MEMBER, SERVICE, STAFF, PERMISSION} from 'store/constan
 const Random = Mock.Random
 
 const VERIFICATION = 'VERIFICATION'
-const correctCode = '345678'
+const correctCode = 345678
 const verificationCache = getItem(VERIFICATION) || setItem(VERIFICATION, {})
 const PERMISSIONS = [{
   mobiles: [18651868823],
@@ -46,10 +46,8 @@ Mock.mock(/\/verifyCode$/, req => {
   const {verificationCode, mobile} = JSON.parse(req.body)
   const verification = verificationCache[mobile]
 
-  if (!verification) {
-    return {
-      error: '请先获取验证码!'
-    }
+  if (!verification) return {
+    error: '请先获取验证码!'
   }
 
   const correctVerificationCode = verification.code
