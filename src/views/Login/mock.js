@@ -46,8 +46,10 @@ Mock.mock(/\/verifyCode$/, req => {
   const {verificationCode, mobile} = JSON.parse(req.body)
   const verification = verificationCache[mobile]
 
-  if (!verification) return {
-    error: '请先获取验证码!'
+  if (!verification) {
+    return {
+      error: '请先获取验证码!'
+    }
   }
 
   const correctVerificationCode = verification.code
