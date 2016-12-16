@@ -24,10 +24,7 @@ module.exports = {
   },
   parserOptions: {
     ecmaVersion: 6,
-    sourceType: 'module',
-    ecmaFeatures: {
-      jsx: true
-    }
+    sourceType: 'module'
   },
   rules: {
     'array-bracket-spacing': 2,
@@ -35,10 +32,6 @@ module.exports = {
     'computed-property-spacing': 2,
     'eol-last': 2,
     'generator-star-spacing': 2,
-    'jsx-quotes': [
-      2,
-      'prefer-double'
-    ],
     'max-depth': 2,
     'max-len': [
       2,
@@ -54,8 +47,6 @@ module.exports = {
         named: 'never'
       }
     ],
-    'object-curly-spacing': 0,
-    'react/jsx-uses-react': 2,
-    'react/jsx-uses-vars': 2,
+    'object-curly-spacing': 0
   }
 }

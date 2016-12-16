@@ -9,7 +9,6 @@
     "transform-async-to-generator",
     "transform-flow-strip-types",
     "transform-runtime",
-    "transform-vue-jsx",
     [
       "typecheck",
       {
