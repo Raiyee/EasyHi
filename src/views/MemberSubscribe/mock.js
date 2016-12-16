@@ -31,9 +31,7 @@ Mock.mock(/\/get-schedules$/, (() => {
 
     let courseTypes, courseType, subscribeType
 
-    if (COURSE_TYPES) {
-      subscribeType = COURSE_TYPES.find(courseType => courseType.courseTypeId === courseTypeId).subscribeType
-    } else {
+    const fallback = () => {
       COURSE_TYPES = courseTypes = Random.range(0, Random.integer(2, 10)).map(() => ({
         courseTypeId: Random.id(),
         courseTypeName: '@cword(2,5)课',
@@ -43,6 +41,11 @@ Mock.mock(/\/get-schedules$/, (() => {
       courseTypeId = courseType.courseTypeId
       subscribeType = courseType.subscribeType
     }
+
+    if (COURSE_TYPES) {
+      courseType = COURSE_TYPES.find(courseType => courseType.courseTypeId === courseTypeId)
+      courseType ? (subscribeType = courseType.subscribeType) : fallback()
+    } else fallback()
 
     const isPrivate = subscribeType === 2
     let schedules = {}
