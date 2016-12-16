@@ -9,6 +9,7 @@ export const drawImageFix = (function () {
   // Detects vertical squash in loaded image.
   // Fixes a bug which squash image vertically while drawing into canvas for some images.
   // This is a bug in iOS6 (and IOS7) devices. This function from https://github.com/stomita/ios-imagefile-megapixel
+  // More: https://stackoverflow.com/questions/11929099/html5-canvas-drawimage-ratio-bug-ios/#19485693
   function detectVerticalSquash(img) {
     const ih = img.naturalHeight
     const canvas = document.createElement('canvas')

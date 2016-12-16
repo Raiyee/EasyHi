@@ -172,24 +172,24 @@ export default (Vue, Options = {}) => {
   })
 
   Vue.directive('lazy', Vue.version.split('.')[0] === '2' ? {
-      bind: addListener,
-      update: updateListener,
-      inserted: addListener,
-      componentUpdated: lazyLoadHandler,
-      unbind: componentWillUnmount
-    } : {
-      bind: lazyLoadHandler,
-      update(newValue, oldValue) {
-        Object.assign(this.$refs, this.$els)
-        addListener(this.el, {
-          modifiers: this.modifiers,
-          arg: this.arg,
-          value: newValue,
-          oldValue: oldValue
-        }, {context: this})
-      },
-      unbind() {
-        componentWillUnmount(this.el)
-      }
-    })
+    bind: addListener,
+    update: updateListener,
+    inserted: addListener,
+    componentUpdated: lazyLoadHandler,
+    unbind: componentWillUnmount
+  } : {
+    bind: lazyLoadHandler,
+    update(newValue, oldValue) {
+      Object.assign(this.$refs, this.$els)
+      addListener(this.el, {
+        modifiers: this.modifiers,
+        arg: this.arg,
+        value: newValue,
+        oldValue: oldValue
+      }, {context: this})
+    },
+    unbind() {
+      componentWillUnmount(this.el)
+    }
+  })
 }
