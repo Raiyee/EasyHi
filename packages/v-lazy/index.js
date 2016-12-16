@@ -1,10 +1,23 @@
-import {isString, on, off, remove} from 'utils'
+import utils, {isString, on, off, remove, throttle} from 'utils'
+import {supportWebp, getDPR} from './util'
+import ReactiveListener from './listener'
 
 export default (Vue, Options = {}) => {
-  const isVueNext = Vue.version.split('.')[0] === '2'
   const DEFAULT_URL = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
-  const ListenEvents = Options.listenEvents ||
-    ['scroll', 'wheel', 'mousewheel', 'resize', 'animationend', 'transitionend']
+  const ListenerQueue = []
+
+  const Init = {
+    preLoad: Options.preLoad || 1.3,
+    error: Options.error || DEFAULT_URL,
+    loading: Options.loading || DEFAULT_URL,
+    attempt: Options.attempt || 3,
+    scale: getDPR(Options.scale),
+    ListenEvents: Options.listenEvents || ['scroll', 'wheel', 'mousewheel', 'resize', 'animationend', 'transitionend'],
+    hasbind: false,
+    supportWebp: supportWebp(),
+    filter: Options.filter || {},
+    adapter: Options.adapter || {}
+  }
 
   const $lazy = {
     listeners: {
@@ -26,182 +39,142 @@ export default (Vue, Options = {}) => {
       this.$on(event, on)
     },
     $off(event, func) {
-      if (!func) return (this.listeners[event] = [])
+      if (!func) {
+        this.listeners[event] = []
+        return
+      }
       remove(this.listeners[event], func)
     },
     $emit(event, context) {
-      this.listeners[event].forEach(func => func(context))
-    }
-  }
-
-  const Init = {
-    preLoad: Options.preLoad || 1.3,
-    error: Options.error || DEFAULT_URL,
-    loading: Options.loading || DEFAULT_URL,
-    attempt: Options.attempt || 3,
-    hasbind: false
-  }
-
-  const Listeners = []
-  const imageCache = []
-
-  const throttle = function (action, delay) {
-    let timeout = null
-    let lastRun = 0
-
-    return function () {
-      if (timeout) return
-
-      const runCallback = () => {
-        lastRun = Date.now()
-        timeout = false
-        action.apply(this, arguments)
-      }
-
-      if (Date.now() - lastRun >= delay) {
-        runCallback()
-      } else {
-        timeout = setTimeout(runCallback, delay)
-      }
+      this.listeners[event].forEach(func => {
+        func(context)
+      })
     }
   }
 
   const lazyLoadHandler = throttle(() => {
-    Listeners.forEach(listener => checkCanShow(listener))
+    ListenerQueue.forEach(listener => listener.state.loaded || listener.checkInView() && listener.load())
   }, 300)
 
   const onListen = (el, start) => {
-    if (!start) Init.hasbind = false
-    ListenEvents.forEach(evt => (start ? on : off)(el, evt, lazyLoadHandler))
-  }
-
-  const checkCanShow = listener => {
-    if (imageCache.indexOf(listener.src) !== -1) {
-      return setElRender(listener.el, listener.bindType, listener.src, 'loaded')
-    }
-
-    let rect = listener.el.getBoundingClientRect()
-    let preLoad = Init.preLoad
-
-    rect.top < window.innerHeight * preLoad && rect.bottom > 0 &&
-    rect.left < window.innerWidth * preLoad && rect.right > 0 && render(listener)
-  }
-
-  const setState = (el, state, context) => {
-    el.setAttribute('lazy', state)
-    context && $lazy.$emit(state, context)
-  }
-
-  const setElRender = (el, bindType, src, state, context) => {
-    if (bindType) {
-      el.style[bindType] = `url(${src})`
-      return setState(el, state, context)
-    }
-
-    el.setAttribute('src', src)
-    on(el, 'load', () => {
-      setState(el, state, context)
-    })
-  }
-
-  const render = item => {
-    if (item.attempt >= Init.attempt) return false
-    item.attempt++
-
-    if (imageCache.indexOf(item.src) !== -1) return setElRender(item.el, item.bindType, item.src, 'loaded')
-    imageCache.push(item.src)
-
-    loadImageAsync(item, () => {
-      setElRender(item.el, item.bindType, item.src, 'loaded', item)
-      remove(Listeners, item)
-    }, () => {
-      remove(imageCache, item.src)
-      setElRender(item.el, item.bindType, item.error, 'error', item)
-    })
-  }
-
-  const loadImageAsync = (item, resolve, reject) => {
-    const image = new Image()
-
-    on(image, 'load', () => {
-      resolve({
-        naturalHeight: image.naturalHeight,
-        naturalWidth: image.naturalWidth,
-        src: item.src
-      })
-    })
-
-    on(image, 'error', reject)
-
-    image.src = item.src
+    Init.hasbind = start
+    Init.ListenEvents.forEach(evt => (start ? on : off)(el, evt, lazyLoadHandler))
   }
 
   const componentWillUnmount = el => {
     if (!el) return
 
-    for (let i = 0, len = Listeners.length; i < len; i++) {
-      Listeners[i] && Listeners[i].el === el && Listeners.splice(i, 1)
-    }
+    const exist = ListenerQueue.find(item => item.el === el)
 
-    Init.hasbind && !Listeners.length && onListen(window, false)
+    exist && remove(ListenerQueue, exist).destroy()
+
+    Init.hasbind && !ListenerQueue.length && onListen(window, false)
   }
 
-  const getExistListener = el => Listeners.find(item => item.el === el)
+  const elRenderer = (data, state, notify) => {
+    const {el, bindType, src} = data
 
-  const addListener = (el, {arg, value, modifiers}, {context: {$refs}}) => {
-    let imageSrc = value
-    let imageLoading = Init.loading
-    let imageError = Init.error
-
-    if (value && !isString(value)) {
-      imageSrc = value.src
-      imageLoading = value.loading || Init.loading
-      imageError = value.error || Init.error
+    if (!bindType) {
+      if (el.getAttribute('src') !== src) {
+        el.setAttribute('src', src)
+      }
+    } else {
+      el.style[bindType] = 'url(' + src + ')'
     }
 
-    const existListener = getExistListener(el) || {}
-    const loaded = el.getAttribute('lazy') === 'loaded'
+    el.setAttribute('lazy', state)
 
-    if (existListener.src === imageSrc) return loaded || Vue.nextTick(lazyLoadHandler)
+    if (notify) {
+      $lazy.$emit(state, data)
+      Init.adapter[state] && Init.adapter[state](data, Init)
+    }
+  }
 
-    if (imageCache.indexOf(imageSrc) > -1) return setElRender(el, arg, imageSrc, 'loaded')
+  function listenerFilter(listener) {
+    if (Init.filter.webp && Init.supportWebp) {
+      listener.src = Init.filter.webp(listener, Init)
+    }
+    if (Init.filter.customer) {
+      listener.src = Init.filter.customer(listener, Init)
+    }
+    return listener
+  }
+
+  function valueFormater(value) {
+    let src = value
+    let loading = Init.loading
+    let error = Init.error
+
+    if (value && !isString(value)) {
+      if (!value.src) utils.error('miss src with ', value)
+      src = value.src
+      loading = value.loading || Init.loading
+      error = value.error || Init.error
+    }
+
+    return {
+      src,
+      loading,
+      error
+    }
+  }
+
+  const addListener = (el, binding, {context: {$refs}}) => {
+    if (ListenerQueue.some(item => item.el === el)) {
+      updateListener(el, binding)
+      return Vue.nextTick(lazyLoadHandler)
+    }
+
+    const {src, loading, error} = valueFormater(binding.value)
 
     Vue.nextTick(() => {
-      const parent = $refs[Object.keys(modifiers)[0]]
-      const parentEl = parent && parent.$el || parent
+      const parent = $refs[Object.keys(binding.modifiers)[0]]
+      const $parent = parent && parent.$el || parent
 
-      const listener = {
-        bindType: arg,
-        attempt: 0,
-        parentEl,
+      const listener = listenerFilter(new ReactiveListener({
+        bindType: binding.arg,
+        $parent,
         el,
-        error: imageError,
-        src: imageSrc
-      }
+        loading,
+        error,
+        src,
+        Init,
+        elRenderer
+      }))
 
-      existListener.src ? Object.assign(existListener, listener) : Listeners.push(listener)
-
-      setElRender(el, arg, imageLoading, 'loading', listener)
+      ListenerQueue.push(listener)
 
       lazyLoadHandler()
 
-      if (Listeners.length > 0 && !Init.hasbind) {
+      if (ListenerQueue.length && !Init.hasbind) {
         Init.hasbind = true
         onListen(window, true)
-        parentEl && onListen(parentEl, true)
+        $parent && onListen($parent, true)
       }
     })
   }
 
-  Object.assign(Vue.prototype, '$lazy', {
+  const updateListener = (el, binding) => {
+    let {src, loading, error} = valueFormater(binding.value)
+
+    const existListener = ListenerQueue.find(item => item.el === el)
+
+    existListener.src === src || existListener.update({
+      src,
+      loading,
+      error
+    })
+  }
+
+  Object.defineProperty(Vue.prototype, '$lazy', {
     value: $lazy,
     readable: true,
     writable: __DEV__
   })
 
-  Vue.directive('lazy', isVueNext ? {
+  Vue.directive('lazy', Vue.version.split('.')[0] === '2' ? {
     bind: addListener,
-    update: addListener,
+    update: updateListener,
     inserted: addListener,
     componentUpdated: lazyLoadHandler,
     unbind: componentWillUnmount
