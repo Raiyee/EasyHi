@@ -1,5 +1,6 @@
 import {isOdd} from './number'
 import {one} from './dom'
+import {EMPTY_IMG} from './constants'
 
 export const imgPath = (path, defaultImg) =>
   path ? /^(https?:\/|data:image)\//ig.test(path) ? path : IMG_PATH_PREFIX + path : defaultImg
@@ -63,7 +64,7 @@ export function resizeImg(url, success, error, imgType, width, height) {
   img.src = url
   // make sure the load event fires for cached images too
   if (img.complete || img.complete === undefined) {
-    img.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=='
+    img.src = EMPTY_IMG
     img.src = url
   }
 }
