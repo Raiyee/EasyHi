@@ -3,7 +3,7 @@ import {supportWebp, getDPR} from './util'
 import ReactiveListener from './listener'
 
 export default (Vue, Options = {}) => {
-  const DEFAULT_URL = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
+  const DEFAULT_URL = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=='
   const ListenerQueue = []
 
   const Init = {
@@ -173,24 +173,24 @@ export default (Vue, Options = {}) => {
   })
 
   Vue.directive('lazy', Vue.version.split('.')[0] === '2' ? {
-      bind: addListener,
-      update: updateListener,
-      inserted: addListener,
-      componentUpdated: lazyLoadHandler,
-      unbind: componentWillUnmount
-    } : {
-      bind: lazyLoadHandler,
-      update(newValue, oldValue) {
-        Object.assign(this.$refs, this.$els)
-        addListener(this.el, {
-          modifiers: this.modifiers,
-          arg: this.arg,
-          value: newValue,
-          oldValue: oldValue
-        }, {context: this})
-      },
-      unbind() {
-        componentWillUnmount(this.el)
-      }
-    })
+    bind: addListener,
+    update: updateListener,
+    inserted: addListener,
+    componentUpdated: lazyLoadHandler,
+    unbind: componentWillUnmount
+  } : {
+    bind: lazyLoadHandler,
+    update(newValue, oldValue) {
+      Object.assign(this.$refs, this.$els)
+      addListener(this.el, {
+        modifiers: this.modifiers,
+        arg: this.arg,
+        value: newValue,
+        oldValue: oldValue
+      }, {context: this})
+    },
+    unbind() {
+      componentWillUnmount(this.el)
+    }
+  })
 }

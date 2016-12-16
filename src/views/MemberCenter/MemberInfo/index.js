@@ -1,4 +1,4 @@
-import {alert, toast, omitObj} from 'utils'
+import {alert, toast, omitObj, resizeImgFile} from 'utils'
 
 import classes from './index.styl'
 
@@ -15,19 +15,13 @@ export default require('./index.pug')({
       this.$refs.file.click()
     },
     previewFile: function (e) {
-      const self = this
       const file = e.target.files[0]
 
-      if (!/image\/\w+/.test(file.type)) {
-        alert('请确保文件为图像类型')
-        return
-      }
+      if (!/^image\//i.test(file.type)) return alert('请确保文件为图像类型')
 
-      const reader = new FileReader()
-      reader.readAsDataURL(file)
-      reader.onload = function () {
-        self.memberPortrait = this.result
-      }
+      resizeImgFile(file, result => {
+        this.memberPortrait = result
+      }, null, 100)
     },
     changeGender: function () {
       this.memberGender = !this.memberGender
