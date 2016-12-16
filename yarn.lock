@@ -4647,7 +4647,7 @@ loader-runner@^2.2.0:
   version "2.2.0"
   resolved "http://registry.npm.taobao.org/loader-runner/download/loader-runner-2.2.0.tgz#824c1b699c4e7a2b6501b85902d5b862bf45b3fa"
 
-loader-utils@0.2.x, loader-utils@^0.2.10, loader-utils@^0.2.11, loader-utils@^0.2.14, loader-utils@^0.2.15, loader-utils@^0.2.16, loader-utils@^0.2.3, loader-utils@^0.2.5, loader-utils@^0.2.7, loader-utils@^0.2.9, loader-utils@~0.2.2, loader-utils@~0.2.5:
+loader-utils@0.2.x, loader-utils@^0.2.10, loader-utils@^0.2.11, loader-utils@^0.2.15, loader-utils@^0.2.16, loader-utils@^0.2.3, loader-utils@^0.2.5, loader-utils@^0.2.7, loader-utils@^0.2.9, loader-utils@~0.2.2, loader-utils@~0.2.5:
   version "0.2.16"
   resolved "http://registry.npm.taobao.org/loader-utils/download/loader-utils-0.2.16.tgz#f08632066ed8282835dff88dfb52704765adee6d"
   dependencies:
@@ -6238,13 +6238,6 @@ pug-filters@^1.2.4:
     pug-walk "^1.0.0"
     resolve "^1.1.6"
     uglify-js "^2.6.1"
-
-pug-html-loader@^1.0.9:
-  version "1.0.9"
-  resolved "http://registry.npm.taobao.org/pug-html-loader/download/pug-html-loader-1.0.9.tgz#571d91f54445b62246b4028a8a930d6a434ef1ee"
-  dependencies:
-    loader-utils "^0.2.14"
-    pug "^2.0.0-beta6"
 
 pug-lexer@^2.0.1, pug-lexer@^2.2.0:
   version "2.3.0"

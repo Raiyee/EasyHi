@@ -119,7 +119,7 @@ webpackConfig.module.rules = [
     exclude: nodeModules
   }, {
     test: /\.pug$/,
-    loader: `vue-template-es2015-loader!pug-html-loader?exports=false&pretty=${__DEV__}`,
+    loader: `vue-template-es2015-loader!template-loader?raw`,
     exclude: nodeModules
   }, {
     test: /\.vue$/,
