@@ -1,52 +1,43 @@
-import {toast, alert, closeModal} from 'utils'
+import {alert, toast, omitObj, resizeImgFile} from 'utils'
+
+import classes from './index.styl'
 
 export default require('./index.pug')({
   name: 'member-info',
   data() {
     return {
-      classes: require('./index.styl'),
+      classes,
       ...this.$route.meta.data
     }
   },
   methods: {
     changePortrait: function () {
-      this.$el.querySelector('input[type="file"]').click()
+      this.$refs.file.click()
     },
     previewFile: function (e) {
-      let $this = this
-      let file = e.target.files[0]
-      if (!/image\/\w+/.test(file.type)) {
-        alert(null, '请确保文件为图像类型')
-        return false
-      }
+      const file = e.target.files[0]
 
-      var reader = new FileReader()
-      reader.readAsDataURL(file)
-      reader.onload = function () {
-        $this.memberPortrait = this.result
-      }
+      if (!/^image\//i.test(file.type)) return alert('请确保文件为图像类型')
+
+      resizeImgFile(file, result => {
+        this.memberPortrait = result
+      }, null, 100)
     },
     changeGender: function () {
       this.memberGender = !this.memberGender
     },
     saveMember: function () {
-      let $member = this.$data
-      var $this = this
-      this.$http.post('/saveMemberDetail', $member)
-        .then(function (res) {
-          if (res.data.code === '200') {
-            toast({
-              tipText: res.data.msg,
-              close() {
-                $this.$router.push({
-                  path: '/member-center'
-                })
-                closeModal()
-              }
-            })
-          } else {
-            alert(res.data.msg)
-          }
+      this.$http.post('/saveMemberDetail', omitObj(this.$data, 'classes'))
+        .then(res => {
+          toast({
+            tipText: res.data,
+            close() {
+              this.$router.push({
+                path: '/member-center'
+              })
+              this.$modal.close()
+            }
+          })
         })
     }
   }

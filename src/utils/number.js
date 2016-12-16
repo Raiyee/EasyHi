@@ -39,3 +39,6 @@ export const toNum = numText => {
 }
 
 export const isLength = value => isNumber(value) && value > -1 && value % 1 === 0 && value <= MAX_SAFE_INTEGER
+
+export const isEven = value => isNumber(value) && !Math.abs(value % 2)
+export const isOdd = value => isNumber(value) && Math.abs(value % 2) === 1

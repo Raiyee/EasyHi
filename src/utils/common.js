@@ -46,3 +46,20 @@ export const each = (collection, iteratee: Function, context) => {
   } else each([collection], iteratee, context)
   return this
 }
+
+export function throttle(action, delay) {
+  let timeout = null
+  let lastRun = 0
+
+  return function () {
+    if (timeout) return
+
+    const runCallback = () => {
+      lastRun = Date.now()
+      timeout = false
+      action.apply(this, arguments)
+    }
+
+    Date.now() - lastRun >= delay ? runCallback() : (timeout = setTimeout(runCallback, delay))
+  }
+}

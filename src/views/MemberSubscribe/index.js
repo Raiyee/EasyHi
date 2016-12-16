@@ -49,7 +49,7 @@ export default require('./index.pug')({
   methods: {
     toggleCourseType(courseTypeId) {
       if (this.courseTypeId === courseTypeId) return
-      return this.$http.get('/get-schedules', {courseTypeId})
+      return this.$http.post('/get-schedules', {courseTypeId})
         .then(({data}) => {
           Object.assign(this, omitObj(data, 'courseTypes'), {
             courseTypeId,

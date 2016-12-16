@@ -1,6 +1,8 @@
 import {isObject, isWindow} from './base'
 import {each} from './common'
 
+export const inBrowser = typeof window !== 'undefined' && isWindow(window)
+
 const domEach = (el, ...args) => each(isWindow(el) ? [el] : el, ...args)
 
 const classRegExp = className => new RegExp(`(^|\\s+)${className.toString().trim()}(\\s+|$)`, 'g')
@@ -68,6 +70,14 @@ export const on = function (el, events, handler, useCapture = false) {
 export const off = function (el, events, handler, useCapture = false) {
   domEach(el, el => events.trim().split(' ').forEach(event => el.removeEventListener(event, handler, useCapture)))
   return this
+}
+
+export const one = function (el, events, handler, useCapture = false) {
+  const wrapper = function () {
+    off(el, events, wrapper, useCapture)
+    handler.apply(this, arguments)
+  }
+  return on(el, events, wrapper, useCapture)
 }
 
 /**
