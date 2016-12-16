@@ -9,5 +9,5 @@ export const isArrayLikeObject = value => isArrayLike(value) && isObjectLike(val
 export const remove = (arr, item) => {
   if (!arr.length) return
   const index = arr.indexOf(item)
-  if (index > -1) return arr.splice(index, 1)
+  if (index > -1) return arr.splice(index, 1)[0]
 }

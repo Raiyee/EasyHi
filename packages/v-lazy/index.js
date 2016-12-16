@@ -99,7 +99,7 @@ export default (Vue, Options = {}) => {
     return listener
   }
 
-  function valueFormater(value) {
+  function valueFormatter(value) {
     let src = value
     let loading = Init.loading
     let error = Init.error
@@ -124,13 +124,13 @@ export default (Vue, Options = {}) => {
       return Vue.nextTick(lazyLoadHandler)
     }
 
-    const {src, loading, error} = valueFormater(binding.value)
+    const {src, loading, error} = valueFormatter(binding.value)
 
     Vue.nextTick(() => {
       const parent = $refs[Object.keys(binding.modifiers)[0]]
       const $parent = parent && parent.$el || parent
 
-      const listener = listenerFilter(new ReactiveListener({
+      ListenerQueue.push(listenerFilter(new ReactiveListener({
         bindType: binding.arg,
         $parent,
         el,
@@ -139,9 +139,7 @@ export default (Vue, Options = {}) => {
         src,
         Init,
         elRenderer
-      }))
-
-      ListenerQueue.push(listener)
+      })))
 
       lazyLoadHandler()
 
@@ -154,7 +152,7 @@ export default (Vue, Options = {}) => {
   }
 
   const updateListener = (el, binding) => {
-    let {src, loading, error} = valueFormater(binding.value)
+    let {src, loading, error} = valueFormatter(binding.value)
 
     const existListener = ListenerQueue.find(item => item.el === el)
 
@@ -172,24 +170,24 @@ export default (Vue, Options = {}) => {
   })
 
   Vue.directive('lazy', Vue.version.split('.')[0] === '2' ? {
-    bind: addListener,
-    update: updateListener,
-    inserted: addListener,
-    componentUpdated: lazyLoadHandler,
-    unbind: componentWillUnmount
-  } : {
-    bind: lazyLoadHandler,
-    update(newValue, oldValue) {
-      Object.assign(this.$refs, this.$els)
-      addListener(this.el, {
-        modifiers: this.modifiers,
-        arg: this.arg,
-        value: newValue,
-        oldValue: oldValue
-      }, {context: this})
-    },
-    unbind() {
-      componentWillUnmount(this.el)
-    }
-  })
+      bind: addListener,
+      update: updateListener,
+      inserted: addListener,
+      componentUpdated: lazyLoadHandler,
+      unbind: componentWillUnmount
+    } : {
+      bind: lazyLoadHandler,
+      update(newValue, oldValue) {
+        Object.assign(this.$refs, this.$els)
+        addListener(this.el, {
+          modifiers: this.modifiers,
+          arg: this.arg,
+          value: newValue,
+          oldValue: oldValue
+        }, {context: this})
+      },
+      unbind() {
+        componentWillUnmount(this.el)
+      }
+    })
 }
