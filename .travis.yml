@@ -26,7 +26,3 @@ script:
 - npm run build:mock
 - git push --force --quiet git@git.coding.net:Raiyee/EasyHi.git master:master
 - npm run sync
-
-after_success:
-- npm i -D coveralls codecov
-- npm run coveralls && npm run codecov
