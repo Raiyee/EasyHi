@@ -1,0 +1,58 @@
+@require "../../../styles/_variables"
+
+.right-btn
+  float right
+  padding 10px 0
+  width 20%
+  text-align center
+
+.drop-menu
+  position absolute
+  right 10px
+  border: 1px solid ICON_ARROW_RIGHT_COLOR
+  transition all .5s ease
+  transform-origin top
+  z-index 1000
+  border-radius 4px
+  box-shadow 0 6px 12px rgba(0, 0, 0, .175);
+  min-width 150px
+  top 45px
+
+  ul
+    margin 0
+    padding 0
+    background BACK_LIGHT_COLOR
+
+    li
+      list-style none
+      text-align center
+      font-weight 400
+      margin 0 20px
+      padding 3px 0
+      white-space nowrap
+      border-bottom 1px solid ICON_ARROW_RIGHT_COLOR
+
+      &:last-child
+        border-bottom none
+
+
+.drop-menu:before, .drop-menu:after
+  position absolute
+  display block
+  content ' '
+  border 8px solid transparent
+  right 14px
+
+.drop-menu:after
+  top -15px
+  border-bottom-color REVERSE_COLOR
+
+.drop-menu:before
+  top -16px
+  border-bottom-color ICON_ARROW_RIGHT_COLOR
+
+.open
+  transform scaleY(1)
+
+.close
+  transform scaleY(0)

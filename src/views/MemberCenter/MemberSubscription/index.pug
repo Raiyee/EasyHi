@@ -1,10 +1,20 @@
 div
   tab(
   :tabArray="tabArray",
-  :width="'100%'",
+  :width="'80%'",
   :float="'left'",
-  :pageNum="4",
+  :pageNum="3",
   @changeTab="changeTab")
 
-  div
-    | {{ tabName || 'undefined' }}
+  div(:class="classes.rightBtn", @click="chooseMenu")
+    | {{ '按钮' }}
+
+  .clearfix
+
+  .white-mask(v-if="open", @click="chooseMenu")
+  div(:class="[classes.dropMenu, open ? classes.open : classes.close]", @click="changeMenu")
+    ul
+      li 全部全部全部
+      li 小班课
+      li 小班课
+
