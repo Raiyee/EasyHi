@@ -1,5 +1,3 @@
-const argv = require('yargs').argv
-
 module.exports = {
   root: true,
   parser: 'babel-eslint',
@@ -7,8 +5,7 @@ module.exports = {
     'babel',
     'react',
     'flowtype',
-    'standard',
-    `vue${argv.fix ? 'fix' : ''}`
+    'standard'
   ],
   extends: [
     'standard',
