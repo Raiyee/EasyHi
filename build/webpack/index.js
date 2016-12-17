@@ -216,7 +216,8 @@ __MOCK__ || webpackConfig.plugins.push(new HtmlRewriteWebpackPlugin({
 if (!__TESTING__) {
   webpackConfig.plugins.push(
     new webpack.optimize.CommonsChunkPlugin({
-      names: ['vendor']
+      names: ['vendor'],
+      chunks: ['vendor']
     }))
 }
 
