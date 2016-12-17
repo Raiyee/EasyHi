@@ -41,9 +41,7 @@ const karmaConfig = {
       rules: webpackConfig.module.rules
     },
     node: webpackConfig.node,
-    performance: {
-      hints: false
-    }
+    performance: false
   },
   webpackMiddleware: {
     noInfo: true,

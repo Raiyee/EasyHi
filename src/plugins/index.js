@@ -4,6 +4,6 @@ import './filters'
 import './http'
 import './lazyload'
 
-__MOCK__ && require('./mock')
+if (__MOCK__) require('./mock')
 
-__DEV__ || System.import('vconsole')
+if (!__DEV__) System.import('vconsole')

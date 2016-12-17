@@ -35,7 +35,7 @@ const webpackConfig = {
   devtool: config.compiler_devtool,
   module: {},
   performance: {
-    hints: __PROD__ && !__MOCK__
+    hints: __PROD__ && !__MOCK__ && 'warning'
   }
 }
 
