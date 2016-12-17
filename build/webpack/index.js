@@ -20,7 +20,7 @@ const webpackConfig = {
   target: 'web',
   resolve: {
     modules: [paths.src(), paths.base('packages'), 'node_modules'],
-    extensions: ['.js', '.vue', '.styl', '.pug'],
+    extensions: ['.js', '.styl', '.pug'],
     enforceExtension: false,
     enforceModuleExtension: false,
     alias: config.compiler_alias
@@ -119,30 +119,9 @@ webpackConfig.module.rules = [
     exclude: nodeModules
   }, {
     test: /\.pug$/,
-    loader: `vue-template-es2015-loader!template-loader?raw`,
+    loader: `vue-template-es2015-loader!template-file-loader?raw`,
     exclude: nodeModules
   }, {
-    test: /\.vue$/,
-    // loader: 'vue-loader',
-    loader: 'vue-promise-loader',
-    options: {
-      loaders: {
-        ...utils.vueCssLoaders({
-          sourceMap
-        })
-      },
-      autoprefixer: false,
-      cssModules: {
-        camelCase: true,
-        localIdentName
-      },
-      defaultLang: {
-        template: 'pug',
-        styles: 'styl'
-      }
-    }
-  },
-  {
     test: /\.(png|jpe?g|gif)$/,
     loader: 'url-loader?limit=10000&name=[name].[hash].[ext]!img-loader?minimize&progressive=true'
   },

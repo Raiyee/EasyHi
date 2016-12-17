@@ -6,13 +6,6 @@ module.exports = function (content) {
   this.cacheable && this.cacheable()
   const callback = this.async()
   const opt = loaderUtils.parseQuery(this.query)
-  const vue = this.options.__vueOptions__
-  const template = vue && vue.template
-  if (template) {
-    for (const key in template) {
-      opt[key] = template[key]
-    }
-  }
 
   function exportContent(content) {
     callback(null, opt.raw ? content : 'module.exports = ' + JSON.stringify(content))
