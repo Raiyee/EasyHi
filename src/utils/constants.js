@@ -17,3 +17,5 @@ export const EMPTY_FUNC = () => {}
 export const TIP_ID = Symbol('tip')
 
 export const EMPTY_IMG = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=='
+
+export const MOBILE_REGEX = /^1[35789]\d{9}$/
