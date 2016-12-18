@@ -37,3 +37,11 @@
   to
     opacity 0
     transform translate3d(2000px, 0, 0)
+
+.fade-enter-active, .fade-leave-active
+  absolute top left
+  width 100%
+  transition opacity .5s
+
+.fade-enter, .fade-leave-active
+  opacity 0
