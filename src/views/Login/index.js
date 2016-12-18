@@ -25,11 +25,15 @@ export default require('./index.pug')({
       this.$refs.mobile.focus()
     },
     getVerificationCode() {
-      if (this.limit) return
+      const loginMobile = this.$v.loginMobile
 
-      const mobile = this.loginMobile
+      loginMobile.$touch()
 
-      this.$http.post('/getVerificationCode', {mobile}).then(({data}) => {
+      if (this.limit || loginMobile.$error) return
+
+      this.$http.post('/getVerificationCode', {
+        mobile: this.loginMobile
+      }).then(({data}) => {
         this.limit = data
         const intervalId = setInterval(() => {
           --this.limit || clearInterval(intervalId)
