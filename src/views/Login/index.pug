@@ -21,7 +21,7 @@
               span.glyphicon.glyphicon-lock
             input.form-control(type="number", placeholder="请输入验证码",
             v-model="verificationCode",
-            @input="$v.verificationCode.$reset()",
+            @input="$v.verificationCode.$reset",
             @change="$v.verificationCode.$touch")
             span.input-group-addon.theme-color(@click="getVerificationCode") {{this.limit ? this.limit + 's' : '获取验证码'}}
           p.form-control-static(v-if="$v.verificationCode.$error") 请输入正确的验证码
