@@ -2,7 +2,6 @@ const loaderUtils = require('loader-utils')
 
 const compiler = require('vue-template-compiler')
 const transpile = require('vue-template-es2015-compiler')
-const genId = require('./gen-id')
 
 // vue compiler module for using transforming `<tag>:<attribute>` to `require`
 const defaultTransformToRequire = {
@@ -68,7 +67,7 @@ module.exports = function (content) {
     preserveWhitespace: vueOptions.preserveWhitespace
   }, defaultCompileOptions))
 
-  const id = `data-v-${genId(this.resourcePath)}`
+  const id = module.id
 
   compiled.errors.forEach(error => {
     this.emitError('template syntax error ' + error)
