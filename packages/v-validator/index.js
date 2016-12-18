@@ -5,7 +5,7 @@ const buildFromKeys = (keys, fn, keyFn) => keys.reduce((build, key) => {
   return build
 }, {})
 
-function isObject (ruleset) {
+function isObject(ruleset) {
   return ruleset !== null && typeof ruleset === 'object'
 }
 
@@ -26,7 +26,7 @@ const getPath = (ctx, obj, path, fallback) => {
   return typeof obj === 'undefined' ? fallback : obj
 }
 
-function setDirtyRecursive (newState) {
+function setDirtyRecursive(newState) {
   this.dirty = newState
   const method = newState ? '$touch' : '$reset'
   const keys = this.dynamicKeys
@@ -41,22 +41,22 @@ function setDirtyRecursive (newState) {
 
 // vm static definition
 const defaultMethods = {
-  $touch () {
+  $touch() {
     setDirtyRecursive.call(this, true)
   },
-  $reset () {
+  $reset() {
     setDirtyRecursive.call(this, false)
   }
 }
 
 const defaultComputed = {
-  $invalid () {
+  $invalid() {
     return this.dynamicKeys.some(ruleOrNested => {
       const val = this[ruleOrNested]
       return isObject(val) ? val.$invalid : !val
     })
   },
-  $dirty () {
+  $dirty() {
     if (this.dirty) {
       return true
     }
@@ -74,7 +74,7 @@ const defaultComputed = {
     }
     return foundNested
   },
-  $error () {
+  $error() {
     return !!(this.$dirty && this.$invalid)
   }
 }
@@ -83,11 +83,11 @@ const defaultMethodKeys = Object.keys(defaultMethods)
 const defaultComputedKeys = Object.keys(defaultComputed)
 const mapDynamicKeyName = k => 'v$$' + k
 
-function isSingleRule (ruleset) {
+function isSingleRule(ruleset) {
   return typeof ruleset === 'function'
 }
 
-function makeValidationVm (validations, parentVm, rootVm = parentVm, parentProp = null) {
+function makeValidationVm(validations, parentVm, rootVm = parentVm, parentProp = null) {
   const validationKeys = Object.keys(validations).filter(key => !!validations[key])
   const dynamicKeys = validationKeys.map(mapDynamicKeyName)
 
@@ -114,7 +114,7 @@ function makeValidationVm (validations, parentVm, rootVm = parentVm, parentProp 
   return proxyVm(validationVm, validationKeys)
 }
 
-function mapValidator (rootVm, rule, ruleKey, vm, vmProp) {
+function mapValidator(rootVm, rule, ruleKey, vm, vmProp) {
   if (isSingleRule(rule)) {
     return mapRule(rootVm, rule, ruleKey, vm, vmProp)
   } else if (Array.isArray(rule)) {
@@ -124,13 +124,13 @@ function mapValidator (rootVm, rule, ruleKey, vm, vmProp) {
   }
 }
 
-function mapRule (rootVm, rule, ruleKey, parentVm, prop) {
+function mapRule(rootVm, rule, ruleKey, parentVm, prop) {
   return function () {
     return rule.call(rootVm, parentVm[prop], parentVm)
   }
 }
 
-function mapChild (rootVm, rules, ruleKey, parentVm, prop) {
+function mapChild(rootVm, rules, ruleKey, parentVm, prop) {
   if (ruleKey === '$each') {
     return trackCollection(rootVm, rules, parentVm, prop)
   }
@@ -139,7 +139,7 @@ function mapChild (rootVm, rules, ruleKey, parentVm, prop) {
   return constant(vm)
 }
 
-function trackCollection (rootVm, eachRule, parentVm, prop) {
+function trackCollection(rootVm, eachRule, parentVm, prop) {
   let vmList = {}
   const strippedRule = {
     ...eachRule,
@@ -156,7 +156,8 @@ function trackCollection (rootVm, eachRule, parentVm, prop) {
     const vmByKey = {}
     vmList = newKeys.reduce((newList, key) => {
       const track = keyToTrack ? keyToTrack[key] : key
-      vmByKey[key] = newList[track] = newList[track] || vmList[track] || mapValidator(rootVm, strippedRule, key, childVm)
+      vmByKey[key] = newList[track] = newList[track] || vmList[track] ||
+        mapValidator(rootVm, strippedRule, key, childVm)
       return newList
     }, {})
 
@@ -164,7 +165,7 @@ function trackCollection (rootVm, eachRule, parentVm, prop) {
   }
 }
 
-function mapGroup (rootVm, group, prop, parentVm) {
+function mapGroup(rootVm, group, prop, parentVm) {
   const rules = buildFromKeys(
     group,
     path => function () { return getPath(this, this.$v, path) }
@@ -174,20 +175,20 @@ function mapGroup (rootVm, group, prop, parentVm) {
   return constant(vm)
 }
 
-function proxyVm (vm, originalKeys) {
+function proxyVm(vm, originalKeys) {
   const redirectDef = {
     ...buildFromKeys(originalKeys, key => {
       let dynKey = mapDynamicKeyName(key)
       return {
         enumerable: true,
-        get () {
+        get() {
           return vm[dynKey]
         }
       }
     }),
     ...buildFromKeys(defaultComputedKeys, key => ({
       enumerable: true,
-      get () {
+      get() {
         return vm[key]
       }
     })),
@@ -200,7 +201,7 @@ function proxyVm (vm, originalKeys) {
 }
 
 const validationMixin = {
-  beforeCreate () {
+  beforeCreate() {
     const options = this.$options
     if (!options.validations) return
     const validations = options.validations
@@ -216,7 +217,7 @@ const validationMixin = {
 
 const validateModel = (model, validations) => makeValidationVm(validations, model)
 
-function Validation (Vue) {
+function Validation(Vue) {
   /* istanbul ignore if */
   if (Validation.installed) {
     return
@@ -224,5 +225,5 @@ function Validation (Vue) {
   Vue.mixin(validationMixin)
 }
 
-export { Validation, validationMixin, validateModel }
+export {Validation, validationMixin, validateModel}
 export default Validation
