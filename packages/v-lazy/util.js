@@ -1,9 +1,6 @@
 import {inBrowser, one} from 'utils'
 
-export function getDPR(scale = 1) {
-  if (!inBrowser) return scale
-  return window.devicePixelRatio || scale
-}
+export const getDPR = (scale = 1) => inBrowser && window.devicePixelRatio || scale
 
 export function supportWebp() {
   let support = true
