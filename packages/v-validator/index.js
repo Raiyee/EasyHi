@@ -2,8 +2,6 @@ import {isArray, isFunction, isObjectLike, error, log, warn} from 'utils'
 
 import * as validators from './validators'
 
-let installed = false
-
 const applyRule = function (model, rule) {
   const modelVal = this[model]
   const validation = {}
@@ -32,69 +30,68 @@ const applyRule = function (model, rule) {
   vModel.$error = vModel.$dirty && vModel.$invalid
 }
 
-export default {
-  install(Vue, options = {}) {
-    if (installed) return error('do not try to install plugin v-validator twice!')
+let installed = false
 
-    installed = true
+export default (Vue, options = {}) => {
+  if (installed) return error('do not try to install plugin v-validator twice!')
 
-    log('plugin v-validator is installed!')
+  installed = true
 
-    Object.assign(validators, options.validators)
+  log('plugin v-validator is installed!')
 
-    const defineReactive = Vue.util.defineReactive
+  Object.assign(validators, options.validators)
 
-    Vue.mixin({
-      beforeCreate() {
-        let validator = this.$options.validator
-        if (!validator) return
+  const defineReactive = Vue.util.defineReactive
 
-        if (isFunction(validator)) validator = validator.call(this)
+  Vue.mixin({
+    beforeCreate() {
+      let validator = this.$options.validator
+      if (!validator) return
 
-        validator.rules || (validator = {rules: validator})
+      if (isFunction(validator)) validator = validator.call(this)
 
-        let rules = validator.rules
-        const auto = !!validator.auto
+      validator.rules || (validator = {rules: validator})
 
-        if (!isObjectLike(rules)) return warn('rules of validator should be an object')
+      let rules = validator.rules
+      const auto = !!validator.auto
 
-        defineReactive(this, '$v', {})
-        defineReactive(this, '$e', {})
+      if (!isObjectLike(rules)) return warn('rules of validator should be an object')
 
-        for (const [model, rule] of Object.entries(rules)) {
-          defineReactive(this.$v, model, {
-            $dirty: auto,
-            $error: false,
-            $invalid: false
+      defineReactive(this, '$v', {})
+
+      for (const [model, rule] of Object.entries(rules)) {
+        defineReactive(this.$v, model, {
+          $dirty: auto,
+          $error: false,
+          $invalid: false
+        })
+
+        const vModel = this.$v[model]
+
+        Object.assign(vModel, {
+          $touch: () => {
+            if (vModel.$dirty) return
+
+            vModel.$dirty = true
+            applyRule.call(this, model, rule)
+          },
+          $reset: () => {
+            if (!vModel.$dirty) return
+
+            vModel.$dirty = false
+            applyRule.call(this, model, rule)
+          }
+        })
+
+        Vue.nextTick(() => {
+          this.$watch(model, () => {
+            auto && (vModel.$dirty = true)
+            applyRule.call(this, model, rule)
           })
 
-          const vModel = this.$v[model]
-
-          Object.assign(vModel, {
-            $touch: () => {
-              if (vModel.$dirty) return
-
-              vModel.$dirty = true
-              applyRule.call(this, model, rule)
-            },
-            $reset: () => {
-              if (!vModel.$dirty) return
-
-              vModel.$dirty = false
-              applyRule.call(this, model, rule)
-            }
-          })
-
-          Vue.nextTick(() => {
-            this.$watch(model, () => {
-              auto && (vModel.$dirty = true)
-              applyRule.call(this, model, rule)
-            })
-
-            vModel[auto ? '$touch' : '$reset']()
-          })
-        }
+          vModel[auto ? '$touch' : '$reset']()
+        })
       }
-    })
-  }
+    }
+  })
 }

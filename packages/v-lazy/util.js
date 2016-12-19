@@ -1,6 +1,6 @@
-import {one, inBrowser} from 'utils'
+import {inBrowser, one} from 'utils'
 
-export const getDPR = (scale = 1) => inBrowser ? window.devicePixelRatio || scale : scale
+export const getDPR = (scale = 1) => inBrowser && window.devicePixelRatio || scale
 
 export function supportWebp() {
   let support = true
@@ -20,7 +20,7 @@ export function supportWebp() {
   return support
 }
 
-export function loadImageAsync(item, resolve, reject) {
+export const loadImageAsync = (item, resolve, reject) => {
   let image = new Image()
   image.src = item.src
 
