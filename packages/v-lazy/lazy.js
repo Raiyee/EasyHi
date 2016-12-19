@@ -8,7 +8,7 @@ const DEFAULT_URL = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAAL
 const DEFAULT_EVENTS = ['scroll', 'wheel', 'mousewheel', 'resize', 'animationend', 'transitionend']
 
 export default class Lazy {
-  constructor({preLoad, error, loading, attempt, silent, scale, listenEvents, hasbind, filter, adapter}) {
+  constructor({preLoad, error, loading, attempt, silent, scale, listenEvents, filter, adapter}) {
     this.ListenerQueue = []
     this.options = {
       silent: silent || true,
@@ -94,7 +94,7 @@ export default class Lazy {
 
   initListen(el, start) {
     this.options.hasbind = start
-    this.options.ListenEvents.forEach((evt) => (start ? on : off)(el, evt, this.lazyLoadHandler))
+    this.options.ListenEvents.forEach(evt => (start ? on : off)(el, evt, this.lazyLoadHandler))
   }
 
   initEvent() {
