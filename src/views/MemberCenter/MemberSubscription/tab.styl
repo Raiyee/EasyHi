@@ -1,24 +1,24 @@
 @require "../../../styles/_variables"
 
 .container
-  .ul-container
-    overflow-x scroll
+  overflow hidden
 
-    ul
-      padding 0
+  ul
+    padding 0
+    transition transform .5s
 
-      li
-        float left
-        list-style none
-        text-align center
-        border-bottom 0
+    li
+      float left
+      list-style none
+      text-align center
+      border-bottom 0
 
-        span
-          display block
-          white-space nowrap
-          overflow hidden
-          text-overflow ellipsis
-          padding 10px
+      span
+        display block
+        white-space nowrap
+        overflow hidden
+        text-overflow ellipsis
+        padding 10px
 
-      .active
-        border-bottom 1px solid
+    .active
+      border-bottom 1px solid

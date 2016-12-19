@@ -4,7 +4,8 @@ div
   :width="'80%'",
   :float="'left'",
   :pageNum="3",
-  @changeTab="changeTab")
+  @changeTab="changeTab",
+  v-touch="{methods: true}")
 
   div(:class="classes.rightBtn", @click="chooseMenu")
     | {{ '按钮' }}
