@@ -2,9 +2,6 @@ import {mapGetters, mapActions} from 'vuex'
 
 import classes from './index.styl'
 
-const mobileRegExp = /^1[35789]\d{9}$/
-const codeRegExp = /[\d]{6}/
-
 export default require('./index.pug')({
   name: 'login',
   data() {
@@ -12,10 +9,7 @@ export default require('./index.pug')({
       classes,
       limit: 0,
       loginMobile: null,
-      verificationCode: null,
-      mobileError: false,
-      codeError: false,
-      submitClicked: false
+      verificationCode: null
     }
   },
   created() {
@@ -30,32 +24,16 @@ export default require('./index.pug')({
       this.loginMobile = null
       this.$refs.mobile.focus()
     },
-    handleInput(type, e) {
-      const value = e.target.value
-      const submitClicked = this.submitClicked
-      let subValue
-
-      switch (type) {
-        case ('mobile'):
-          subValue = this.loginMobile = value.substr(0, 11)
-          this.mobileError = submitClicked && !mobileRegExp.test(subValue)
-          break
-        case ('verificationCode'):
-          subValue = this.verificationCode = value.substr(0, 6)
-          this.codeError = submitClicked && !codeRegExp.test(subValue)
-          break
-      }
-
-      return subValue
-    },
     getVerificationCode() {
-      if (this.limit) return
+      const loginMobile = this.$v.loginMobile
 
-      const mobile = this.loginMobile
+      loginMobile.$touch()
 
-      if (!mobileRegExp.test(mobile)) return (this.mobileError = true)
+      if (this.limit || loginMobile.$error) return
 
-      this.$http.post('/getVerificationCode', {mobile}).then(({data}) => {
+      this.$http.post('/getVerificationCode', {
+        mobile: this.loginMobile
+      }).then(({data}) => {
         this.limit = data
         const intervalId = setInterval(() => {
           --this.limit || clearInterval(intervalId)
@@ -63,19 +41,34 @@ export default require('./index.pug')({
       })
     },
     submit() {
-      this.submitClicked = true
+      const vMobile = this.$v.loginMobile
+      const vCode = this.$v.verificationCode
+
+      vMobile.$touch()
+      vCode.$touch()
+
+      if (vMobile.$error || vCode.$error) return
+
       const mobile = this.loginMobile
-      const mobileError = this.mobileError = !mobileRegExp.test(mobile)
-      const verificationCode = this.verificationCode
-      const codeError = this.codeError = !codeRegExp.test(verificationCode)
-      if (mobileError || codeError) return
-      this.$http.post('/verifyCode', {verificationCode, mobile}).then(({data}) => {
+
+      this.$http.post('/verifyCode', {
+        verificationCode: this.verificationCode,
+        mobile
+      }).then(({data}) => {
         const {error} = data
         if (error) return this.$util.alert(error)
         this.setEnv({mobile, authorized: true})
         this.resetRole(data)
         this.$router.replace(this.$route.query.from || '/')
       })
+    }
+  },
+  validator: {
+    loginMobile: {
+      mobile: true
+    },
+    verificationCode: {
+      length: 6
     }
   }
 })

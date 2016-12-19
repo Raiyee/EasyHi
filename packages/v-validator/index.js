@@ -1,229 +1,100 @@
-// utilities
-const constant = c => () => c
-const buildFromKeys = (keys, fn, keyFn) => keys.reduce((build, key) => {
-  build[keyFn ? keyFn(key) : key] = fn(key)
-  return build
-}, {})
+import {isArray, isFunction, isObjectLike, error, log, warn} from 'utils'
 
-function isObject(ruleset) {
-  return ruleset !== null && typeof ruleset === 'object'
-}
+import * as validators from './validators'
 
-const getPath = (ctx, obj, path, fallback) => {
-  if (typeof path === 'function') {
-    return path.call(ctx, obj, fallback)
-  }
+let installed = false
 
-  path = Array.isArray(path) ? path : path.split('.')
-  for (var i = 0; i < path.length; i++) {
-    if (isObject(obj)) {
-      obj = obj[path[i]]
-    } else {
-      return fallback
+const applyRule = function (model, rule) {
+  const modelVal = this[model]
+  const validation = {}
+  for (let [ruleKey, ruleVal] of Object.entries(rule)) {
+    if (isFunction(ruleVal)) {
+      validation[ruleKey] = ruleVal.call(this, modelVal)
+      continue
     }
-  }
 
-  return typeof obj === 'undefined' ? fallback : obj
-}
+    const validator = validators[ruleKey]
 
-function setDirtyRecursive(newState) {
-  this.dirty = newState
-  const method = newState ? '$touch' : '$reset'
-  const keys = this.dynamicKeys
-  for (let i = 0; i < keys.length; i++) {
-    const ruleOrNested = keys[i]
-    const val = this[ruleOrNested]
-    if (isObject(val)) {
-      val[method]()
+    if (!isFunction(validator)) {
+      warn(`there is no validator named ${ruleKey}, it will be ignored!`)
+      continue
     }
-  }
-}
 
-// vm static definition
-const defaultMethods = {
-  $touch() {
-    setDirtyRecursive.call(this, true)
-  },
-  $reset() {
-    setDirtyRecursive.call(this, false)
-  }
-}
-
-const defaultComputed = {
-  $invalid() {
-    return this.dynamicKeys.some(ruleOrNested => {
-      const val = this[ruleOrNested]
-      return isObject(val) ? val.$invalid : !val
-    })
-  },
-  $dirty() {
-    if (this.dirty) {
-      return true
-    }
-    const keys = this.dynamicKeys
-    // iteration to trigger as little getters as possible
-    let foundNested = false
-    for (let i = 0; i < keys.length; i++) {
-      const ruleOrNested = keys[i]
-      const val = this[ruleOrNested]
-      const isNested = isObject(val)
-      foundNested = foundNested || isNested
-      if (isNested && !val.$dirty) {
-        return false
-      }
-    }
-    return foundNested
-  },
-  $error() {
-    return !!(this.$dirty && this.$invalid)
-  }
-}
-
-const defaultMethodKeys = Object.keys(defaultMethods)
-const defaultComputedKeys = Object.keys(defaultComputed)
-const mapDynamicKeyName = k => 'v$$' + k
-
-function isSingleRule(ruleset) {
-  return typeof ruleset === 'function'
-}
-
-function makeValidationVm(validations, parentVm, rootVm = parentVm, parentProp = null) {
-  const validationKeys = Object.keys(validations).filter(key => !!validations[key])
-  const dynamicKeys = validationKeys.map(mapDynamicKeyName)
-
-  const computedRules = buildFromKeys(validationKeys, (key) => {
-    const rule = validations[key]
-    return mapValidator(rootVm, rule, key, parentVm, parentProp)
-  }, mapDynamicKeyName)
-
-  let Vue = rootVm.constructor
-  while (Vue.super) Vue = Vue.super
-
-  const validationVm = new Vue({
-    data: {
-      dirty: false,
-      dynamicKeys
-    },
-    methods: defaultMethods,
-    computed: {
-      ...computedRules,
-      ...defaultComputed
-    }
-  })
-
-  return proxyVm(validationVm, validationKeys)
-}
-
-function mapValidator(rootVm, rule, ruleKey, vm, vmProp) {
-  if (isSingleRule(rule)) {
-    return mapRule(rootVm, rule, ruleKey, vm, vmProp)
-  } else if (Array.isArray(rule)) {
-    return mapGroup(rootVm, rule, ruleKey, vm, vmProp)
-  } else {
-    return mapChild(rootVm, rule, ruleKey, vm, vmProp)
-  }
-}
-
-function mapRule(rootVm, rule, ruleKey, parentVm, prop) {
-  return function () {
-    return rule.call(rootVm, parentVm[prop], parentVm)
-  }
-}
-
-function mapChild(rootVm, rules, ruleKey, parentVm, prop) {
-  if (ruleKey === '$each') {
-    return trackCollection(rootVm, rules, parentVm, prop)
-  }
-  const childVm = typeof prop === 'string' ? parentVm[prop] : parentVm
-  const vm = makeValidationVm(rules, childVm, rootVm, ruleKey)
-  return constant(vm)
-}
-
-function trackCollection(rootVm, eachRule, parentVm, prop) {
-  let vmList = {}
-  const strippedRule = {
-    ...eachRule,
-    $trackBy: undefined
+    ruleVal = isArray(ruleVal) ? ruleVal : [ruleVal]
+    validation[ruleKey] = validator(...ruleVal).call(this, modelVal, model)
   }
 
-  return function () {
-    const childVm = typeof prop === 'string' ? parentVm[prop] : parentVm
-    const newKeys = Object.keys(childVm)
-    const keyToTrack = typeof eachRule.$trackBy !== 'undefined'
-      ? buildFromKeys(newKeys, key => getPath(rootVm, childVm[key], eachRule.$trackBy))
-      : null
+  const vModel = this.$v[model]
 
-    const vmByKey = {}
-    vmList = newKeys.reduce((newList, key) => {
-      const track = keyToTrack ? keyToTrack[key] : key
-      vmByKey[key] = newList[track] = newList[track] || vmList[track] ||
-        mapValidator(rootVm, strippedRule, key, childVm)
-      return newList
-    }, {})
+  Object.assign(vModel, validation)
 
-    return makeValidationVm(vmByKey, childVm, rootVm)
-  }
+  vModel.$invalid = Object.values(validation).some(v => !v)
+  vModel.$error = vModel.$dirty && vModel.$invalid
 }
 
-function mapGroup(rootVm, group, prop, parentVm) {
-  const rules = buildFromKeys(
-    group,
-    path => function () { return getPath(this, this.$v, path) }
-  )
+export default {
+  install(Vue, options = {}) {
+    if (installed) return error('do not try to install plugin v-validator twice!')
 
-  const vm = makeValidationVm(rules, parentVm, rootVm, prop)
-  return constant(vm)
-}
+    installed = true
 
-function proxyVm(vm, originalKeys) {
-  const redirectDef = {
-    ...buildFromKeys(originalKeys, key => {
-      let dynKey = mapDynamicKeyName(key)
-      return {
-        enumerable: true,
-        get() {
-          return vm[dynKey]
+    log('plugin v-validator is installed!')
+
+    Object.assign(validators, options.validators)
+
+    const defineReactive = Vue.util.defineReactive
+
+    Vue.mixin({
+      beforeCreate() {
+        let validator = this.$options.validator
+        if (!validator) return
+
+        if (isFunction(validator)) validator = validator.call(this)
+
+        validator.rules || (validator = {rules: validator})
+
+        let rules = validator.rules
+        const auto = !!validator.auto
+
+        if (!isObjectLike(rules)) return warn('rules of validator should be an object')
+
+        defineReactive(this, '$v', {})
+        defineReactive(this, '$e', {})
+
+        for (const [model, rule] of Object.entries(rules)) {
+          defineReactive(this.$v, model, {
+            $dirty: auto,
+            $error: false,
+            $invalid: false
+          })
+
+          const vModel = this.$v[model]
+
+          Object.assign(vModel, {
+            $touch: () => {
+              if (vModel.$dirty) return
+
+              vModel.$dirty = true
+              applyRule.call(this, model, rule)
+            },
+            $reset: () => {
+              if (!vModel.$dirty) return
+
+              vModel.$dirty = false
+              applyRule.call(this, model, rule)
+            }
+          })
+
+          Vue.nextTick(() => {
+            this.$watch(model, () => {
+              auto && (vModel.$dirty = true)
+              applyRule.call(this, model, rule)
+            })
+
+            vModel[auto ? '$touch' : '$reset']()
+          })
         }
       }
-    }),
-    ...buildFromKeys(defaultComputedKeys, key => ({
-      enumerable: true,
-      get() {
-        return vm[key]
-      }
-    })),
-    ...buildFromKeys(defaultMethodKeys, key => ({
-      value: vm[key].bind(vm)
-    }))
-  }
-
-  return Object.defineProperties({}, redirectDef)
-}
-
-const validationMixin = {
-  beforeCreate() {
-    const options = this.$options
-    if (!options.validations) return
-    const validations = options.validations
-
-    /* istanbul ignore if */
-    if (typeof options.computed === 'undefined') {
-      options.computed = {}
-    }
-
-    options.computed.$v = () => validateModel(this, validations)
+    })
   }
 }
-
-const validateModel = (model, validations) => makeValidationVm(validations, model)
-
-function Validation(Vue) {
-  /* istanbul ignore if */
-  if (Validation.installed) {
-    return
-  }
-  Vue.mixin(validationMixin)
-}
-
-export {Validation, validationMixin, validateModel}
-export default Validation
