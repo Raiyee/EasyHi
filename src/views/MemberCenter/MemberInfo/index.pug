@@ -1,38 +1,42 @@
 div(:class="classes.container")
   form(action="javascript:;")
-    .border-tb(:class="classes.memberInfo")
-      ol.list-unstyled
-        li(:class="classes.firstChild")
-          .font-black(:class="classes.portraitTitle") 头像
-          span.iconfont.icon-arrow-right(:class="classes.iconRight")
-          input.hidden(type="file", @change="previewFile", ref="file")
-          div(@click="changePortrait", :class="[classes.itemRight, classes.memberPortrait]", v-lazy:background-image="$util.imgPath(memberPortrait)")
-        li.border-t
-          .font-black(:class="classes.itemLeft") 用户名
-          input(:class="[classes.itemRight, classes.memberName]", v-model = "memberName")
-        li.border-t
-          .font-black(:class="classes.itemLeft") 性别
-          div(:class="classes.itemRight")
-            span(@click="changeGender", :class="[classes.memberGender, {'font-black': memberGender}]") 男
-              span.iconfont.icon-male(:class="{active: memberGender}")
-            span(@click="changeGender", :class="[classes.memberGender, {'font-black': !memberGender}]") 女
-              span.iconfont.icon-female(:class="{active: !memberGender}")
-        li.border-t
-          .font-black(:class="classes.itemLeft") 生日
-          span.iconfont.icon-arrow-right(:class="classes.iconRight")
-          div(:class="classes.itemRight") {{memberBirthday}}
-        li.border-t
-          .font-black(:class="classes.itemLeft") 地址
-          span.iconfont.icon-arrow-right(:class="classes.iconRight")
-          div(:class="classes.itemRight") {{memberAddress}}
-        li.border-t
-          .font-black(:class="classes.profileTitle") 个人简介
-          textarea(:class="classes.profileContent") {{memberProfile}}
+    ul.list-group.list-group-primary.border-tb(:class="classes.listItems")
+      each val, index in [{item:'头像'}, {item:'用户名'}, {item:'性别'}, {item:'生日'}, {item:'地址'}]
+        li.list-group-item.border-b(:class="classes.listItem")
+          .list-group-left #{val.item}
+          .list-group-right
+            case index
+              when 0
+                input.hidden(type="file", @change="previewFile", ref="file")
+                div(@click="changePortrait", :class="classes.portrait", v-lazy:background-image="$util.imgPath(memberPortrait)")
+                span.iconfont.icon-arrow-right(:class="classes.iconRight")
+
+              when 1
+                input(:class="[classes.rightText, classes.memberName]", v-model="memberName")
+
+              when 2
+                each genderVal, i in [{gender:'男', isMale:'true', icon:'icon-male'}, {gender:'女', isMale:'false', icon:'icon-female'}]
+                  div(@click="changeGender(" + genderVal.isMale + ")", :class="[classes.memberGender, {'font-black':" + (i ? "!" : "") + "memberGender}]") #{genderVal.gender}
+                  span(:class="[classes.iconGender, {active: " + (i ? "!" : "") + "memberGender}]", class="iconfont " + genderVal.icon)
+
+              when 3
+                div(:class="[classes.rightText, classes.memberBirthday]") {{memberBirthday}}
+                span.iconfont.icon-arrow-right(:class="classes.iconRight")
+
+              default
+                div(:class="[classes.rightText, classes.memberAddress]") {{memberAddress}}
+                span.iconfont.icon-arrow-right(:class="classes.iconRight")
+
+      li.list-group-item(:class="classes.listItem")
+        | 个人简介
+        textarea(rows=3, :class="[classes.rightText, classes.profileContent]") {{memberProfile}}
 
     .border-t(:class="classes.bottomSuspension")
       .theme-bg(@click="saveMember", :class="classes.saveBtn") 保存
 
-  .border-tb(:class="classes.accountSecurity")
-    .font-black(:class="classes.itemLeft") 账号安全
-    span.iconfont.icon-arrow-right(:class="classes.iconRight")
-    div(:class="classes.itemRight") 可修改绑定手机号
+  ul.list-group.list-group-primary.border-tb(:class="classes.security")
+    li.list-group-item
+      .list-group-left 账号安全
+      .list-group-right
+        div(:class="[classes.rightText, classes.changeMobile]") 可修改绑定手机号
+        span.iconfont.icon-arrow-right(:class="classes.iconRight")

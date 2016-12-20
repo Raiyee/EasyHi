@@ -11,10 +11,13 @@ export default require('./index.pug')({
     }
   },
   methods: {
-    changePortrait: function () {
+    changeGender(gender) {
+      this.memberGender = gender
+    },
+    changePortrait() {
       this.$refs.file.click()
     },
-    previewFile: function (e) {
+    previewFile(e) {
       const file = e.target.files[0]
 
       if (!/^image\//i.test(file.type)) return alert('请确保文件为图像类型')
@@ -23,22 +26,17 @@ export default require('./index.pug')({
         this.memberPortrait = result
       }, null, 100)
     },
-    changeGender: function () {
-      this.memberGender = !this.memberGender
-    },
-    saveMember: function () {
+    saveMember() {
       this.$http.post('/saveMemberDetail', omitObj(this.$data, 'classes'))
-        .then(res => {
-          toast({
-            tipText: res.data,
-            close() {
-              this.$router.push({
-                path: '/member-center'
-              })
-              this.$modal.close()
-            }
-          })
-        })
+        .then(({data: tipText}) => toast({
+          tipText,
+          close() {
+            this.$router.push({
+              path: '/member-center'
+            })
+            this.$modal.close()
+          }
+        }))
     }
   }
 })
