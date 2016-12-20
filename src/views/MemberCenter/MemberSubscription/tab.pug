@@ -1,4 +1,7 @@
-div(:class="classes.container", :style="{float: float || 'left', width: width || '100%'}", ref="container")
-  ul.theme-color(:style="{width: ulWidth + 'px', transform: transform}", v-touch="{methods: true}", ref="ulContainer")
-    li(v-for="(tab, index) in tabArray", :class="index === tabIndex ? classes.active : ''", :style="{width: liWidth}", @click="clickItem(tab, index, $event)")
-      span {{ tab | tabNameFilter }}
+.clearfix
+  div(:class="classes.container", :style="{width: width || '100%'}", ref="container")
+    ul.theme-color(:style="{width: itemsWidth + 'px', transform}", v-touch="{methods: true}", ref="ulContainer")
+      li(v-for="(item, index) in items", :style="{width: itemWidth + 'px'}", @tap="toggleItem(item, index)")
+        span {{ item.tabName || item }}
+    .theme-color(:class="classes.border", :style="{transform: transformBorder, width: itemWidth + 'px'}")
+  slot(v-if="$slots.right", name="right")
