@@ -70,7 +70,6 @@ export default require('./tab.pug')({
           ) * perWidth
       }
       this.translateX = translateDistance
-      console.log(e.changedX, this.translateX)
     },
     clickItem: function (item, index, e) {
       this.itemIndex = index
