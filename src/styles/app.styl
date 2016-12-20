@@ -121,36 +121,6 @@ input
 .border-radius
   borderRadius()
 
-.font-black
-  color STRESS_COLOR !important // @stylint ignore
-
-.list-group-primary
-  background-color BACK_LIGHT_COLOR
-  border-top 1px solid LIST_LINE_COLOR
-  border-bottom 1px solid LIST_LINE_COLOR
-
-  > .list-group-item
-    border 0
-    padding-left 0
-    margin-left 10px
-    padding-right 10px
-
-    + .list-group-item
-      border-top 1px solid LIST_LINE_COLOR
-
-    .list-group-left, .list-group-right
-      display table-cell
-      vertical-align middle
-
-    .list-group-left
-      width 20%
-
-    .list-group-right
-      width 10000px
-
-      &, input, textarea
-        text-align right
-
 @media (min-resolution 2dppx)
   .border
     position relative
@@ -205,6 +175,37 @@ input
     box-sizing border-box
     z-index Z_INDEX_BORDER
     pointer-events none
+
+.font-black
+  color STRESS_COLOR !important  // @stylint ignore
+
+.list-group-primary
+  background-color BACK_LIGHT_COLOR
+
+  > .list-group-item
+    border 0
+    padding-left 0
+    margin-left 10px
+    padding-right 10px
+    background-color transparent
+    margin-bottom 0
+
+    .list-group-left, .list-group-right
+      display table-cell
+      vertical-align middle
+
+    .list-group-left
+      white-space nowrap
+      color STRESS_COLOR
+
+    .list-group-right
+      width 10000px
+
+      &, input, textarea
+        text-align right
+        border 0
+        outline 0
+        resize none
 
 .white-mask, .black-mask
   position fixed

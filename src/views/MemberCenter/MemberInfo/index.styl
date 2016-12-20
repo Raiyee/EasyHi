@@ -1,13 +1,9 @@
-ICON_ARROW_RIGHT_COLOR = #cccccc
+ICON_ARROW_RIGHT_COLOR = #ccc
 
 .container
   .list-items
     margin-top 20px
     margin-bottom 10px
-    background-color BACK_LIGHT_COLOR
-
-    .list-item
-      padding 5px 0
 
     .portrait
       width 60px
@@ -19,17 +15,10 @@ ICON_ARROW_RIGHT_COLOR = #cccccc
       background-position center
 
     .member-name
-      width 80%
-      border 0
-      outline 0
-      height 38px
-      margin-top 1px
       text-align right
-      margin-right 30px
 
     .member-gender
       margin-left 8px
-      margin-right 10px
       color PLACEHOLDER_COLOR
 
       .icon-gender
@@ -43,50 +32,31 @@ ICON_ARROW_RIGHT_COLOR = #cccccc
       resize none
       overflow hidden
       width 100%
-      min-height 54px
 
-  .member-gender, .member-birthday, .member-address, right-text
-    height 39px
-    line-height 39px
+  .member-gender, .member-birthday, .member-address, right-text, .icon-right
     display inline-block
+    vertical-align middle
 
   .icon-right
-    margin 0 6px 0 4px
     color ICON_ARROW_RIGHT_COLOR
 
   .right-text
     color REMARK_COLOR
 
-  .security
-    height 50px
-    line-height 50px
-    padding-left 10px
-    background-color REVERSE_COLOR
+.change-mobile
+  display inline-block
 
-    .item-left, .item-right
-      display table-cell
+.bottom-suspension
+  bottom 0
+  width 100%
+  position fixed
+  padding 13px 16px
+  background-color BACK_LIGHT_COLOR
 
-    .item-left
-      width 3000px
-
-    .item-right
-      width 7000px
-      text-align right
-
-    .change-mobile
-      display inline-block
-
-  .bottom-suspension
-    bottom 0
-    width 100%
-    position fixed
-    padding 13px 16px
-    background-color BACK_LIGHT_COLOR
-
-  .save-btn
-    height 45px
-    line-height 45px
-    text-align center
-    border-radius 30px
-    font-size STRESS_SIZE
-    color BACK_LIGHT_COLOR
+.save-btn
+  height 45px
+  line-height 45px
+  text-align center
+  border-radius 30px
+  font-size STRESS_SIZE
+  color BACK_LIGHT_COLOR
