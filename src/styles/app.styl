@@ -25,7 +25,6 @@ input
   &::-webkit-inner-spin-button,
   &::-webkit-outer-spin-button
     appearance none
-
 // @stylint on
 
 .btn
@@ -36,14 +35,17 @@ input
 .input-group-addon
   color ICON_COLOR
   background-color BACK_LIGHT_COLOR !important // @stylint ignore
+
   &:first-child + .form-control
     border-left 0
     padding-left 0
+
     &:not(:last-child)
       border-right 0
 
 .form-control
   height INPUT_SIZE
+
   &, &:focus
     box-shadow none !important // @stylint ignore
     border-color INPUT_BORDER_COLOR
@@ -51,13 +53,14 @@ input
 .input-group-addon,
 .form-control
   padding 6px 12px
+  border-color INPUT_BORDER_COLOR
+
   &:first-child
     padding-left 22px
     border-radius HALF_INPUT_SIZE 0 0 HALF_INPUT_SIZE
+
   &:last-child
     border-radius 0 HALF_INPUT_SIZE HALF_INPUT_SIZE 0
-  &
-    border-color INPUT_BORDER_COLOR
 
 .has-error
   .form-control
@@ -176,11 +179,18 @@ input
     z-index Z_INDEX_BORDER
     pointer-events none
 
-.font-black
-  color STRESS_COLOR !important  // @stylint ignore
-
 .list-group-primary
   background-color BACK_LIGHT_COLOR
+
+  input, textarea
+    border 0
+    outline 0
+    resize none
+
+  textarea
+    display block
+    width 100%
+    padding 5px 0
 
   > .list-group-item
     border 0
@@ -201,11 +211,26 @@ input
     .list-group-right
       width 10000px
 
-      &, input, textarea
+      &, span
+        vertical-align middle
+
+      &, input
         text-align right
-        border 0
-        outline 0
-        resize none
+
+.fixed-bottom
+  fixed()
+  bottom 0
+  width 100%
+  padding 12px 16px
+  background-color BACK_LIGHT_COLOR
+  display flex
+
+  .btn
+    flex 1
+    font-size STRESS_SIZE
+
+    + .btn
+      margin-left 10px
 
 .white-mask, .black-mask
   position fixed

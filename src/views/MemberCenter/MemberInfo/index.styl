@@ -1,62 +1,36 @@
-ICON_ARROW_RIGHT_COLOR = #ccc
+.list-items
+  margin-top 20px
+  margin-bottom 10px
 
-.container
-  .list-items
-    margin-top 20px
-    margin-bottom 10px
+.portrait
+  width 60px
+  height 60px
+  border-radius 50%
+  display inline-block
+  background-size cover
+  vertical-align middle
+  background-position center
 
-    .portrait
-      width 60px
-      height 60px
-      border-radius 50%
-      display inline-block
-      background-size cover
-      vertical-align middle
-      background-position center
+.member-gender
+  margin-left 8px
+  color PLACEHOLDER_COLOR
 
-    .member-name
-      text-align right
+  &:first-child
+    margin-left 0
 
-    .member-gender
-      margin-left 8px
-      color PLACEHOLDER_COLOR
+  span
+    &:global(.active):first-child
+      color STRESS_COLOR
 
-      .icon-gender
-        font-size 14px
-        margin-left 3px
-        vertical-align middle
+    &:last-child
+      font-size 14px
+      margin-left 3px
 
-    .profile-content
-      outline 0
-      border 0
-      resize none
-      overflow hidden
-      width 100%
+.text
+  color REMARK_COLOR
 
-  .member-gender, .member-birthday, .member-address, right-text, .icon-right
-    display inline-block
-    vertical-align middle
-
-  .icon-right
-    color ICON_ARROW_RIGHT_COLOR
-
-  .right-text
-    color REMARK_COLOR
+  :global(.icon-arrow-right)
+    color LIGHTER_REMARK_COLOR
 
 .change-mobile
   display inline-block
-
-.bottom-suspension
-  bottom 0
-  width 100%
-  position fixed
-  padding 13px 16px
-  background-color BACK_LIGHT_COLOR
-
-.save-btn
-  height 45px
-  line-height 45px
-  text-align center
-  border-radius 30px
-  font-size STRESS_SIZE
-  color BACK_LIGHT_COLOR
