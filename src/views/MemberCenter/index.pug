@@ -18,7 +18,7 @@ div(:class="classes.container")
     .panel-heading
       h3.panel-title 最近课程
         small(v-if="recentCourse") （{{ recentCourse.startTime | formatDate }})
-        router-link.pull-right(to="/") 查看全部预订
+        router-link.pull-right(to="/member-subscription") 查看全部预订
           span.iconfont.icon-arrow-right
     .panel-body(v-if="recentCourse")
       div
