@@ -1,6 +1,8 @@
+export const base = location.pathname.split('/').slice(0, 3).join('/')
+
 export default {
   mode: 'history',
-  base: location.pathname.split('/').slice(0, 3).join('/'),
+  base,
   routes: [
     {
       path: '/',
@@ -10,8 +12,7 @@ export default {
       path: '/login',
       name: 'login',
       component: () => System.import('views/Login')
-    },
-    {
+    }, {
       path: '/member-center',
       name: 'memberCenter',
       component: () => System.import('views/MemberCenter'),
@@ -22,8 +23,7 @@ export default {
           restore: false
         }
       }
-    },
-    {
+    }, {
       path: '/member-subscribe',
       name: 'memberSubscribe',
       component: () => System.import('views/MemberSubscribe'),
@@ -33,8 +33,7 @@ export default {
         },
         keepAlive: false
       }
-    },
-    {
+    }, {
       path: '/member-information',
       name: 'memberInfo',
       component: () => System.import('views/MemberCenter/MemberInfo'),
@@ -54,8 +53,7 @@ export default {
           url: '/membermessage'
         }
       }
-    },
-    {
+    }, {
       path: '/member-subscription',
       name: 'memberSubscription',
       component: () => System.import('views/MemberCenter/MemberSubscription'),
@@ -65,8 +63,7 @@ export default {
           url: '/member-subscriptions'
         }
       }
-    },
-    {
+    }, {
       path: '/dynamic',
       name: 'dynamic',
       component: () => System.import('views/_Dynamic'),
@@ -78,6 +75,13 @@ export default {
     }, {
       path: '/modal',
       component: () => System.import('views/_Modal')
+    }, {
+      path: '/404',
+      name: '404',
+      component: () => System.import('views/NotFound'),
+      meta: {
+        tcode: false
+      }
     }, {
       path: '*',
       redirect: '/'

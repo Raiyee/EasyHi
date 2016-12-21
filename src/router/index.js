@@ -5,7 +5,7 @@ import HTTP from 'http'
 Vue.use(VueRouter)
 
 import store from 'store'
-import routes from './routes'
+import routes, {base} from './routes'
 import utils, {alert, isFunction} from 'utils'
 
 const router = new VueRouter(routes)
@@ -39,7 +39,7 @@ const resolveData = (data, meta, next) => {
 
 const BG = 'bg'
 
-router.beforeEach((to, from, next) => {
+const resolveRoute = (to, from, next) => {
   store.dispatch('setProgress', 50)
 
   const meta = to.meta
@@ -80,6 +80,18 @@ router.beforeEach((to, from, next) => {
     alert('系统异常，无法跳转')
     next(false)
     store.dispatch('setProgress', 0)
+  })
+}
+
+router.beforeEach((to, from, next) => {
+  if (store.getters.initialized || to.meta.tcode === false) return resolveRoute(to, from, next)
+
+  store.dispatch('initialize', {
+    base
+  }).then(() => {
+    resolveRoute(to, from, next)
+  }).catch(() => {
+    next('/404')
   })
 })
 
