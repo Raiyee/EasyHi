@@ -1,4 +1,4 @@
-import HTTP from 'http'
+import axios from 'axios'
 
 import {ROLES, STAFFS} from '../constants'
 
@@ -35,7 +35,7 @@ const actions = {
   initialize({commit}, payload) {
     if (state.initialized) return
 
-    return HTTP.post('/initialize', payload)
+    return axios.post('/initialize', payload)
       .then(({data: {error}}) => {
         if (error) return Promise.reject(error)
 

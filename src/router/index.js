@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import HTTP from 'http'
+import axios from 'axios'
 
 Vue.use(VueRouter)
 
@@ -62,7 +62,7 @@ const resolveRoute = (to, from, next) => {
 
   store.dispatch('setProgress', 70)
 
-  HTTP({
+  axios({
     method: init.type || 'post',
     url: init.url,
     data: {

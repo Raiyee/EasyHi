@@ -1,13 +1,13 @@
 import Vue from 'vue'
-import HTTP, {interceptors} from 'http'
+import axios, {interceptors} from 'axios'
 
 import store from 'store'
 import {alert, on, warn} from 'utils'
 
-Vue.prototype.$http = HTTP
+Vue.prototype.$http = axios
 
 // the `get` method is different from `post` by default, we alias it as a same-signature method here!
-HTTP.get = (url, params, config) => HTTP({
+axios.get = (url, params, config) => axios({
   method: 'get',
   params,
   url,
