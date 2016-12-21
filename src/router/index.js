@@ -5,8 +5,12 @@ import axios from 'axios'
 Vue.use(VueRouter)
 
 import store from 'store'
-import routes, {base} from './routes'
+import routes from './routes'
 import utils, {alert, isFunction} from 'utils'
+
+store.dispatch('parsePath', location.pathname)
+
+routes.base = store.getters.base
 
 const router = new VueRouter(routes)
 
@@ -83,15 +87,18 @@ const resolveRoute = (to, from, next) => {
   })
 }
 
+const tcode = store.getters.tcode
+const NOT_FOUND_ROUTE = router.match('/404')
+
 router.beforeEach((to, from, next) => {
-  if (store.getters.initialized || to.meta.tcode === false) return resolveRoute(to, from, next)
+  if (store.getters.initialized) return resolveRoute(to, from, next)
 
   store.dispatch('initialize', {
-    base
+    tcode
   }).then(() => {
     resolveRoute(to, from, next)
   }).catch(() => {
-    next('/404')
+    router.history.updateRoute(NOT_FOUND_ROUTE)
   })
 })
 

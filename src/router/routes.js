@@ -1,8 +1,5 @@
-export const base = __DEV__ ? '/' : location.pathname.split('/').slice(0, 3).join('/')
-
 export default {
   mode: 'history',
-  base,
   routes: [
     {
       path: '/',
@@ -78,10 +75,7 @@ export default {
     }, {
       path: '/404',
       name: '404',
-      component: () => System.import('views/NotFound'),
-      meta: {
-        tcode: false
-      }
+      component: () => System.import('views/NotFound')
     }, {
       path: '*',
       redirect: '/'
