@@ -1,3 +1,5 @@
+import utils from 'utils'
+
 export default {
   mode: 'history',
   routes: [
@@ -75,7 +77,10 @@ export default {
     }, {
       path: '/404',
       name: '404',
-      component: () => System.import('views/NotFound')
+      component: () => System.import('views/NotFound'),
+      beforeEnter() {
+        utils.router.history.updateRoute(utils.NOT_FOUND_ROUTE)
+      }
     }, {
       path: '*',
       redirect: '/404'

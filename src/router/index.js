@@ -90,6 +90,11 @@ const resolveRoute = (to, from, next) => {
 const tcode = store.getters.tcode
 const NOT_FOUND_ROUTE = router.match('/404')
 
+Object.assign(utils, {
+  router,
+  NOT_FOUND_ROUTE
+})
+
 router.beforeEach((to, from, next) => {
   if (store.getters.initialized) return resolveRoute(to, from, next)
 
