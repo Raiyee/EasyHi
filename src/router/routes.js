@@ -1,4 +1,4 @@
-export const base = location.pathname.split('/').slice(0, 3).join('/')
+export const base = __DEV__ ? '/' : location.pathname.split('/').slice(0, 3).join('/')
 
 export default {
   mode: 'history',
