@@ -3,7 +3,6 @@ import webpack from 'webpack'
 import CopyWebpackPlugin from 'copy-webpack-plugin'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
-import HtmlRewriteWebpackPlugin from 'html-rewrite-webpack-plugin'
 import autoprefixer from 'autoprefixer'
 import cssnano from 'cssnano'
 import _debug from 'debug'
@@ -165,7 +164,6 @@ webpackConfig.plugins = [
     }
   }),
   new HtmlWebpackPlugin({
-    filename: `index.${__MOCK__ ? 'html' : 'pug'}`,
     templateContent: pug.render(templateContent, {
       pretty: !__MOCK__ || !config.compiler_html_minify,
       title: `${pkg.name} - ${pkg.description}`
@@ -184,12 +182,6 @@ webpackConfig.plugins = [
     ignore: ['*.ico', '*.md']
   })
 ]
-
-__MOCK__ || webpackConfig.plugins.push(new HtmlRewriteWebpackPlugin({
-  afterHtmlProcessing: htmlPluginData => {
-    htmlPluginData.html = htmlPluginData.html.replace(/(<!--pre )(.*)(-->)/g, (math, $1, $2, $3) => $2)
-  }
-}))
 
 // Don't split bundles during testing, since we only want import one bundle
 if (!__TESTING__) {
