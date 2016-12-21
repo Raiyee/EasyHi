@@ -1,5 +1,5 @@
 export default {
-  mode: 'hash',
+  mode: 'history',
   routes: [
     {
       path: '/',
