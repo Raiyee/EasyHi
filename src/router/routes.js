@@ -78,7 +78,7 @@ export default {
       component: () => System.import('views/NotFound')
     }, {
       path: '*',
-      redirect: '/'
+      redirect: '/404'
     }
   ]
 }
