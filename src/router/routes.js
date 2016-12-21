@@ -1,5 +1,6 @@
 export default {
   mode: 'history',
+  base: location.pathname.split('/').slice(0, 3).join('/'),
   routes: [
     {
       path: '/',
