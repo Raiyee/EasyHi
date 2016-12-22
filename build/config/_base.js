@@ -4,11 +4,10 @@ import _debug from 'debug'
 
 const debug = _debug('koa:config:base')
 
-const TRUE_NODE_ENV = process.env.NODE_ENV || 'development'
-const NODE_ENV = TRUE_NODE_ENV === 'test' ? 'production' : TRUE_NODE_ENV
+const NODE_ENV = process.env.NODE_ENV || 'development'
 
 const config = {
-  env: TRUE_NODE_ENV,
+  env: NODE_ENV,
 
   pkg: require('../../package.json'),
 
@@ -62,13 +61,12 @@ const config = {
 // Environment
 // ------------------------------------
 config.globals = {
-  'process.env.NODE_ENV': JSON.stringify(TRUE_NODE_ENV),
-  NODE_ENV: NODE_ENV,
-  TRUE_NODE_ENV: TRUE_NODE_ENV,
-  __DEV__: TRUE_NODE_ENV === 'development',
-  __PROD__: TRUE_NODE_ENV === 'production',
-  __TEST__: TRUE_NODE_ENV === 'test',
-  __TESTING__: TRUE_NODE_ENV === 'testing',
+  'process.env.NODE_ENV': JSON.stringify(NODE_ENV),
+  NODE_ENV,
+  __DEV__: NODE_ENV === 'development',
+  __PROD__: NODE_ENV === 'production',
+  __TEST__: NODE_ENV === 'test',
+  __TESTING__: NODE_ENV === 'testing',
   __MOCK__: !!argv.mock,
   CONTEXT: JSON.stringify('/yoga-vision'),
   IMG_PATH_PREFIX: JSON.stringify('https://placem.at/')

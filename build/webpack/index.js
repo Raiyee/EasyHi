@@ -1,4 +1,3 @@
-import fs from 'fs'
 import webpack from 'webpack'
 import CopyWebpackPlugin from 'copy-webpack-plugin'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
@@ -10,7 +9,7 @@ import pug from 'pug'
 
 import config, {globals, paths, pkg} from '../config'
 import utils, {baseLoaders, cssModuleLoaders, generateLoaders, nodeModules} from './utils'
-const {TRUE_NODE_ENV, __DEV__, __PROD__, __TESTING__, __MOCK__} = globals
+const {NODE_ENV, __DEV__, __PROD__, __TESTING__, __MOCK__} = globals
 
 const debug = _debug('koa:webpack:config')
 
@@ -138,13 +137,9 @@ webpackConfig.module.rules = [
 // Plugins
 // ------------------------------------
 
-__MOCK__ && debug(`enable mock for ${TRUE_NODE_ENV}`)
+__MOCK__ && debug(`enable mock for ${NODE_ENV}`)
 
 const postcss = []
-
-let templateContent = fs.readFileSync(paths.src('index.pug')).toString()
-
-__MOCK__ && (templateContent = templateContent.replace(/\/\/pre /g, ''))
 
 webpackConfig.plugins = [
   new webpack.ContextReplacementPlugin(/\.\/locale$/, null, false, /js$/),
@@ -164,15 +159,15 @@ webpackConfig.plugins = [
     }
   }),
   new HtmlWebpackPlugin({
-    templateContent: pug.render(templateContent, {
-      pretty: !__MOCK__ || !config.compiler_html_minify,
+    templateContent: pug.compileFile(paths.src('index.pug'), {
+      pretty: !config.compiler_html_minify,
       title: `${pkg.name} - ${pkg.description}`
     }),
     favicon: paths.src('static/favicon.ico'),
     hash: false,
     inject: true,
     minify: {
-      collapseWhitespace: __MOCK__ && config.compiler_html_minify,
+      collapseWhitespace: config.compiler_html_minify,
       minifyJS: config.compiler_html_minify
     }
   }),
@@ -195,7 +190,7 @@ if (!__TESTING__) {
 const browsers = config.compiler_browsers
 
 if (__DEV__ || __TESTING__) {
-  debug(`Enable postcss processor(autoprefixer) for ${TRUE_NODE_ENV}`)
+  debug(`Enable postcss processor(autoprefixer) for ${NODE_ENV}`)
 
   postcss.push(autoprefixer({browsers}))
 
@@ -205,7 +200,7 @@ if (__DEV__ || __TESTING__) {
     new webpack.NoErrorsPlugin()
   )
 } else {
-  debug(`Enable postcss processor(cssnano) for ${TRUE_NODE_ENV}`)
+  debug(`Enable postcss processor(cssnano) for ${NODE_ENV}`)
 
   postcss.push(cssnano({
     autoprefixer: {
@@ -224,8 +219,8 @@ if (__DEV__ || __TESTING__) {
     sourcemap: sourceMap
   }))
 
-  debug(`Enable plugins for ${TRUE_NODE_ENV} (OccurenceOrder, Dedupe & UglifyJS).`)
-  debug(`Extract styles of app and bootstrap for ${TRUE_NODE_ENV}.`)
+  debug(`Enable plugins for ${NODE_ENV} (OccurenceOrder, Dedupe & UglifyJS).`)
+  debug(`Extract styles of app and bootstrap for ${NODE_ENV}.`)
   webpackConfig.plugins.push(
     new webpack.optimize.UglifyJsPlugin({
       compress: {

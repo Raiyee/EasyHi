@@ -11,7 +11,7 @@ describe('App', () => {
       store,
       router
     }).$mount()
-    expect(app.transition).to.equal('fade')
+    expect(app.transition).to.equal('bounce')
     expect(app.keepAlive).to.equal(false)
   })
 })
