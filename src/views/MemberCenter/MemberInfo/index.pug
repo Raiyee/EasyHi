@@ -1,42 +1,45 @@
 div(:class="classes.container")
   form(action="javascript:;")
     ul.list-group.list-group-primary.border-tb(:class="classes.listItems")
-      li.list-group-item.border-b(:class="classes.listItem")
-        .list-group-left 头像
-        .list-group-right
-          input.hidden(type="file", @change="previewFile", ref="file")
-          div(@click="changePortrait", :class="classes.portrait", v-lazy:background-image="$util.imgPath(memberPortrait)")
-          span.iconfont.icon-arrow-right(:class="classes.iconRight")
-      li.list-group-item.border-b(:class="classes.listItem")
-        .list-group-left 用户名
-        .list-group-right
-          input(:class="[classes.rightText, classes.memberName]", v-model="memberName")
-      li.list-group-item.border-b(:class="classes.listItem")
-        .list-group-left 性别
-        .list-group-right
-          div(@click="changeGender(true)", :class="[classes.memberGender, {'font-black': memberGender}]") 男
-            span.iconfont.icon-male(:class="[classes.iconGender, {active: memberGender}]")
-          div(@click="changeGender(false)", :class="[classes.memberGender, {'font-black': !memberGender}]") 女
-            span.iconfont.icon-female(:class="[classes.iconGender, {active: !memberGender}]")
-      li.list-group-item.border-b(:class="classes.listItem")
-        .list-group-left 生日
-        .list-group-right
-          div(:class="[classes.rightText, classes.memberBirthday]") {{memberBirthday}}
-          span.iconfont.icon-arrow-right(:class="classes.iconRight")
-      li.list-group-item.border-b(:class="classes.listItem")
-        .list-group-left 地址
-        .list-group-right
-          div(:class="[classes.rightText, classes.memberAddress]") {{memberAddress}}
-          span.iconfont.icon-arrow-right(:class="classes.iconRight")
-      li.list-group-item(:class="classes.listItem")
-        div 个人简介
-        textarea(:class="[classes.rightText, classes.profileContent]") {{memberProfile}}
 
-    .border-t(:class="classes.bottomSuspension")
-      .theme-bg(@click="saveMember", :class="classes.saveBtn") 保存
+      each val, index in [{item:'头像'}, {item:'用户名'}, {item:'性别'}, {item:'生日'}, {item:'地址'}]
+        li.list-group-item.border-b
+          .list-group-left #{val.item}
+          .list-group-right(:class="classes.text")
+            case index
+              when 0
+                input.hidden(type="file", @change="previewFile", ref="file")
+                span(@click="changePortrait", :class="classes.portrait", v-lazy:background-image="$util.imgPath(memberPortrait)")
+                span.iconfont.icon-arrow-right(:class="classes.iconRight")
 
-  .border-tb(:class="classes.security")
-    div(:class="classes.itemLeft") 账号安全
-    div(:class="classes.itemRight")
-      div(:class="[classes.rightText, classes.changeMobile]") 可修改绑定手机号
-      span.iconfont.icon-arrow-right(:class="classes.iconRight")
+              when 1
+                input(:class="[classes.memberName]", v-model="memberName")
+
+              when 2
+                each val, i in [{gender:true, icon:''}, {gender:false, icon:'fe'}]
+                  - var memberGender = "{active: " + (i ? "!" : "") + "memberGender}"
+                  span(:class="classes.memberGender", @click="changeGender(" + val.gender + ")")
+                    span(:class=memberGender) #{val.gender ? '男' : '女'}
+                    span(:class=memberGender, class="iconfont icon-" + val.icon + "male")
+
+              when 3
+                span(:class="[classes.memberBirthday]") {{memberBirthday}}
+                span.iconfont.icon-arrow-right(:class="classes.iconRight")
+
+              default
+                span(:class="[classes.memberAddress]") {{memberAddress}}
+                span.iconfont.icon-arrow-right(:class="classes.iconRight")
+
+      li.list-group-item
+        | 个人简介
+        textarea(rows=3, :class="classes.text") {{memberProfile}}
+
+    .border-t.fixed-bottom
+      button.btn.btn-theme-primary(@click="saveMember") 保存
+
+  ul.list-group.list-group-primary.border-tb(:class="classes.security")
+    li.list-group-item
+      .list-group-left 账号安全
+      .list-group-right(:class="classes.text")
+        span(:class="classes.changeMobile") 可修改绑定手机号
+        span.iconfont.icon-arrow-right(:class="classes.iconRight")
