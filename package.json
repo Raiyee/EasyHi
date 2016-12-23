@@ -54,7 +54,7 @@
     "vuex-localstorage": "^0.4.0"
   },
   "devDependencies": {
-    "autoprefixer": "^6.5.4",
+    "autoprefixer": "^6.6.0",
     "babel-core": "^6.20.0",
     "babel-eslint": "^7.1.1",
     "babel-loader": "^6.2.10",
@@ -99,7 +99,7 @@
     "karma-mocha-reporter": "^2.2.1",
     "karma-phantomjs-launcher": "^1.0.2",
     "karma-sourcemap-loader": "^0.3.7",
-    "karma-webpack": "^1.8.0",
+    "karma-webpack": "^1.8.1",
     "koa": "^2.0.0-alpha.7",
     "koa-logger": "^2.0.0",
     "koa-static": "^3.0.0",
@@ -132,7 +132,7 @@
     "vue-hot-reload-api": "^2.0.6",
     "vue-template-compiler": "^2.1.6",
     "vue-template-es2015-loader": "^2.0.1",
-    "webpack": "^2.2.0-rc.1",
+    "webpack": "^2.2.0-rc.2",
     "webpack-dev-server": "^2.2.0-rc.0",
     "yargs": "^6.5.0"
   }
