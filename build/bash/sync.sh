@@ -22,8 +22,8 @@ then
     git commit -m "$MESSAGE"
     git push --force --quiet ssh://git@gitlab.raiyee.cn:10022/easyhi/yoga-vision.git pages:pages
 
-    yarn add -D coveralls codecov
-    yarn coveralls && yarn codecov
+    cnpm i coveralls codecov
+    npm run coveralls && npm run codecov
   else
     echo "there is nothing changed and to commit"
   fi
