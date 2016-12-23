@@ -1,4 +1,3 @@
-import {isString} from 'utils'
 import Tab from './tab.js'
 import classes from './index.styl'
 
@@ -13,16 +12,14 @@ export default require('./index.pug')({
     }
   },
   methods: {
-    changeTab: function (item, index, e) {
-      console.log(item, index)
-      this.tabName = isString(item) ? item : item.tabName
+    toggleTab: function (item, index) {
+      console.log(index)
+      this.tabName = item.tabName || item
     },
-    chooseMenu() {
-      console.log('chooseMenu')
+    toggleMenu() {
       this.open = !this.open
     },
     changeMenu() {
-      console.log('changeMenu')
       this.open = !this.open
     }
   },

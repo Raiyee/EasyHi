@@ -26,20 +26,20 @@ const getters = {
 
 const actions = {
   setSize({commit}, size) {
+    const {winWidth} = size
+    const baseWidth = state.baseWidth
+    const mode = size.mode = winWidth < state.threshold
+    let logicWidth
+    size.rem = (logicWidth = size.logicWidth =
+        mode ? winWidth : baseWidth) / baseWidth
+    size.fontSize = logicWidth * state.baseFontSize / baseWidth
     commit(SET_SIZE, size)
   }
 }
 
 const mutations = {
-  [SET_SIZE](state, {winHeight, winWidth}) {
-    const payload = {winHeight, winWidth}
-    const baseWidth = state.baseWidth
-    const mode = payload.mode = winWidth < state.threshold
-    let logicWidth
-    payload.rem = (logicWidth = payload.logicWidth =
-        mode ? winWidth : baseWidth) / baseWidth
-    payload.fontSize = logicWidth * state.baseFontSize / baseWidth
-    Object.assign(state, payload)
+  [SET_SIZE](state, size) {
+    Object.assign(state, size)
   }
 }
 
