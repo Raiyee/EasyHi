@@ -1,9 +1,9 @@
 .media
   padding 15px 10px
   margin-top 5px
-  background-color REVERSE_COLOR
-  border-bottom 1px solid CARD_LINE_COLOR
-  box-shadow BOTTOM_SHADOW
+  background-color $reverse-color
+  border-bottom 1px solid $card-line-color
+  box-shadow $bottom-shadow
 
   :global(.btn-theme-default)
     width 80px
@@ -22,13 +22,13 @@
         top 10px
         left 0
         margin-left 30px
-        background-color REVERSE_COLOR
+        background-color $reverse-color
         transform translate3d(-50%, 0, 0)
       > ol
         margin-left 30px
         padding-left 40px
         padding-top 10px
-        border-left 1px solid BACK_COLOR
+        border-left 1px solid $back-color
         > li
           width 25%
           float left
@@ -40,23 +40,23 @@
       margin-bottom 25px
 
 .morning .time-item:global(.active)
-  color MORNING_COLOR
-  border-color MORNING_COLOR
+  color $morning-color
+  border-color $morning-color
 
 .afternoon .time-item:global(.active)
-  color AFTERNOON_COLOR
-  border-color AFTERNOON_COLOR
+  color $afternoon-color
+  border-color $afternoon-color
 
 .evening .time-item:global(.active)
-  color EVENING_COLOR
-  border-color EVENING_COLOR
+  color $evening-color
+  border-color $evening-color
 
 .time-item
   relative()
   size 55px
   border-radius 50%
-  border 1px solid REMARK_COLOR
-  color REMARK_COLOR
+  border 1px solid $remark-color
+  color $remark-color
   cursor pointer
   text-align center
   display table-cell
@@ -78,6 +78,6 @@
 .no-item
   text-align center
   font-size 15px
-  color SUBTEXT_COLOR
+  color $subtext-color
   padding-top 50px
   padding-bottom 20px

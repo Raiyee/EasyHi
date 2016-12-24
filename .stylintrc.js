@@ -41,7 +41,7 @@ module.exports = {
   none: NEVER,
   parenSpace: false,
   placeholders: ALWAYS,
-  prefixVarsWithDollar: NEVER,
+  prefixVarsWithDollar: ALWAYS,
   quotePref: false,
   stackedProperties: NEVER,
   trailingWhitespace: NEVER,

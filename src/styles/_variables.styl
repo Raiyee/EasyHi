@@ -1,6 +1,3 @@
-vendors = vendor-prefixes = official
-flex-version = flex
-
 @require "~nib/lib/nib/image"
 @require "~nib/lib/nib/overflow"
 @require "~nib/lib/nib/positions"
@@ -11,35 +8,51 @@ flex-version = flex
 
 @require "mixin"
 
+/* 杜若蓝 */
+$theme-blue = #4b89dc
+$theme-blue-darker = #3c6eb0
+
+/* 忍冬青 */
+$theme-green = #50d2c2
+$theme-green-darker = #40a89b
+
+/* 紫罗兰 */
+$theme-purple = #b28ef2
+$theme-purple-darker = #8e72c2
+
+/* 胭脂红 */
+$theme-red = $female-color
+$theme-red-darker = #cc697f
+
 /**
  * 背景色
  */
-BG_COLOR = #f8f8f8
+$bg-color = #f8f8f8
 
 /** 大输入框高度
  */
-INPUT_SIZE = 44px
-HALF_INPUT_SIZE = INPUT_SIZE / 2
+$input-size = 44px
+$half-input-size = $input-size / 2
 
 /** 最大字号文本
  *  整个页面文字较少时的大标题，极少使用
  */
-TOP_SIZE = 36px
+$top-size = 36px
 
 /** 强调标题
  *  用于一级按钮或者卡片大标题
  */
-STRESS_SIZE = 18px
+$stress-size = 18px
 
 /** 一级内容
  *  页面内普通的一级标题内容
  */
-PRIMARY_SIZE = 16px
+$primary-size = 16px
 
 /** 二级内容
  *  普通中文二级文字
  */
-COMMON_SIZE = 14px
+$common-size = 14px
 
 /** 小号文字
  *  11、12、13px 字号无法直接使用（考虑rem + 小屏手机）
@@ -50,134 +63,194 @@ COMMON_SIZE = 14px
 /** 三级内容
  *  正文三级文字
  */
-SMALL_SIZE = 13px
+$small-size = 13px
 
-SMALLER_SIZE = 12px
+$smaller-size = 12px
 
 /** 小号备注内容
  *  一般注释性文字，非重要又不可缺少性内容
  */
-TINY_SIZE = 11px
+$tiny-size = 11px
 
-TINIER_SIZE = 10px
+$tinier-size = 10px
 
 /** 输入框边框、列表分割线
  *  登录输入、数据录入时正常状态时的边框
  *  会员列表、教练列表、个人信息列表等页面的颜色
  */
-PLACEHOLDER_COLOR = INPUT_BORDER_COLOR = LIST_LINE_COLOR = ICON_COLOR = #d0d0d0
+$placeholder-color = INPUT_BORDER_COLOR = LIST_LINE_COLOR = ICON_COLOR = #d0d0d0
 
 /** 虚线分割
  *  用于卡片列表式的列表里面的分割
  */
-DASHED_LINE_COLOR = #c2c2c2
+$dashed-line-color = #c2c2c2
 
 /** 卡片内部分割线
  *  用于卡片列表里面的分割线
  */
-CARD_LINE_COLOR = #f1f1f1
+$card-line-color = #f1f1f1
 
 /** 强调标题文本
  *  标题类型的文本信息，一般放在一级标题或者开头的地方,列表的标题就是用此颜色
  */
-STRESS_COLOR = #000
+$stress-color = #000
 
 /**
  * 一般强调性文本
  */
-LIGHTER_STRESS_COLOR = #999
+$lighter-stress-color = #999
 
 /** 反色、背景色
  *  目前为白色
  */
-REVERSE_COLOR = BACK_LIGHT_COLOR = #fff
+$reverse-color = $back-light-color = #fff
 
 /** 主体内容性文本
  *  一级标题下面的主体内容文字，使用面积略大
  */
-PRIMARY_COLOR = #555
+$primary-color = #555
 
 /** 主体内容性次级文本，叙述性文本
  *  一级标题下面的叙述性内容文字,次于主体内容，使用面积略大
  */
-SUBTEXT_COLOR = #808080
+$subtext-color = #808080
 
 /** 备注和非强调性文本
  *  备注信息文字和不可用状态
  */
-REMARK_COLOR = #b7b7b7
+$remark-color = #b7b7b7
 
 /**
  * 浅色备注信息，主要用于导航图标
  */
-LIGHTER_REMARK_COLOR = #ccc
+$lighter-remark-color = #ccc
 
 /* 其他 */
-BACK_COLOR = #e5e5e5
+$back-color = #e5e5e5
 
 /** 报错文字和特殊强调文本
  *  用于报错信息的文本和特殊强调的文本，范围不是很大
  */
-HIGHLIGHT_COLOR = #fb351b
+$highlight-color = #fb351b
 
 /**
  * 男性
  */
-MALE_COLOR = #01bad4
+$male-color = #01bad4
 
 /**
  * 女性
  */
-FEMALE_COLOR = #ff839f
+$female-color = #ff839f
 
 /**
  * 早晨
  */
-MORNING_COLOR = #fdb736
+$morning-color = #fdb736
 
 /**
  * 下午
  */
-AFTERNOON_COLOR = #f96a2c
+$afternoon-color = #f96a2c
 
 /**
  * 晚上
  */
-EVENING_COLOR = #206dc1
+$evening-color = #206dc1
 
 /**
  * 下边框阴影
  */
-BOTTOM_SHADOW = 0 1px 1px rgba(0, 0, 0, .05)
-
-TRANSPARENT_COLOR = rgba(0, 0, 0, 0)
+$bottom-shadow = 0 1px 1px rgba(0, 0, 0, .05)
 
 /**
  * 1px fallback
  */
-BORDER_COLOR = #e0e0e0
-BORDER_T = linear-gradient(to top, TRANSPARENT_COLOR 50%, BORDER_COLOR 50%)
-BORDER_B = linear-gradient(to bottom, TRANSPARENT_COLOR 50%, BORDER_COLOR 50%)
-BORDER_L = linear-gradient(to left, TRANSPARENT_COLOR 50%, BORDER_COLOR 50%)
-BORDER_R = linear-gradient(to right, TRANSPARENT_COLOR 50%, BORDER_COLOR 50%)
+$border-color = #e0e0e0
+$border-t-line = linear-gradient(to top, transparent 50%, $border-color 50%)
+$border-b-line = linear-gradient(to bottom, transparent 50%, $border-color 50%)
+$border-l-line = linear-gradient(to left, transparent 50%, $border-color 50%)
+$border-r-line = linear-gradient(to right, transparent 50%, $border-color 50%)
 
-BORDER_RADIUS_BASE = 4px
-BORDER_RADIUS_LG = 8px
+$border-radius-base = 4px
+$border-radius-lg = 8px
 
-Z_INDEX_BORDER = 10
+$z-index-border = 10
 
-/* 杜若蓝 */
-THEME_BLUE = #4b89dc
-THEME_BLUE_DARKER = #3c6eb0
+$border
+  border 1px solid $border-color
 
-/* 忍冬青 */
-THEME_GREEN = #50d2c2
-THEME_GREEN_DARKER = #40a89b
+$border-t
+  border-top 1px solid $border-color
 
-/* 紫罗兰 */
-THEME_PURPLE = #b28ef2
-THEME_PURPLE_DARKER = #8e72c2
+$border-b
+  border-bottom 1px solid $border-color
 
-/* 胭脂红 */
-THEME_RED = FEMALE_COLOR
-THEME_RED_DARKER = #cc697f
+$border-tb
+  border-top $border-color 1px solid
+  border-bottom $border-color 1px solid
+  background-image none
+
+$border-l
+  border-left 1px solid $border-color
+
+$border-r
+  border-right 1px solid $border-color
+
+$border-radius
+  borderRadius()
+
+@media (min-resolution 2dppx)
+  $border
+    position relative
+    border 0
+
+  $border-t, $border-b, $border-l, $border-r, $border-tb
+    border 0
+
+  $border-t
+    background-position left top
+    background-image $border-t-line
+
+  $border-b
+    background-position left bottom
+    background-image $border-b-line
+
+  $border-t,
+  $border-b,
+  $border-tb
+    background-repeat repeat-x
+    background-size 100% 1px
+
+  $border-tb
+    background-image $border-t-line, $border-b-line
+    background-position top, bottom
+
+  $border-l
+    background-position left, top
+    background-image $border-l-line
+
+  $border-r
+    background-position right, top
+    background-image $border-r-line
+
+  $border-l,
+  $border-r
+    background-repeat repeat-y
+    background-size 1px 100%
+
+  $border:after
+     content ""
+     width 100%
+     height 100%
+     position absolute
+     top 0
+     left 0
+     background-image $border-t-line, $border-r-line, $border-b-line, $border-l-line
+     background-size 100% 1px, 1px 100%, 100% 1px, 1px 100%
+     background-repeat no-repeat
+     background-position top, right, bottom, left
+     padding 1px
+     box-sizing border-box
+     z-index $z-index-border
+     pointer-events none

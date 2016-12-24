@@ -1,5 +1,5 @@
-THEME_COLOR ?= THEME_PURPLE
-THEME_COLOR_DARKER ?= THEME_PURPLE_DARKER
+THEME_COLOR ?= $theme-purple
+THEME_COLOR_DARKER ?= $theme-purple-darker
 
 // @stylint off
 .theme-color
@@ -12,17 +12,17 @@ THEME_COLOR_DARKER ?= THEME_PURPLE_DARKER
   background-color THEME_COLOR !important
 
 .btn-theme-default
-  bbColor THEME_COLOR THEME_COLOR REVERSE_COLOR
-  bbActive THEME_COLOR_DARKER THEME_COLOR_DARKER REVERSE_COLOR
+  bbColor THEME_COLOR THEME_COLOR $reverse-color
+  bbActive THEME_COLOR_DARKER THEME_COLOR_DARKER $reverse-color
   &.inactive
-    bbActive THEME_COLOR THEME_COLOR REVERSE_COLOR
+    bbActive THEME_COLOR THEME_COLOR $reverse-color
 
 .btn-theme-primary
-  border-radius HALF_INPUT_SIZE
-  bbColor REVERSE_COLOR THEME_COLOR
-  bbActive REVERSE_COLOR THEME_COLOR_DARKER
+  border-radius $half-input-size
+  bbColor $reverse-color THEME_COLOR
+  bbActive $reverse-color THEME_COLOR_DARKER
   &.inactive
-    bbActive REVERSE_COLOR THEME_COLOR
+    bbActive $reverse-color THEME_COLOR
 // @stylint on
 
 @keyframes rotate
