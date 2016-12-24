@@ -1,9 +1,9 @@
 ol.list-unstyled(v-if="messages && messages.length")
-  li(v-for="{date, msgs} in messages")
+  li.shadow-bottom(v-for="{date, msgs} in messages")
     div(:class="classes.title")
       span(:class="[classes.date, 'theme-color']") {{ date | dateText('YYYY.MM.DD') }}
     ol(:class="classes.panelContent")
-      li(v-for="{read, type, createTime, messageContent} in msgs", :class="{'remark-color': read}")
+      li.border-b(v-for="{read, type, createTime, messageContent} in msgs", :class="{'remark-color': read}")
         span {{ type }}
         span(:class="classes.time") {{ createTime | formatDate('HH:mm') }}
         div(:class="classes.messageContent") {{ messageContent }}
