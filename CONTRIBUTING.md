@@ -342,7 +342,7 @@ IMG_WRAP_MARGIN = 40px
   margin-top IMG_WRAP_MARGIN
   margin-bottom IMG_WRAP_MARGIN
   relative()
-  background-color BACK_COLOR
+  background-color $back-color
 
   > img
     size 90px
