@@ -1,7 +1,7 @@
 import middleware from 'koa-webpack'
 import _debug from 'debug'
 import config from '../build/webpack'
-const debug = _debug('koa:webpack-dev')
+const debug = _debug('hi:webpack-dev')
 import compiler from '../build/config'
 
 export default app => {

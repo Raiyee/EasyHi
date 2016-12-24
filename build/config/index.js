@@ -2,7 +2,7 @@ import fs from 'fs'
 import _debug from 'debug'
 import config, {env} from './_base'
 
-const debug = _debug('koa:config')
+const debug = _debug('hi:config')
 debug('Create configuration.')
 debug(`Apply environment overrides for NODE_ENV "${env}".`)
 

@@ -1,7 +1,7 @@
 require('babel-register')
 require('babel-polyfill')
 
-const debug = require('debug')('koa:bin:compile')
+const debug = require('debug')('hi:bin:compile')
 
 debug('Create webpack compiler.')
 

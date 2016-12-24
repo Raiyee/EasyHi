@@ -1,6 +1,6 @@
 require('babel-register')
 
-const debug = require('debug')('koa:bin:clean')
+const debug = require('debug')('hi:bin:clean')
 const paths = require('../config').paths
 
 debug('Clean files...')

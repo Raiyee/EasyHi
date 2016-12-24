@@ -2,7 +2,7 @@ import path from 'path'
 import {argv} from 'yargs'
 import _debug from 'debug'
 
-const debug = _debug('koa:config:base')
+const debug = _debug('hi:config:base')
 
 const NODE_ENV = process.env.NODE_ENV || 'development'
 

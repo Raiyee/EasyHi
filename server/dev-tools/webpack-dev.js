@@ -3,7 +3,7 @@ import applyExpressMiddleware from './apply-express-middleware'
 import _debug from 'debug'
 import config from '../../build/config'
 
-const debug = _debug('koa:webpack-dev')
+const debug = _debug('hi:webpack-dev')
 
 export default compiler => {
   debug('Enable webpack dev middleware.')

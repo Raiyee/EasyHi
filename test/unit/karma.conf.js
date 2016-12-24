@@ -1,7 +1,7 @@
 import config from '../../build/config'
 import webpackConfig from '../../build/webpack'
 
-const debug = require('debug')('koa:karma')
+const debug = require('debug')('hi:karma')
 debug('Create configuration.')
 
 const alias = {...webpackConfig.resolve.alias, vue: 'vue/dist/vue'}
