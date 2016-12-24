@@ -1,4 +1,4 @@
-const debug = require('debug')('koa:stylelint')
+const debug = require('debug')('hi:stylelint')
 
 require('stylelint').lint({
   files: ['css', 'less', 'sass', 'scss'].map(value => 'src/**/*\\.' + value),

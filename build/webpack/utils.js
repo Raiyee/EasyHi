@@ -35,7 +35,7 @@ const loaderMap = {
   stylus: 'stylus-loader'
 }
 const debug = argv.debug
-const debugPrefix = 'koa:webpack:'
+const debugPrefix = 'hi:webpack:'
 export const nodeModules = /\bnode_modules\b/
 
 const normalizeExclude = (exclude = []) => Array.isArray(exclude) ? exclude : [exclude]

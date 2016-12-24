@@ -6,7 +6,7 @@ import config from '../build/config'
 import error from './error'
 import dev from './dev-tools'
 
-const debug = _debug('koa:server')
+const debug = _debug('hi:server')
 
 // Koa application is now a class and requires the new operator.
 const app = new Koa()

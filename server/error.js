@@ -2,7 +2,7 @@ import {STATUS_CODES} from 'http'
 // import _debug from 'debug'
 
 export default () => {
-  // const debug = _debug('koa:tools:error')
+  // const debug = _debug('hi:tools:error')
   return async(ctx, next) => {
     try {
       await next()
