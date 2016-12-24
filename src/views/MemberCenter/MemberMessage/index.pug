@@ -2,11 +2,9 @@ ol.list-unstyled(v-if="messages && messages.length")
   li.shadow-bottom(v-for="{date, msgs} in messages")
     div(:class="classes.title")
       span(:class="[classes.date, 'theme-color']") {{ date | dateText('YYYY.MM.DD') }}
-    ol(:class="classes.panelContent")
+    ol.list-unstyled(:class="classes.panelContent")
       li.border-b(v-for="{read, type, createTime, messageContent} in msgs", :class="{'remark-color': read}")
         span {{ type }}
         span(:class="classes.time") {{ createTime | formatDate('HH:mm') }}
         div(:class="classes.messageContent") {{ messageContent }}
-div(v-else, :class="classes.noDetail")
-  img.center-block(:src="'people?w=200&h=200&random=1' | imgPath")
-  | 亲~您还没有任何消息哟~
+no-item(v-else, text="亲~您还没有任何消息哟~")

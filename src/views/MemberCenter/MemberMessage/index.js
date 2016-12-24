@@ -1,3 +1,5 @@
+import NoItem from 'components/NoItem'
+
 import classes from './index.styl'
 
 export default require('./index.pug')({
@@ -7,5 +9,8 @@ export default require('./index.pug')({
       classes,
       ...this.$route.meta.data
     }
+  },
+  components: {
+    NoItem
   }
 })
