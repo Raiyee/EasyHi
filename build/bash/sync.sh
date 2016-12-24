@@ -22,6 +22,7 @@ then
     git commit -m "$MESSAGE"
     git push --force --quiet ssh://git@gitlab.raiyee.cn:10022/easyhi/yoga-vision.git pages:pages
 
+    cp ../package.json .
     cnpm i coveralls codecov
     npm run coveralls && npm run codecov
   else
