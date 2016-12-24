@@ -1,9 +1,9 @@
 div(:class="classes.container")
   form(action="javascript:;")
-    ul.list-group.list-group-primary.border-tb(:class="classes.listItems")
+    ul.list-group(:class="classes.listItems")
 
       each val, index in [{item:'头像'}, {item:'用户名'}, {item:'性别'}, {item:'生日'}, {item:'地址'}]
-        li.list-group-item.border-b
+        li.list-group-item
           .list-group-left #{val.item}
           .list-group-right(:class="classes.text")
             case index
@@ -37,7 +37,7 @@ div(:class="classes.container")
     .border-t.fixed-bottom
       button.btn.btn-theme-primary(@click="saveMember") 保存
 
-  ul.list-group.list-group-primary.border-tb(:class="classes.security")
+  ul.list-group(:class="classes.security")
     li.list-group-item
       .list-group-left 账号安全
       .list-group-right(:class="classes.text")
