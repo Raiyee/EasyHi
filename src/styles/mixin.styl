@@ -16,21 +16,21 @@ bbActive()
 clearUnit(val)
   return unit(val, '')
 
-middleCenter(position = absolute)
-  position()
+middleCenter($position = absolute)
+  $position()
   left 50%
   top 50%
   transform translate3d(-50%, -50%, 0)
 
-scaleSize(size = SMALL_SIZE, baseSize = null, transform = null, origin = null)
+scaleSize(size = $small-size, baseSize = null, transform = null, origin = null)
   if (baseSize)
     font-size unit(baseSize, 'px')
-  transform transform scale(clearUnit(size / (baseSize || COMMON_SIZE)))
+  transform transform scale(clearUnit(size / (baseSize || $common-size)))
   if (origin)
     transform-origin origin
 
 // 1px fallback
-borderRadius(borderColor = BORDER_COLOR, borderRadius = BORDER_RADIUS_BASE, borderBeforeRadius = BORDER_RADIUS_LG)
+borderRadius(borderColor = $border-color, borderRadius = $border-radius-base, borderBeforeRadius = $border-radius-lg)
   border 1px solid borderColor
   border-radius borderRadius
 

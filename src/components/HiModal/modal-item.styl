@@ -26,8 +26,8 @@
     // Actual modal
     .modal-content
       relative()
-      background-color BACK_LIGHT_COLOR
-      border 1px solid LIGHTER_STRESS_COLOR // old browsers fallback (ie8 etc)
+      background-color $back-light-color
+      border 1px solid $stress-lighter-color // old browsers fallback (ie8 etc)
       border 1px solid rgba(0, 0, 0, .2)
       border-radius 6px
       box-shadow 0 3px 9px rgba(0, 0, 0, .5)
@@ -39,7 +39,7 @@
     // Top section of the modal w/ title and dismiss
     .modal-header
       padding 15px
-      border-bottom 1px solid BACK_COLOR
+      border-bottom 1px solid $back-color
       clearfix()
 
     // Close icon
@@ -61,7 +61,7 @@
     .modal-footer
       padding 15px
       text-align right // right align buttons
-      border-top 1px solid BACK_COLOR
+      border-top 1px solid $back-color
       clearfix() // clear it in case folks use .pull-* classes on buttons
 
       // Properly space out buttons

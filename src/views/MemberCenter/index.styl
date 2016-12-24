@@ -1,8 +1,8 @@
 .container
   :global(.media-object)
     size 70px
-    border 2px solid REVERSE_COLOR
-    background-color REVERSE_COLOR
+    border 2px solid $reverse-color
+    background-color $reverse-color
 
   :global(.media-right)
     white-space no-wrap
@@ -15,13 +15,13 @@
       margin-bottom 15px
 
   :global(.panel-title)
-    color STRESS_COLOR
+    color $stress-color
     font-size 15px
     font-weight normal
 
   > :first-child
     padding 20px 15px
-    color REVERSE_COLOR
+    color $reverse-color
 
     :global(.media-right .icon-message)
       display inline-block
@@ -34,14 +34,14 @@
         right -8px
         size 28px
         padding 2px
-        background-color HIGHLIGHT_COLOR
+        background-color $highlight-color
         border-radius 50%
-        border 1px solid REVERSE_COLOR
+        border 1px solid $reverse-color
         scaleSize(8)
 
 .show
-  background-color BACK_COLOR
-  color STRESS_COLOR
+  background-color $back-color
+  color $stress-color
   line-height 22px
   padding-left 10px
 
@@ -58,13 +58,13 @@
   :global
     .panel-title
       small
-        color PRIMARY_COLOR
+        color $primary-color
 
       a
         scaleSize()
 
         span
-          color SUBTEXT_COLOR
+          color $subtext-color
 
     .panel-body
       > div
@@ -76,8 +76,8 @@
           scaleSize(18)
 
     .panel-footer
-      border-top 1px dashed DASHED_LINE_COLOR
-      background-color REVERSE_COLOR
+      border-top 1px dashed $dashed-line-color
+      background-color $reverse-color
 
 .no-course
   color gray
@@ -93,13 +93,13 @@
     flex 1
 
     + li
-      border-left 1px solid CARD_LINE_COLOR
+      border-left 1px solid $card-line-color
 
     > span
       font-size 30px
 
 .contact-panel
-  color PRIMARY_COLOR
+  color $primary-color
 
   hr
     margin-top 10px

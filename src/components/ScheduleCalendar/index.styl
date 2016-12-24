@@ -12,8 +12,8 @@
   .schedule-items
     padding 0 10px
     margin-bottom 3px
-    background-color REVERSE_COLOR
-    box-shadow BOTTOM_SHADOW
+    background-color $reverse-color
+    box-shadow $bottom-shadow
   > ol, .schedule-items
     &:last-child
       margin-bottom 0
@@ -21,21 +21,21 @@
     .schedule-weekday
       display inline-block
       padding 5px 18px
-      color REVERSE_COLOR
+      color $reverse-color
       font-size 13px
       border-bottom-left-radius 5px
       border-bottom-right-radius 5px
     .media
       &.disabled
         &, .media-content
-          color REMARK_COLOR
+          color $remark-color
       .media-object
         size 60px
       .media-heading
         font-size 15px
         margin-bottom 5px
       .media-content
-        color PRIMARY_COLOR
+        color $primary-color
         padding-left 42px
 
 .schedule-calendar
@@ -57,14 +57,14 @@
         float left
         text-align center
         z-index 1
-        color SUBTEXT_COLOR
+        color $subtext-color
         overflow ellipsis
         cursor pointer
         &.active
-          color REVERSE_COLOR
+          color $reverse-color
           cursor default
         &.disabled
-          color REMARK_COLOR
+          color $remark-color
           cursor not-allowed
         &.first
           margin-left 0

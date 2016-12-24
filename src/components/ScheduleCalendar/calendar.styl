@@ -1,4 +1,4 @@
-CIRCLE_SIZE = 55px
+$circle-size = 55px
 
 .calendar
   &.flex
@@ -10,10 +10,10 @@ CIRCLE_SIZE = 55px
     margin-left -5px
     relative()
     &, &:global(.scroll-bg) > div
-      size CIRCLE_SIZE
+      size $circle-size
       border-radius 50%
     > div
-      width CIRCLE_SIZE
+      width $circle-size
       middleCenter()
     span
       display block

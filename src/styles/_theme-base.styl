@@ -1,28 +1,28 @@
-THEME_COLOR ?= THEME_PURPLE
-THEME_COLOR_DARKER ?= THEME_PURPLE_DARKER
+$theme-color ?= $theme-purple
+$theme-color-darker ?= $theme-purple-darker
 
 // @stylint off
 .theme-color
-  color THEME_COLOR !important
+  color $theme-color !important
 
 .theme-bd
-  border-color THEME_COLOR !important
+  border-color $theme-color !important
 
 .theme-bg
-  background-color THEME_COLOR !important
+  background-color $theme-color !important
 
 .btn-theme-default
-  bbColor THEME_COLOR THEME_COLOR REVERSE_COLOR
-  bbActive THEME_COLOR_DARKER THEME_COLOR_DARKER REVERSE_COLOR
+  bbColor $theme-color $theme-color $reverse-color
+  bbActive $theme-color-darker $theme-color-darker $reverse-color
   &.inactive
-    bbActive THEME_COLOR THEME_COLOR REVERSE_COLOR
+    bbActive $theme-color $theme-color $reverse-color
 
 .btn-theme-primary
-  border-radius HALF_INPUT_SIZE
-  bbColor REVERSE_COLOR THEME_COLOR
-  bbActive REVERSE_COLOR THEME_COLOR_DARKER
+  border-radius $half-input-size
+  bbColor $reverse-color $theme-color
+  bbActive $reverse-color $theme-color-darker
   &.inactive
-    bbActive REVERSE_COLOR THEME_COLOR
+    bbActive $reverse-color $theme-color
 // @stylint on
 
 @keyframes rotate
@@ -41,7 +41,7 @@ THEME_COLOR_DARKER ?= THEME_PURPLE_DARKER
     content ' '
     size 35px
     border 2px solid
-    border-color THEME_COLOR transparent
+    border-color $theme-color transparent
     border-radius 100%
     animation rotate 1s 0s ease-in-out infinite
     animation-fill-mode both
