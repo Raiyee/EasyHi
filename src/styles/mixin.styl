@@ -88,7 +88,7 @@ border1px-t(borderColor = $border-color)
     border 0
     background-position left top
     background-image borderLine(top, borderColor)
-    @extends $border1px-tb
+    @extend $border1px-tb
 
 border1px-b(borderColor = $border-color)
   border-bottom 1px solid borderColor
@@ -97,7 +97,7 @@ border1px-b(borderColor = $border-color)
     border 0
     background-position left bottom
     background-image borderLine(bottom, borderColor)
-    @extends $border1px-tb
+    @extend $border1px-tb
 
 border1px-tb(borderColor = $border-color)
   border-top borderColor 1px solid
@@ -108,7 +108,7 @@ border1px-tb(borderColor = $border-color)
     border 0
     background-image borderLine(top, borderColor), borderLine(bottom, borderColor)
     background-position top, bottom
-    @extends $border1px-tb
+    @extend $border1px-tb
 
 $border1px-lr
   background-repeat repeat-y
@@ -121,7 +121,7 @@ border1px-l(borderColor = $border-color)
     border 0
     background-position left top
     background-image borderLine(left, borderColor)
-    @extends $border1px-lr
+    @extend $border1px-lr
 
 border1px-r(borderColor = $border-color)
   border-right 1px solid borderColor
@@ -130,4 +130,4 @@ border1px-r(borderColor = $border-color)
     border 0
     background-position right top
     background-image borderLine(right, borderColor)
-    @extends $border1px-lr
+    @extend $border1px-lr
