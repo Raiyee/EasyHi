@@ -179,8 +179,10 @@ input
     z-index Z_INDEX_BORDER
     pointer-events none
 
-.list-group-primary
+.list-group
   background-color BACK_LIGHT_COLOR
+  padding-left 0
+  @extend .border-tb
 
   input, textarea
     border 0
@@ -192,13 +194,14 @@ input
     width 100%
     padding 5px 0
 
-  > .list-group-item
-    border 0
-    padding-left 0
+  .list-group-item
+    position relative
+    display block
     margin-left 10px
-    padding-right 10px
-    background-color transparent
-    margin-bottom 0
+    padding 10px 10px 10px 0
+
+    &:not(:last-child)
+      @extend .border-b
 
     .list-group-left, .list-group-right
       display table-cell
