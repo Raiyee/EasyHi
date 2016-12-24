@@ -8,6 +8,22 @@
 
 @require "mixin"
 
+/* 杜若蓝 */
+$theme-blue = #4b89dc
+$theme-blue-darker = #3c6eb0
+
+/* 忍冬青 */
+$theme-green = #50d2c2
+$theme-green-darker = #40a89b
+
+/* 紫罗兰 */
+$theme-purple = #b28ef2
+$theme-purple-darker = #8e72c2
+
+/* 胭脂红 */
+$theme-red = $female-color
+$theme-red-darker = #cc697f
+
 /**
  * 背景色
  */
@@ -62,7 +78,7 @@ $tinier-size = 10px
  *  登录输入、数据录入时正常状态时的边框
  *  会员列表、教练列表、个人信息列表等页面的颜色
  */
-$placeholder-color = $input-border-color = $list-line-color = $icon-color = #d0d0d0
+$placeholder-color = INPUT_BORDER_COLOR = LIST_LINE_COLOR = ICON_COLOR = #d0d0d0
 
 /** 虚线分割
  *  用于卡片列表式的列表里面的分割
@@ -161,18 +177,80 @@ $border-radius-lg = 8px
 
 $z-index-border = 10
 
-/* 杜若蓝 */
-$theme-blue = #4b89dc
-$theme-blue-darker = #3c6eb0
+$border
+  border 1px solid $border-color
 
-/* 忍冬青 */
-$theme-green = #50d2c2
-$theme-green-darker = #40a89b
+$border-t
+  border-top 1px solid $border-color
 
-/* 紫罗兰 */
-$theme-purple = #b28ef2
-$theme-purple-darker = #8e72c2
+$border-b
+  border-bottom 1px solid $border-color
 
-/* 胭脂红 */
-$theme-red = $female-color
-$theme-red-darker = #cc697f
+$border-tb
+  border-top $border-color 1px solid
+  border-bottom $border-color 1px solid
+  background-image none
+
+$border-l
+  border-left 1px solid $border-color
+
+$border-r
+  border-right 1px solid $border-color
+
+$border-radius
+  borderRadius()
+
+@media (min-resolution 2dppx)
+  $border
+    position relative
+    border 0
+
+  $border-t, $border-b, $border-l, $border-r, $border-tb
+    border 0
+
+  $border-t
+    background-position left top
+    background-image $border-t-line
+
+  $border-b
+    background-position left bottom
+    background-image $border-b-line
+
+  $border-t,
+  $border-b,
+  $border-tb
+    background-repeat repeat-x
+    background-size 100% 1px
+
+  $border-tb
+    background-image $border-t-line, $border-b-line
+    background-position top, bottom
+
+  $border-l
+    background-position left, top
+    background-image $border-l-line
+
+  $border-r
+    background-position right, top
+    background-image $border-r-line
+
+  $border-l,
+  $border-r
+    background-repeat repeat-y
+    background-size 1px 100%
+
+  $border:after
+     content ""
+     width 100%
+     height 100%
+     position absolute
+     top 0
+     left 0
+     background-image $border-t-line, $border-r-line, $border-b-line, $border-l-line
+     background-size 100% 1px, 1px 100%, 100% 1px, 1px 100%
+     background-repeat no-repeat
+     background-position top, right, bottom, left
+     padding 1px
+     box-sizing border-box
+     z-index $z-index-border
+     pointer-events none
