@@ -14,17 +14,17 @@ export default require('./calendar.pug')({
   },
   data: () => ({classes}),
   computed: {
-    ...mapGetters(['mode', 'rem', 'winWidth']),
+    ...mapGetters(['mode', 'rem', 'appWidth']),
     baseWidth() {
       return (periodWidth * this.calendar.length / 7 + 10) * this.rem
     },
     flex() {
-      const winWidth = this.winWidth
-      return !this.mode && this.baseWidth < winWidth - 20
+      const appWidth = this.appWidth
+      return !this.mode && this.baseWidth < appWidth - 20
     },
     calendarWidth() {
       if (!this.flex) return this.baseWidth
-      return this.winWidth - 20
+      return this.appWidth - 20
     },
     calendarStyle() {
       return {

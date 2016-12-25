@@ -37,8 +37,7 @@ on(window, 'resize', () => {
 
 resize()
 
-// 暂时添加一个退出登录的钩子
-window._logout_ = () => {
+utils.logout = () => {
   store.dispatch('setEnv', {authorized: false, mobile: null})
   store.dispatch('resetRole')
   deleteItem(PERMISSION)

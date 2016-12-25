@@ -30,9 +30,9 @@ export default require('./tab.pug')({
     }
   },
   computed: {
-    ...mapGetters(['winWidth']),
+    ...mapGetters(['appWidth']),
     containerWidth() {
-      return this.width.endsWith('px') ? parseInt(this.width) : parseInt(this.width) / 100 * this.winWidth
+      return this.width.endsWith('px') ? parseInt(this.width) : parseInt(this.width) / 100 * this.appWidth
     },
     ulWidth() {
       let len = this.tabArray.length

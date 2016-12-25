@@ -26,15 +26,15 @@ export default require('./index.pug')({
     this.courseTypeId || Object.assign(this, pickObj(this.courseTypes[0], 'courseTypeId', 'subscribeType'))
   },
   computed: {
-    ...mapGetters(['rem', 'winWidth', 'winHeight']),
+    ...mapGetters(['rem', 'appWidth', 'winHeight']),
     typesStyle() {
       const length = this.courseTypes.length
       const rem = this.rem
       const width = Math.ceil((70 * length + 10) * rem)
-      const winWidth = this.winWidth
+      const appWidth = this.appWidth
       return {
         width: width + 'px',
-        float: width < winWidth - (winWidth - 20 * rem) / 10 && 'right'
+        float: width < appWidth - (appWidth - 20 * rem) / 10 && 'right'
       }
     },
     contentStyle() {
