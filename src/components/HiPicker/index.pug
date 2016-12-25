@@ -1,0 +1,16 @@
+.picker(:class="{ 'picker-3d': rotateEffect }")
+  .picker-toolbar(v-if="showToolbar")
+    slot
+  .picker-items
+    picker-slot(v-for="slot in slots",
+    :valuekey="valueKey",
+    :values="slot.values || []",
+    :text-align="slot.textAlign || 'center'",
+    :visible-item-count="visibleItemCount",
+    :class-name="slot.className",
+    :flex="slot.flex",
+    v-model="values[slot.valueIndex]",
+    :rotateEffect="rotateEffect",
+    :divider="slot.divider",
+    :content="slot.content")
+    .picker-center-highlight
