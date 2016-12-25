@@ -3,7 +3,7 @@ li.media(:class="classes.media")
     .media-object.img-circle(v-lazy:background-image="$util.imgPath(coachItem.coachPortrait)", lazy="loading")
   .media-body.media-middle
     h4.media-heading {{coachItem.coachName}}
-      span.iconfont(:class="`icon-${coachItem.coachGender ? '' : 'fe'}male`")
+      span.iconfont.active(:class="`icon-${coachItem.coachGender ? '' : 'fe'}male`")
     template(v-if="active")
       span(@click="toggleChecked(false)")
         span.iconfont.icon-radio(:class="checked ? 'inactive' : 'theme-color'")
@@ -11,7 +11,7 @@ li.media(:class="classes.media")
       span(@click="toggleChecked(true)")
         span.iconfont.icon-radio(:class="checked ? 'theme-color' : 'inactive'")
         | 120min
-    template(v-else="")
+    template(v-else)
       span.iconfont.icon-morning(v-if="coachItem.min060.morning.length")
         span.iconfont.icon-afternoon(v-if="coachItem.min060.afternoon.length")
           span.iconfont.icon-evening(v-if="coachItem.min060.evening.length")
