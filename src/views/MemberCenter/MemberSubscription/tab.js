@@ -1,19 +1,28 @@
 import {mapGetters} from 'vuex'
-import {isString} from 'utils'
+
+import {toNum} from 'utils'
+import classes from './tab.styl'
 
 export default require('./tab.pug')({
   name: 'tab',
   props: {
-    float: String,
     width: String,
-    index: Number,
+    index: {
+      type: Number,
+      default: 0
+    },
+    autoToggle: {
+      type: Boolean,
+      default: true
+    },
     pageNum: {
       type: Number,
+      default: 3,
       validator(value) {
         return value > 0
       }
     },
-    tabArray: {
+    items: {
       type: Array,
       required: true,
       validator(value) {
@@ -25,30 +34,35 @@ export default require('./tab.pug')({
     return {
       translateX: 0,
       translateStart: 0,
-      itemIndex: undefined,
-      classes: require('./tab.styl')
+      currIndex: this.index,
+      classes
     }
   },
   computed: {
     ...mapGetters(['appWidth']),
     containerWidth() {
-      return this.width.endsWith('px') ? parseInt(this.width) : parseInt(this.width) / 100 * this.appWidth
+      const width = toNum(this.width)
+      return this.width.endsWith('px') ? width : width / 100 * this.appWidth
     },
-    ulWidth() {
-      let len = this.tabArray.length
-      return len <= 2 ? this.containerWidth
-        : this.containerWidth / (!this.pageNum ? 3 : Math.min(this.pageNum, len)) * len
+    itemsWidth() {
+      let len = this.items.length
+      return this.containerWidth / Math.min(this.pageNum, len) * len
     },
-    liWidth() {
-      let len = this.tabArray.length
-      return len === 1 ? '100%' : len === 2 ? '50%' : 100 / len + '%'
+    itemWidth() {
+      return this.itemsWidth / this.items.length
     },
-    tabIndex() {
-      return this.itemIndex >= 0 ? this.itemIndex : this.index ? this.index : 0
+    border() {
+      return this.translateX + this.itemWidth * this.currIndex
     },
     transform() {
       return `translate3d(${this.translateX}px, 0, 0)`
+    },
+    transformBorder() {
+      return `translate3d(${this.border}px, 0, 0)`
     }
+  },
+  mounted() {
+    this.translateX = -this.itemWidth * this.currIndex
   },
   methods: {
     moveStart() {
@@ -58,27 +72,31 @@ export default require('./tab.pug')({
       this.translateX = this.translateStart + e.changedX
     },
     moveEnd(e) {
-      let perWidth = this.ulWidth / this.tabArray.length
-      let translateDistance
-      if (this.translateX >= 0) {
-        translateDistance = 0
-      } else if (this.translateX <= this.containerWidth - this.ulWidth) {
-        translateDistance = this.containerWidth - this.ulWidth
-      } else {
-        translateDistance = this.translateStart + (
-          e.changedX < 0 ? Math.floor((e.changedX + 15) / perWidth) : Math.ceil((e.changedX - 15) / perWidth)
-          ) * perWidth
+      let perWidth = this.itemsWidth / this.items.length
+      const changedX = e.changedX
+      let toChangeX = 0
+      if (Math.abs(changedX) > 15) {
+        toChangeX = Math[changedX > 0 ? 'ceil' : 'floor'](changedX / perWidth)
       }
-      this.translateX = translateDistance
+
+      const translateX = this.translateStart + toChangeX * perWidth
+      this.translateX = Math.min(Math.max(translateX, this.containerWidth - this.itemsWidth), 0)
+
+      if (this.autoToggle) {
+        let currIndex
+        // 当currIndex 不在可视区域内触发
+        if (this.border < 0) {
+          currIndex = -this.translateX / perWidth
+        } else if (this.border >= this.pageNum * perWidth) {
+          currIndex = this.pageNum - this.translateX / perWidth - 1
+        }
+        currIndex && this.toggleItem(this.items[currIndex], currIndex)
+      }
     },
-    clickItem: function (item, index, e) {
-      this.itemIndex = index
-      this.$emit('changeTab', item, index, e)
-    }
-  },
-  filters: {
-    tabNameFilter(tabItem) {
-      return isString(tabItem) ? tabItem : tabItem.tabName
+    toggleItem: function (item, index) {
+      if (this.currIndex === index) return
+      this.currIndex = index
+      this.$emit('toggleTab', item, index)
     }
   }
 })

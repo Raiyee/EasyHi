@@ -1,20 +1,19 @@
 div
   tab(
-  :tabArray="tabArray",
+  :items="items",
   :width="'80%'",
-  :float="'left'",
   :pageNum="3",
-  @changeTab="changeTab",
+  :index="0",
+  :autoToggle="true",
+  @toggleTab="toggleTab",
   v-touch="{methods: true}")
+    div(:class="classes.rightBtn", @click="toggleMenu", slot="right")
+      | {{ '按钮' }}
 
-  div(:class="classes.rightBtn", @click="chooseMenu")
-    | {{ '按钮' }}
-
-  .clearfix
-
-  .white-mask(v-if="open", @click="chooseMenu")
-  div(:class="[classes.dropMenu, open ? classes.open : classes.close]", @click="changeMenu")
+  .white-mask(v-if="open", @click="toggleMenu")
+  div(:class="[classes.dropMenu, open ? classes.open : classes.close]", @click="toggleMenu")
     ul
       li 全部全部全部
       li 小班课
       li 小班课
+  div {{ tabName }}
