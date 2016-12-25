@@ -8,7 +8,15 @@
     "syntax-flow",
     "transform-async-to-generator",
     "transform-flow-strip-types",
-    "transform-runtime"
+    "transform-runtime",
+    [
+      "typecheck",
+      {
+        "disable": {
+          "production": true
+        }
+      }
+    ]
   ],
   "comments": false,
   "passPerPreset": true,

@@ -246,7 +246,7 @@ export default require('./picker-slot.pug')({
     values(val) {
       this.mutatingValues = val
     },
-    mutatingValues(val) {
+    mutatingValues(val: Array) {
       if (this.valueIndex === -1) {
         this.currentValue = (val || [])[0]
       }
@@ -256,7 +256,7 @@ export default require('./picker-slot.pug')({
         })
       }
     },
-    currentValue(val) {
+    currentValue(val: any) {
       this.doOnValueChange()
       if (this.rotateEffect) {
         this.planUpdateRotate()
