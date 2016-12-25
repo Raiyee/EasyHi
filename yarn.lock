@@ -7802,9 +7802,9 @@ vue-router@^2.1.1:
   version "2.1.1"
   resolved "http://registry.npm.taobao.org/vue-router/download/vue-router-2.1.1.tgz#10c31bbdcb6da92bd3e0223fa12345e73018625a"
 
-vue-template-compiler@^2.1.6:
-  version "2.1.6"
-  resolved "http://registry.npm.taobao.org/vue-template-compiler/download/vue-template-compiler-2.1.6.tgz#f96f968652fc1e861bb0052f61993ba1fdc18ad3"
+vue-template-compiler@^2.1.7:
+  version "2.1.7"
+  resolved "http://registry.npm.taobao.org/vue-template-compiler/download/vue-template-compiler-2.1.7.tgz#5e1fc983271d3ac24c79abb64b71383357e2cea5"
   dependencies:
     de-indent "^1.0.2"
     he "^1.1.0"
@@ -7821,9 +7821,9 @@ vue-template-es2015-loader@^2.0.1:
     loader-utils "^0.2.16"
     vue-template-es2015-compiler "^1.4.0"
 
-vue@^2.1.6:
-  version "2.1.6"
-  resolved "http://registry.npm.taobao.org/vue/download/vue-2.1.6.tgz#2fc0024c07479ac6bc7d34a2cd5ef9ca5e90b143"
+vue@^2.1.7:
+  version "2.1.7"
+  resolved "http://registry.npm.taobao.org/vue/download/vue-2.1.7.tgz#747880cb70a50c66cb8791aacfee7a6dab7fc842"
 
 vuex-actions@^1.1.1:
   version "1.1.1"
