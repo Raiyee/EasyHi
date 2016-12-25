@@ -1,6 +1,6 @@
-var docStyle = document.documentElement.style
-var engine
-var translate3d = false
+const docStyle = document.documentElement.style
+let engine
+let translate3d = false
 
 if (window.opera && Object.prototype.toString.call(opera) === '[object Opera]') {
   engine = 'presto'
@@ -12,28 +12,28 @@ if (window.opera && Object.prototype.toString.call(opera) === '[object Opera]') 
   engine = 'trident'
 }
 
-var cssPrefix = {trident: '-ms-', gecko: '-moz-', webkit: '-webkit-', presto: '-o-'}[engine]
+const cssPrefix = {trident: '-ms-', gecko: '-moz-', webkit: '-webkit-', presto: '-o-'}[engine]
 
-var vendorPrefix = {trident: 'ms', gecko: 'Moz', webkit: 'Webkit', presto: 'O'}[engine]
+const vendorPrefix = {trident: 'ms', gecko: 'Moz', webkit: 'Webkit', presto: 'O'}[engine]
 
-var helperElem = document.createElement('div')
-var perspectiveProperty = vendorPrefix + 'Perspective'
-var transformProperty = vendorPrefix + 'Transform'
-var transformStyleName = cssPrefix + 'transform'
-var transitionProperty = vendorPrefix + 'Transition'
-var transitionStyleName = cssPrefix + 'transition'
-var transitionEndProperty = vendorPrefix.toLowerCase() + 'TransitionEnd'
+const helperElem = document.createElement('div')
+const perspectiveProperty = vendorPrefix + 'Perspective'
+const transformProperty = vendorPrefix + 'Transform'
+const transformStyleName = cssPrefix + 'transform'
+const transitionProperty = vendorPrefix + 'Transition'
+const transitionStyleName = cssPrefix + 'transition'
+const transitionEndProperty = vendorPrefix.toLowerCase() + 'TransitionEnd'
 
 if (helperElem.style[perspectiveProperty] !== undefined) {
   translate3d = true
 }
 
-var getTranslate = function (element) {
-  var result = {left: 0, top: 0}
+const getTranslate = function (element) {
+  const result = {left: 0, top: 0}
   if (element === null || element.style === null) return result
 
-  var transform = element.style[transformProperty]
-  var matches = /translate\(\s*(-?\d+(\.?\d+?)?)px,\s*(-?\d+(\.\d+)?)px\)\s*translateZ\(0px\)/g.exec(transform)
+  const transform = element.style[transformProperty]
+  const matches = /translate\(\s*(-?\d+(\.?\d+?)?)px,\s*(-?\d+(\.\d+)?)px\)\s*translateZ\(0px\)/g.exec(transform)
   if (matches) {
     result.left = +matches[1]
     result.top = +matches[3]
@@ -42,7 +42,7 @@ var getTranslate = function (element) {
   return result
 }
 
-var translateElement = function (element, x, y) {
+const translateElement = function (element, x, y) {
   if (x === null && y === null) return
 
   if (element === null || element === undefined || element.style === null) return
@@ -50,7 +50,7 @@ var translateElement = function (element, x, y) {
   if (!element.style[transformProperty] && x === 0 && y === 0) return
 
   if (x === null || y === null) {
-    var translate = getTranslate(element)
+    const translate = getTranslate(element)
     if (x === null) {
       x = translate.left
     }
@@ -70,9 +70,9 @@ var translateElement = function (element, x, y) {
   }
 }
 
-var cancelTranslateElement = function (element) {
+const cancelTranslateElement = function (element) {
   if (element === null || element.style === null) return
-  var transformValue = element.style[transformProperty]
+  let transformValue = element.style[transformProperty]
   if (transformValue) {
     transformValue =
       transformValue.replace(/translate\(\s*(-?\d+(\.?\d+?)?)px,\s*(-?\d+(\.\d+)?)px\)\s*translateZ\(0px\)/g, '')
