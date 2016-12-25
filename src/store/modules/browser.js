@@ -5,6 +5,7 @@ const state = {
   baseFontSize: 16,
   winHeight: 0,
   winWidth: 0,
+  appWidth: 0,
   rem: 1,
   fontSize: 16,
   logicWidth: 375,
@@ -17,6 +18,7 @@ const getters = {
   baseFontSize: state => state.baseFontSize,
   winHeight: state => state.winHeight,
   winWidth: state => state.winWidth,
+  appWidth: state => state.appWidth,
   rem: state => state.rem,
   fontSize: state => state.fontSize,
   logicWidth: state => state.logicWidth,
@@ -33,6 +35,7 @@ const actions = {
     size.rem = (logicWidth = size.logicWidth =
         mode ? winWidth : baseWidth) / baseWidth
     size.fontSize = logicWidth * state.baseFontSize / baseWidth
+    size.appWidth = Math.min(1024, winWidth)
     commit(SET_SIZE, size)
   }
 }

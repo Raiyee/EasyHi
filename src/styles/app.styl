@@ -13,6 +13,11 @@ body
   &.bg
     background-color $bg-color
 
+#app
+  relative()
+  max-width 1024px
+  margin 0 auto
+
 a
   &, &:active, &:hover, &:visited
     color inherit
@@ -170,6 +175,7 @@ input
   fixed()
   bottom 0
   width 100%
+  max-width 1024px
   padding 12px 16px
   background-color $back-light-color
   display flex

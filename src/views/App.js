@@ -5,7 +5,7 @@ import HiProgress from 'components/HiProgress'
 import HiModal from 'components/HiModal'
 
 export default require('./App.pug')({
-  data: () => ({transition: 'fade'}),
+  data: () => ({transition: 'bounce'}),
   computed: {
     ...mapGetters(['progress']),
     keepAlive() {

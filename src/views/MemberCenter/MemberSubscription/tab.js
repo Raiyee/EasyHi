@@ -39,10 +39,10 @@ export default require('./tab.pug')({
     }
   },
   computed: {
-    ...mapGetters(['winWidth']),
+    ...mapGetters(['appWidth']),
     containerWidth() {
       const width = toNum(this.width)
-      return this.width.endsWith('px') ? width : width / 100 * this.winWidth
+      return this.width.endsWith('px') ? width : width / 100 * this.appWidth
     },
     itemsWidth() {
       let len = this.items.length
