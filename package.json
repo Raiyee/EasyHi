@@ -15,6 +15,7 @@
     "build": "npm run lint:fix && npm run unit && npm run clean && npm run compile",
     "build:mock": "npm run lint:fix && npm run unit && npm run clean && npm run compile:mock",
     "build:test": "npm run lint:fix && npm run clean && npm run compile:test",
+    "build:test-pages": "npm run clean && npm run compile:test-pages",
     "build:test-mock": "npm run lint:fix && npm run clean && npm run compile:test-mock",
     "clean": "cross-env DEBUG=hi* node build/bin/clean",
     "compile": "cross-env NODE_ENV=production DEBUG=hi* node build/bin/compile",
