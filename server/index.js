@@ -1,15 +1,19 @@
 import Koa from 'koa'
 import logger from 'koa-logger'
-import serve from 'koa-static'
+import serve from './static'
 import _debug from 'debug'
 import config from '../build/config'
 import error from './error'
+import history from './history-fallback'
 import dev from './dev-tools'
 
 const debug = _debug('hi:server')
 
 // Koa application is now a class and requires the new operator.
 const app = new Koa()
+
+app.use(history())
+
 app.use(logger())
 
 // handle error
@@ -18,7 +22,10 @@ app.use(error())
 // ------------------------------------
 // Apply Webpack DEV/HMR Middleware
 // ------------------------------------
-config.globals.__DEV__ ? dev(app) : app.use(serve(config.paths.dist(), {maxAge: 365 * 24 * 60 * 60}))
+config.globals.__DEV__ ? dev(app) : app.use(serve(config.paths.dist(), {
+  context: '/yoga-vision',
+  maxAge: 365 * 24 * 60 * 60
+}))
 
 const args = [config.server_port, config.server_host]
 

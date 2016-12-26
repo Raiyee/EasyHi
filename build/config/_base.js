@@ -23,8 +23,8 @@ const config = {
   // ----------------------------------
   // Server Configuration
   // ----------------------------------
-  server_host: 'local.1stg.me',
-  server_port: process.env.PORT || 3000,
+  server_host: 'local.easy-hi.com',
+  server_port: process.env.PORT || 8090,
 
   // ----------------------------------
   // Compiler Configuration
@@ -68,6 +68,7 @@ config.globals = {
   __TEST__: NODE_ENV === 'test',
   __TESTING__: NODE_ENV === 'testing',
   __MOCK__: !!argv.mock,
+  __PAGES__: !!argv.pages,
   CONTEXT: JSON.stringify('/yoga-vision'),
   IMG_PATH_PREFIX: JSON.stringify('https://placem.at/')
 }
