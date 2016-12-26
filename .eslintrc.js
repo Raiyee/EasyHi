@@ -17,6 +17,7 @@ module.exports = {
   globals: {
     __DEV__: false,
     __MOCK__: false,
+    BASE_URL: false,
     CONTEXT: false,
     IMG_PATH_PREFIX: false
   },

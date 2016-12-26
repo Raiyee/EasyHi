@@ -4,6 +4,8 @@ import axios, {interceptors} from 'axios'
 import store from 'store'
 import {alert, on, warn} from 'utils'
 
+axios.defaults.baseURL = BASE_URL
+
 Vue.prototype.$http = axios
 
 // the `get` method is different from `post` by default, we alias it as a same-signature method here!

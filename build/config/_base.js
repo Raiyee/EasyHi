@@ -69,6 +69,7 @@ config.globals = {
   __TESTING__: NODE_ENV === 'testing',
   __MOCK__: !!argv.mock,
   __PAGES__: !!argv.pages,
+  BASE_URL: JSON.stringify('/yoga-system'),
   CONTEXT: JSON.stringify('/yoga-vision'),
   IMG_PATH_PREFIX: JSON.stringify('https://placem.at/')
 }
