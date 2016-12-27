@@ -79,8 +79,7 @@ export default {
       }
     }, {
       path: '/picker',
-      component: () => System.import('views/_Picker'),
-      alias: '/merchant-index'
+      component: () => System.import('views/_Picker')
     }, {
       path: '/modal',
       component: () => System.import('views/_Modal')
