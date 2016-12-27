@@ -13,6 +13,16 @@ export default {
       name: 'home',
       component: () => System.import('views/Home')
     }, {
+      path: '/member-subscribe',
+      name: 'memberSubscribe',
+      component: () => System.import('views/MemberSubscribe'),
+      meta: {
+        init: {
+          url: '/get-schedules'
+        },
+        keepAlive: false
+      }
+    }, {
       path: '/login',
       name: 'login',
       component: () => System.import('views/Login')
@@ -29,23 +39,13 @@ export default {
         }
       }
     }, {
-      path: '/member-subscribe',
-      name: 'memberSubscribe',
-      component: () => System.import('views/MemberSubscribe'),
-      meta: {
-        init: {
-          url: '/get-schedules'
-        },
-        keepAlive: false
-      }
-    }, {
-      path: '/member-information',
+      path: '/member-info',
       name: 'memberInfo',
       component: () => System.import('views/MemberIndex/MemberInfo'),
       meta: {
         auth: MEMBER,
         init: {
-          url: '/get-member-information'
+          url: '/member-info'
         }
       }
     }, {
@@ -77,6 +77,10 @@ export default {
           url: '/dynamic'
         }
       }
+    }, {
+      path: '/chart',
+      name: 'chart',
+      component: () => System.import('views/_Chart')
     }, {
       path: '/picker',
       component: () => System.import('views/_Picker')

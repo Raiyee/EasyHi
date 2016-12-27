@@ -1,4 +1,4 @@
-import './components'
+// import './components'
 import './directives'
 import './filters'
 import './http'

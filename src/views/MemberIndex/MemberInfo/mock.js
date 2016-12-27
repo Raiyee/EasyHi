@@ -2,7 +2,7 @@ import Mock, {Random} from 'mockjs'
 
 import {randomImg} from 'utils'
 
-Mock.mock(/\/get-member-information$/, {
+Mock.mock(/\/member-info$/, {
   memberId: '@id',
   userId: '@id',
   memberGender: '@boolean',
