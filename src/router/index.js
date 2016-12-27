@@ -4,13 +4,13 @@ import axios from 'axios'
 
 Vue.use(VueRouter)
 
-import store from 'store'
+import {dispatch, getters} from 'store'
 import routes from './routes'
-import utils, {alert, isArray, isFunction} from 'utils'
+import utils, {alert, isArray, isFunction, pickObj} from 'utils'
 
-store.dispatch('parsePath', location.pathname)
+dispatch('parsePath', location.pathname)
 
-routes.base = store.getters.base
+routes.base = getters.base
 
 const router = new VueRouter(routes)
 
@@ -19,7 +19,7 @@ const body = document.getElementsByTagName('body')[0]
 const routeCache = {}
 
 const resolveData = (data, meta, next) => {
-  store.dispatch('setProgress', 90)
+  dispatch('setProgress', 90)
 
   const init = meta.init
   const actions = init.actions
@@ -29,11 +29,11 @@ const resolveData = (data, meta, next) => {
     meta.data = data
   } else if (typeof actions === 'string') {
     // 完成后如果是字符串表示直接将所有数据导入 action
-    store.dispatch(actions, data)
+    dispatch(actions, data)
   } else {
     // 否则应该是对象类型, 遍历将对应数据导入对应 action
     for (const [key, value] of Object.entries(actions)) {
-      store.dispatch(key, data[value])
+      dispatch(key, data[value])
     }
   }
 
@@ -44,26 +44,29 @@ const resolveData = (data, meta, next) => {
 const BG = 'bg'
 
 const resolveRoute = (to, from, next) => {
-  store.dispatch('setProgress', 50)
+  dispatch('setProgress', 50)
 
   const meta = to.meta
   const bg = meta.bg
 
   utils[`${bg == null || bg ? 'add' : 'remove'}Class`](body, BG)
 
-  let auth = meta.auth
+  let {auth} = meta
 
+  // 判断是否需要登录权限
   if (auth) {
-    if (!store.getters.authorized) {
+    // 如果未登录直接跳转登录页
+    if (!getters.authorized) {
       return next({name: 'login', query: {from: to.fullPath}})
+    // 已经登录判断是否只需要校验登录，无需校验身份
     } else if (auth !== true) {
+      // 如果需要的角色列表不是数组，变更为数组
       isArray(auth) || (auth = [auth])
 
-      const currentRole = store.getters.currentRole
+      const currentRole = getters.currentRole
 
-      if (!auth.includes(currentRole)) {
-        return next(`/${currentRole.toLowerCase()}-index`)
-      }
+      // 如果需要的角色列表不包含当前角色，跳转到对应首页
+      if (!auth.includes(currentRole)) return next(`/${currentRole.toLowerCase()}-index`)
     }
   }
 
@@ -77,7 +80,7 @@ const resolveRoute = (to, from, next) => {
 
   if (isFunction(init)) return init(to, from, next)
 
-  store.dispatch('setProgress', 70)
+  dispatch('setProgress', 70)
 
   axios({
     method: init.type || 'post',
@@ -96,11 +99,10 @@ const resolveRoute = (to, from, next) => {
   }).catch(() => {
     alert('系统异常，无法跳转')
     next(false)
-    store.dispatch('setProgress', 0)
+    dispatch('setProgress', 0)
   })
 }
 
-const tcode = store.getters.tcode
 const NOT_FOUND_ROUTE = router.match('/404')
 
 Object.assign(utils, {
@@ -109,21 +111,21 @@ Object.assign(utils, {
 })
 
 router.beforeEach((to, from, next) => {
-  if (store.getters.initialized) return resolveRoute(to, from, next)
+  if (getters.initialized) return resolveRoute(to, from, next)
 
-  axios.post('/initialize', {tcode, mobile: store.getters.mobile})
+  axios.post('/initialize', pickObj(getters, 'tcode', 'mobile'))
     .then(({data: {error, coachAlias, currentRole, roles}}) => {
       if (error) return router.history.updateRoute(NOT_FOUND_ROUTE)
 
-      store.dispatch('initialize', {coachAlias})
-      store.dispatch('resetRole', {currentRole, roles})
+      dispatch('initialize', {coachAlias})
+      dispatch('resetRole', {currentRole, roles})
 
       resolveRoute(to, from, next)
     })
 })
 
 router.afterEach(() => {
-  store.dispatch('setProgress', 100)
+  dispatch('setProgress', 100)
   window.scrollTo(0, 0)
 })
 
