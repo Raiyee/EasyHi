@@ -15,7 +15,7 @@ const MESSAGE_TYPE = [
   '购买成功提醒',
   '退款提醒']
 
-Mock.mock(/\/membermessage$/, () => {
+Mock.mock(/\/member-message$/, () => {
   let now = moment()
   return {
     messages: new Array(Random.integer(0, 5)).fill(0).map(() => {

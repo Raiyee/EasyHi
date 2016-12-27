@@ -2,17 +2,15 @@ import {mapGetters} from 'vuex'
 
 import classes from './index.styl'
 
-import {ensure, removeClass} from 'utils'
-
 export default require('./index.pug')({
   name: 'member-index',
-  data: () => ({classes}),
-  computed: {
-    ...mapGetters(['winHeight'])
+  data() {
+    return {
+      classes,
+      ...this.$route.meta.data
+    }
   },
-  mounted() {
-    ensure(Object.values(this.$refs), 'animationend', (e, el) => {
-      removeClass(e ? e.target : el, 'animated')
-    }, 1600)
+  computed: {
+    ...mapGetters(['mobile'])
   }
 })

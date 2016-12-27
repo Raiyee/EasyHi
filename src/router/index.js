@@ -58,7 +58,7 @@ const resolveRoute = (to, from, next) => {
     // 如果未登录直接跳转登录页
     if (!getters.authorized) {
       return next({name: 'login', query: {from: to.fullPath}})
-    // 已经登录判断是否只需要校验登录，无需校验身份
+      // 已经登录判断是否只需要校验登录，无需校验身份
     } else if (auth !== true) {
       // 如果需要的角色列表不是数组，变更为数组
       isArray(auth) || (auth = [auth])
@@ -114,11 +114,11 @@ router.beforeEach((to, from, next) => {
   if (getters.initialized) return resolveRoute(to, from, next)
 
   axios.post('/initialize', pickObj(getters, 'tcode', 'mobile'))
-    .then(({data: {error, coachAlias, currentRole, roles}}) => {
+    .then(({data: {error, coachAlias, currentRole, oldServer, roles}}) => {
       if (error) return router.history.updateRoute(NOT_FOUND_ROUTE)
 
-      dispatch('initialize', {coachAlias})
-      dispatch('resetRole', {currentRole, roles})
+      dispatch('initialize', {coachAlias, oldServer})
+      currentRole && dispatch('resetRole', {currentRole, roles})
 
       resolveRoute(to, from, next)
     })

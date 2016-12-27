@@ -3,7 +3,7 @@ import moment from 'moment'
 
 import {randomImg, randomMobile} from 'utils'
 
-Mock.mock(/\/member-center$/, () => {
+Mock.mock(/\/member-index$/, () => {
   let recentCourse = Random.boolean()
 
   if (recentCourse) {
