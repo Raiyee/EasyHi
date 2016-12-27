@@ -17,6 +17,6 @@ Mock.mock(/\/initialize$/, ({body}) => {
     roles,
     currentRole,
     coachAlias: Random.pick(['教练', '老师', '教官', '导师']),
-    oldServer: 'https://local.easy-hi.com:8090/yoga-system-res/dev/modules/index/html/'
+    oldServer: 'http://local.easy-hi.com:8090/yoga-system-res/dev/modules/index/html/'
   }
 })
