@@ -4,7 +4,7 @@ import serve from './static'
 import _debug from 'debug'
 import config from '../build/config'
 import error from './error'
-import history from './history-fallback'
+import history from './history'
 import dev from './dev-tools'
 
 const debug = _debug('hi:server')
