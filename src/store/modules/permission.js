@@ -1,10 +1,8 @@
-import axios from 'axios'
-
-import {ROLES, STAFFS} from '../constants'
+import {ROLES, ROLE_NAMES, STAFFS} from '../constants'
 
 import utils from 'utils'
 
-const {VISITOR} = ROLES
+const {COACH, VISITOR} = ROLES
 
 const PARSE_PATH = 'PARSE_PATH'
 const SET_ROLES = 'SET_ROLES'
@@ -24,6 +22,7 @@ Object.assign(utils, INIT_STATE)
 const state = Object.assign({
   roles: [VISITOR],
   currentRole: VISITOR,
+  currentRoleName: ROLE_NAMES[VISITOR],
   initialized: false
 }, INIT_STATE)
 
@@ -33,6 +32,7 @@ const getters = {
   base: state => state.base,
   roles: state => state.roles,
   currentRole: state => state.currentRole,
+  currentRoleName: state => ROLE_NAMES[state.currentRole],
   isStaff: state => STAFFS.includes(state.currentRole),
   initialized: state => state.initialized
 }
@@ -50,14 +50,7 @@ const actions = {
     })
   },
   initialize({commit}, payload) {
-    if (state.initialized) return
-
-    return axios.post('/initialize', payload)
-      .then(({data: {error}}) => {
-        if (error) return Promise.reject(error)
-
-        commit(INITIALIZE, true)
-      })
+    commit(INITIALIZE, payload)
   },
   setRoles({commit}, roles = [VISITOR]) {
     commit(SET_ROLES, roles)
@@ -76,7 +69,8 @@ const mutations = {
     Object.assign(state, payload)
     Object.assign(utils, payload)
   },
-  [INITIALIZE](state) {
+  [INITIALIZE](state, {coachAlias}) {
+    coachAlias && (ROLE_NAMES[COACH] = coachAlias)
     state.initialized = true
   },
   [SET_ROLES](state, roles) {
@@ -84,6 +78,7 @@ const mutations = {
   },
   [SET_CURRENT_ROLES](state, currentRole) {
     state.currentRole = currentRole
+    state.currentRoleName = ROLE_NAMES[currentRole]
   }
 }
 

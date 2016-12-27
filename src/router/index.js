@@ -6,7 +6,7 @@ Vue.use(VueRouter)
 
 import store from 'store'
 import routes from './routes'
-import utils, {alert, isFunction} from 'utils'
+import utils, {alert, isArray, isFunction} from 'utils'
 
 store.dispatch('parsePath', location.pathname)
 
@@ -51,8 +51,21 @@ const resolveRoute = (to, from, next) => {
 
   utils[`${bg == null || bg ? 'add' : 'remove'}Class`](body, BG)
 
-  // 首先判断是否需要登录权限, 后期需要新增馆主、教练、客服等多种权限
-  if (meta.auth && !store.getters.authorized) return next({name: 'login', query: {from: to.fullPath}})
+  let auth = meta.auth
+
+  if (auth) {
+    if (!store.getters.authorized) {
+      return next({name: 'login', query: {from: to.fullPath}})
+    } else if (auth !== true) {
+      isArray(auth) || (auth = [auth])
+
+      const currentRole = store.getters.currentRole
+
+      if (!auth.includes(currentRole)) {
+        return next(`/${currentRole.toLowerCase()}-index`)
+      }
+    }
+  }
 
   const fullPath = to.fullPath
   let init, cache
@@ -98,13 +111,15 @@ Object.assign(utils, {
 router.beforeEach((to, from, next) => {
   if (store.getters.initialized) return resolveRoute(to, from, next)
 
-  store.dispatch('initialize', {
-    tcode
-  }).then(() => {
-    resolveRoute(to, from, next)
-  }).catch(() => {
-    router.history.updateRoute(NOT_FOUND_ROUTE)
-  })
+  axios.post('/initialize', {tcode, mobile: store.getters.mobile})
+    .then(({data: {error, coachAlias, currentRole, roles}}) => {
+      if (error) return router.history.updateRoute(NOT_FOUND_ROUTE)
+
+      store.dispatch('initialize', {coachAlias})
+      store.dispatch('resetRole', {currentRole, roles})
+
+      resolveRoute(to, from, next)
+    })
 })
 
 router.afterEach(() => {

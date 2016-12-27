@@ -1,4 +1,7 @@
-import utils from 'utils'
+import utils, {ROLES} from 'utils'
+
+// eslint-disable-next-line no-unused-vars
+const {ADVISOR, COACH, MERCHANT, MEMBER, SERVICE} = ROLES
 
 export default {
   mode: 'history',
@@ -16,7 +19,7 @@ export default {
       name: 'memberCenter',
       component: () => System.import('views/MemberCenter'),
       meta: {
-        auth: true,
+        auth: MEMBER,
         init: {
           url: '/member-center',
           restore: false
@@ -37,7 +40,7 @@ export default {
       name: 'memberInfo',
       component: () => System.import('views/MemberCenter/MemberInfo'),
       meta: {
-        auth: true,
+        auth: MEMBER,
         init: {
           url: '/get-member-information'
         }
@@ -47,7 +50,7 @@ export default {
       name: 'memberMessage',
       component: () => System.import('views/MemberCenter/MemberMessage'),
       meta: {
-        auth: true,
+        auth: MEMBER,
         init: {
           url: '/membermessage'
         }
@@ -57,7 +60,7 @@ export default {
       name: 'memberSubscription',
       component: () => System.import('views/MemberCenter/MemberSubscription'),
       meta: {
-        auth: false,
+        auth: MEMBER,
         init: {
           url: '/member-subscriptions'
         }
@@ -73,7 +76,8 @@ export default {
       }
     }, {
       path: '/picker',
-      component: () => System.import('views/_Picker')
+      component: () => System.import('views/_Picker'),
+      alias: '/merchant-index'
     }, {
       path: '/modal',
       component: () => System.import('views/_Modal')

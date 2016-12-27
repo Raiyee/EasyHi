@@ -1,3 +1,5 @@
+export * from 'store/constants'
+
 import {trueType} from './base'
 
 export const DATE_FORMAT = 'YYYY-MM-DD'

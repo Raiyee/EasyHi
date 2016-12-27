@@ -1,23 +1,13 @@
 import Mock from 'mockjs'
 
-import {getItem, setItem} from 'utils'
-import {COACH, MERCHANT, MEMBER, SERVICE, STAFF, PERMISSION} from 'store/constants'
+import {getItem, setItem, PERMISSIONS} from 'utils'
+import {MEMBER, PERMISSION} from 'store/constants'
 
 const Random = Mock.Random
 
 const VERIFICATION = 'VERIFICATION'
 const correctCode = 345678
 const verificationCache = getItem(VERIFICATION) || setItem(VERIFICATION, {})
-const PERMISSIONS = [{
-  mobiles: [18651868823],
-  roles: [COACH]
-}, {
-  mobiles: [18168067973],
-  roles: [MERCHANT, STAFF]
-}, {
-  mobiles: [18551863134],
-  roles: [SERVICE, STAFF]
-}]
 
 const minusTimeLint = (verification) => {
   const intervalId = setInterval(() => {
@@ -55,7 +45,7 @@ Mock.mock(/\/verifyCode$/, req => {
   const correctVerificationCode = verification.code
   const correct = [correctCode, correctVerificationCode].includes(+verificationCode) || Random.boolean()
 
-  const {roles} = PERMISSIONS.find(({mobiles, roles}) => {
+  const {roles, currentRole} = PERMISSIONS.find(({mobiles, roles}) => {
     const include = mobiles.includes(+mobile)
     if (include) {
       setItem(PERMISSION, {
@@ -67,6 +57,7 @@ Mock.mock(/\/verifyCode$/, req => {
 
   return {
     error: !correct && Random.cword(5, 12),
-    roles
+    roles,
+    currentRole
   }
 })
