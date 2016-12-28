@@ -7724,9 +7724,9 @@ vary@^1.0.0, vary@~1.1.0:
   version "1.1.0"
   resolved "http://registry.npm.taobao.org/vary/download/vary-1.1.0.tgz#e1e5affbbd16ae768dd2674394b9ad3022653140"
 
-vconsole@^2.5.1:
-  version "2.5.1"
-  resolved "http://registry.npm.taobao.org/vconsole/download/vconsole-2.5.1.tgz#0bc6ed7804a62897a49cbf2683e17780dba88145"
+vconsole@^2.5.2:
+  version "2.5.2"
+  resolved "http://registry.npm.taobao.org/vconsole/download/vconsole-2.5.2.tgz#07092d9a459552d89604553cef512308553848df"
 
 vendors@^1.0.0:
   version "1.0.1"
@@ -7808,9 +7808,9 @@ vue-router@^2.1.1:
   version "2.1.1"
   resolved "http://registry.npm.taobao.org/vue-router/download/vue-router-2.1.1.tgz#10c31bbdcb6da92bd3e0223fa12345e73018625a"
 
-vue-template-compiler@^2.1.7:
-  version "2.1.7"
-  resolved "http://registry.npm.taobao.org/vue-template-compiler/download/vue-template-compiler-2.1.7.tgz#5e1fc983271d3ac24c79abb64b71383357e2cea5"
+vue-template-compiler@^2.1.8:
+  version "2.1.8"
+  resolved "http://registry.npm.taobao.org/vue-template-compiler/download/vue-template-compiler-2.1.8.tgz#12dd1cc63793f59be580c694a61610cb9369d629"
   dependencies:
     de-indent "^1.0.2"
     he "^1.1.0"
@@ -7827,9 +7827,9 @@ vue-template-es2015-loader@^2.0.1:
     loader-utils "^0.2.16"
     vue-template-es2015-compiler "^1.4.0"
 
-vue@^2.1.7:
-  version "2.1.7"
-  resolved "http://registry.npm.taobao.org/vue/download/vue-2.1.7.tgz#747880cb70a50c66cb8791aacfee7a6dab7fc842"
+vue@^2.1.8:
+  version "2.1.8"
+  resolved "http://registry.npm.taobao.org/vue/download/vue-2.1.8.tgz#ae30aa86024fccf5535292ce414e7b4c221a1756"
 
 vuex-actions@^1.1.1:
   version "1.1.1"
