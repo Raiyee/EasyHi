@@ -13,7 +13,7 @@ export default {
     component: () => System.import('views/Home')
   }, {
     path: '/member-subscribe',
-    component: () => System.import('views/RouterView'),
+    component: () => System.import('components/RouterView'),
     children: [{
       path: '',
       name: 'memberSubscribe',
@@ -31,7 +31,7 @@ export default {
     component: () => System.import('views/Login')
   }, {
     path: '/member-index',
-    component: () => System.import('views/RouterView'),
+    component: () => System.import('components/RouterView'),
     children: [{
       path: '',
       name: 'memberIndex',
@@ -78,7 +78,7 @@ export default {
     ]
   }, {
     path: '/test',
-    component: () => System.import('views/RouterView'),
+    component: () => System.import('components/RouterView'),
     children: [{
       path: '/dynamic',
       name: 'dynamic',
@@ -103,7 +103,7 @@ export default {
   }, {
     path: '/404',
     name: '404',
-    component: () => System.import('views/NotFound'),
+    component: () => System.import('components/NotFound'),
     beforeEnter() {
       if (getters.isStaff) return (location.href = getters.urlPrefix + getters.currentRole.toLowerCase() + '/index')
       utils.router.history.updateRoute(utils.NOT_FOUND_ROUTE)
