@@ -16,7 +16,8 @@ Mock.mock(/\/initialize$/, ({body}) => {
     error: tcode == null || TCODES.includes(+tcode) ? '' : '未找到符合的商户，请确认 url 是否正确！',
     roles,
     currentRole,
-    theme: ['blue', 'green', 'purple', 'red'][~~(Math.random() * 4)],
+    theme: Random.pick('blue', 'green', 'purple', 'red'),
+    merchantName: Random.ctitle(),
     coachAlias: Random.pick(['教练', '老师', '教官', '导师'])
   }
 })

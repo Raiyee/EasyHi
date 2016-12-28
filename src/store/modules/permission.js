@@ -26,6 +26,7 @@ const state = Object.assign({
   currentRole: VISITOR,
   currentRoleName: ROLE_NAMES[VISITOR],
   initialized: false,
+  merchantName: null,
   oldServer: null
 }, INIT_STATE)
 
@@ -74,9 +75,10 @@ const mutations = {
     Object.assign(state, payload)
     Object.assign(utils, payload)
   },
-  [INITIALIZE](state, {coachAlias}) {
+  [INITIALIZE](state, {coachAlias, merchantName}) {
     coachAlias && (ROLE_NAMES[COACH] = coachAlias)
     state.initialized = true
+    state.merchantName = merchantName
     isStatic = /\/yoga-system-res\//.test(OLD_SERVER_PREFIX)
     state.oldServer = OLD_SERVER_PREFIX + (isStatic ? 'dev/modules/index/html/' : `center/${state.tcode}/index/`)
   },
