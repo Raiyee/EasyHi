@@ -1,3 +1,5 @@
+import RouterView from 'components/RouterView'
+
 import {getters} from 'store'
 
 import utils, {ROLES} from 'utils'
@@ -13,7 +15,7 @@ export default {
     component: () => System.import('views/Home')
   }, {
     path: '/member-subscribe',
-    component: () => System.import('components/RouterView'),
+    component: RouterView,
     children: [{
       path: '',
       name: 'memberSubscribe',
@@ -31,7 +33,7 @@ export default {
     component: () => System.import('views/Login')
   }, {
     path: '/member-index',
-    component: () => System.import('components/RouterView'),
+    component: RouterView,
     children: [{
       path: '',
       name: 'memberIndex',
@@ -78,7 +80,7 @@ export default {
     ]
   }, {
     path: '/test',
-    component: () => System.import('components/RouterView'),
+    component: RouterView,
     children: [{
       path: '/dynamic',
       name: 'dynamic',
