@@ -1,5 +1,3 @@
-import RouterView from 'components/RouterView'
-
 import {getters} from 'store'
 
 import utils, {ROLES} from 'utils'
@@ -15,93 +13,79 @@ export default {
     component: () => System.import('views/Home')
   }, {
     path: '/member-subscribe',
-    component: RouterView,
-    children: [{
-      path: '',
-      name: 'memberSubscribe',
-      component: () => System.import('views/MemberSubscribe'),
-      meta: {
-        init: {
-          url: '/get-schedules'
-        },
-        keepAlive: false
-      }
-    }]
+    name: 'memberSubscribe',
+    component: () => System.import('views/MemberSubscribe'),
+    meta: {
+      init: {
+        url: '/get-schedules'
+      },
+      keepAlive: false
+    }
   }, {
     path: '/login',
     name: 'login',
     component: () => System.import('views/Login')
   }, {
     path: '/member-index',
-    component: RouterView,
-    children: [{
-      path: '',
-      name: 'memberIndex',
-      component: () => System.import('views/MemberIndex'),
-      alias: '/visitor-index',
-      meta: {
-        auth: [MEMBER, VISITOR],
-        init: {
-          url: '/member-index',
-          restore: false
-        }
-      }
-    }, {
-      path: '/member-info',
-      name: 'memberInfo',
-      component: () => System.import('views/MemberIndex/MemberInfo'),
-      meta: {
-        auth: MEMBER,
-        init: {
-          url: '/member-info'
-        }
-      }
-    }, {
-      path: '/member-message',
-      name: 'memberMessage',
-      component: () => System.import('views/MemberIndex/MemberMessage'),
-      meta: {
-        auth: MEMBER,
-        init: {
-          url: '/member-message'
-        }
-      }
-    }, {
-      path: '/member-subscription',
-      name: 'memberSubscription',
-      component: () => System.import('views/MemberIndex/MemberSubscription'),
-      meta: {
-        auth: MEMBER,
-        init: {
-          url: '/member-subscriptions'
-        }
+    name: 'memberIndex',
+    component: () => System.import('views/MemberIndex'),
+    alias: '/visitor-index',
+    meta: {
+      auth: [MEMBER, VISITOR],
+      init: {
+        url: '/member-index',
+        restore: false
       }
     }
-    ]
   }, {
-    path: '/test',
-    component: RouterView,
-    children: [{
-      path: '/dynamic',
-      name: 'dynamic',
-      component: () => System.import('views/_Dynamic'),
-      meta: {
-        init: {
-          url: '/dynamic'
-        }
+    path: '/member-info',
+    name: 'memberInfo',
+    component: () => System.import('views/MemberIndex/MemberInfo'),
+    meta: {
+      auth: MEMBER,
+      init: {
+        url: '/member-info'
       }
-    }, {
-      path: '/chart',
-      name: 'chart',
-      component: () => System.import('views/_Chart')
-    }, {
-      path: '/picker',
-      component: () => System.import('views/_Picker')
-    }, {
-      path: '/modal',
-      component: () => System.import('views/_Modal')
     }
-    ]
+  }, {
+    path: '/member-message',
+    name: 'memberMessage',
+    component: () => System.import('views/MemberIndex/MemberMessage'),
+    meta: {
+      auth: MEMBER,
+      init: {
+        url: '/member-message'
+      }
+    }
+  }, {
+    path: '/member-subscription',
+    name: 'memberSubscription',
+    component: () => System.import('views/MemberIndex/MemberSubscription'),
+    meta: {
+      auth: MEMBER,
+      init: {
+        url: '/member-subscriptions'
+      }
+    }
+  }, {
+    path: '/dynamic',
+    name: 'dynamic',
+    component: () => System.import('views/_Dynamic'),
+    meta: {
+      init: {
+        url: '/dynamic'
+      }
+    }
+  }, {
+    path: '/chart',
+    name: 'chart',
+    component: () => System.import('views/_Chart')
+  }, {
+    path: '/picker',
+    component: () => System.import('views/_Picker')
+  }, {
+    path: '/modal',
+    component: () => System.import('views/_Modal')
   }, {
     path: '/404',
     name: '404',
@@ -113,6 +97,5 @@ export default {
   }, {
     path: '*',
     redirect: '/404'
-  }
-  ]
+  }]
 }
