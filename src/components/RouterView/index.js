@@ -1,1 +1,1 @@
-export default require('./index.pug')({})
+export default require('./index.pug')()
