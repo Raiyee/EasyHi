@@ -7,13 +7,15 @@ const {ADVISOR, COACH, MERCHANT, MEMBER, SERVICE, VISITOR} = ROLES
 
 export default {
   mode: 'history',
-  routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: () => System.import('views/Home')
-    }, {
-      path: '/member-subscribe',
+  routes: [{
+    path: '/',
+    name: 'home',
+    component: () => System.import('views/Home')
+  }, {
+    path: '/member-subscribe',
+    component: () => System.import('views/RouterView'),
+    children: [{
+      path: '',
       name: 'memberSubscribe',
       component: () => System.import('views/MemberSubscribe'),
       meta: {
@@ -22,12 +24,16 @@ export default {
         },
         keepAlive: false
       }
-    }, {
-      path: '/login',
-      name: 'login',
-      component: () => System.import('views/Login')
-    }, {
-      path: '/member-index',
+    }]
+  }, {
+    path: '/login',
+    name: 'login',
+    component: () => System.import('views/Login')
+  }, {
+    path: '/member-index',
+    component: () => System.import('views/RouterView'),
+    children: [{
+      path: '',
       name: 'memberIndex',
       component: () => System.import('views/MemberIndex'),
       alias: '/visitor-index',
@@ -68,7 +74,12 @@ export default {
           url: '/member-subscriptions'
         }
       }
-    }, {
+    }
+    ]
+  }, {
+    path: '/test',
+    component: () => System.import('views/RouterView'),
+    children: [{
       path: '/dynamic',
       name: 'dynamic',
       component: () => System.import('views/_Dynamic'),
@@ -87,17 +98,19 @@ export default {
     }, {
       path: '/modal',
       component: () => System.import('views/_Modal')
-    }, {
-      path: '/404',
-      name: '404',
-      component: () => System.import('views/NotFound'),
-      beforeEnter() {
-        if (getters.isStaff) return (location.href = getters.urlPrefix + getters.currentRole.toLowerCase() + '/index')
-        utils.router.history.updateRoute(utils.NOT_FOUND_ROUTE)
-      }
-    }, {
-      path: '*',
-      redirect: '/404'
     }
+    ]
+  }, {
+    path: '/404',
+    name: '404',
+    component: () => System.import('views/NotFound'),
+    beforeEnter() {
+      if (getters.isStaff) return (location.href = getters.urlPrefix + getters.currentRole.toLowerCase() + '/index')
+      utils.router.history.updateRoute(utils.NOT_FOUND_ROUTE)
+    }
+  }, {
+    path: '*',
+    redirect: '/404'
+  }
   ]
 }
