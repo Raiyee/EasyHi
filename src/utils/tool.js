@@ -3,7 +3,7 @@ import Vue from 'vue'
 export const changeTitle = title => {
   document.title = title
 
-  if(!Vue.util.isIOS) return
+  if (!Vue.util.isIOS) return
 
   const iframe = document.createElement('iframe')
 
