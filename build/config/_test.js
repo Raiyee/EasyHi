@@ -7,7 +7,9 @@ export default config => {
 
   let oldServerPrefix
 
-  if (!globals.__MOCK__) {
+  if (globals.__MOCK__) {
+    oldServerPrefix = 'test.res.easy-hi.cn/yoga-system-res/'
+  } else {
     let imgPathPrefix
 
     if (isPages) {
@@ -19,8 +21,6 @@ export default config => {
     }
 
     globals.IMG_PATH_PREFIX = JSON.stringify(HTTP_PREFIX + imgPathPrefix)
-  } else {
-    oldServerPrefix = 'test.res.easy-hi.cn/yoga-system-res/'
   }
 
   globals.OLD_SERVER_PREFIX = JSON.stringify(HTTP_PREFIX + oldServerPrefix)
