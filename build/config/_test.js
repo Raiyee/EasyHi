@@ -3,18 +3,21 @@ const HTTP_PREFIX = 'http://'
 export default config => {
   const globals = config.globals
 
-  const isPages = config.globals.__PAGES__
+  const isPages = globals.__PAGES__
 
   if (!globals.__MOCK__) {
-    let imgPathPrefix
+    let imgPathPrefix, oldServerPrefix
 
-    if (globals.__PAGES__) {
+    if (isPages) {
       imgPathPrefix = 'd.raiyee.cn/images/'
+      oldServerPrefix = 'local.easy-hi.com:8090/yoga-system/'
     } else {
       imgPathPrefix = 'test.img.easy-hi.cn/images/'
+      oldServerPrefix = 'test.res.easy-hi.cn/yoga-system-res/'
     }
 
     globals.IMG_PATH_PREFIX = JSON.stringify(HTTP_PREFIX + imgPathPrefix)
+    globals.OLD_SERVER_PREFIX = JSON.stringify(HTTP_PREFIX + oldServerPrefix)
   }
 
   return {

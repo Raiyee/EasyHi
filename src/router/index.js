@@ -114,10 +114,12 @@ router.beforeEach((to, from, next) => {
   if (getters.initialized) return resolveRoute(to, from, next)
 
   axios.post('/initialize', pickObj(getters, 'tcode', 'mobile'))
-    .then(({data: {error, coachAlias, currentRole, oldServer, roles}}) => {
+    .then(({data: {error, coachAlias, currentRole, roles, theme}}) => {
       if (error) return router.history.updateRoute(NOT_FOUND_ROUTE)
 
-      dispatch('initialize', {coachAlias, oldServer})
+      System.import(`styles/theme-${theme}`)
+
+      dispatch('initialize', {coachAlias})
       currentRole && dispatch('resetRole', {currentRole, roles})
 
       resolveRoute(to, from, next)

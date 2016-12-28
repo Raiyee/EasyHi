@@ -16,7 +16,7 @@ Mock.mock(/\/initialize$/, ({body}) => {
     error: tcode == null || TCODES.includes(+tcode) ? '' : '未找到符合的商户，请确认 url 是否正确！',
     roles,
     currentRole,
-    coachAlias: Random.pick(['教练', '老师', '教官', '导师']),
-    oldServer: 'http://local.easy-hi.com:8090/yoga-system-res/dev/modules/index/html/'
+    theme: ['blue', 'green', 'purple', 'red'][~~(Math.random() * 4)],
+    coachAlias: Random.pick(['教练', '老师', '教官', '导师'])
   }
 })

@@ -18,10 +18,6 @@ Object.defineProperty(Vue.prototype, '$util', {
 import 'styles/bootstrap'
 import 'styles/app'
 
-const theme = ['blue', 'green', 'purple', 'red'][~~(Math.random() * 4)]
-
-System.import(`styles/theme-${theme}`)
-
 const docEl = document.documentElement
 const resize = () => {
   store.dispatch('setSize', {winHeight: docEl.clientHeight, winWidth: docEl.clientWidth})
