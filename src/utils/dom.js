@@ -1,9 +1,10 @@
-import {isObject, isWindow} from './base'
+import {isArray, isObject, isWindow} from './base'
+
 import {each} from './common'
 
 export const inBrowser = typeof window !== 'undefined' && isWindow(window)
 
-const domEach = (el, ...args) => each(isWindow(el) ? [el] : el, ...args)
+const domEach = (el, ...args) => each(isArray(el) || el instanceof NodeList ? el : [el], ...args)
 
 const classRegExp = className => new RegExp(`(^|\\s+)${className.toString().trim()}(\\s+|$)`, 'g')
 
