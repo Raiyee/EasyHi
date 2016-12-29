@@ -4,16 +4,16 @@ export default {
     {
       path: '/',
       name: 'home',
-      component: () => System.import('views/MemberIndex')
+      component: () => System.import('views/Home')
     }, {
       path: '/login',
       name: 'login',
       component: () => System.import('views/Login')
     },
     {
-      path: '/member-center',
-      name: 'memberCenter',
-      component: () => System.import('views/MemberCenter'),
+      path: '/member-index',
+      name: 'memberIndex',
+      component: () => System.import('views/MemberIndex'),
       meta: {
         auth: true,
         init: {
@@ -36,7 +36,7 @@ export default {
     {
       path: '/member-information',
       name: 'memberInfo',
-      component: () => System.import('views/MemberCenter/MemberInfo'),
+      component: () => System.import('views/MemberIndex/MemberInfo'),
       meta: {
         auth: true,
         init: {
@@ -46,7 +46,7 @@ export default {
     }, {
       path: '/member-message',
       name: 'memberMessage',
-      component: () => System.import('views/MemberCenter/MemberMessage'),
+      component: () => System.import('views/MemberIndex/MemberMessage'),
       meta: {
         auth: true,
         init: {
@@ -57,7 +57,7 @@ export default {
     {
       path: '/member-subscription',
       name: 'memberSubscription',
-      component: () => System.import('views/MemberCenter/MemberSubscription'),
+      component: () => System.import('views/MemberIndex/MemberSubscription'),
       meta: {
         auth: false,
         init: {

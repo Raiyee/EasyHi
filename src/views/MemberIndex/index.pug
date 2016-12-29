@@ -1,16 +1,76 @@
-div(:class="classes.content", :style="{height: winHeight + 'px'}")
-  each val in [1,2]
-    div(:class="[classes.pic, classes.pic" + val + "]")
-  div(:class="classes.slogan")
-    div(:class="classes.sloganHeader")
-      input(title="请输入标题", value="遇见瑜伽", readonly)
-      div(:class="classes.line")
-    .center-block(:class="classes['slogan-body']")
-      textarea(title="请输入内容", readonly) 当心得到控制，平静下来时，剩下的便是灵魂
-  div(:class="classes.memberMenu")
-    each val, index in [{pull:'left',link:'/member-subscribe',icon:'icon-book',menu:'预订课程'},{pull:'right',link:'/member-center',icon:'icon-person',menu:'个人中心'}]
-      div(:class="classes.outsideCircle", class="pull-" + val.pull + " animated", ref="circle" + index)
-        router-link(:class="classes.insideCircle", to=val.link, tag="div")
-          span(:class="classes.menuIcon", class="iconfont " + val.icon)
-          span(:class="classes.menuText") #{val.menu}
-        div(:class="classes.insideCircleReplace")
+div(:class="classes.container")
+  .media.theme-bg
+    router-link.media-left.media-middle(to="/member-information", tag="div")
+      .media-object.img-circle(v-lazy:background-image="$util.imgPath(memberPortrait)")
+    router-link.media-body.media-middle(to="/member-information", tag="div")
+      .media-heading {{ memberName }}
+      .media-body {{ mobile }}
+    router-link.media-right(to="/member-message", tag="div")
+      span.iconfont.icon-message
+        span.text-center(v-if="messageCount") {{ messageCount > 9 ? '9+' : messageCount }}
+
+  .clearfix(:class="classes.show", v-if="showId")
+    span.iconfont.icon-xiaoxi.theme-color
+    span 您有一个"会员秀", 正在等待您的召唤
+    span.iconfont.icon-arrow-right
+
+  .panel.panel-full(:class="classes.subscriptionPanel")
+    .panel-heading
+      h3.panel-title 最近课程
+        small(v-if="recentCourse") （{{ recentCourse.startTime | formatDate }})
+        router-link.pull-right(to="/member-subscription") 查看全部预订
+          span.iconfont.icon-arrow-right
+    .panel-body(v-if="recentCourse")
+      div
+        span.iconfont.icon-clock.theme-color
+      div {{ recentCourse.startTime | formatDate('HH:mm') }}-{{ recentCourse.endTime | formatDate('HH:mm') }} {{ recentCourse.courseName }}
+        br
+        | 预订
+        span.theme-color(:class="classes.count") {{ recentCourse.bookingNum }}
+        | 人
+        template(v-for="{costName, costCount} in recentCourse.costDetails")
+          br
+          | 扣 {{ costName }}
+          span.theme-color(:class="classes.count") {{ costCount }}
+          | 次
+    .panel-body.text-center(v-else, :class="classes.noCourse")
+      | 还没有要上的课
+      br
+      button.btn.btn-theme-primary 去订课
+    .panel-footer.theme-color.text-right(v-if="recentCourse") 取消预订
+
+  .panel.panel-full(:class="classes.cardPanel")
+    .panel-heading.border-b
+      h3.panel-title 我的卡券
+    ul.list-unstyled.panel-body.text-center
+      li
+        span.iconfont.icon-huiyuanqia.theme-color
+        br
+        | 会员卡({{ cardNum }})
+      li
+        span.iconfont.icon-youhuiquan1.theme-color
+        br
+        | 体验券({{ voucherNum }})
+      li
+        span.iconfont.icon-dingdan1.theme-color
+        br
+        | 订单
+
+  .panel.panel-full(v-if="authorization && authorization.length")
+    .panel-heading
+      h3.panel-title 授权信息
+    .panel-body
+      .media.theme-color(v-for="{authorized, serverName, serverMobile, serverPortrait} in authorization")
+        .media-left.media-middle
+          .media-object.img-circle(v-lazy:background-image="$util.imgPath(serverPortrait)")
+        .media-body.media-middle {{ serverName }}
+          br
+          | {{ serverMobile }}
+        .media-right.media-middle {{ authorized ? '解除' : '开启' }}授权
+
+  .panel.panel-full(:class="classes.contactPanel")
+    .panel-body.text-center
+      template(v-if="hasNotice")
+        router-link(to="/") 会员须知
+        hr
+      a(:href="'tel:'+ serverMobile") 联系客服 {{ serverMobile }}

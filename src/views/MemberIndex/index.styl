@@ -1,204 +1,109 @@
-$btn-color = #dfd28a
+.container
+  :global(.media-object)
+    size 70px
+    border 2px solid $reverse-color
+    background-color $reverse-color
 
-.content
-  relative()
-  margin-left auto
-  margin-right auto
-  max-width 768px
-  min-height 480px
-  overflow hidden
+  :global(.media-right)
+    white-space no-wrap
 
-.pic
-  absolute(top left)
-  size 100%
-  overflow hidden
-  background-size cover
-  background-position center center
-  background-repeat no-repeat
+  :global(.panel-full)
+    margin-top 5px
+    margin-bottom 0
 
-.pic1
-  image("../MemberIndex/member-index-01.jpg")
-  animation pic1 6s linear infinite
+    &:last-child
+      margin-bottom 15px
 
-.pic2
-  image("../MemberIndex/member-index-02.jpg")
-  animation pic2 6s linear infinite
+  :global(.panel-title)
+    color $stress-color
+    font-size 15px
+    font-weight normal
 
-.slogan
-  absolute()
-  left 50%
-  top 30%
-  transform translate3d(-50%, 0, 0)
-  text-align center
-  z-index 3
+  > :first-child
+    padding 20px 15px
+    color $reverse-color
 
-.slogan-header
-  display inline-block
-  overflow hidden
+    :global(.media-right .icon-message)
+      display inline-block
 
-  input
-    font-size $top-size
-    transform translate3d(0, 100%, 0)
-    animation sloganTitle .6s forwards 2.6s
-    max-height (20 / 14) * $top-size
-    width 288px
-    border 0
-    background none
-    text-align center
-    padding 0
-    resize none
-    outline 0
-    overflow hidden
-    font-kai()
+      &:before
+        font-size 30px
 
-.line
-  border-bottom 1px solid $stress-color
-  transform translate3d(-100%, 0, 0)
-  animation line 1s forwards 1.5s
-  margin-left auto
-  margin-right auto
+      > span
+        absolute()
+        right -8px
+        size 28px
+        padding 2px
+        background-color $highlight-color
+        border-radius 50%
+        border 1px solid $reverse-color
+        scaleSize(8)
 
-.slogan-body
-  width 160px * (14 / 12)
-  overflow hidden
-  transform translate3d(-100%, 0, 0)
-  animation sloganBody 1s forwards 3.3s
-  font-song()
+.show
+  background-color $back-color
+  color $stress-color
+  line-height 22px
+  padding-left 10px
 
-  textarea
-    padding 0
-    width 100%
-    text-align center
-    background none
-    resize none
-    border 0
-    outline 0
-    scaleSize($smaller-size, , translate3d(100%, 0, 0))
-    animation sloganText 1s forwards 3.3s
+  span
+    float left
 
-.member-menu
-  absolute()
-  bottom 30%
-  z-index 3
-  left 50%
-  transform translate3d(-50%, 0, 0)
-  width 250px
+    &:last-child
+      font-size 14px
 
-.outside-circle
-  relative()
-  size 105px
-  border 2px solid $btn-color
-  border-radius 101px
-  backface-visibility visible
+.count
+  font-size 18px
 
-  &:global(.animated)
-    opacity 0
-    transform scale(0)
-    animation showCircle 1s .5s
+.subscription-panel
+  :global
+    .panel-title
+      small
+        color $primary-color
 
-.inside-circle
-  size 90px
-  middleCenter()
-  color $reverse-color
-  border-radius 90px
-  background-color $btn-color
-  text-align center
-  padding 8px 0
+      a
+        scaleSize()
 
-.menu-icon
-  font-size 30px
-  display block
-  margin-top 3px
-  margin-bottom -2px
+        span
+          color $subtext-color
 
-.menu-text
-  font-size 15px
+    .panel-body
+      > div
+        display table-cell
 
-@keyframes pic1
-  from
-    transform scale(1.2)
-    opacity 1
-    z-index 2
+        :global(.iconfont)
+          display inline-block
+          margin-right 10px
+          scaleSize(18)
 
-  40%
-    transform scale(1.04)
-    opacity 1
-    z-index 2
+    .panel-footer
+      border-top 1px dashed $dashed-line-color
+      background-color $reverse-color
 
-  50%
-    transform scale(1)
-    opacity 0
-    z-index 1
+.no-course
+  color gray
 
-  90%
-    transform scale(1.25)
-    opacity 0
-    z-index 1
+  :global(.btn)
+    margin-top 20px
+    padding 2px 25px
 
-  to
-    transform scale(1.2)
-    opacity 1
-    z-index 2
+.card-panel ul
+  display flex
 
-@keyframes pic2
-  from
-    transform scale(1)
-    opacity 0
-    z-index 1
+  li
+    flex 1
 
-  40%
-    transform scale(1.25)
-    opacity 0
-    z-index 1
+    + li
+      border-left 1px solid $card-line-color
 
-  50%
-    transform scale(1.2)
-    opacity 1
-    z-index 2
+    > span
+      font-size 30px
 
-  90%
-    transform scale(1.04)
-    opacity 1
-    z-index 2
+.contact-panel
+  color $primary-color
 
-  to
-    transform scale(1)
-    opacity 0
-    z-index 1
+  hr
+    margin-top 10px
+    margin-bottom 10px
 
-@keyframes sloganTitle
-  from
-    transform translate3d(0, 100%, 0)
-
-  to
-    transform translate3d(0, 0, 0)
-
-@keyframes sloganBody
-  from
-    transform translate3d(-100%, 0, 0)
-
-  to
-    transform translate3d(0, 0, 0)
-
-@keyframes sloganText
-  from
-    scaleSize($smaller-size, , translate3d(100%, 0, 0))
-
-  to
-    scaleSize($smaller-size, , translate3d(0, 0, 0))
-
-@keyframes line
-  from
-    transform translate3d(-100%, 0, 0)
-
-  to
-    transform translate3d(0, 0, 0)
-
-@keyframes showCircle
-  from
-    transform scale(0)
-    opacity 0
-
-  to
-    transform scale(1)
-    opacity 1
+  :global(.panel-body)
+    padding 10px 0
