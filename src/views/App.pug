@@ -1,9 +1,9 @@
 #app
   hi-loading(v-if="progress")
   hi-progress(:progress="progress")
-  transition(:name="transition")
+  transition(:name="transition", mode="out-in")
     keep-alive
       router-view(v-if="keepAlive")
-  transition(:name="transition")
+  transition(:name="transition", mode="out-in")
     router-view(v-if="!keepAlive")
   hi-modal
