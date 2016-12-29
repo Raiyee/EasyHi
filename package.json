@@ -138,7 +138,7 @@
     "vue-hot-reload-api": "^2.0.6",
     "vue-template-compiler": "^2.1.8",
     "vue-template-es2015-loader": "^2.0.1",
-    "webpack": "^2.2.0-rc.2",
+    "webpack": "^2.2.0-rc.3",
     "webpack-dev-server": "^2.2.0-rc.0",
     "yargs": "^6.5.0"
   }
