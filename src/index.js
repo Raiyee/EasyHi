@@ -6,7 +6,7 @@ import store from 'store'
 import router from 'router'
 import App from 'views/App'
 
-import utils, {deleteItem, on} from 'utils'
+import utils, {deleteItem, on, throttle} from 'utils'
 import {PERMISSION} from 'store/constants'
 
 Object.defineProperty(Vue.prototype, '$util', {
@@ -18,18 +18,16 @@ Object.defineProperty(Vue.prototype, '$util', {
 import 'styles/bootstrap'
 import 'styles/app'
 
-const docEl = document.documentElement
+const {documentElement: docEl, body} = document
+
 const resize = () => {
-  store.dispatch('setSize', {winHeight: docEl.clientHeight, winWidth: docEl.clientWidth})
+  const winHeight = docEl.clientHeight
+  store.dispatch('setSize', {winHeight, winWidth: docEl.clientWidth})
   docEl.style.fontSize = store.getters.fontSize + 'px'
+  body.style.height = winHeight + 'px'
 }
 
-let resizeTimeoutId
-
-on(window, 'resize', () => {
-  clearTimeout(resizeTimeoutId)
-  resizeTimeoutId = setTimeout(resize, 300)
-})
+on(window, 'resize', throttle(resize, 300))
 
 resize()
 
