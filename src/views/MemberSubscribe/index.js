@@ -1,4 +1,4 @@
-import {mapGetters} from 'vuex'
+import {mapGetters, mapActions} from 'vuex'
 
 import ScheduleCalendar from 'components/ScheduleCalendar'
 
@@ -17,16 +17,21 @@ export default require('./index.pug')({
       calendar: [],
       courseTypes: [],
       coaches: {},
-      schedules: {},
-      subscribeType: 0
+      schedules: {}
     }
   },
   created() {
-    Object.assign(this, this.$route.meta.data)
+    const metaData = this.$route.meta.data
+    const subscribeType = metaData.subscribeType
+    this.toggleSubscribeType(subscribeType)
+    Object.assign(this, omitObj(metaData, 'subscribeType'))
     this.courseTypeId || Object.assign(this, pickObj(this.courseTypes[0], 'courseTypeId', 'subscribeType'))
   },
+  destroyed() {
+    this.toggleSubscribeType(0)
+  },
   computed: {
-    ...mapGetters(['rem', 'appWidth', 'winHeight']),
+    ...mapGetters(['rem', 'appWidth', 'winHeight', 'subscribeType']),
     typesStyle() {
       const length = this.courseTypes.length
       const rem = this.rem
@@ -47,6 +52,7 @@ export default require('./index.pug')({
     }
   },
   methods: {
+    ...mapActions(['toggleSubscribeType']),
     toggleCourseType(courseTypeId) {
       if (this.courseTypeId === courseTypeId) return
       return this.$http.post('/get-schedules', {courseTypeId})
@@ -55,6 +61,7 @@ export default require('./index.pug')({
             courseTypeId,
             courseTypeIndex: this.courseTypes.findIndex(courseType => courseTypeId === courseType.courseTypeId)
           })
+          this.toggleSubscribeType(this.courseTypes[this.courseTypeIndex].subscribeType)
         })
     }
   },
