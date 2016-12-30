@@ -27,9 +27,7 @@ export default {
         url: '/get-schedules'
       },
       keepAlive: false,
-      meta: {
-        menuType: MEMBER_SUBSCRIBE_SMALL
-      }
+      menuType: MEMBER_SUBSCRIBE_SMALL
     }
   }, {
     path: '/login',
