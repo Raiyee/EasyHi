@@ -21,6 +21,10 @@
 
 .icon-radio:before { content: "\e609"; }
 
+.icon-right:before { content: "\e632"; }
+
+.icon-left:before { content: "\e631"; }
+
 .icon-dingdan1:before { content: "\e6ae"; }
 
 .icon-arrow-right:before { content: "\e60b"; }
@@ -43,6 +47,8 @@
 
 .icon-person:before { content: "\e62f"; }
 
+.icon-floatingmenu:before { content: "\e633"; }
+
 .icon-male:before { content: "\e604"; }
 
 .icon-female:before { content: "\e605"; }
@@ -54,4 +60,3 @@
 .icon-evening:before { content: "\e607"; }
 
 .icon-morning:before { content: "\e608"; }
-

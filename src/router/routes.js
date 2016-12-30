@@ -1,7 +1,10 @@
-import utils, {ROLES} from 'utils'
+import utils, {ROLES, MENU_TYPES} from 'utils'
 
 // eslint-disable-next-line no-unused-vars
 const {ADVISOR, COACH, MERCHANT, MEMBER, SERVICE} = ROLES
+
+// eslint-disable-next-line no-unused-vars
+const {MEMBER_CLIENT, MERCHANT_CLIENT, MEMBER_SUBSCRIBE_SMALL, MEMBER_SUBSCRIBE_PRIVATE} = MENU_TYPES
 
 export default {
   mode: 'history',
@@ -9,11 +12,18 @@ export default {
     {
       path: '/',
       name: 'home',
-      component: () => System.import('views/MemberIndex')
+      component: () => System.import('views/MemberIndex'),
+      meta: {
+        menuShow: false
+      }
     }, {
       path: '/login',
       name: 'login',
-      component: () => System.import('views/Login')
+      menuShow: false,
+      component: () => System.import('views/Login'),
+      meta: {
+        menuShow: false
+      }
     }, {
       path: '/member-center',
       name: 'memberCenter',
@@ -23,7 +33,8 @@ export default {
         init: {
           url: '/member-center',
           restore: false
-        }
+        },
+        menuType: MEMBER_CLIENT
       }
     }, {
       path: '/member-subscribe',
@@ -33,7 +44,8 @@ export default {
         init: {
           url: '/get-schedules'
         },
-        keepAlive: false
+        keepAlive: false,
+        menuType: MEMBER_SUBSCRIBE_SMALL
       }
     }, {
       path: '/member-information',
@@ -43,7 +55,8 @@ export default {
         auth: MEMBER,
         init: {
           url: '/get-member-information'
-        }
+        },
+        menuType: MEMBER_CLIENT
       }
     }, {
       path: '/member-message',
@@ -53,7 +66,8 @@ export default {
         auth: MEMBER,
         init: {
           url: '/membermessage'
-        }
+        },
+        menuType: MEMBER_CLIENT
       }
     }, {
       path: '/member-subscription',
@@ -63,7 +77,8 @@ export default {
         auth: MEMBER,
         init: {
           url: '/member-subscriptions'
-        }
+        },
+        menuType: MEMBER_CLIENT
       }
     }, {
       path: '/dynamic',
@@ -72,12 +87,17 @@ export default {
       meta: {
         init: {
           url: '/dynamic'
-        }
+        },
+        menuShow: false
       }
     }, {
       path: '/picker',
       component: () => System.import('views/_Picker'),
-      alias: '/merchant-index'
+      alias: '/merchant-index',
+      meta: {
+        auth: MERCHANT,
+        menuType: MERCHANT_CLIENT
+      }
     }, {
       path: '/modal',
       component: () => System.import('views/_Modal')
@@ -85,6 +105,9 @@ export default {
       path: '/404',
       name: '404',
       component: () => System.import('views/NotFound'),
+      meta: {
+        menuType: MEMBER_CLIENT
+      },
       beforeEnter() {
         utils.router.history.updateRoute(utils.NOT_FOUND_ROUTE)
       }
