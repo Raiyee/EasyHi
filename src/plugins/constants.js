@@ -15,11 +15,7 @@ export const PERMISSIONS = [{
   roles: [SERVICE],
   currentRole: SERVICE
 }, {
-  mobiles: [18862611037],
-  roles: [MEMBER],
-  currentRole: MEMBER
-}, {
-  mobiles: [18551863135],
+  mobiles: [18551863135, 18862611037],
   roles: [MEMBER],
   currentRole: MEMBER
 }]

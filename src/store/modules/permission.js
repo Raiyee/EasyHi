@@ -9,8 +9,8 @@ const SET_ROLES = 'SET_ROLES'
 const SET_CURRENT_ROLES = 'SET_CURRENT_ROLES'
 const INITIALIZE = 'INITIALIZE'
 const TOGGLE_SUBSCRIBE_TYPE = 'TOGGLE_SUBSCRIBE_TYPE'
-const SET_MENU_OPEN = 'SET_MENU_OPEN'
-const SET_MENU_SHOW = 'SET_MENU_SHOW'
+const TOGGLE_MENU_OPEN = 'TOGGLE_MENU_OPEN'
+const TOGGLE_MENU_SHOW = 'TOGGLE_MENU_SHOW'
 
 const base = '/'
 
@@ -43,6 +43,7 @@ const getters = {
   base: state => state.base,
   roles: state => state.roles,
   currentRole: state => state.currentRole,
+  currRole: state => state.currentRole.toLowerCase(),
   currentRoleName: state => ROLE_NAMES[state.currentRole],
   isStaff: state => STAFFS.includes(state.currentRole),
   isAdmin: state => [MERCHANT, MANAGER, SERVICE].includes(state.currentRole),
@@ -82,11 +83,11 @@ const actions = {
     dispatch('setRoles', roles)
     dispatch('setCurrentRole', currentRole)
   },
-  setMenuOpen({commit}, menuOpen) {
-    commit(SET_MENU_OPEN, menuOpen)
+  toggleMenuOpen({commit}, menuOpen) {
+    commit(TOGGLE_MENU_OPEN, menuOpen)
   },
-  setMenuShow({commit}, menuShow) {
-    commit(SET_MENU_SHOW, menuShow)
+  toggleMenuShow({commit}, menuShow) {
+    commit(TOGGLE_MENU_SHOW, menuShow)
   }
 }
 
@@ -112,10 +113,10 @@ const mutations = {
     state.currentRole = currentRole
     state.currentRoleName = ROLE_NAMES[currentRole]
   },
-  [SET_MENU_OPEN](state, menuOpen) {
+  [TOGGLE_MENU_OPEN](state, menuOpen) {
     state.menuOpen = menuOpen
   },
-  [SET_MENU_SHOW](state, menuShow) {
+  [TOGGLE_MENU_SHOW](state, menuShow) {
     state.menuShow = menuShow
   }
 }

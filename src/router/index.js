@@ -107,7 +107,7 @@ const resolveMenu = (to, from, next) => {
   if (!to.meta) return
   let {menuShow} = to.meta
 
-  dispatch('setMenuShow', menuShow !== false)
+  dispatch('toggleMenuShow', menuShow !== false)
 }
 
 const NOT_FOUND_ROUTE = router.match('/404')
@@ -118,7 +118,6 @@ Object.assign(utils, {
 })
 
 router.beforeEach((to, from, next) => {
-  dispatch('setMenuOpen', false)
   if (getters.initialized) return resolveRoute(to, from, next)
 
   axios.post('/initialize', pickObj(getters, 'tcode', 'mobile'))

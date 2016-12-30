@@ -1,5 +1,4 @@
 import {mapGetters} from 'vuex'
-import {dispatch} from 'store'
 
 import HiLoading from 'components/HiLoading'
 import HiProgress from 'components/HiProgress'
@@ -13,11 +12,6 @@ export default require('./App.pug')({
     keepAlive() {
       let keepAlive = this.$route.meta.keepAlive
       return keepAlive == null || keepAlive
-    }
-  },
-  mounted() {
-    document.onclick = function () {
-      dispatch('setMenuOpen', false)
     }
   },
   components: {
