@@ -6,4 +6,3 @@ div(:class="classes.container", :style="{width: width + 'px'}", v-show="menuShow
     template(v-for="menu of menus")
       router-link(v-if="menu.link", :to="menu.link", tag="div") {{ menu.text }}
       div(v-else, @click="toggleMenu") {{ menu.text }}
-

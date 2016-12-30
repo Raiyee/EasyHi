@@ -1,13 +1,12 @@
 import {ROLES, ROLE_NAMES, STAFFS} from '../constants'
 
-import utils, {MENU_TYPES, MEMBER_MEMBER} from 'utils'
+import utils from 'utils'
 
 const {COACH, VISITOR, MANAGER, SERVICE, MERCHANT} = ROLES
 
 const PARSE_PATH = 'PARSE_PATH'
 const SET_ROLES = 'SET_ROLES'
 const SET_CURRENT_ROLES = 'SET_CURRENT_ROLES'
-const SET_MENU_TYPE = 'SET_MENU_TYPE'
 const INITIALIZE = 'INITIALIZE'
 const TOGGLE_SUBSCRIBE_TYPE = 'TOGGLE_SUBSCRIBE_TYPE'
 const SET_MENU_OPEN = 'SET_MENU_OPEN'
@@ -30,9 +29,8 @@ const state = Object.assign({
   currentRole: VISITOR,
   currentRoleName: ROLE_NAMES[VISITOR],
   isAdmin: false,
-  menuType: MENU_TYPES[MEMBER_MEMBER],
-  menuOpen: true,
-  menuShow: true,
+  menuOpen: false,
+  menuShow: false,
   initialized: false,
   merchantName: null,
   subscribeType: 0,
@@ -48,7 +46,6 @@ const getters = {
   currentRoleName: state => ROLE_NAMES[state.currentRole],
   isStaff: state => STAFFS.includes(state.currentRole),
   isAdmin: state => [MERCHANT, MANAGER, SERVICE].includes(state.currentRole),
-  menuType: state => state.menuType,
   menuOpen: state => state.menuOpen,
   menuShow: state => state.menuShow,
   initialized: state => state.initialized,
@@ -85,9 +82,6 @@ const actions = {
     dispatch('setRoles', roles)
     dispatch('setCurrentRole', currentRole)
   },
-  setMenuType({commit}, menuType) {
-    commit(SET_MENU_TYPE, menuType)
-  },
   setMenuOpen({commit}, menuOpen) {
     commit(SET_MENU_OPEN, menuOpen)
   },
@@ -117,9 +111,6 @@ const mutations = {
   [SET_CURRENT_ROLES](state, currentRole) {
     state.currentRole = currentRole
     state.currentRoleName = ROLE_NAMES[currentRole]
-  },
-  [SET_MENU_TYPE](state, menuType) {
-    state.menuType = menuType
   },
   [SET_MENU_OPEN](state, menuOpen) {
     state.menuOpen = menuOpen

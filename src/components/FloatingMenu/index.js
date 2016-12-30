@@ -12,34 +12,23 @@ export default require('./index.pug')({
   computed: {
     ...mapGetters(['rem', 'currentRole', 'isAdmin', 'isStaff', 'menuOpen', 'menuShow', 'subscribeType']),
     width() {
-      const width = this.menuType === 2
-        ? 180 : this.menuType === 3
-        ? 240 : this.isAdmin
-        ? 295 : 180
-      return (this.menuOpen ? width : 54) * this.rem
+      return (this.menuOpen ? (this.menus.length + 1) * 55 : 54) * this.rem
     },
     menus() {
-      if(this.isAdmin) {
-        if(this.subscribeType !== 0) {
-          return [{text: '订课', link: '#'},
+      let menus = [{text: '订课', link: '#'}]
+      if (this.isAdmin) {
+        if (this.subscribeType !== 0) {
+          return menus.concat([
             {text: this.subscribeType === 1 ? '调课' : '私教管理', link: '#'},
             {text: '换肤'},
-            {text: '工作台', link: '#'}
-          ]
-        }else {
-          return [{text: '订课', link: '#'},
-            {text: '菜单'},
-            {text: '工作台', link: '#'}
-          ]
+            {text: '工作台', link: '#'}])
         }
-      } else {
-        return [{text: '订课', link: '#'},
-          {
-            text: '我的',
-            link: (this.isStaff && !this.isAdmin) ? '#' : '#'
-          }
-        ]
+        return menus.concat([
+          {text: '菜单'},
+          {text: '工作台', link: '#'}
+        ])
       }
+      return menus.concat([{text: '我的', link: (this.isStaff && !this.isAdmin) ? '#' : '#'}])
     }
   },
   methods: {

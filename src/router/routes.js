@@ -1,12 +1,9 @@
 import {getters} from 'store'
 
-import utils, {ROLES, MENU_TYPES} from 'utils'
+import utils, {ROLES} from 'utils'
 
 // eslint-disable-next-line no-unused-vars
 const {ADVISOR, COACH, MERCHANT, MEMBER, SERVICE, VISITOR} = ROLES
-
-// eslint-disable-next-line no-unused-vars
-const {MEMBER_CLIENT, MERCHANT_CLIENT, MEMBER_SUBSCRIBE_SMALL, MEMBER_SUBSCRIBE_PRIVATE} = MENU_TYPES
 
 export default {
   mode: 'history',
