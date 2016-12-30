@@ -31,7 +31,6 @@ const state = Object.assign({
   menuType: MENU_TYPES[MEMBER_MEMBER],
   menuOpen: true,
   menuShow: true,
-  initialized: false
   initialized: false,
   merchantName: null,
   oldServer: null
@@ -48,7 +47,6 @@ const getters = {
   menuType: state => state.menuType,
   menuOpen: state => state.menuOpen,
   menuShow: state => state.menuShow,
-  initialized: state => state.initialized
   initialized: state => state.initialized,
   oldServer: state => state.oldServer,
   urlPrefix: state => state.oldServer + (getters.isStaff(state) ? 'merchant' : 'member') + `${isStatic ? '.html' : ''}#`
