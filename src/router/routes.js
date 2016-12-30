@@ -14,7 +14,7 @@ export default {
   routes: [{
     path: '/',
     name: 'home',
-    component: () => System.import('views/Home')
+    component: () => System.import('views/Home'),
     meta: {
       menuShow: false
     }
