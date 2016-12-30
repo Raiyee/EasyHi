@@ -9,6 +9,7 @@ const SET_ROLES = 'SET_ROLES'
 const SET_CURRENT_ROLES = 'SET_CURRENT_ROLES'
 const SET_MENU_TYPE = 'SET_MENU_TYPE'
 const INITIALIZE = 'INITIALIZE'
+const TOGGLE_SUBSCRIBE_TYPE = 'TOGGLE_SUBSCRIBE_TYPE'
 const SET_MENU_OPEN = 'SET_MENU_OPEN'
 const SET_MENU_SHOW = 'SET_MENU_SHOW'
 
@@ -33,6 +34,7 @@ const state = Object.assign({
   menuShow: true,
   initialized: false,
   merchantName: null,
+  subscribeType: 0,
   oldServer: null
 }, INIT_STATE)
 
@@ -48,6 +50,7 @@ const getters = {
   menuOpen: state => state.menuOpen,
   menuShow: state => state.menuShow,
   initialized: state => state.initialized,
+  subscribeType: state => state.subscribeType,
   oldServer: state => state.oldServer,
   urlPrefix: state => state.oldServer + (getters.isStaff(state) ? 'merchant' : 'member') + `${isStatic ? '.html' : ''}#`
 }
@@ -66,6 +69,9 @@ const actions = {
   },
   initialize({commit}, payload) {
     commit(INITIALIZE, payload)
+  },
+  toggleSubscribeType({commit}, subscribeType) {
+    commit(TOGGLE_SUBSCRIBE_TYPE, subscribeType)
   },
   setRoles({commit}, roles = [VISITOR]) {
     commit(SET_ROLES, roles)
@@ -99,6 +105,9 @@ const mutations = {
     state.merchantName = merchantName
     isStatic = /\/yoga-system-res\//.test(OLD_SERVER_PREFIX)
     state.oldServer = OLD_SERVER_PREFIX + (isStatic ? 'dev/modules/index/html/' : `center/${state.tcode}/index/`)
+  },
+  [TOGGLE_SUBSCRIBE_TYPE](state, subscribeType) {
+    state.subscribeType = subscribeType
   },
   [SET_ROLES](state, roles) {
     state.roles = roles
