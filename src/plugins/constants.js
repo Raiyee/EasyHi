@@ -1,6 +1,6 @@
 import {ROLES} from 'utils'
 
-const {COACH, MERCHANT, SERVICE, MEMBER} = ROLES
+const {COACH, MERCHANT, MEMBER, SERVICE} = ROLES
 
 export const PERMISSIONS = [{
   mobiles: [18651868823],
@@ -16,6 +16,10 @@ export const PERMISSIONS = [{
   currentRole: SERVICE
 }, {
   mobiles: [18862611037],
+  roles: [MEMBER],
+  currentRole: MEMBER
+}, {
+  mobiles: [18551863135],
   roles: [MEMBER],
   currentRole: MEMBER
 }]

@@ -159,7 +159,7 @@ webpackConfig.plugins = [
     }
   }),
   new HtmlWebpackPlugin({
-    templateContent: pug.compileFile(paths.src('index.pug'), {
+    templateContent: pug.renderFile(paths.src('index.pug'), {
       pretty: !config.compiler_html_minify,
       title: `${pkg.name} - ${pkg.description}`
     }),

@@ -19,7 +19,8 @@ module.exports = {
     __MOCK__: false,
     BASE_URL: false,
     CONTEXT: false,
-    IMG_PATH_PREFIX: false
+    IMG_PATH_PREFIX: false,
+    OLD_SERVER_PREFIX: false
   },
   parserOptions: {
     ecmaVersion: 6,

@@ -7,6 +7,7 @@
   background transparent
 
 body
+  font-hei()
   overflow-x hidden
   overflow-y auto
 
@@ -17,6 +18,7 @@ body
   relative()
   max-width 1024px
   margin 0 auto
+  height 100%
 
 a
   &, &:active, &:hover, &:visited
@@ -32,33 +34,30 @@ input
     appearance none
 // @stylint on
 
-.btn
-  font-hei()
-  &.btn-hg
-    padding 11px 15px
+.btn.btn-hg
+  padding 11px 15px
 
 .input-group-addon
-  color ICON_COLOR
-  background-color $back-light-color !important // @stylint ignore
-
-  &:first-child + .form-control
-    border-left 0
-    padding-left 0
-
-    &:not(:last-child)
-      border-right 0
+  color $icon-color
+  background-color $back-light-color
 
 .form-control
   height $input-size
 
-  &, &:focus
-    box-shadow none !important // @stylint ignore
-    border-color INPUT_BORDER_COLOR
+  &:not(:first-child)
+    border-left 0
+    padding-left 0
+
+  &:not(:last-child)
+    border-right 0
 
 .input-group-addon,
 .form-control
   padding 6px 12px
-  border-color INPUT_BORDER_COLOR
+
+  &, &:focus
+    box-shadow none
+    border-color $input-border-color
 
   &:first-child
     padding-left 22px
@@ -67,13 +66,26 @@ input
   &:last-child
     border-radius 0 $half-input-size $half-input-size 0
 
-.has-error
+.input-group-primary
+  border 1px solid $input-border-color
+  border-radius $half-input-size
+
+  .input-group-addon,
   .form-control
+    border 0
+
+.has-error
+  .input-group-primary
+    border-color $highlight-color
+
+  .input-group-addon, .form-control
     &, &:focus
       border-color $highlight-color
+      background-color $back-light-color
+
   .input-group-addon
-    color ICON_COLOR
-    border-color $highlight-color
+    color $icon-color
+
   .form-control-static
     color $highlight-color
 

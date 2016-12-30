@@ -22,6 +22,8 @@ const INIT_STATE = {
 
 Object.assign(utils, INIT_STATE)
 
+let isStatic
+
 const state = Object.assign({
   roles: [VISITOR],
   currentRole: VISITOR,
@@ -30,6 +32,9 @@ const state = Object.assign({
   menuOpen: true,
   menuShow: true,
   initialized: false
+  initialized: false,
+  merchantName: null,
+  oldServer: null
 }, INIT_STATE)
 
 const getters = {
@@ -44,6 +49,9 @@ const getters = {
   menuOpen: state => state.menuOpen,
   menuShow: state => state.menuShow,
   initialized: state => state.initialized
+  initialized: state => state.initialized,
+  oldServer: state => state.oldServer,
+  urlPrefix: state => state.oldServer + (getters.isStaff(state) ? 'merchant' : 'member') + `${isStatic ? '.html' : ''}#`
 }
 
 const actions = {
@@ -87,9 +95,12 @@ const mutations = {
     Object.assign(state, payload)
     Object.assign(utils, payload)
   },
-  [INITIALIZE](state, {coachAlias}) {
+  [INITIALIZE](state, {coachAlias, merchantName}) {
     coachAlias && (ROLE_NAMES[COACH] = coachAlias)
     state.initialized = true
+    state.merchantName = merchantName
+    isStatic = /\/yoga-system-res\//.test(OLD_SERVER_PREFIX)
+    state.oldServer = OLD_SERVER_PREFIX + (isStatic ? 'dev/modules/index/html/' : `center/${state.tcode}/index/`)
   },
   [SET_ROLES](state, roles) {
     state.roles = roles

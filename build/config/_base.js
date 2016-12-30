@@ -35,7 +35,7 @@ const config = {
   compiler_hash_type: 'hash',
   compiler_quiet: false,
   compiler_browsers: ['> 1% in CN'],
-  compiler_public_path: '',
+  compiler_public_path: process.env.PUBLIC_PATH || '',
   compiler_stats: {
     colors: true,
     modules: false,
@@ -71,7 +71,8 @@ config.globals = {
   __PAGES__: !!argv.pages,
   BASE_URL: JSON.stringify('/yoga-system'),
   CONTEXT: JSON.stringify('/yoga-vision'),
-  IMG_PATH_PREFIX: JSON.stringify('https://placem.at/')
+  IMG_PATH_PREFIX: JSON.stringify(process.env.IMG_PATH_PREFIX || 'https://placem.at/'),
+  OLD_SERVER_PREFIX: JSON.stringify(process.env.OLD_SERVER_PREFIX || 'http://local.easy-hi.com:8090/yoga-system-res/')
 }
 
 // ------------------------------------
@@ -79,10 +80,10 @@ config.globals = {
 // ------------------------------------
 config.compiler_vendor = config.compiler_vendor
   .filter(dep => ({...config.pkg.dependencies, ...config.compiler_alias}.hasOwnProperty(dep) ? true : debug(
-    'Package "' + dep + '" was not found as an npm dependency in package.json; ' +
-    'it won\'t be included in the webpack vendor bundle.\n' +
-    'Consider removing it from compiler_vendor in "./config/_base.js"'
-  )))
+      'Package "' + dep + '" was not found as an npm dependency in package.json; ' +
+      'it won\'t be included in the webpack vendor bundle.\n' +
+      'Consider removing it from compiler_vendor in "./config/_base.js"'
+    )))
 
 // ------------------------------------
 // Utilities

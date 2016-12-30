@@ -1,3 +1,5 @@
+import Dynamic from 'components/Dynamic'
+
 import classes from './index.styl'
 
 const TextAreaView = {
@@ -6,9 +8,9 @@ const TextAreaView = {
     classes
   }),
   template: `<div class="container">For example: (Just the part of js)
-<a href="https://jsfiddle.net/JounQin/87sv5beu/embedded/">JsFiddle</a><br>
+<a href="https://jsfiddle.net/JounQin/87sv5beu/embedded/" target="_blank">JsFiddle</a><br>
 More complex:
-<a href="https://jsfiddle.net/JounQin/aq0yjj7L/embedded">JsFiddle</a>
+<a href="https://jsfiddle.net/JounQin/aq0yjj7L/embedded" target="_blank">JsFiddle</a>
 <textarea :class="classes.text" v-model="text"/></div>`
 }
 
@@ -40,5 +42,8 @@ export default require('./index.pug')({
     compBuilt(empty) {
       this.built = !empty
     }
+  },
+  components: {
+    Dynamic
   }
 })

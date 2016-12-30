@@ -7,7 +7,7 @@ import HiModal from 'components/HiModal'
 import FloatingMenu from 'components/FloatingMenu'
 
 export default require('./App.pug')({
-  data: () => ({transition: 'bounce'}),
+  data: () => ({transition: 'slide-fade'}),
   computed: {
     ...mapGetters(['progress']),
     keepAlive() {
