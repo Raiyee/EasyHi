@@ -104,7 +104,7 @@ const resolveRoute = (to, from, next) => {
 }
 
 const resolveMenu = (to, from, next) => {
-  if(!to.meta) return
+  if (!to.meta) return
   let {menuShow, menuType} = to.meta
 
   dispatch('setMenuShow', menuShow !== false)
