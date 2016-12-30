@@ -2,4 +2,4 @@ div(:class="classes.container", :style="{width: width + 'px'}", v-if="menuShow",
   span.iconfont(:class="menuOpen ? 'icon-left' : 'icon-floatingmenu'")
   template(v-for="menu of menus")
     router-link(v-if="menu.link", :to="menu.link", tag="div") {{ menu.text }}
-    div(v-else, @click="this[menu.action]") {{ menu.text }}
+    div(v-else, @click="triggerMenu(menu.action)") {{ menu.text }}
