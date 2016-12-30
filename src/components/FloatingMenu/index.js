@@ -36,7 +36,7 @@ export default require('./index.pug')({
       e.stopPropagation()
       this.toggleMenuOpen(!this.menuOpen)
     },
-    triggerMenu(action){
+    triggerMenu(action) {
       this[action]()
     },
     changeTheme() {
