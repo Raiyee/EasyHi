@@ -2,21 +2,8 @@ div(:class="classes.container", :style="{width: width + 'px'}", v-show="menuShow
   div(:class="classes.toggle", @click="toggleMenu", v-show="!menuOpen")
     span.iconfont.icon-floatingmenu
   div(:class="classes.menuList", @click="toggleMenu", v-show="menuOpen")
-    span.iconfont.icon-left(:class="classes.toggle")
-    template(v-if="menuType === '2'")
-      div(:class="classes.menuItem") 订课
-      div(:class="classes.menuItem") 我的
-    template(v-else-if="menuType === '3'")
-      div(:class="classes.menuItem") 订课
-      div(:class="classes.menuItem") 菜单
-      div(:class="classes.menuItem") 工具台
-    template(v-else-if="menuType === '4' || menuType === '5'")
-      template(v-if="currentRole === 'MERCHANT' || currentRole === 'SERVICE' || currentRole === '108'")
-        div(:class="classes.menuItem") 订课
-        div(:class="classes.menuItem", v-if="menuType === '4'") 调课
-        div(:class="classes.menuItem", v-else) 私教管理
-        div(:class="classes.menuItem") 换肤
-        div(:class="classes.menuItem") 工作台
-      template(v-else)
-        div(:class="classes.menuItem") 订课
-        div(:class="classes.menuItem") 我的
+    span.iconfont.icon-left
+    template(v-for="menu of menus")
+      router-link(v-if="menu.link", :to="menu.link", tag="div") {{ menu.text }}
+      div(v-else, @click="toggleMenu") {{ menu.text }}
+

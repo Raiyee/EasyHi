@@ -2,7 +2,7 @@ import {ROLES, ROLE_NAMES, STAFFS} from '../constants'
 
 import utils, {MENU_TYPES, MEMBER_MEMBER} from 'utils'
 
-const {COACH, VISITOR} = ROLES
+const {COACH, VISITOR, MANAGER, SERVICE, MERCHANT} = ROLES
 
 const PARSE_PATH = 'PARSE_PATH'
 const SET_ROLES = 'SET_ROLES'
@@ -28,6 +28,7 @@ const state = Object.assign({
   roles: [VISITOR],
   currentRole: VISITOR,
   currentRoleName: ROLE_NAMES[VISITOR],
+  isAdmin: false,
   menuType: MENU_TYPES[MEMBER_MEMBER],
   menuOpen: true,
   menuShow: true,
@@ -44,6 +45,7 @@ const getters = {
   currentRole: state => state.currentRole,
   currentRoleName: state => ROLE_NAMES[state.currentRole],
   isStaff: state => STAFFS.includes(state.currentRole),
+  isAdmin: state => [MERCHANT, MANAGER, SERVICE].includes(state.currentRole),
   menuType: state => state.menuType,
   menuOpen: state => state.menuOpen,
   menuShow: state => state.menuShow,

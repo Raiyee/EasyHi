@@ -105,10 +105,9 @@ const resolveRoute = (to, from, next) => {
 
 const resolveMenu = (to, from, next) => {
   if (!to.meta) return
-  let {menuShow, menuType} = to.meta
+  let {menuShow} = to.meta
 
   dispatch('setMenuShow', menuShow !== false)
-  menuType && dispatch('setMenuType', menuType)
 }
 
 const NOT_FOUND_ROUTE = router.match('/404')
@@ -120,7 +119,6 @@ Object.assign(utils, {
 
 router.beforeEach((to, from, next) => {
   dispatch('setMenuOpen', false)
-  resolveMenu(to, from, next)
   if (getters.initialized) return resolveRoute(to, from, next)
 
   axios.post('/initialize', pickObj(getters, 'tcode', 'mobile'))
@@ -138,8 +136,9 @@ router.beforeEach((to, from, next) => {
     })
 })
 
-router.afterEach(() => {
+router.afterEach((to, from, next) => {
   dispatch('setProgress', 100)
+  resolveMenu(to, from, next)
   window.scrollTo(0, 0)
 })
 
