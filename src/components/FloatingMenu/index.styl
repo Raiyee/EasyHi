@@ -1,15 +1,16 @@
+$border-radius = 20px
+
 .container
   fixed()
   bottom 80px
-  width 54px
   z-index 100
   color $back-light-color
   background-color rgba(0, 0, 0, .6)
-  border-top-right-radius 30px
-  border-bottom-right-radius 30px
-  line-height 18px
-  transition .5s ease
+  border-top-right-radius $border-radius
+  border-bottom-right-radius $border-radius
+  transition width .5s ease
   white-space nowrap
+  overflow hidden
 
   span
     display inline-block
@@ -17,11 +18,10 @@
     padding 10px 18px
 
     &:global(.icon-floatingmenu)
-      transform scale(22 / 16)
+      transform scale(20 / 14)
 
     + span
-      min-width 45px
+      min-width 55px
       padding-left 0
-      padding-right 0
-      margin-right 10px
+      padding-right 10px
       text-align center

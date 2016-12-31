@@ -7,7 +7,7 @@ export default require('./index.pug')({
   computed: {
     ...mapGetters(['rem', 'currRole', 'isAdmin', 'menuOpen', 'menuShow', 'subscribeType']),
     width() {
-      return (52 + +this.menuOpen * this.menus.length * 60) * this.rem
+      return (50 + +this.menuOpen * this.menus.length * 60) * this.rem
     },
     menus() {
       const menus = [{text: '订课', link: '#'}]
