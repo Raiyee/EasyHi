@@ -103,13 +103,6 @@ const resolveRoute = (to, from, next) => {
   })
 }
 
-const resolveMenu = (to, from, next) => {
-  if (!to.meta) return
-  let {menuShow} = to.meta
-
-  dispatch('toggleMenuShow', menuShow !== false)
-}
-
 const NOT_FOUND_ROUTE = router.match('/404')
 
 Object.assign(utils, {
@@ -137,7 +130,8 @@ router.beforeEach((to, from, next) => {
 
 router.afterEach((to, from, next) => {
   dispatch('setProgress', 100)
-  resolveMenu(to, from, next)
+  const {menuShow} = to.meta
+  dispatch('toggleMenuShow', menuShow == null || menuShow)
   window.scrollTo(0, 0)
 })
 
