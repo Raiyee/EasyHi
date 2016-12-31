@@ -7,7 +7,7 @@ export default require('./index.pug')({
   computed: {
     ...mapGetters(['rem', 'currRole', 'isAdmin', 'menuOpen', 'menuShow', 'subscribeType']),
     width() {
-      return (58 + +this.menuOpen * this.menus.length * 60) * this.rem
+      return (52 + +this.menuOpen * this.menus.length * 60) * this.rem
     },
     menus() {
       const menus = [{text: '订课', link: '#'}]
@@ -18,11 +18,12 @@ export default require('./index.pug')({
       } else if (this.subscribeType) {
         menus.push(
           {text: this.subscribeType - 1 ? '私教管理' : '调课', link: '#'},
-          {text: '换肤', action: 'changeTheme'},
-          {text: '工作台', link: indexLink})
+          {text: '换肤', action: ::this.changeTheme},
+          {text: '工作台', link: indexLink}
+        )
       } else {
         menus.push(
-          {text: '菜单', action: 'showAllMenus'},
+          {text: '菜单', action: ::this.showAllMenus},
           {text: '工作台', link: indexLink}
         )
       }
@@ -35,9 +36,6 @@ export default require('./index.pug')({
     toggleMenu(e) {
       e.stopPropagation()
       this.toggleMenuOpen(!this.menuOpen)
-    },
-    triggerMenu(action) {
-      this[action]()
     },
     changeTheme() {
       console.log('changeTheme')
