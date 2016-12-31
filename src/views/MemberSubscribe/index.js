@@ -4,28 +4,27 @@ import ScheduleCalendar from 'components/ScheduleCalendar'
 
 import classes from './index.styl'
 
-import {pickObj, omitObj} from 'utils'
+import {omitObj, replaceRoute} from 'utils'
 
 export default require('./index.pug')({
   name: 'member-subscribe',
   data() {
+    const route = this.$route
+    const params = route.params
+    const metaData = route.meta.data
+
+    this.toggleSubscribeType(metaData.subscribeType)
+
+    const courseTypes = metaData.courseTypes
+    const courseTypeId = params.courseTypeId || courseTypes[0].courseTypeId
+
     return {
       classes,
-      date: null,
-      courseTypeId: null,
-      courseTypeIndex: 0,
-      calendar: [],
-      courseTypes: [],
-      coaches: {},
-      schedules: {}
+      courseTypeId,
+      courseTypeIndex: courseTypes.findIndex(courseType => courseType.courseTypeId === courseTypeId),
+      date: params.date,
+      ...omitObj(metaData, 'subscribeType')
     }
-  },
-  created() {
-    const metaData = this.$route.meta.data
-    const subscribeType = metaData.subscribeType
-    this.toggleSubscribeType(subscribeType)
-    Object.assign(this, omitObj(metaData, 'subscribeType'))
-    this.courseTypeId || Object.assign(this, pickObj(this.courseTypes[0], 'courseTypeId', 'subscribeType'))
   },
   destroyed() {
     this.toggleSubscribeType(0)
@@ -62,7 +61,11 @@ export default require('./index.pug')({
             courseTypeIndex: this.courseTypes.findIndex(courseType => courseTypeId === courseType.courseTypeId)
           })
           this.toggleSubscribeType(this.courseTypes[this.courseTypeIndex].subscribeType)
+          replaceRoute(`/member-subscribe/${this.courseTypeId}`)
         })
+    },
+    toggleActiveDate(activeDate) {
+      replaceRoute(`/member-subscribe/${this.courseTypeId}/${activeDate}`)
     }
   },
   components: {

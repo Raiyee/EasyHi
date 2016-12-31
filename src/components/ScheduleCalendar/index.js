@@ -54,6 +54,14 @@ export default require('./index.pug')({
       scrolling: false
     }
   },
+  mounted() {
+    const activeIndex = this.activeIndex
+    if (activeIndex < 0) return
+    this.translateX = -Math.floor((activeIndex / 7)) * periodWidth * this.rem
+    this.subscribeType - 1 || setTimeout(() => {
+      this.toggleActiveDate(null, this.activeDate)
+    }, 0)
+  },
   watch: {
     mode: reset,
     calendar: reset
@@ -70,7 +78,7 @@ export default require('./index.pug')({
       date >= activeDate && date <= lastDay && [1, 2].includes(status) && (this.activeDate = date))
     },
     activeItems() {
-      const items = this.subscribeType === 2 ? this.coaches : this.schedules
+      const items = this.subscribeType - 1 ? this.coaches : this.schedules
       if (!this.mode) return items
       const weekdays = weekDates(this.activeDate)
       const activeItems = {}
@@ -96,6 +104,7 @@ export default require('./index.pug')({
         }
       })
       this.activeDate = date
+      this.$emit('toggleActiveDate', date)
     },
     moveStart() {
       if (!this.mode) return

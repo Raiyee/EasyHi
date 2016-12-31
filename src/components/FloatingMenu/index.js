@@ -10,14 +10,14 @@ export default require('./index.pug')({
       return (50 + +this.menuOpen * this.menus.length * 60) * this.rem
     },
     menus() {
-      const menus = [{text: '订课', link: '#'}]
+      const menus = [{text: '订课', link: '/member-subscribe'}]
       const indexLink = `/${this.currRole}-index`
 
       if (!this.isAdmin) {
         menus.push({text: '我的', link: indexLink})
       } else if (this.subscribeType) {
         menus.push(
-          {text: this.subscribeType - 1 ? '私教管理' : '调课', link: '#'},
+          {text: this.subscribeType - 1 ? '私教管理' : '调课', link: '/'},
           {text: '换肤', action: this.changeTheme},
           {text: '工作台', link: indexLink}
         )

@@ -1,4 +1,4 @@
-import {isObject} from './base'
+import {isObject, isString} from './base'
 import {isArrayLike} from './array'
 
 const pickOrOmit = (pickOrOmit, objOrArr, obj, ...args) => {
@@ -6,8 +6,10 @@ const pickOrOmit = (pickOrOmit, objOrArr, obj, ...args) => {
 
   if (obj == null) return processed
 
-  if (args.length === 1 && isArrayLike(args[0])) {
-    args = Array.from(args[0])
+  const firstArg = args[0]
+
+  if (args.length === 1 && !isString(firstArg) && isArrayLike(firstArg)) {
+    args = Array.from(firstArg)
   }
 
   for (const [key, value] of Object.entries(obj)) {

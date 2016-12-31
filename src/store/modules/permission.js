@@ -12,7 +12,7 @@ const TOGGLE_SUBSCRIBE_TYPE = 'TOGGLE_SUBSCRIBE_TYPE'
 const TOGGLE_MENU_OPEN = 'TOGGLE_MENU_OPEN'
 const TOGGLE_MENU_SHOW = 'TOGGLE_MENU_SHOW'
 
-const base = '/'
+let base = ''
 
 const INIT_STATE = {
   ctx: base,
@@ -20,7 +20,11 @@ const INIT_STATE = {
   base
 }
 
-Object.assign(utils, INIT_STATE)
+Object.assign(utils, INIT_STATE, {
+  replaceRoute(route) {
+    history.replaceState(null, null, base + route)
+  }
+})
 
 let isStatic
 
@@ -93,6 +97,7 @@ const actions = {
 
 const mutations = {
   [PARSE_PATH](state, payload) {
+    base = payload.base
     Object.assign(state, payload)
     Object.assign(utils, payload)
   },
