@@ -19,7 +19,7 @@ export default require('./index.pug')({
         menus.push(
           {text: this.subscribeType - 1 ? '私教管理' : '调课', link: '/'},
           {text: '换肤', action: this.changeTheme},
-          {text: '工作台', link: indexLink}
+          {text: '工作台', link: indexLink, inactive: this.menuInactive === 'WORKBENCH'}
         )
       } else {
         menus.push(
