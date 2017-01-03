@@ -111,6 +111,7 @@ Object.assign(utils, {
 })
 
 router.beforeEach((to, from, next) => {
+  dispatch('toggleMenuOpen', false)
   if (getters.initialized) return resolveRoute(to, from, next)
 
   const tcode = getters.tcode
@@ -134,9 +135,8 @@ router.beforeEach((to, from, next) => {
 
 router.afterEach((to, from, next) => {
   dispatch('setProgress', 100)
-  const {menuShow, menuInactive} = to.meta
+  const {menuShow} = to.meta
   dispatch('toggleMenuShow', menuShow == null || menuShow)
-  dispatch('toggleMenuInactive', menuInactive)
   window.scrollTo(0, 0)
 })
 
