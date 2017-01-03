@@ -11,7 +11,6 @@ const INITIALIZE = 'INITIALIZE'
 const TOGGLE_SUBSCRIBE_TYPE = 'TOGGLE_SUBSCRIBE_TYPE'
 const TOGGLE_MENU_OPEN = 'TOGGLE_MENU_OPEN'
 const TOGGLE_MENU_SHOW = 'TOGGLE_MENU_SHOW'
-const TOGGLE_MENU_INACTIVE = 'TOGGLE_MENU_INACTIVE'
 
 let base = ''
 
@@ -28,6 +27,7 @@ Object.assign(utils, INIT_STATE, {
 })
 
 let isStatic
+let suffix
 
 const state = Object.assign({
   roles: [VISITOR],
@@ -36,7 +36,6 @@ const state = Object.assign({
   isAdmin: false,
   menuOpen: false,
   menuShow: false,
-  menuInactive: '',
   initialized: false,
   merchantName: null,
   subscribeType: 0,
@@ -55,11 +54,12 @@ const getters = {
   isAdmin: state => [MERCHANT, MANAGER, SERVICE].includes(state.currentRole),
   menuOpen: state => state.menuOpen,
   menuShow: state => state.menuShow,
-  menuInactive: state => state.menuInactive,
   initialized: state => state.initialized,
   subscribeType: state => state.subscribeType,
   oldServer: state => state.oldServer,
-  urlPrefix: state => state.oldServer + (getters.isStaff(state) ? 'merchant' : 'member') + `${isStatic ? '.html' : ''}#`
+  urlPrefix: state => state.oldServer + (getters.isStaff(state) ? 'merchant' : 'member') + suffix + '#',
+  memberUrlPrefix: state => state.oldServer + 'member' + suffix + '#',
+  merchantUrlPrefix: state => state.oldServer + 'merchant' + suffix + '#'
 }
 
 const actions = {
@@ -95,9 +95,6 @@ const actions = {
   },
   toggleMenuShow({commit}, menuShow) {
     commit(TOGGLE_MENU_SHOW, menuShow)
-  },
-  toggleMenuInactive({commit}, menuInactive) {
-    commit(TOGGLE_MENU_INACTIVE, menuInactive)
   }
 }
 
@@ -112,6 +109,7 @@ const mutations = {
     state.initialized = true
     state.merchantName = merchantName
     isStatic = /\/yoga-system-res\//.test(OLD_SERVER_PREFIX)
+    suffix = isStatic ? '.html' : ''
     state.oldServer = OLD_SERVER_PREFIX + (isStatic ? 'dev/modules/index/html/' : `center/${state.tcode}/index/`)
   },
   [TOGGLE_SUBSCRIBE_TYPE](state, subscribeType) {
@@ -129,9 +127,6 @@ const mutations = {
   },
   [TOGGLE_MENU_SHOW](state, menuShow) {
     state.menuShow = menuShow
-  },
-  [TOGGLE_MENU_INACTIVE](state, menuInactive) {
-    state.menuInactive = menuInactive
   }
 }
 

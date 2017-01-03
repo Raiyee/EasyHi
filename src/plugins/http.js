@@ -24,6 +24,9 @@ const HANDLER = {
   404() {
     alert('未找到匹配的 url 请求!')
   },
+  406() {
+    utils.router.history.updateRoute(utils.NOT_FOUND_ROUTE)
+  },
   419(){
     let modalId;
     modalId = Vue.prototype.$modal.open({

@@ -22,8 +22,7 @@ export default {
       init: {
         url: '/get-schedules'
       },
-      keepAlive: false,
-      menuInactive: 'SUBSCRIBE_CLASS'
+      keepAlive: false
     }
   }, {
     path: '/login',
@@ -42,8 +41,7 @@ export default {
       init: {
         url: '/member-index',
         restore: false
-      },
-      menuInactive: 'MINE'
+      }
     }
   }, {
     path: '/member-info',
@@ -102,7 +100,7 @@ export default {
     name: '404',
     component: () => System.import('components/NotFound'),
     beforeEnter() {
-      if (getters.isStaff) return (location.href = getters.urlPrefix + getters.currentRole.toLowerCase() + '/index')
+      location.href = getters.urlPrefix + getters.currRole + '/index'
       utils.router.history.updateRoute(utils.NOT_FOUND_ROUTE)
     }
   }, {
