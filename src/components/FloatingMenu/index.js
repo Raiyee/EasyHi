@@ -10,7 +10,6 @@ export default require('./index.pug')({
       return (50 + +this.menuOpen * this.menus.length * 60) * this.rem
     },
     menus() {
-      console.log(this.menuInactive)
       const menus = [{text: '订课', link: '/member-subscribe', inactive: this.menuInactive === 'SUBSCRIBE_CLASS'}]
       const indexLink = `/${this.currRole}-index`
 

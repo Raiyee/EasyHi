@@ -130,8 +130,9 @@ router.beforeEach((to, from, next) => {
 
 router.afterEach((to, from, next) => {
   dispatch('setProgress', 100)
-  const {menuShow} = to.meta
+  const {menuShow, menuInactive} = to.meta
   dispatch('toggleMenuShow', menuShow == null || menuShow)
+  dispatch('toggleMenuInactive', menuInactive)
   window.scrollTo(0, 0)
 })
 

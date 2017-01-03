@@ -22,7 +22,8 @@ export default {
       init: {
         url: '/get-schedules'
       },
-      keepAlive: false
+      keepAlive: false,
+      menuInactive: 'SUBSCRIBE_CLASS'
     }
   }, {
     path: '/login',
@@ -41,7 +42,8 @@ export default {
       init: {
         url: '/member-index',
         restore: false
-      }
+      },
+      menuInactive: 'MINE'
     }
   }, {
     path: '/member-info',
