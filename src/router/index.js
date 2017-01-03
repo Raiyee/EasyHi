@@ -113,7 +113,7 @@ Object.assign(utils, {
 router.beforeEach((to, from, next) => {
   if (getters.initialized) return resolveRoute(to, from, next)
 
-  axios.post('/initialize', pickObj(getters, 'tcode', 'mobile'))
+  axios.post('/initialize/get-base-data', pickObj(getters, 'tcode', 'mobile'))
     .then(({data: {error, coachAlias, currentRole, merchantName, roles, theme}}) => {
       if (error) return router.history.updateRoute(NOT_FOUND_ROUTE)
 
