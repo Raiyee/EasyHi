@@ -20,6 +20,7 @@ module.exports = {
     BASE_URL: false,
     CONTEXT: false,
     IMG_PATH_PREFIX: false,
+    NON_INDEX_REGEX: false,
     OLD_SERVER_PREFIX: false
   },
   parserOptions: {

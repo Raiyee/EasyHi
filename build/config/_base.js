@@ -72,6 +72,7 @@ config.globals = {
   BASE_URL: JSON.stringify('/yoga-system'),
   CONTEXT: JSON.stringify('/yoga-vision'),
   IMG_PATH_PREFIX: JSON.stringify(process.env.IMG_PATH_PREFIX || 'https://placem.at/'),
+  NON_INDEX_REGEX: /^(?!.*[/\\](index)\.js).*\.js$/.toString(),
   OLD_SERVER_PREFIX: JSON.stringify(process.env.OLD_SERVER_PREFIX || 'http://local.easy-hi.com:8090/yoga-system-res/')
 }
 

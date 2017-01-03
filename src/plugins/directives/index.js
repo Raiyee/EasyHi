@@ -1,1 +1,1 @@
-require('../inject')(require.context('.', false, /\.js$/), 'directive')
+require('../inject')(require.context('.', false, NON_INDEX_REGEX), 'directive')

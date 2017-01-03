@@ -1,4 +1,4 @@
-const modulesContext = require.context('.', false, /\.js$/)
+const modulesContext = require.context('.', false, NON_INDEX_REGEX)
 
 const utils = modulesContext.keys().reduce((modules, key) => Object.assign(modules, modulesContext(key)), {})
 

@@ -1,1 +1,1 @@
-require('../inject')(require.context('.', false, /\.js$/), 'component')
+require('../inject')(require.context('.', false, NON_INDEX_REGEX), 'component')
