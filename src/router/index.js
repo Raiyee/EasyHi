@@ -114,10 +114,7 @@ router.beforeEach((to, from, next) => {
   dispatch('toggleMenuOpen', false)
   if (getters.initialized) return resolveRoute(to, from, next)
 
-  const tcode = getters.tcode
-
-  axios.post(`center/${tcode}/initialize/get-base-data`, {
-    tcode,
+  axios.post(`center/${getters.tcode}/initialize/get-base-data`, {
     mobile: getters.mobile
   }).then(({data: {error, coachAlias, currentRole, merchantName, roles, theme}}) => {
     if (error) return router.history.updateRoute(NOT_FOUND_ROUTE)
