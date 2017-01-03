@@ -1,4 +1,4 @@
-div(:class="classes.container", :style="{width: width + 'px'}", v-if="menuShow", @click="toggleMenu")
+div(:class="classes.container", :style="{width: width + 'px'}", v-if="menuShow", @click.stop="toggleMenu")
   span.iconfont(:class="menuOpen ? 'icon-left' : 'icon-floatingmenu'")
   template(v-for="menu of menus")
     router-link(:class="[menu.inactive ? classes.inactive : '']", v-if="menu.link", :to="menu.link", tag="span") {{ menu.text }}
