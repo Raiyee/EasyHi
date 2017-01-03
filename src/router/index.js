@@ -6,7 +6,7 @@ Vue.use(VueRouter)
 
 import {dispatch, getters} from 'store'
 import routes from './routes'
-import utils, {alert, changeTitle, isArray, isFunction, pickObj} from 'utils'
+import utils, {alert, changeTitle, isArray, isFunction} from 'utils'
 
 dispatch('parsePath', location.pathname)
 
@@ -113,19 +113,20 @@ Object.assign(utils, {
 router.beforeEach((to, from, next) => {
   if (getters.initialized) return resolveRoute(to, from, next)
 
-  axios.post('/initialize/get-base-data', pickObj(getters, 'tcode', 'mobile'))
-    .then(({data: {error, coachAlias, currentRole, merchantName, roles, theme}}) => {
-      if (error) return router.history.updateRoute(NOT_FOUND_ROUTE)
+  axios.post(`center/${getters.tcode}/initialize/get-base-data`, {
+    mobile: getters.mobile
+  }).then(({data: {error, coachAlias, currentRole, merchantName, roles, theme}}) => {
+    if (error) return router.history.updateRoute(NOT_FOUND_ROUTE)
 
-      changeTitle(merchantName)
+    changeTitle(merchantName)
 
-      System.import(`styles/theme-${theme}`)
+    System.import(`styles/theme-${theme}`)
 
-      dispatch('initialize', {coachAlias, merchantName})
-      currentRole && dispatch('resetRole', {currentRole, roles})
+    dispatch('initialize', {coachAlias, merchantName})
+    currentRole && dispatch('resetRole', {currentRole, roles})
 
-      resolveRoute(to, from, next)
-    })
+    resolveRoute(to, from, next)
+  })
 })
 
 router.afterEach((to, from, next) => {

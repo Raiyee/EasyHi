@@ -2,7 +2,7 @@ import Vue from 'vue'
 import axios, {interceptors} from 'axios'
 
 import store from 'store'
-import {alert, on, warn} from 'utils'
+import utils, {alert, on, warn} from 'utils'
 
 axios.defaults.baseURL = BASE_URL
 
@@ -23,6 +23,9 @@ interceptors.request.use(config => setProgress(config, 50) && config)
 const HANDLER = {
   404() {
     alert('未找到匹配的 url 请求!')
+  },
+  406() {
+    utils.router.history.updateRoute(utils.NOT_FOUND_ROUTE)
   }
 }
 
