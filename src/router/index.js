@@ -111,7 +111,6 @@ Object.assign(utils, {
 })
 
 router.beforeEach((to, from, next) => {
-  dispatch('toggleMenuOpen', false)
   if (getters.initialized) return resolveRoute(to, from, next)
 
   axios.post('/initialize/get-base-data', pickObj(getters, 'tcode', 'mobile'))
