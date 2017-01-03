@@ -33,8 +33,7 @@ export default require('./index.pug')({
   },
   methods: {
     ...mapActions(['toggleMenuOpen']),
-    toggleMenu(e) {
-      e.stopPropagation()
+    toggleMenu() {
       this.toggleMenuOpen(!this.menuOpen)
     },
     changeTheme() {

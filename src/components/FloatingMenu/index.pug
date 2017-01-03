@@ -1,4 +1,4 @@
-div(:class="classes.container", :style="{width}", v-if="menuShow", @click="toggleMenu")
+div(:class="classes.container", :style="{width}", v-if="menuShow", @click.stop="toggleMenu")
   span.iconfont(:class="menuOpen ? 'icon-left' : 'icon-floatingmenu'")
   template(v-for="menu of menus")
     span(:class="classes.inactive", v-if="menu.inactive", @click.stop) {{ menu.text }}
