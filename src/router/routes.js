@@ -88,7 +88,10 @@ export default {
     component: () => System.import('views/_Chart')
   }, {
     path: '/picker',
-    component: () => System.import('views/_Picker')
+    component: () => System.import('views/_Picker'),
+    meta: {
+      menuInactive: 'WORKBENCH'
+    }
   }, {
     path: '/modal',
     component: () => System.import('views/_Modal')
@@ -97,7 +100,7 @@ export default {
     name: '404',
     component: () => System.import('components/NotFound'),
     beforeEnter() {
-      if (getters.isStaff) return (location.href = getters.urlPrefix + getters.currentRole.toLowerCase() + '/index')
+      location.href = getters.urlPrefix + getters.currRole + '/index'
       utils.router.history.updateRoute(utils.NOT_FOUND_ROUTE)
     }
   }, {

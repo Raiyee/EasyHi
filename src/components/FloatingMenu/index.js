@@ -7,7 +7,7 @@ export default require('./index.pug')({
   computed: {
     ...mapGetters(['rem', 'currRole', 'isAdmin', 'menuOpen', 'menuShow', 'subscribeType']),
     width() {
-      return (50 + +this.menuOpen * this.menus.length * 60) * this.rem
+      return (50 + +this.menuOpen * this.menus.length * 60) * this.rem + 'px'
     },
     menus() {
       const route = this.$route.fullPath
