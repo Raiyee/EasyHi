@@ -4,10 +4,6 @@ import classes from './index.styl'
 
 export default require('./index.pug')({
   props: {
-    bodyMsg: {
-      type: String,
-      required: true
-    },
     transition: [Boolean, String]
   },
   data() {

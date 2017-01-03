@@ -2,7 +2,7 @@ import Vue from 'vue'
 import axios, {interceptors} from 'axios'
 
 import store from 'store'
-import {alert, on, warn} from 'utils'
+import utils, {alert, on, warn} from 'utils'
 
 axios.defaults.baseURL = BASE_URL
 
@@ -27,15 +27,13 @@ const HANDLER = {
   406() {
     utils.router.history.updateRoute(utils.NOT_FOUND_ROUTE)
   },
-  419(){
-    let modalId;
-    modalId = Vue.prototype.$modal.open({
-      id: modalId,
+  404() {
+    Vue.prototype.$modal.open({
       component: System.import('components/HiLoginModal'),
       options: {
         backdrop: false,
         show: true,
-        destroy: true,
+        destroy: true
       },
       props: {
         transition: true

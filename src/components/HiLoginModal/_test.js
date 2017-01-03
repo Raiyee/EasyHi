@@ -1,5 +1,3 @@
-let modalId;
-
 export default {
   template:
   `<div>
@@ -8,9 +6,8 @@ export default {
     </div>
   </div>`,
   methods: {
-    click(){
+    click() {
       this.$http('/419')
     }
   }
-
 }
