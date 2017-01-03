@@ -2,7 +2,7 @@ import Vue from 'vue'
 import axios, {interceptors} from 'axios'
 
 import store from 'store'
-import utils, {alert, on, warn} from 'utils'
+import utils, {alert, login, on, warn} from 'utils'
 
 axios.defaults.baseURL = BASE_URL
 
@@ -27,19 +27,7 @@ const HANDLER = {
   406() {
     utils.router.history.updateRoute(utils.NOT_FOUND_ROUTE)
   },
-  404() {
-    Vue.prototype.$modal.open({
-      component: System.import('components/HiLoginModal'),
-      options: {
-        backdrop: false,
-        show: true,
-        destroy: true
-      },
-      props: {
-        transition: true
-      }
-    })
-  }
+  419: login
 }
 
 interceptors.response.use(response => setProgress(response.config, 100) && response, error => {
