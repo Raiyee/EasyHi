@@ -28,6 +28,7 @@ Object.assign(utils, INIT_STATE, {
 })
 
 let isStatic
+let suffix
 
 const state = Object.assign({
   roles: [VISITOR],
@@ -59,7 +60,9 @@ const getters = {
   initialized: state => state.initialized,
   subscribeType: state => state.subscribeType,
   oldServer: state => state.oldServer,
-  urlPrefix: state => state.oldServer + (getters.isStaff(state) ? 'merchant' : 'member') + `${isStatic ? '.html' : ''}#`
+  urlPrefix: state => state.oldServer + (getters.isStaff(state) ? 'merchant' : 'member') + suffix + '#',
+  memberUrlPrefix: state => state.oldServer + 'member' + suffix + '#',
+  merchantUrlPrefix: state => state.oldServer + 'merchant' + suffix + '#'
 }
 
 const actions = {
@@ -112,6 +115,7 @@ const mutations = {
     state.initialized = true
     state.merchantName = merchantName
     isStatic = /\/yoga-system-res\//.test(OLD_SERVER_PREFIX)
+    suffix = isStatic ? '.html' : ''
     state.oldServer = OLD_SERVER_PREFIX + (isStatic ? 'dev/modules/index/html/' : `center/${state.tcode}/index/`)
   },
   [TOGGLE_SUBSCRIBE_TYPE](state, subscribeType) {
