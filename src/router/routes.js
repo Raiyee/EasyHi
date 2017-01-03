@@ -90,7 +90,10 @@ export default {
     component: () => System.import('views/_Chart')
   }, {
     path: '/picker',
-    component: () => System.import('views/_Picker')
+    component: () => System.import('views/_Picker'),
+    meta: {
+      menuInactive: 'WORKBENCH'
+    }
   }, {
     path: '/modal',
     component: () => System.import('views/_Modal')
