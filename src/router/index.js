@@ -113,19 +113,23 @@ Object.assign(utils, {
 router.beforeEach((to, from, next) => {
   if (getters.initialized) return resolveRoute(to, from, next)
 
-  axios.post('/initialize/get-base-data', pickObj(getters, 'tcode', 'mobile'))
-    .then(({data: {error, coachAlias, currentRole, merchantName, roles, theme}}) => {
-      if (error) return router.history.updateRoute(NOT_FOUND_ROUTE)
+  const tcode = getters.tcode
 
-      changeTitle(merchantName)
+  axios.post(`center/${tcode}/initialize/get-base-data`, {
+    tcode,
+    mobile: getters.mobile
+  }).then(({data: {error, coachAlias, currentRole, merchantName, roles, theme}}) => {
+    if (error) return router.history.updateRoute(NOT_FOUND_ROUTE)
 
-      System.import(`styles/theme-${theme}`)
+    changeTitle(merchantName)
 
-      dispatch('initialize', {coachAlias, merchantName})
-      currentRole && dispatch('resetRole', {currentRole, roles})
+    System.import(`styles/theme-${theme}`)
 
-      resolveRoute(to, from, next)
-    })
+    dispatch('initialize', {coachAlias, merchantName})
+    currentRole && dispatch('resetRole', {currentRole, roles})
+
+    resolveRoute(to, from, next)
+  })
 })
 
 router.afterEach((to, from, next) => {
