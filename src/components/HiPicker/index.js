@@ -8,10 +8,6 @@ export default require('./index.pug')({
     slots: {
       type: Array
     },
-    showToolbar: {
-      type: Boolean,
-      default: false
-    },
     visibleItemCount: {
       type: Number,
       default: 5

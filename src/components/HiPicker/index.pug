@@ -1,12 +1,12 @@
 .picker(:class="{ 'picker-3d': rotateEffect }")
-  .picker-toolbar(v-if="showToolbar")
+  .picker-toolbar(v-if="$slots.default")
     slot
   .picker-items
     picker-slot(v-for="slot in slots",
-    :valuekey="valueKey",
+    :valueKey="valueKey",
     :values="slot.values || []",
     :text-align="slot.textAlign || 'center'",
-    :visible-item-count="visibleItemCount",
+    :visibleItemCount="visibleItemCount",
     :class-name="slot.className",
     :flex="slot.flex",
     v-model="values[slot.valueIndex]",

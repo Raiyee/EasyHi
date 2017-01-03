@@ -1,9 +1,9 @@
 .picker-slot(:class="classNames", :style="flexStyle")
-  .picker-slot-wrapper(v-if="!divider",
+  div(v-if="divider") {{ content }}
+  .picker-slot-wrapper(v-else,
   ref="wrapper",
   :class="{ dragging: dragging }",
   :style="{ height: contentHeight + 'px' }")
     .picker-item(v-for="itemValue of mutatingValues",
     :class="{ 'picker-selected': itemValue === currentValue }")
       | {{ typeof itemValue === 'object' && itemValue[valueKey] ? itemValue[valueKey] : itemValue }}
-  div(v-if="divider") {{ content }}
