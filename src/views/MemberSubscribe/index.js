@@ -26,8 +26,12 @@ export default require('./index.pug')({
       ...omitObj(metaData, 'subscribeType')
     }
   },
+  created() {
+    this.toggleMenuInactive('SUBSCRIBE_CLASS')
+  },
   destroyed() {
     this.toggleSubscribeType(0)
+    this.toggleMenuInactive(null)
   },
   computed: {
     ...mapGetters(['rem', 'appWidth', 'winHeight', 'subscribeType']),
@@ -51,7 +55,7 @@ export default require('./index.pug')({
     }
   },
   methods: {
-    ...mapActions(['toggleSubscribeType']),
+    ...mapActions(['toggleSubscribeType', 'toggleMenuInactive']),
     toggleCourseType(courseTypeId) {
       if (this.courseTypeId === courseTypeId) return
       return this.$http.post('/get-schedules', {courseTypeId})

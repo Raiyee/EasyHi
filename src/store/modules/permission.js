@@ -11,6 +11,7 @@ const INITIALIZE = 'INITIALIZE'
 const TOGGLE_SUBSCRIBE_TYPE = 'TOGGLE_SUBSCRIBE_TYPE'
 const TOGGLE_MENU_OPEN = 'TOGGLE_MENU_OPEN'
 const TOGGLE_MENU_SHOW = 'TOGGLE_MENU_SHOW'
+const TOGGLE_MENU_INACTIVE = 'TOGGLE_MENU_INACTIVE'
 
 let base = ''
 
@@ -35,6 +36,7 @@ const state = Object.assign({
   isAdmin: false,
   menuOpen: false,
   menuShow: false,
+  menuInactive: '',
   initialized: false,
   merchantName: null,
   subscribeType: 0,
@@ -53,6 +55,7 @@ const getters = {
   isAdmin: state => [MERCHANT, MANAGER, SERVICE].includes(state.currentRole),
   menuOpen: state => state.menuOpen,
   menuShow: state => state.menuShow,
+  menuInactive: state => state.menuInactive,
   initialized: state => state.initialized,
   subscribeType: state => state.subscribeType,
   oldServer: state => state.oldServer,
@@ -92,6 +95,9 @@ const actions = {
   },
   toggleMenuShow({commit}, menuShow) {
     commit(TOGGLE_MENU_SHOW, menuShow)
+  },
+  toggleMenuInactive({commit}, menuInactive) {
+    commit(TOGGLE_MENU_INACTIVE, menuInactive)
   }
 }
 
@@ -123,6 +129,9 @@ const mutations = {
   },
   [TOGGLE_MENU_SHOW](state, menuShow) {
     state.menuShow = menuShow
+  },
+  [TOGGLE_MENU_INACTIVE](state, menuInactive) {
+    state.menuInactive = menuInactive
   }
 }
 

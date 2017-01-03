@@ -5,16 +5,17 @@ import classes from './index.styl'
 export default require('./index.pug')({
   data: () => ({classes}),
   computed: {
-    ...mapGetters(['rem', 'currRole', 'isAdmin', 'menuOpen', 'menuShow', 'subscribeType']),
+    ...mapGetters(['rem', 'currRole', 'isAdmin', 'menuOpen', 'menuShow', 'subscribeType', 'menuInactive']),
     width() {
       return (50 + +this.menuOpen * this.menus.length * 60) * this.rem
     },
     menus() {
-      const menus = [{text: '订课', link: '/member-subscribe'}]
+      console.log(this.menuInactive)
+      const menus = [{text: '订课', link: '/member-subscribe', inactive: this.menuInactive === 'SUBSCRIBE_CLASS'}]
       const indexLink = `/${this.currRole}-index`
 
       if (!this.isAdmin) {
-        menus.push({text: '我的', link: indexLink})
+        menus.push({text: '我的', link: indexLink, inactive: this.menuInactive === 'MINE'})
       } else if (this.subscribeType) {
         menus.push(
           {text: this.subscribeType - 1 ? '私教管理' : '调课', link: '/'},
