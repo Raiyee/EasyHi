@@ -1,4 +1,4 @@
-export default [{
+export default {
   path: '/member-subscribe/:courseTypeId(\\d+)?/:date(\\d{4}-\\d{2}-\\d{2})?',
   name: 'memberSubscribe',
   component: () => System.import('views/MemberSubscribe'),
@@ -8,4 +8,4 @@ export default [{
     },
     keepAlive: false
   }
-}]
+}
