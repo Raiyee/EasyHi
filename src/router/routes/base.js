@@ -24,7 +24,4 @@ export default [{
     location.href = getters.urlPrefix + getters.currRole + '/index'
     utils.router.history.updateRoute(utils.NOT_FOUND_ROUTE)
   }
-}, {
-  path: '*',
-  redirect: '/404'
 }]
