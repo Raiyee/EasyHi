@@ -103,14 +103,6 @@ const resolveRoute = (to, from, next) => {
   })
 }
 
-const resolveMenu = (to, from, next) => {
-  if (!to.meta) return
-  let {menuShow, menuType} = to.meta
-
-  dispatch('setMenuShow', menuShow !== false)
-  menuType && dispatch('setMenuType', menuType)
-}
-
 const NOT_FOUND_ROUTE = router.match('/404')
 
 Object.assign(utils, {
@@ -119,11 +111,9 @@ Object.assign(utils, {
 })
 
 router.beforeEach((to, from, next) => {
-  dispatch('setMenuOpen', false)
-  resolveMenu(to, from, next)
   if (getters.initialized) return resolveRoute(to, from, next)
 
-  axios.post('/initialize', pickObj(getters, 'tcode', 'mobile'))
+  axios.post('/initialize/get-base-data', pickObj(getters, 'tcode', 'mobile'))
     .then(({data: {error, coachAlias, currentRole, merchantName, roles, theme}}) => {
       if (error) return router.history.updateRoute(NOT_FOUND_ROUTE)
 
@@ -138,8 +128,10 @@ router.beforeEach((to, from, next) => {
     })
 })
 
-router.afterEach(() => {
+router.afterEach((to, from, next) => {
   dispatch('setProgress', 100)
+  const {menuShow} = to.meta
+  dispatch('toggleMenuShow', menuShow == null || menuShow)
   window.scrollTo(0, 0)
 })
 

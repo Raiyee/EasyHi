@@ -9,9 +9,10 @@ Mock.mock(/\/get-schedules$/, (() => {
   let COURSE_TYPES
 
   return req => {
-    let courseTypeId = JSON.parse(req.body).courseTypeId
+    const data = JSON.parse(req.body)
+    let courseTypeId = data.courseTypeId
 
-    const cache = CACHE[courseTypeId]
+    const cache = courseTypeId && CACHE[courseTypeId]
 
     if (cache) return cache
 
@@ -38,12 +39,14 @@ Mock.mock(/\/get-schedules$/, (() => {
     if (courseType) {
       subscribeType = courseType.subscribeType
     } else {
-      COURSE_TYPES = courseTypes = Random.range(0, Random.integer(2, 10)).map(() => ({
-        courseTypeId: Random.id(),
+      const length = Random.integer(2, 10)
+      const activeIndex = Random.integer(0, length - 1)
+      COURSE_TYPES = courseTypes = Random.range(0, length).map((value, index) => ({
+        courseTypeId: index === activeIndex && courseTypeId ? courseTypeId : Random.id(),
         courseTypeName: '@cword(2,5)课',
         subscribeType: Random.pick([1, 2])
       }))
-      courseType = courseTypes[0]
+      courseType = courseTypes[activeIndex]
       courseTypeId = courseType.courseTypeId
       subscribeType = courseType.subscribeType
     }

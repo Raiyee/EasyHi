@@ -1,32 +1,27 @@
-@require '../../styles/_variables'
+$border-radius = 20px
 
 .container
   fixed()
   bottom 80px
-  width 54px
   z-index 100
   color $back-light-color
   background-color rgba(0, 0, 0, .6)
-  border-top-right-radius 30px
-  border-bottom-right-radius 30px
-  overflow hidden
-  line-height 18px
-  transition .5s ease
-
-  :global(.icon-floatingmenu)
-    font-size 22px
-
-.toggle
-  display inline-block
-  padding 10px 18px
-  height 40px
-
-.menu-list
+  border-top-right-radius $border-radius
+  border-bottom-right-radius $border-radius
+  transition width .5s ease
   white-space nowrap
+  overflow hidden
 
-.menu-item
-  display inline-block
-  min-width 45px
-  padding 10px 0
-  margin-right 10px
+  span
+    display inline-block
+    vertical-align middle
+    padding 10px 18px
 
+    &:global(.icon-floatingmenu)
+      transform scale(20 / 14)
+
+    + span
+      min-width 55px
+      padding-left 0
+      padding-right 10px
+      text-align center

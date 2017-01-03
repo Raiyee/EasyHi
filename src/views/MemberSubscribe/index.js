@@ -1,32 +1,36 @@
-import {mapGetters} from 'vuex'
+import {mapGetters, mapActions} from 'vuex'
 
 import ScheduleCalendar from 'components/ScheduleCalendar'
 
 import classes from './index.styl'
 
-import {pickObj, omitObj} from 'utils'
+import {omitObj, replaceRoute} from 'utils'
 
 export default require('./index.pug')({
   name: 'member-subscribe',
   data() {
+    const route = this.$route
+    const params = route.params
+    const metaData = route.meta.data
+
+    this.toggleSubscribeType(metaData.subscribeType)
+
+    const courseTypes = metaData.courseTypes
+    const courseTypeId = params.courseTypeId || courseTypes[0].courseTypeId
+
     return {
       classes,
-      date: null,
-      courseTypeId: null,
-      courseTypeIndex: 0,
-      calendar: [],
-      courseTypes: [],
-      coaches: {},
-      schedules: {},
-      subscribeType: 0
+      courseTypeId,
+      courseTypeIndex: courseTypes.findIndex(courseType => courseType.courseTypeId === courseTypeId),
+      date: params.date,
+      ...omitObj(metaData, 'subscribeType')
     }
   },
-  created() {
-    Object.assign(this, this.$route.meta.data)
-    this.courseTypeId || Object.assign(this, pickObj(this.courseTypes[0], 'courseTypeId', 'subscribeType'))
+  destroyed() {
+    this.toggleSubscribeType(0)
   },
   computed: {
-    ...mapGetters(['rem', 'appWidth', 'winHeight']),
+    ...mapGetters(['rem', 'appWidth', 'winHeight', 'subscribeType']),
     typesStyle() {
       const length = this.courseTypes.length
       const rem = this.rem
@@ -47,6 +51,7 @@ export default require('./index.pug')({
     }
   },
   methods: {
+    ...mapActions(['toggleSubscribeType']),
     toggleCourseType(courseTypeId) {
       if (this.courseTypeId === courseTypeId) return
       return this.$http.post('/get-schedules', {courseTypeId})
@@ -55,7 +60,12 @@ export default require('./index.pug')({
             courseTypeId,
             courseTypeIndex: this.courseTypes.findIndex(courseType => courseTypeId === courseType.courseTypeId)
           })
+          this.toggleSubscribeType(this.courseTypes[this.courseTypeIndex].subscribeType)
+          replaceRoute(`/member-subscribe/${this.courseTypeId}`)
         })
+    },
+    toggleActiveDate(activeDate) {
+      replaceRoute(`/member-subscribe/${this.courseTypeId}/${activeDate}`)
     }
   },
   components: {

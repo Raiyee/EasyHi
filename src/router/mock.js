@@ -6,7 +6,7 @@ const {VISITOR} = ROLES
 
 const TCODES = [12345678910]
 
-Mock.mock(/\/initialize$/, ({body}) => {
+Mock.mock(/\/initialize\/get-base-data$/, ({body}) => {
   const {tcode, mobile} = JSON.parse(body)
 
   const {roles, currentRole} = PERMISSIONS.find(({mobiles}) => mobiles.includes(+mobile)) ||

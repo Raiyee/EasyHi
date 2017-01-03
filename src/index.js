@@ -2,7 +2,7 @@ import Vue from 'vue'
 
 import 'plugins'
 
-import store from 'store'
+import store, {dispatch} from 'store'
 import router from 'router'
 import App from 'views/App'
 
@@ -28,6 +28,7 @@ const resize = () => {
 }
 
 on(window, 'resize', throttle(resize, 300))
+on(document, 'click', () => dispatch('toggleMenuOpen', false))
 
 resize()
 

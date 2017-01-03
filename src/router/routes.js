@@ -1,12 +1,9 @@
 import {getters} from 'store'
 
-import utils, {ROLES, MENU_TYPES} from 'utils'
+import utils, {ROLES} from 'utils'
 
 // eslint-disable-next-line no-unused-vars
 const {ADVISOR, COACH, MERCHANT, MEMBER, SERVICE, VISITOR} = ROLES
-
-// eslint-disable-next-line no-unused-vars
-const {MEMBER_CLIENT, MERCHANT_CLIENT, MEMBER_SUBSCRIBE_SMALL, MEMBER_SUBSCRIBE_PRIVATE} = MENU_TYPES
 
 export default {
   mode: 'history',
@@ -18,15 +15,14 @@ export default {
       menuShow: false
     }
   }, {
-    path: '/member-subscribe',
+    path: '/member-subscribe/:courseTypeId(\\d+)?/:date(\\d{4}-\\d{2}-\\d{2})?',
     name: 'memberSubscribe',
     component: () => System.import('views/MemberSubscribe'),
     meta: {
       init: {
         url: '/get-schedules'
       },
-      keepAlive: false,
-      menuType: MEMBER_SUBSCRIBE_SMALL
+      keepAlive: false
     }
   }, {
     path: '/login',
@@ -45,8 +41,7 @@ export default {
       init: {
         url: '/member-index',
         restore: false
-      },
-      menuType: MEMBER_CLIENT
+      }
     }
   }, {
     path: '/member-info',
@@ -56,8 +51,7 @@ export default {
       auth: MEMBER,
       init: {
         url: '/member-info'
-      },
-      menuType: MEMBER_CLIENT
+      }
     }
   }, {
     path: '/member-message',
@@ -67,8 +61,7 @@ export default {
       auth: MEMBER,
       init: {
         url: '/member-message'
-      },
-      menuType: MEMBER_CLIENT
+      }
     }
   }, {
     path: '/member-subscription',
@@ -78,8 +71,7 @@ export default {
       auth: MEMBER,
       init: {
         url: '/member-subscriptions'
-      },
-      menuType: MEMBER_CLIENT
+      }
     }
   }, {
     path: '/dynamic',
@@ -96,10 +88,7 @@ export default {
     component: () => System.import('views/_Chart')
   }, {
     path: '/picker',
-    component: () => System.import('views/_Picker'),
-    meta: {
-      menuType: MERCHANT_CLIENT
-    }
+    component: () => System.import('views/_Picker')
   }, {
     path: '/modal',
     component: () => System.import('views/_Modal')
@@ -107,9 +96,6 @@ export default {
     path: '/404',
     name: '404',
     component: () => System.import('components/NotFound'),
-    meta: {
-      menuType: MEMBER_CLIENT
-    },
     beforeEnter() {
       if (getters.isStaff) return (location.href = getters.urlPrefix + getters.currentRole.toLowerCase() + '/index')
       utils.router.history.updateRoute(utils.NOT_FOUND_ROUTE)
