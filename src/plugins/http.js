@@ -23,6 +23,21 @@ interceptors.request.use(config => setProgress(config, 50) && config)
 const HANDLER = {
   404() {
     alert('未找到匹配的 url 请求!')
+  },
+  419(){
+    let modalId;
+    modalId = Vue.prototype.$modal.open({
+      id: modalId,
+      component: System.import('components/HiLoginModal'),
+      options: {
+        backdrop: false,
+        show: true,
+        destroy: true,
+      },
+      props: {
+        transition: true
+      }
+    })
   }
 }
 

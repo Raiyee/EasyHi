@@ -95,6 +95,9 @@ export default {
     path: '/modal',
     component: () => System.import('views/_Modal')
   }, {
+    path: '/loginModal',
+    component: () => System.import('components/HiLoginModal/_test')
+  }, {
     path: '/404',
     name: '404',
     component: () => System.import('components/NotFound'),
