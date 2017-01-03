@@ -6,7 +6,7 @@ Vue.use(VueRouter)
 
 import {dispatch, getters} from 'store'
 import routes from './routes'
-import utils, {alert, changeTitle, isArray, isFunction, pickObj} from 'utils'
+import utils, {alert, changeTitle, isArray, isFunction} from 'utils'
 
 dispatch('parsePath', location.pathname)
 
