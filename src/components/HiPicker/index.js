@@ -6,7 +6,12 @@ import classes from './index.styl'
 
 export default require('./index.pug')({
   props: {
-    pickers: [Array, Object],
+    pickers: {
+      type: [Array, Object],
+      default() {
+        return []
+      }
+    },
     visibleCount: {
       type: Number,
       default: 5,
@@ -25,9 +30,9 @@ export default require('./index.pug')({
         valueKey,
         valueText,
         values: picker.values.map((value, index) => isObject(value) ? {...value} : {
-          [valueKey]: index,
-          [valueText]: value
-        })
+            [valueKey]: index,
+            [valueText]: value
+          })
       }
     })
 

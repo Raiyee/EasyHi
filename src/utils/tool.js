@@ -21,17 +21,3 @@ export const changeTitle = title => {
   }
   body.appendChild(iframe)
 }
-
-export const login = () => {
-  Vue.prototype.$modal.open({
-    component: System.import('components/HiModal/LoginModal'),
-    options: {
-      backdrop: false,
-      show: true,
-      destroy: true
-    },
-    props: {
-      transition: true
-    }
-  })
-}
