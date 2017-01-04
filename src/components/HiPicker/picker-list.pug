@@ -1,7 +1,7 @@
 div(v-if="divider", :class="[classes.pickerDivider, className]", v-html="divider")
 div(v-else,
-:class="[classes.pickerList, className]",
-:style="{flex, height, textAlign, transform}",
+:class="[classes.pickerList, className, `text-${textAlign}`]",
+:style="{flex, height, transform}",
 v-touch="{methods: true}")
   div(v-for="(value, index) of values",
   :class="[classes.pickerItem, {'theme-color': currIndex === index}]",

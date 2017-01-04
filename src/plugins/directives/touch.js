@@ -18,7 +18,7 @@ const BASE_EVENTS = [{
 }, {
   start: 'touchstart',
   move: 'touchmove',
-  end: 'touchend'
+  end: 'touchend touchcancel'
 }]
 
 const DEFAULT_OPTIONS = {
