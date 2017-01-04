@@ -1,4 +1,4 @@
-import HiPicker from 'components/HiPicker'
+import MintPicker from 'components/MintPicker'
 
 export default require('./index.pug')({
   data() {
@@ -30,6 +30,6 @@ export default require('./index.pug')({
     }
   },
   components: {
-    HiPicker
+    MintPicker
   }
 })
