@@ -23,4 +23,4 @@ div(:class="classes.container")
         @blur="$v.verificationCode.$touch")
         span.input-group-addon.theme-color(@click="getVerificationCode") {{this.limit ? this.limit + 's' : '获取验证码'}}
       p.form-control-static(v-if="$v.verificationCode.$error") 请输入正确的验证码
-    button.btn.btn-theme-primary.btn-block.btn-hg(type="submit") 登 录
+    button.btn.btn-theme-primary.btn-block.btn-hg(type="submit") {{confirmName}}

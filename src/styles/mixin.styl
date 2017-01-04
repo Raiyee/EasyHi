@@ -1,3 +1,22 @@
+// helper
+-posR(type, args)
+  $i = 0
+  position: unquote(type)
+  for $j in (1..4)
+    if length(args) > $i
+      {args[$i]}: args[$i + 1] is a 'function' ? 0 : args[$i + 1]
+    $i += 1
+
+fixedR()
+  -posR('fixed', arguments)
+
+absoluteR()
+  -posR('absolute', arguments)
+
+relativeR()
+  -posR('relative', arguments)
+
+//
 bbColor()
   color arguments[0]
   border-color arguments[1] || arguments[0]
@@ -131,3 +150,20 @@ border1px-r(borderColor = $border-color)
     background-position right top
     background-image borderLine(right, borderColor)
     @extend $border1px-lr
+
+close()
+  absoluteR(arguments)
+  &:before
+    content ''
+    absolute()
+    height 1px
+    width 15px
+    border-top 3px solid $border-color
+    transform rotateZ(45deg)
+  &:after
+    content ''
+    absolute()
+    height 1px
+    width 15px
+    border-top 3px solid $border-color
+    transform rotateZ(-45deg)

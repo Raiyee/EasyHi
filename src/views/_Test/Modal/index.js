@@ -1,4 +1,4 @@
-import {alert, confirm, toast, prompt, closeModal} from 'utils'
+import {alert, confirm, toast, prompt, closeModal, login} from 'utils'
 
 let modalId
 
@@ -14,6 +14,9 @@ export default require('./index.pug')({
     }
   },
   methods: {
+    loginModal() {
+      login()
+    },
     addModal() {
       modalId = this.$modal.open({
         id: modalId,
