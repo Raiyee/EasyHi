@@ -1,2 +1,3 @@
 modal-item(:class="classes.loginModal", :transition="transition")
-  login
+  div(:class="classes.close", @click="cancel")
+  login(confirmName="立即下单", :confirmBehavior="confirmBehavior")
