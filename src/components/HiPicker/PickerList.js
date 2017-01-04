@@ -4,8 +4,6 @@ import {REQUIRED_NUMBER, intervalVal} from 'utils'
 
 import classes from './picker-list.styl'
 
-const ITEM_HEIGHT = 36
-
 export default require('./picker-list.pug')({
   props: {
     className: [Array, String, Object],
@@ -26,19 +24,23 @@ export default require('./picker-list.pug')({
     visibleCount: REQUIRED_NUMBER
   },
   data() {
-    const baseIndex = (this.visibleCount - 1) / 2
-    const currIndex = this.defaultIndex
     return {
       classes,
-      baseIndex,
-      currIndex,
-      translateY: (baseIndex - currIndex) * ITEM_HEIGHT
+      baseIndex: (this.visibleCount - 1) / 2,
+      currIndex: this.defaultIndex,
+      translateY: 0
     }
+  },
+  mounted(){
+    this.translateY = (this.baseIndex - this.currIndex) * this.itemHeight
   },
   computed: {
     ...mapGetters(['rem']),
+    itemHeight() {
+      return 36 * this.rem
+    },
     height() {
-      return this.divider || this.visibleCount * ITEM_HEIGHT * this.rem + 'px'
+      return this.divider || this.visibleCount * this.itemHeight + 'px'
     },
     transform() {
       return `translate3d(0, ${this.translateY}px, 0)`
@@ -56,15 +58,17 @@ export default require('./picker-list.pug')({
       const visibleCount = this.visibleCount
       const baseIndex = this.baseIndex
 
-      const translateY = intervalVal(((visibleCount + 1) / 2 - this.values.length) * ITEM_HEIGHT,
-        baseIndex * ITEM_HEIGHT, this.translateY)
+      const itemHeight = this.itemHeight
 
-      const translateIndex = Math.round(translateY / ITEM_HEIGHT)
+      const translateY = intervalVal(((visibleCount + 1) / 2 - this.values.length) * itemHeight,
+        baseIndex * itemHeight, this.translateY)
+
+      const translateIndex = Math.round(translateY / itemHeight)
 
       const prevIndex = this.currIndex
       const currIndex = this.currIndex = baseIndex - translateIndex
 
-      this.translateY = translateIndex * ITEM_HEIGHT
+      this.translateY = translateIndex * itemHeight
 
       if (prevIndex === currIndex) return
 
@@ -80,7 +84,7 @@ export default require('./picker-list.pug')({
       if (prevIndex === index) return
 
       this.currIndex = index
-      this.translateY = (this.baseIndex - index) * ITEM_HEIGHT
+      this.translateY = (this.baseIndex - index) * this.itemHeight
 
       this.emit()
     }
