@@ -51,7 +51,7 @@ export default require('./picker-list.pug')({
       this.translateStart = this.translateY
     },
     moving(e) {
-      const changeY = e.changedY
+      const changeY = e.changedY || e.deltaY
       this.translateY = this.translateStart + changeY
     },
     moveEnd() {
@@ -73,9 +73,6 @@ export default require('./picker-list.pug')({
       if (prevIndex === currIndex) return
 
       this.emit()
-    },
-    transitionEnd() {
-      this.moveEnd()
     },
     emit() {
       const value = this.values[this.currIndex]
