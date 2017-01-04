@@ -27,16 +27,16 @@ function update(el, binding) {
     handlers[event] = null
   }
   // if there's a new handler, add it
-  if (oldHandler !== fn) {
-    if (typeof fn === 'function') {
-      mc.on(event, (handlers[event] = fn))
-    } else {
-      handlers[event] = null
-      console.warn(
-        '[vue-hammer] invalid handler function for v-hammer: ' +
-        this.arg + '="' + fn
-      )
-    }
+  if (oldHandler === fn) return
+
+  if (typeof fn === 'function') {
+    mc.on(event, (handlers[event] = fn))
+  } else if (!binding.modifiers.options) {
+    handlers[event] = null
+    console.warn(
+      '[vue-hammer] invalid handler function for v-hammer: ' +
+      this.arg + '="' + fn
+    )
   }
 }
 
@@ -117,6 +117,16 @@ export default {
         recognizer.recognizeWith(mc.recognizers)
         mc.add(recognizer)
       }
+
+      const options = binding.modifiers.options
+
+      if (options) {
+        const value = binding.value
+        guardDirections(value)
+        recognizer.set(value)
+        return
+      }
+
       // apply global options
       const globalOptions = vueHammer.config[recognizerType]
       if (globalOptions) {

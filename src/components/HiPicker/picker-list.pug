@@ -4,8 +4,9 @@ div(v-else,
 :style="{flex, height}",
 v-hammer:panstart="moveStart",
 v-hammer:panmove="moving",
-v-hammer:panend="moveEnd")
+v-hammer:panend="moveEnd",
+v-hammer:pan.options="{direction: 'all'}")
   div(:class="classes.pickerItems", :style="{transform}")
     div(v-for="(value, index) of values",
     :class="[classes.pickerItem, {'theme-color': currIndex === index}]",
-    @tap="tapItem(index)") {{ value[valueText] }}
+    @click="tapItem(index)") {{ value[valueText] }}
