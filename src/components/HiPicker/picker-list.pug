@@ -2,6 +2,7 @@ div(v-if="divider", :class="[classes.pickerDivider, className]", v-html="divider
 div(v-else,
 :class="[classes.pickerList, className, `text-${textAlign}`]",
 :style="{flex, height}",
+@transitionend="transitionEnd",
 v-touch.prevent="{methods: true}")
   div(:class="classes.pickerItems", :style="{transform}")
     div(v-for="(value, index) of values",

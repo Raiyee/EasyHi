@@ -74,6 +74,9 @@ export default require('./picker-list.pug')({
 
       this.emit()
     },
+    transitionEnd() {
+      this.moveEnd()
+    },
     emit() {
       const value = this.values[this.currIndex]
       this.$emit('itemChanged', this.index, value[this.valueKey], value[this.valueText])
