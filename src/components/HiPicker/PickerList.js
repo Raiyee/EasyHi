@@ -31,7 +31,7 @@ export default require('./picker-list.pug')({
       translateY: 0
     }
   },
-  mounted(){
+  mounted() {
     this.translateY = (this.baseIndex - this.currIndex) * this.itemHeight
   },
   computed: {

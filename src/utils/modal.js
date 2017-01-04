@@ -23,11 +23,11 @@ const DEFAULT_PROPS = {
       tipText: '系统消息',
       transition: true,
       ...isString(props) ? {
-          tipText: props,
-          confirm() {
-            closeModal(TIP_ID)
-          }
-        } : props,
+        tipText: props,
+        confirm() {
+          closeModal(TIP_ID)
+        }
+      } : props,
       type
     }
   })

@@ -30,9 +30,9 @@ export default require('./index.pug')({
           valueKey,
           valueText,
           values: picker.values.map((value, index) => isObject(value) ? {...value} : {
-              [valueKey]: index,
-              [valueText]: value
-            })
+            [valueKey]: index,
+            [valueText]: value
+          })
         }
       })
 
