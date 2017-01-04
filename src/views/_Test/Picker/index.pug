@@ -1,6 +1,6 @@
-mint-picker(:slots="slots",
-@change="onValuesChange",
-:rotateEffect="true",
-:visible-item-count="3")
-  button confirm
-  button cancel
+div
+  hi-picker(:pickers="pickers", :visibleCount="5", @itemChanged="itemChanged")
+  hr
+  mint-picker(:slots="slots",
+  @change="onValuesChange",
+  :visibleItemCount="5")

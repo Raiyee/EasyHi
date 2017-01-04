@@ -1,0 +1,8 @@
+div(v-if="divider", :class="[classes.pickerDivider, className]", v-html="divider")
+div(v-else,
+:class="[classes.pickerList, className]",
+:style="{flex, height, textAlign, transform}",
+v-touch="{methods: true}")
+  div(v-for="(value, index) of values",
+  :class="[classes.pickerItem, {'theme-color': currIndex === index}]",
+  @tap="tapItem(index)") {{ value[valueText] }}

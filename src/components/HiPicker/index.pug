@@ -1,0 +1,14 @@
+div(:class="classes.hiPicker")
+  div(:class="[classes.pickerList]")
+    picker-list(v-for="({className, divider, flex, textAlign, valueKey, valueText, values}, index) of pickerList",
+    :className="className",
+    :divider="divider",
+    :flex="flex",
+    :index="index",
+    :textAlign="textAlign",
+    :valueKey="valueKey",
+    :valueText="valueText",
+    :values="values",
+    :visibleCount="visibleCount",
+    @itemChanged="itemChanged")
+    .border-tb(:class="classes.pickerHighlight")

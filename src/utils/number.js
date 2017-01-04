@@ -42,3 +42,5 @@ export const isLength = value => isNumber(value) && value > -1 && value % 1 === 
 
 export const isEven = value => isNumber(value) && !Math.abs(value % 2)
 export const isOdd = value => isNumber(value) && Math.abs(value % 2) === 1
+
+export const intervalVal = (min, max, value) => Math.min(Math.max(value, min), max)
