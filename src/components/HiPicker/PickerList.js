@@ -9,6 +9,10 @@ const ITEM_HEIGHT = 36
 export default require('./picker-list.pug')({
   props: {
     className: [Array, String, Object],
+    defaultIndex: {
+      type: Number,
+      default: 0
+    },
     divider: String,
     flex: Number,
     index: Number,
@@ -23,12 +27,12 @@ export default require('./picker-list.pug')({
   },
   data() {
     const baseIndex = (this.visibleCount - 1) / 2
+    const currIndex = this.defaultIndex
     return {
       classes,
       baseIndex,
-      currIndex: baseIndex,
-      translateY: 0,
-      translateStart: 0
+      currIndex,
+      translateY: (baseIndex - currIndex) * ITEM_HEIGHT
     }
   },
   computed: {
