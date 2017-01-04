@@ -1,4 +1,8 @@
 div(:class="classes.hiPicker")
+  div(:class="classes.pickerTitles")
+    template(v-for="{divider, textAlign, title} of pickerList")
+      div(v-if="divider", :class="classes.pickerDivider") {{ divider }}
+      div(v-else, :class="classes.pickerTitle", :style="{textAlign}") {{ title }}
   div(:class="[classes.pickerList]")
     picker-list(v-for="({className, divider, flex, textAlign, valueKey, valueText, values}, index) of pickerList",
     :className="className",
