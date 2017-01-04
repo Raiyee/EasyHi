@@ -1,13 +1,17 @@
 import Mock, {Random} from 'mockjs'
 
-import {PERMISSIONS, ROLES} from 'utils'
+import {PERMISSIONS, ROLES, getItem} from 'utils'
 
 const {VISITOR} = ROLES
 
 const TCODES = [12345678910]
 
-Mock.mock(/\/initialize\/get-base-data$/, ({body}) => {
-  const {tcode, mobile} = JSON.parse(body)
+Mock.mock(/\/initialize\/get-base-data$/, ({url}) => {
+  const local = getItem('ENV_KEY-default')
+  const mobile = local && local.value.mobile
+  let tcode = /center\/([^/]+)\/initialize/.exec(url)
+
+  tcode = tcode && tcode[1]
 
   const {roles, currentRole} = PERMISSIONS.find(({mobiles}) => mobiles.includes(+mobile)) ||
   {roles: [VISITOR], currentRole: VISITOR}
