@@ -8,7 +8,7 @@ export default require('./index.pug')({
   props: {
     pickers: {
       type: [Array, Object],
-      default: []
+      default: () => []
     },
     pickerDivider: {
       type: Boolean,
@@ -30,7 +30,7 @@ export default require('./index.pug')({
 
     pickerList.forEach((picker, index) => {
       const valueKey = picker.valueKey || 'key'
-      const valueText = picker.valueText || 'text'
+      const valueText = picker.valueText || 'value'
 
       pickerList[index] = {
         ...picker,

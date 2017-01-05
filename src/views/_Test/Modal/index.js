@@ -1,4 +1,4 @@
-import {alert, confirm, toast, picker, prompt, closeModal, login} from 'utils'
+import {alert, confirm, toast, prompt, picker, distPicker, login, closeModal} from 'utils'
 
 let modalId
 
@@ -110,6 +110,9 @@ export default require('./index.pug')({
           console.log(this.result)
         }
       })
+    },
+    distPickerModal() {
+      distPicker({})
     }
   }
 })

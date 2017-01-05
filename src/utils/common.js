@@ -65,3 +65,14 @@ export function throttle(action, delay) {
     Date.now() - lastRun >= delay ? runCallback() : (timeout = setTimeout(runCallback, delay))
   }
 }
+
+export function obj2Arr(obj, objKey = 'key', objValue = 'value') {
+  const result = []
+  for (const [key, value] of Object.entries(obj)) {
+    result.push({
+      [objKey]: key,
+      [objValue]: value
+    })
+  }
+  return result
+}
