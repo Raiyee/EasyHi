@@ -18,17 +18,24 @@ export default require('./index.pug')({
   },
   data: () => ({classes}),
   computed: {
+    hasTitle() {
+      return !!this.pickers.find(picker => picker.title)
+    },
     pickerList() {
       const pickerList = isArray(this.pickers) ? [...this.pickers] : [this.pickers]
+
+      const isDouble = pickerList.filter(picker => !picker.divider).length === 2
 
       pickerList.forEach((picker, index) => {
         if (picker.divider) return
         const valueKey = picker.valueKey || 'key'
         const valueText = picker.valueText || 'text'
+
         pickerList[index] = {
-          ...pickerList[index],
+          ...picker,
           valueKey,
           valueText,
+          textAlign: picker.textAlign || isDouble && (index ? 'left' : 'right'),
           values: picker.values.map((value, index) => isObject(value) ? {...value} : {
             [valueKey]: index,
             [valueText]: value

@@ -1,7 +1,7 @@
 import {prototype as vueProp} from 'vue'
 
 import {isString} from './base'
-import {TIP_ID} from './constants'
+import {PICKER_ID, TIP_ID} from './constants'
 
 export const closeModal = id => vueProp.$modal.close(id)
 
@@ -32,6 +32,18 @@ const DEFAULT_PROPS = {
     }
   })
 })
+
+export const picker = props => {
+  vueProp.$modal.open({
+    id: PICKER_ID,
+    component: System.import('components/HiModal/PickerModal'),
+    options: DEFAULT_PROPS,
+    props: {
+      transition: true,
+      ...props
+    }
+  })
+}
 
 export const login = () => {
   vueProp.$modal.open({

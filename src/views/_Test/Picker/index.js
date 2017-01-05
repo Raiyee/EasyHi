@@ -20,23 +20,6 @@ export default require('./index.pug')({
           className: 'slot3',
           textAlign: 'left'
         }
-      ],
-      slots: [
-        {
-          flex: 1,
-          values: ['2015-01', '2015-02', '2015-03', '2015-04', '2015-05', '2015-06'],
-          className: 'slot1',
-          textAlign: 'right'
-        }, {
-          divider: true,
-          content: '-',
-          className: 'slot2'
-        }, {
-          flex: 1,
-          values: ['2015-01', '2015-02', '2015-03', '2015-04', '2015-05', '2015-06'],
-          className: 'slot3',
-          textAlign: 'left'
-        }
       ]
     }
   },

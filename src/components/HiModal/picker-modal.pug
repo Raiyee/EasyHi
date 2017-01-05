@@ -1,2 +1,7 @@
-modal-item(:class="classes.pickerModal", v-bind="$options.propsData")
-  hi-picker(:pickers="pickers")
+modal-item(:class="classes.pickerModal", :transition="transition")
+  template(slot="header")
+    div
+      span(@click="closePicker") 取消
+    .text-right
+      span.theme-color(@click="confirmPicker") 确定
+  hi-picker(:pickers="pickers", ref="picker", @itemChanged="itemChanged")

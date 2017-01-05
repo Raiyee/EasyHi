@@ -21,11 +21,11 @@ export default require('./modal-item.pug')({
   },
   methods: {
     closeModal() {
-      this.close ? this.close.apply(this, arguments)
+      this.close ? this.close(...arguments)
         : this.$modal.close(this.id || warn('there is no modal id found, then the current modal will be close!'))
     },
     confirmModal() {
-      this.confirm ? this.confirm.apply(this, arguments)
+      this.confirm ? this.confirm(...arguments)
         : error('you should handle the click event on the confirm btn by yourself!')
     }
   }
