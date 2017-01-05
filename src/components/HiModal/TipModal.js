@@ -29,10 +29,10 @@ export default require('./tip-modal.pug')({
   },
   methods: {
     closeModal() {
-      this.close ? this.close.apply(this, arguments) : this.$modal.close(this.$util.TIP_ID)
+      this.close ? this.close(...arguments) : this.$modal.close(this.$util.TIP_ID)
     },
     confirmModal() {
-      this.confirm ? this.confirm.apply(this, this.type === 3 ? [this.text, ...arguments] : arguments)
+      this.confirm ? this.confirm(...this.type === 3 ? [this.text, ...arguments] : arguments)
         : this.$util.error('you should handle the click event on the confirm btn by yourself!')
     }
   },

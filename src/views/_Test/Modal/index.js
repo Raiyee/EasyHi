@@ -1,4 +1,4 @@
-import {alert, confirm, toast, prompt, closeModal, login} from 'utils'
+import {alert, confirm, toast, picker, prompt, closeModal, login} from 'utils'
 
 let modalId
 
@@ -83,16 +83,10 @@ export default require('./index.pug')({
       })
     },
     pickerModal() {
-      this.$modal.open({
-        component: System.import('components/HiModal/PickerModal'),
-        options: {
-          backdrop: true,
-          show: true,
-          destroy: true
-        },
-        props: {
-          pickers: this.pickers,
-          transition: true
+      picker({
+        pickers: this.pickers,
+        confirm() {
+          console.log(this, arguments)
         }
       })
     }

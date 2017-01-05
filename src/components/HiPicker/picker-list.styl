@@ -1,4 +1,4 @@
-$item-height = 35px
+$item-height = 36px
 
 .picker-list
   flex 1
@@ -14,7 +14,6 @@ $item-height = 35px
 .picker-content
   relative()
   overflow hidden
-  height 100%
 
   &:before, &:after
     absolute()
@@ -23,14 +22,15 @@ $item-height = 35px
     width 100%
     height $item-height
     z-index 2
+    pointer-events none
 
   &:before
     top 0
-    background-image linear-gradient(to bottom, $reverse-color, transparent)
+    background-image linear-gradient(to bottom, $reverse-color 25%, rgba(255, 255, 255, .5) 75%)
 
   &:after
     bottom 0
-    background-image linear-gradient(to top, $reverse-color, transparent)
+    background-image linear-gradient(to top, $reverse-color 25%, rgba(255, 255, 255, .5) 75%)
 
 .picker-highlight
   middleCenter()
@@ -48,6 +48,7 @@ $item-height = 35px
   height $item-height
   line-height $item-height
   overflow ellipsis
+  cursor pointer
 
 .picker-divider
   relative()

@@ -36,7 +36,7 @@ export default require('./picker-list.pug')({
   computed: {
     ...mapGetters(['rem']),
     itemHeight() {
-      return 35 * this.rem
+      return 36 * this.rem
     },
     height() {
       return this.visibleCount * this.itemHeight + 'px'

@@ -1,5 +1,7 @@
-modal-item(:class="classes.pickerModal", v-bind="$util.omitObj($options.propsData, 'pickers')")
+modal-item(:class="classes.pickerModal", :transition="transition")
   template(slot="header")
-    span(@click="closePicker") 取消
-    span.theme-color.text-right(@click="confirmPicker") 确定
-  hi-picker(:pickers="pickers", ref="picker")
+    div
+      span(@click="closePicker") 取消
+    .text-right
+      span.theme-color(@click="confirmPicker") 确定
+  hi-picker(:pickers="pickers", ref="picker", @itemChanged="itemChanged")
