@@ -14,11 +14,31 @@ export default require('./index.pug')({
       pickers: [
         {
           title: '开始',
-          values: ['2015-01', '2015-02', '2015-03', '2015-04', '2015-05', '2015-06', '2015-07'],
+          valueKey: 'date',
+          values: [
+            {
+              date: '201501',
+              text: '2015年1月'
+            }, {
+              date: '201502',
+              text: '2015年2月'
+            }, {
+              date: '201503',
+              text: '2015年3月'
+            }, {
+              date: '201504',
+              text: '2015年4月'
+            }, {
+              date: '201505',
+              text: '2015年5月'
+            }, {
+              date: '201506',
+              text: '2015年6月'
+            }, {
+              date: '201507',
+              text: '2015年7月'
+            }],
           className: ['slot1', 'slot4', {slot5: true}]
-        }, {
-          divider: '-',
-          className: 'slot2'
         }, {
           title: '结束',
           values: ['2015-01', '2015-02', '2015-03', '2015-04', '2015-05', '2015-06'],
@@ -86,7 +106,7 @@ export default require('./index.pug')({
       picker({
         pickers: this.pickers,
         confirm() {
-          console.log(this, arguments)
+          console.log(this.result)
         }
       })
     }

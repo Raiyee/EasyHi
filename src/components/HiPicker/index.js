@@ -16,34 +16,42 @@ export default require('./index.pug')({
       validator: val => isOdd(val) || error('visibleCount should be an odd number')
     }
   },
-  data: () => ({classes}),
+  data() {
+    const pickerList = isArray(this.pickers) ? [...this.pickers] : [this.pickers]
+
+    const length = pickerList.length
+
+    const isDouble = length === 2
+
+    pickerList.forEach((picker, index) => {
+      const valueKey = picker.valueKey || 'key'
+      const valueText = picker.valueText || 'text'
+
+      pickerList[index] = {
+        ...picker,
+        valueKey,
+        valueText,
+        textAlign: picker.textAlign || isDouble && (index ? 'left' : 'right'),
+        values: picker.values.map((value, index) => isObject(value) ? {...value} : {
+          [valueKey]: index,
+          [valueText]: value
+        })
+      }
+    })
+
+    return {
+      classes,
+      pickerList,
+      result: pickerList.map(picker => {
+        const currIndex = picker.defaultIndex || 0
+        const value = picker.values[currIndex]
+        return [value[picker.valueKey], value[picker.valueText]]
+      })
+    }
+  },
   computed: {
     hasTitle() {
       return !!this.pickers.find(picker => picker.title)
-    },
-    pickerList() {
-      const pickerList = isArray(this.pickers) ? [...this.pickers] : [this.pickers]
-
-      const isDouble = pickerList.filter(picker => !picker.divider).length === 2
-
-      pickerList.forEach((picker, index) => {
-        if (picker.divider) return
-        const valueKey = picker.valueKey || 'key'
-        const valueText = picker.valueText || 'text'
-
-        pickerList[index] = {
-          ...picker,
-          valueKey,
-          valueText,
-          textAlign: picker.textAlign || isDouble && (index ? 'left' : 'right'),
-          values: picker.values.map((value, index) => isObject(value) ? {...value} : {
-            [valueKey]: index,
-            [valueText]: value
-          })
-        }
-      })
-
-      return pickerList
     }
   },
   watch: {
@@ -52,7 +60,8 @@ export default require('./index.pug')({
     }
   },
   methods: {
-    itemChanged() {
+    itemChanged(index, valueKey, valueText) {
+      this.result[index] = [valueKey, valueText]
       this.$emit('itemChanged', ...arguments)
     }
   },

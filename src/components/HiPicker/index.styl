@@ -4,3 +4,20 @@
   max-width 600px
   margin 0 auto
   color $primary-color
+
+.picker-divider
+  relative()
+  display flex
+  align-items center
+  padding 0 17px
+
+  &:before
+    content ''
+    middleCenter(, scale(.5))
+    width 40px
+    height 6px
+    border-radius 3px
+    background-color $input-border-color
+
+  &.has-title
+    margin-top 20px

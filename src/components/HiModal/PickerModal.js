@@ -12,10 +12,10 @@ export default require('./picker-modal.pug')({
   },
   methods: {
     closePicker() {
-      this.close ? this.close(...arguments) : this.$modal.close()
+      this.close ? this.close.call(this.$refs.picker, ...arguments) : this.$modal.close()
     },
     confirmPicker() {
-      this.confirm ? this.confirm(...arguments)
+      this.confirm ? this.confirm.call(this.$refs.picker, ...arguments)
         : error('you should handle the click event on the confirm btn by yourself!')
     },
     itemChanged() {

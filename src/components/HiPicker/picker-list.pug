@@ -1,6 +1,4 @@
-div(v-if="divider", :class="[classes.pickerDivider, {[classes.hasTitle]: hasTitle}]")
-div(v-else,
-:class="[classes.pickerList, className, `text-${textAlign || 'center'}`]",
+div(:class="[classes.pickerList, className, `text-${textAlign || 'center'}`]",
 :style="{flex}",
 v-touch="{methods: true}")
   div(:class="classes.pickerContainer")
