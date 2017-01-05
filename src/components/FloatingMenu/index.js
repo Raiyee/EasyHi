@@ -41,7 +41,14 @@ export default require('./index.pug')({
       console.log('changeTheme')
     },
     showAllMenus() {
-      console.log('showAllMenus')
+      this.$modal.open({
+        options: {
+          backdrop: false,
+          show: true,
+          destroy: false
+        },
+        component: System.import('../AllMenu')
+      })
     }
   }
 })
