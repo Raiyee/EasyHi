@@ -36,7 +36,7 @@ export default require('./index.pug')({
       index === -1 || (modal = this.modals[index])
       if (!modal) return
       const {options, props} = modal
-      options.show = false
+      options.backdrop = options.show = false
       if (!options.destroy) return
       props && props.transition ? ensure(this.$refs.modal[index].$el, 'animationend transitionend', () => {
         this.removeModal(modalId)
