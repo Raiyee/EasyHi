@@ -6,7 +6,8 @@ import {error} from 'utils'
 import classes from './picker-modal.styl'
 
 export default require('./picker-modal.pug')({
-  props: ['close', 'confirm', 'footer', 'pickers', 'pickerChanged', 'transition', 'visibleCount'],
+  props: ['close', 'confirm', 'footer', 'transition', 'pickers',
+    'pickerChanged', 'pickerDivider', 'pickerTitle', 'visibleCount'],
   data() {
     return {classes}
   },

@@ -1,8 +1,9 @@
 div(:class="[classes.pickers]")
+  div(v-if="pickerTitle", :class="classes.pickersTitle") {{ pickerTitle }}
   template(v-for="(pickerListData, index) of pickerList")
     picker-list(v-bind="pickerListData",
     :index="index",
     :hasTitle="hasTitle",
     :visibleCount="visibleCount",
     @itemChanged="itemChanged")
-    div(v-if="index !== pickerList.length - 1", :class="[classes.pickerDivider, {[classes.hasTitle]: hasTitle}]")
+    div(v-if="pickerDivider && index !== pickerList.length - 1", :class="[classes.pickerDivider, {[classes.hasTitle]: hasTitle}]")

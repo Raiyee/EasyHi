@@ -10,6 +10,11 @@ export default require('./index.pug')({
       type: [Array, Object],
       default: []
     },
+    pickerDivider: {
+      type: Boolean,
+      default: true
+    },
+    pickerTitle: String,
     visibleCount: {
       type: Number,
       default: 5,
@@ -51,7 +56,7 @@ export default require('./index.pug')({
   },
   computed: {
     hasTitle() {
-      return !!this.pickers.find(picker => picker.title)
+      return !!(this.pickerTitle || this.pickers.find(picker => picker.title))
     }
   },
   watch: {

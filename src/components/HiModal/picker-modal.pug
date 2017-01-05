@@ -4,4 +4,4 @@ modal-item(:class="classes.pickerModal", :transition="transition")
       span(@click="closePicker") 取消
     .text-right
       span.theme-color(@click="confirmPicker") 确定
-  hi-picker(:pickers="pickers", ref="picker", @itemChanged="itemChanged")
+  hi-picker(:pickers="pickers", :pickerDivider="pickerDivider", :pickerTitle="pickerTitle", ref="picker", @itemChanged="itemChanged")

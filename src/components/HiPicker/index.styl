@@ -1,9 +1,16 @@
 .pickers
+  relative()
   perspective 500px
   display flex
   max-width 600px
   margin 0 auto
   color $primary-color
+
+.pickers-title
+  absolute()
+  width 100%
+  text-align center
+  font-size $primary-size
 
 .picker-divider
   relative()
@@ -20,4 +27,4 @@
     background-color $input-border-color
 
   &.has-title
-    margin-top 20px
+    margin-top (20 / 14 * 16)px

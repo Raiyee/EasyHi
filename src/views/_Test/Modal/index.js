@@ -105,6 +105,7 @@ export default require('./index.pug')({
     pickerModal() {
       picker({
         pickers: this.pickers,
+        pickerTitle: '测试',
         confirm() {
           console.log(this.result)
         }
