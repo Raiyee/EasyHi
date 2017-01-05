@@ -1,5 +1,41 @@
+$item-height = 35px
+
 .picker-list
   flex 1
+
+.picker-container
+  display inline-block
+  vertical-align middle
+
+.picker-title
+  text-align center
+  font-size 16px
+
+.picker-content
+  relative()
+  overflow hidden
+  height 100%
+
+  &:before, &:after
+    absolute()
+    left 0
+    content ''
+    width 100%
+    height $item-height
+    z-index 2
+
+  &:before
+    top 0
+    background-image linear-gradient(to bottom, $reverse-color, transparent)
+
+  &:after
+    bottom 0
+    background-image linear-gradient(to top, $reverse-color, transparent)
+
+.picker-highlight
+  middleCenter()
+  width 100%
+  height $item-height
 
 .picker-items
   relative()
@@ -8,10 +44,24 @@
   transition transform .5s
 
 .picker-item
-  height 36px
-  line-height 36px
+  font-size 18px
+  height $item-height
+  line-height $item-height
   overflow ellipsis
 
 .picker-divider
+  relative()
   display flex
   align-items center
+  padding 0 17px
+
+  &:before
+    content ''
+    middleCenter(, scale(.5))
+    width 40px
+    height 6px
+    border-radius 3px
+    background-color $input-border-color
+
+  &.has-title
+    margin-top 20px

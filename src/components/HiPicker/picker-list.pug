@@ -1,12 +1,13 @@
-div(v-if="divider", :class="[classes.pickerDivider, className]", v-html="divider")
+div(v-if="divider", :class="[classes.pickerDivider, {[classes.hasTitle]: hasTitle}]")
 div(v-else,
-:class="[classes.pickerList, className, `text-${textAlign}`]",
-:style="{flex, height}",
-v-hammer:panstart="moveStart",
-v-hammer:panmove="moving",
-v-hammer:panend="moveEnd",
-v-hammer:pan.options="{direction: 'all'}")
-  div(:class="classes.pickerItems", :style="{transform}")
-    div(v-for="(value, index) of values",
-    :class="[classes.pickerItem, {'theme-color': currIndex === index}]",
-    @click="tapItem(index)") {{ value[valueText] }}
+:class="[classes.pickerList, className, `text-${textAlign || 'center'}`]",
+:style="{flex}",
+v-touch="{methods: true}")
+  div(:class="classes.pickerContainer")
+    div(v-if="hasTitle", :class="classes.pickerTitle") {{ title || '&nbsp;' }}
+    div(:class="classes.pickerContent", :style="{height}")
+      .border-tb(:class="classes.pickerHighlight")
+      ul.list-unstyled(:class="classes.pickerItems", :style="{transform}")
+        li(v-for="(value, index) of values",
+        :class="[classes.pickerItem, {'theme-color': currIndex === index}]",
+        @tap="tapItem(index)") {{ value[valueText] }}

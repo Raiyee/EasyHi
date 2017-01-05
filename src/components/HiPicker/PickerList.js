@@ -13,11 +13,10 @@ export default require('./picker-list.pug')({
     },
     divider: String,
     flex: Number,
+    hasTitle: Boolean,
     index: Number,
-    textAlign: {
-      type: String,
-      default: 'center'
-    },
+    title: String,
+    textAlign: [Boolean, String],
     valueKey: String,
     valueText: String,
     values: Array,
@@ -37,10 +36,10 @@ export default require('./picker-list.pug')({
   computed: {
     ...mapGetters(['rem']),
     itemHeight() {
-      return 36 * this.rem
+      return 35 * this.rem
     },
     height() {
-      return this.divider || this.visibleCount * this.itemHeight + 'px'
+      return this.visibleCount * this.itemHeight + 'px'
     },
     transform() {
       return `translate3d(0, ${this.translateY}px, 0)`
@@ -51,7 +50,7 @@ export default require('./picker-list.pug')({
       this.translateStart = this.translateY
     },
     moving(e) {
-      const changeY = e.changedY || e.deltaY
+      const changeY = e.changedY
       this.translateY = this.translateStart + changeY
     },
     moveEnd() {

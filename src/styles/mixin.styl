@@ -35,11 +35,11 @@ bbActive()
 clearUnit(val)
   return unit(val, '')
 
-middleCenter($position = absolute)
+middleCenter($position = absolute, transform = null)
   $position()
   left 50%
   top 50%
-  transform translate3d(-50%, -50%, 0)
+  transform translate3d(-50%, -50%, 0) transform
 
 scaleSize(size = $small-size, baseSize = null, transform = null, origin = null)
   if (baseSize)
