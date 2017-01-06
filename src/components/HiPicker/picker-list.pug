@@ -7,5 +7,6 @@ v-touch="{methods: true}")
       .border-tb(:class="classes.pickerHighlight")
       ul.list-unstyled(:class="classes.pickerItems", :style="{transform}")
         li(v-for="(value, index) of values",
+        :key="value[valueKey]",
         :class="[classes.pickerItem, {'theme-color': currIndex === index}]",
         @tap="tapItem(index)") {{ value[textKey] }}

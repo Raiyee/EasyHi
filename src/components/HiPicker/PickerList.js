@@ -6,6 +6,7 @@ import classes from './picker-list.styl'
 
 export default require('./picker-list.pug')({
   props: {
+    changingIndex: Number,
     className: [Array, String, Object],
     defaultIndex: {
       type: Number,
@@ -32,7 +33,7 @@ export default require('./picker-list.pug')({
     }
   },
   mounted() {
-    this.translateY = (this.baseIndex - this.currIndex) * this.itemHeight
+    this.resetTranslateY()
   },
   computed: {
     ...mapGetters(['rem']),
@@ -46,7 +47,18 @@ export default require('./picker-list.pug')({
       return `translate3d(0, ${this.translateY}px, 0)`
     }
   },
+  watch: {
+    values() {
+      if (!this.index || this.index === this.changingIndex) return
+      this.currIndex = 0
+      this.resetTranslateY()
+      this.emit()
+    }
+  },
   methods: {
+    resetTranslateY() {
+      this.translateY = (this.baseIndex - this.currIndex) * this.itemHeight
+    },
     moveStart() {
       this.translateStart = this.translateY
     },

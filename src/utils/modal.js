@@ -1,4 +1,4 @@
-import {prototype as vueProp} from 'vue'
+import Vue, {prototype as vueProp} from 'vue'
 
 import {isString} from './base'
 import {obj2Arr} from './common'
@@ -51,26 +51,62 @@ export const distPicker = props => System.import('components/HiPicker/districts'
   const origProvinces = all[100000]
   const provinces = obj2Arr(origProvinces, CODE, TEXT)
 
-  const originCities = all[provinces[0][CODE]]
-  const cities = obj2Arr(originCities, CODE, TEXT)
+  let originCities = all[provinces[0][CODE]]
+  let cities = obj2Arr(originCities, CODE, TEXT)
 
-  const originDistricts = all[cities[0][CODE]]
-  const districts = obj2Arr(originDistricts, CODE, TEXT)
+  let originDistricts = all[cities[0][CODE]]
+  let districts = obj2Arr(originDistricts, CODE, TEXT)
+
+  const pickers = [{
+    valueKey: CODE,
+    values: provinces
+  }, {
+    valueKey: CODE,
+    values: cities
+  }, {
+    valueKey: CODE,
+    values: districts
+  }]
 
   return picker(Object.assign(props, {
+    pickerReset: true,
     pickerDivider: false,
-    pickers: [{
-      valueKey: CODE,
-      values: provinces
-    }, {
-      valueKey: CODE,
-      values: cities
-    }, {
-      valueKey: CODE,
-      values: districts
-    }],
-    pickerChanged() {
-      console.log(arguments)
+    pickers,
+    pickerChanged(index, code) {
+      switch (index) {
+        case (0):
+          originCities = all[code]
+          cities = obj2Arr(originCities, CODE, TEXT)
+
+          pickers[1] = {
+            valueKey: CODE,
+            values: cities
+          }
+
+          originDistricts = all[cities[0][CODE]]
+          districts = obj2Arr(originDistricts, CODE, TEXT)
+
+          pickers.changingIndex = 0
+
+          Vue.set(pickers, 2, {
+            valueKey: CODE,
+            values: districts
+          })
+
+          break
+        case (1):
+          originDistricts = all[code]
+          districts = obj2Arr(originDistricts, CODE, TEXT)
+
+          pickers.changingIndex = 1
+
+          Vue.set(pickers, 2, {
+            valueKey: CODE,
+            values: districts
+          })
+
+          break
+      }
     }
   }))
 })

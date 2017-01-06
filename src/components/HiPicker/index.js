@@ -6,6 +6,32 @@ import {isArray, isObject, isOdd, error} from 'utils'
 
 import classes from './index.styl'
 
+const resetPickerList = pickers => {
+  const pickerList = isArray(pickers) ? [...pickers] : [pickers]
+
+  const length = pickerList.length
+
+  const isDouble = length === 2
+
+  pickerList.forEach((picker, index) => {
+    const valueKey = picker.valueKey || 'value'
+    const textKey = picker.textKey || 'text'
+
+    pickerList[index] = {
+      ...picker,
+      valueKey,
+      textKey,
+      textAlign: picker.textAlign || isDouble && (index ? 'left' : 'right'),
+      values: picker.values.map((value, index) => isObject(value) ? {...value} : {
+        [valueKey]: index,
+        [textKey]: value
+      })
+    }
+  })
+
+  return pickerList
+}
+
 export default require('./index.pug')({
   props: {
     pickers: {
@@ -16,6 +42,7 @@ export default require('./index.pug')({
       type: Boolean,
       default: true
     },
+    pickerReset: Boolean,
     pickerTitle: String,
     visibleCount: {
       type: Number,
@@ -24,31 +51,12 @@ export default require('./index.pug')({
     }
   },
   data() {
-    const pickerList = isArray(this.pickers) ? [...this.pickers] : [this.pickers]
-
-    const length = pickerList.length
-
-    const isDouble = length === 2
-
-    pickerList.forEach((picker, index) => {
-      const valueKey = picker.valueKey || 'value'
-      const textKey = picker.textKey || 'text'
-
-      pickerList[index] = {
-        ...picker,
-        valueKey,
-        textKey,
-        textAlign: picker.textAlign || isDouble && (index ? 'left' : 'right'),
-        values: picker.values.map((value, index) => isObject(value) ? {...value} : {
-          [valueKey]: index,
-          [textKey]: value
-        })
-      }
-    })
+    const pickerList = resetPickerList(this.pickers)
 
     return {
       classes,
       pickerList,
+      changingIndex: null,
       result: pickerList.map(picker => {
         const currIndex = picker.defaultIndex || 0
         const value = picker.values[currIndex]
@@ -71,7 +79,12 @@ export default require('./index.pug')({
   },
   watch: {
     pickers: {
-      deep: true
+      deep: true,
+      handler(pickers) {
+        if (!this.pickerReset) return
+        this.changingIndex = pickers.changingIndex
+        this.pickerList = resetPickerList(pickers)
+      }
     }
   },
   methods: {

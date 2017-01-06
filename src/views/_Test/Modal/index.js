@@ -112,7 +112,11 @@ export default require('./index.pug')({
       })
     },
     distPickerModal() {
-      distPicker({})
+      distPicker({
+        confirm() {
+          console.log(this.result)
+        }
+      })
     }
   }
 })
