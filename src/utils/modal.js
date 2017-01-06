@@ -68,7 +68,7 @@ export const regionPicker = props => System.import('components/HiPicker/regions'
     values: districts
   }]
 
-  return picker(Object.assign(props, {
+  return picker(Object.assign({}, props, {
     pickerReset: true,
     pickerDivider: false,
     pickers,
