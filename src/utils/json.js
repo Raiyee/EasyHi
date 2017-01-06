@@ -39,3 +39,5 @@ export const getItem = (key, level) => parseJsonLoop(localStorage.getItem(key), 
 export const setItem = (key, data) => localStorage.setItem(key, JSON.stringify(data)) || getItem(key)
 
 export const deleteItem = key => delete localStorage[key]
+
+export const isJsonSame = (x, y) => x === y || JSON.stringify(x) === JSON.stringify(y)

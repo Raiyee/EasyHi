@@ -2,7 +2,7 @@ import {mapGetters} from 'vuex'
 
 import PickerList from './PickerList'
 
-import {isArray, isObject, isOdd, error} from 'utils'
+import {isObject, isOdd, error, REQUIRED_ARRAY} from 'utils'
 
 import classes from './index.styl'
 
@@ -26,10 +26,7 @@ const generatePicker = (pickers, index) => {
 
 export default require('./index.pug')({
   props: {
-    pickers: {
-      type: [Array, Object],
-      default: () => []
-    },
+    pickers: REQUIRED_ARRAY,
     pickerDivider: {
       type: Boolean,
       default: true
@@ -42,13 +39,8 @@ export default require('./index.pug')({
     }
   },
   data() {
-    let pickers = this.pickers
-    pickers = isArray(pickers) ? pickers : [pickers]
-
     const pickerList = []
-
-    pickers.forEach((picker, index) => pickerList.push(generatePicker(pickers, index)))
-
+    this.pickers.forEach((picker, index) => pickerList.push(generatePicker(this.pickers, index)))
     return {
       classes,
       changingIndex: null,
@@ -73,11 +65,11 @@ export default require('./index.pug')({
       return (baseWidth - offset) / length + 'px'
     }
   },
-  mounted() {
-    this.$watch('pickers', pickers => {
+  watch: {
+    pickers(pickers) {
       const index = this.changingIndex + 1
       this.$set(this.pickerList, index, generatePicker(pickers, index))
-    })
+    }
   },
   methods: {
     itemChanged(index, value, text) {

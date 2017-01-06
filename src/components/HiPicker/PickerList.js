@@ -1,6 +1,6 @@
 import {mapGetters} from 'vuex'
 
-import {REQUIRED_NUMBER, intervalVal} from 'utils'
+import {REQUIRED_NUMBER, intervalVal, isJsonSame} from 'utils'
 
 import classes from './picker-list.styl'
 
@@ -48,12 +48,11 @@ export default require('./picker-list.pug')({
     }
   },
   watch: {
-    values() {
-      if (this.index <= this.changingIndex) return
-
+    values(curr, prev) {
+      if (isJsonSame(curr, prev)) return
       this.currIndex = 0
       this.resetTranslateY()
-      this.emit()
+      this.emitChange()
     }
   },
   methods: {
@@ -70,36 +69,26 @@ export default require('./picker-list.pug')({
     moveEnd() {
       const visibleCount = this.visibleCount
       const baseIndex = this.baseIndex
-
       const itemHeight = this.itemHeight
-
       const translateY = intervalVal(((visibleCount + 1) / 2 - this.values.length) * itemHeight,
         baseIndex * itemHeight, this.translateY)
-
       const translateIndex = Math.round(translateY / itemHeight)
-
-      const prevIndex = this.currIndex
-      const currIndex = this.currIndex = baseIndex - translateIndex
-
       this.translateY = translateIndex * itemHeight
-
-      if (prevIndex === currIndex) return
-
-      this.emit()
+      if (this.setCurrIndex(baseIndex - translateIndex)) return
+      this.emitChange()
     },
-    emit() {
+    setCurrIndex(index) {
+      if (index === this.currIndex) return true
+      this.currIndex = index
+    },
+    emitChange() {
       const value = this.values[this.currIndex]
       this.$emit('itemChanged', this.index, value[this.valueKey], value[this.textKey])
     },
     tapItem(index) {
-      const prevIndex = this.currIndex
-
-      if (prevIndex === index) return
-
-      this.currIndex = index
-      this.translateY = (this.baseIndex - index) * this.itemHeight
-
-      this.emit()
+      if (this.setCurrIndex(index)) return
+      this.resetTranslateY()
+      this.emitChange()
     }
   }
 })
