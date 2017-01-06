@@ -36,15 +36,20 @@ export default require('./index.pug')({
       index === -1 || (modal = this.modals[index])
       if (!modal) return
       const {options, props} = modal
-      options.backdrop = options.show = false
+      options.show = false
+      const callback = () => { options.destroy || destroy ? this.removeModal(modalId) : this.resetCurrModal(modalId) }
+      props && props.transition
+        ? ensure(this.$refs.modal[index].$el, 'animationend transitionend', callback) : callback()
+    },
+    resetCurrModal(modalId) {
       modalId === this.currModalId && (this.currModal = null)
-      if (!(options.destroy || destroy)) return
-      props && props.transition ? ensure(this.$refs.modal[index].$el, 'animationend transitionend', () => {
-        this.removeModal(modalId)
-      }) : this.removeModal(modalId)
     },
     removeModal(modalId) {
       this.modals.splice(this.modals.findIndex(m => m.id === modalId), 1)
+      this.resetCurrModal(modalId)
+    },
+    existModal(modalId) {
+      return !!this.modals.find(m => m.id === modalId)
     },
     mount(modal) {
       const modalId = modal.id

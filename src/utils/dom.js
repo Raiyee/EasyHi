@@ -93,7 +93,7 @@ export const one = function (el, events, handler, useCapture = false) {
 export const ensure = function (el, events, handler, timeout = 600) {
   domEach(el, el => {
     let end
-    on(el, events, function () {
+    one(el, events, function () {
       end = true
       handler.apply(this, arguments)
     })

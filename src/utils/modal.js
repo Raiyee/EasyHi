@@ -46,10 +46,9 @@ export const picker = (props, options, id) => vueProp.$modal.open({
 
 export const regionPicker = (function () {
   const NOT_DESTROY = {destroy: false}
-  let initialized
 
   return props => System.import('components/HiPicker/regions').then(regions => {
-    if (initialized) return picker(null, NOT_DESTROY, REGION_PICKER_ID)
+    if (vueProp.$modal.existModal(REGION_PICKER_ID)) return picker(null, NOT_DESTROY, REGION_PICKER_ID)
 
     const CODE = 'code'
     const TEXT = 'text'
@@ -74,10 +73,7 @@ export const regionPicker = (function () {
       values: districts
     }]
 
-    initialized = true
-
     return picker(Object.assign({}, props, {
-      pickerReset: true,
       pickerDivider: false,
       pickers,
       pickerChanged(index, code) {
