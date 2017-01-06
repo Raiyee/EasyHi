@@ -17,7 +17,7 @@ const generatePicker = (pickers, index) => {
     valueKey,
     textKey,
     textAlign: picker.textAlign || pickers.length === 2 && (index ? 'left' : 'right'),
-    values: picker.values.map((value, index) => isObject(value) ? {...value} : {
+    values: picker.values.map((value, index) => isObject(value) ? value : {
       [valueKey]: index,
       [textKey]: value
     })
