@@ -112,7 +112,7 @@ export default require('./index.pug')({
         }
       })
     },
-    distPickerModal() {
+    regionPickerModal() {
       const self = this
       regionPicker({
         confirm() {

@@ -17,6 +17,7 @@ export const isoWeekdays = [...rest, first];
 export const EMPTY_FUNC = () => {}
 
 export const PICKER_ID = '__picker__'
+export const REGION_PICKER_ID = '__region_picker__'
 export const TIP_ID = '__tip__'
 
 export const EMPTY_IMG = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=='

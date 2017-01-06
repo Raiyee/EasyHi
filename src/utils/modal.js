@@ -2,9 +2,9 @@ import Vue, {prototype as vueProp} from 'vue'
 
 import {isString} from './base'
 import {obj2Arr} from './common'
-import {PICKER_ID, TIP_ID} from './constants'
+import {PICKER_ID, REGION_PICKER_ID, TIP_ID} from './constants'
 
-export const closeModal = id => vueProp.$modal.close(id)
+export const closeModal = (id, destroy) => vueProp.$modal.close(id, destroy)
 
 const DEFAULT_PROPS = {
   backdrop: true,
@@ -34,73 +34,86 @@ const DEFAULT_PROPS = {
   })
 })
 
-export const picker = props => vueProp.$modal.open({
-  id: PICKER_ID,
+export const picker = (props, options, id) => vueProp.$modal.open({
+  id: id || PICKER_ID,
   component: System.import('components/HiModal/PickerModal'),
-  options: DEFAULT_PROPS,
+  options: Object.assign({}, DEFAULT_PROPS, options),
   props: {
     transition: true,
     ...props
   }
 })
 
-export const regionPicker = props => System.import('components/HiPicker/regions').then(regions => {
-  const CODE = 'code'
-  const TEXT = 'text'
+export const regionPicker = (function () {
+  const NOT_DESTROY = {destroy: false}
+  let initialized
 
-  const origProvinces = regions[100000]
-  const provinces = obj2Arr(origProvinces, CODE, TEXT)
+  return props => System.import('components/HiPicker/regions').then(regions => {
+    if (initialized) return picker(null, NOT_DESTROY, REGION_PICKER_ID)
 
-  let originCities = regions[provinces[0][CODE]]
-  let cities = obj2Arr(originCities, CODE, TEXT)
+    const CODE = 'code'
+    const TEXT = 'text'
 
-  let originDistricts = regions[cities[0][CODE]]
-  let districts = obj2Arr(originDistricts, CODE, TEXT)
+    const origProvinces = regions[100000]
+    const provinces = obj2Arr(origProvinces, CODE, TEXT)
 
-  const pickers = [{
-    valueKey: CODE,
-    values: provinces
-  }, {
-    valueKey: CODE,
-    values: cities
-  }, {
-    valueKey: CODE,
-    values: districts
-  }]
+    let originCities = regions[provinces[0][CODE]]
+    let cities = obj2Arr(originCities, CODE, TEXT)
 
-  return picker(Object.assign({}, props, {
-    pickerReset: true,
-    pickerDivider: false,
-    pickers,
-    pickerChanged(index, code) {
-      if (index === 2) return
+    let originDistricts = regions[cities[0][CODE]]
+    let districts = obj2Arr(originDistricts, CODE, TEXT)
 
-      switch (index) {
-        case (0):
-          originCities = regions[code]
-          cities = obj2Arr(originCities, CODE, TEXT)
+    const pickers = [{
+      valueKey: CODE,
+      values: provinces
+    }, {
+      valueKey: CODE,
+      values: cities
+    }, {
+      valueKey: CODE,
+      values: districts
+    }]
 
-          Vue.set(pickers, 1, {
-            valueKey: CODE,
-            values: cities
-          })
+    initialized = true
 
-          originDistricts = regions[cities[0][CODE]]
-          break
-        case (1):
-          originDistricts = regions[code]
-          break
+    return picker(Object.assign({}, props, {
+      pickerReset: true,
+      pickerDivider: false,
+      pickers,
+      pickerChanged(index, code) {
+        if (index === 2) return
+
+        switch (index) {
+          case (0):
+            originCities = regions[code]
+            cities = obj2Arr(originCities, CODE, TEXT)
+
+            Vue.set(pickers, 1, {
+              valueKey: CODE,
+              values: cities
+            })
+
+            originDistricts = regions[cities[0][CODE]]
+            break
+          case (1):
+            originDistricts = regions[code]
+            break
+        }
+
+        districts = obj2Arr(originDistricts, CODE, TEXT)
+
+        Vue.set(pickers, 2, {
+          valueKey: CODE,
+          values: districts
+        })
+      },
+      confirm() {
+        this.changingIndex = null
+        props.confirm && props.confirm.apply(this, arguments)
       }
-
-      districts = obj2Arr(originDistricts, CODE, TEXT)
-
-      Vue.set(pickers, 2, {
-        valueKey: CODE,
-        values: districts
-      })
-    }
-  }))
-})
+    }), NOT_DESTROY, REGION_PICKER_ID)
+  })
+}())
 
 export const login = () => vueProp.$modal.open({
   component: System.import('components/HiModal/LoginModal'),

@@ -67,6 +67,7 @@ export default require('./index.pug')({
   },
   watch: {
     pickers(pickers) {
+      if (this.changingIndex == null) return
       const index = this.changingIndex + 1
       this.$set(this.pickerList, index, generatePicker(pickers, index))
     }
