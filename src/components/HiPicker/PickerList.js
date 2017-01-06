@@ -18,7 +18,7 @@ export default require('./picker-list.pug')({
     index: Number,
     maxWidth: String,
     title: String,
-    textAlign: [Boolean, String],
+    textAlign: String,
     valueKey: String,
     textKey: String,
     values: Array,
