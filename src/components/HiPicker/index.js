@@ -6,30 +6,22 @@ import {isArray, isObject, isOdd, error} from 'utils'
 
 import classes from './index.styl'
 
-const resetPickerList = pickers => {
-  const pickerList = isArray(pickers) ? [...pickers] : [pickers]
+const generatePicker = (pickers, index) => {
+  const picker = pickers[index]
 
-  const length = pickerList.length
+  const valueKey = picker.valueKey || 'value'
+  const textKey = picker.textKey || 'text'
 
-  const isDouble = length === 2
-
-  pickerList.forEach((picker, index) => {
-    const valueKey = picker.valueKey || 'value'
-    const textKey = picker.textKey || 'text'
-
-    pickerList[index] = {
-      ...picker,
-      valueKey,
-      textKey,
-      textAlign: picker.textAlign || isDouble && (index ? 'left' : 'right'),
-      values: picker.values.map((value, index) => isObject(value) ? {...value} : {
-        [valueKey]: index,
-        [textKey]: value
-      })
-    }
-  })
-
-  return pickerList
+  return {
+    ...picker,
+    valueKey,
+    textKey,
+    textAlign: picker.textAlign || pickers.length === 2 && (index ? 'left' : 'right'),
+    values: picker.values.map((value, index) => isObject(value) ? {...value} : {
+      [valueKey]: index,
+      [textKey]: value
+    })
+  }
 }
 
 export default require('./index.pug')({
@@ -42,7 +34,6 @@ export default require('./index.pug')({
       type: Boolean,
       default: true
     },
-    pickerReset: Boolean,
     pickerTitle: String,
     visibleCount: {
       type: Number,
@@ -51,7 +42,12 @@ export default require('./index.pug')({
     }
   },
   data() {
-    const pickerList = resetPickerList(this.pickers)
+    let pickers = this.pickers
+    pickers = isArray(pickers) ? pickers : [pickers]
+
+    const pickerList = []
+
+    pickers.forEach((picker, index) => pickerList.push(generatePicker(pickers, index)))
 
     return {
       classes,
@@ -78,13 +74,14 @@ export default require('./index.pug')({
     }
   },
   mounted() {
-    if (!this.pickerReset) return
     this.$watch('pickers', pickers => {
-      this.pickerList = resetPickerList(pickers)
+      const index = this.changingIndex + 1
+      this.$set(this.pickerList, index, generatePicker(pickers, index))
     })
   },
   methods: {
     itemChanged(index, value, text) {
+      this.changingIndex = index
       this.result[index] = [value, text]
       this.$emit('itemChanged', ...arguments)
     }

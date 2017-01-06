@@ -80,10 +80,10 @@ export const regionPicker = props => System.import('components/HiPicker/regions'
           originCities = regions[code]
           cities = obj2Arr(originCities, CODE, TEXT)
 
-          pickers[1] = {
+          Vue.set(pickers, 1, {
             valueKey: CODE,
             values: cities
-          }
+          })
 
           originDistricts = regions[cities[0][CODE]]
           break
@@ -93,8 +93,6 @@ export const regionPicker = props => System.import('components/HiPicker/regions'
       }
 
       districts = obj2Arr(originDistricts, CODE, TEXT)
-
-      this.changingIndex = index
 
       Vue.set(pickers, 2, {
         valueKey: CODE,
