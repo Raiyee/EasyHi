@@ -49,7 +49,8 @@ export default require('./picker-list.pug')({
   },
   watch: {
     values() {
-      if (!this.index || this.index === this.changingIndex) return
+      if (this.index <= this.changingIndex) return
+
       this.currIndex = 0
       this.resetTranslateY()
       this.emit()

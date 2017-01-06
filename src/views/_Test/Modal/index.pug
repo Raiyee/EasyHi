@@ -16,3 +16,8 @@ div
   button.btn.btn-theme-default(@click="distPickerModal") DistPicker modal
 
   .theme-color(v-html="promptText")
+
+  hr
+
+  template(v-if="regions && regions.length", v-for="region of regions")
+    | {{ region[1] }}

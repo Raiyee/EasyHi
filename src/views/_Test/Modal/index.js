@@ -1,4 +1,4 @@
-import {alert, confirm, toast, prompt, picker, distPicker, login, closeModal} from 'utils'
+import {alert, confirm, toast, prompt, picker, regionPicker, login, closeModal} from 'utils'
 
 let modalId
 
@@ -44,7 +44,8 @@ export default require('./index.pug')({
           values: ['2015-01', '2015-02', '2015-03', '2015-04', '2015-05', '2015-06'],
           className: 'slot3'
         }
-      ]
+      ],
+      regions: []
     }
   },
   methods: {
@@ -112,9 +113,11 @@ export default require('./index.pug')({
       })
     },
     distPickerModal() {
-      distPicker({
+      const self = this
+      regionPicker({
         confirm() {
-          console.log(this.result)
+          self.regions = this.result
+          closeModal()
         }
       })
     }

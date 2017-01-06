@@ -44,17 +44,17 @@ export const picker = props => vueProp.$modal.open({
   }
 })
 
-export const distPicker = props => System.import('components/HiPicker/districts').then(all => {
+export const regionPicker = props => System.import('components/HiPicker/regions').then(regions => {
   const CODE = 'code'
   const TEXT = 'text'
 
-  const origProvinces = all[100000]
+  const origProvinces = regions[100000]
   const provinces = obj2Arr(origProvinces, CODE, TEXT)
 
-  let originCities = all[provinces[0][CODE]]
+  let originCities = regions[provinces[0][CODE]]
   let cities = obj2Arr(originCities, CODE, TEXT)
 
-  let originDistricts = all[cities[0][CODE]]
+  let originDistricts = regions[cities[0][CODE]]
   let districts = obj2Arr(originDistricts, CODE, TEXT)
 
   const pickers = [{
@@ -73,9 +73,11 @@ export const distPicker = props => System.import('components/HiPicker/districts'
     pickerDivider: false,
     pickers,
     pickerChanged(index, code) {
+      if (index === 2) return
+
       switch (index) {
         case (0):
-          originCities = all[code]
+          originCities = regions[code]
           cities = obj2Arr(originCities, CODE, TEXT)
 
           pickers[1] = {
@@ -83,30 +85,21 @@ export const distPicker = props => System.import('components/HiPicker/districts'
             values: cities
           }
 
-          originDistricts = all[cities[0][CODE]]
-          districts = obj2Arr(originDistricts, CODE, TEXT)
-
-          pickers.changingIndex = 0
-
-          Vue.set(pickers, 2, {
-            valueKey: CODE,
-            values: districts
-          })
-
+          originDistricts = regions[cities[0][CODE]]
           break
         case (1):
-          originDistricts = all[code]
-          districts = obj2Arr(originDistricts, CODE, TEXT)
-
-          pickers.changingIndex = 1
-
-          Vue.set(pickers, 2, {
-            valueKey: CODE,
-            values: districts
-          })
-
+          originDistricts = regions[code]
           break
       }
+
+      districts = obj2Arr(originDistricts, CODE, TEXT)
+
+      this.changingIndex = index
+
+      Vue.set(pickers, 2, {
+        valueKey: CODE,
+        values: districts
+      })
     }
   }))
 })

@@ -13,14 +13,14 @@ export default require('./picker-modal.pug')({
   },
   methods: {
     closePicker() {
-      this.close ? this.close.call(this.$refs.picker, ...arguments) : this.$modal.close()
+      this.close ? this.close.apply(this.$refs.picker, arguments) : this.$modal.close()
     },
     confirmPicker() {
-      this.confirm ? this.confirm.call(this.$refs.picker, ...arguments)
+      this.confirm ? this.confirm.apply(this.$refs.picker, arguments)
         : error('you should handle the click event on the confirm btn by yourself!')
     },
     itemChanged() {
-      this.pickerChanged && this.pickerChanged(...arguments)
+      this.pickerChanged && this.pickerChanged.apply(this.$refs.picker, arguments)
     }
   },
   components: {

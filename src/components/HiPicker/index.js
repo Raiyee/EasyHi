@@ -55,8 +55,8 @@ export default require('./index.pug')({
 
     return {
       classes,
-      pickerList,
       changingIndex: null,
+      pickerList,
       result: pickerList.map(picker => {
         const currIndex = picker.defaultIndex || 0
         const value = picker.values[currIndex]
@@ -77,15 +77,11 @@ export default require('./index.pug')({
       return (baseWidth - offset) / length + 'px'
     }
   },
-  watch: {
-    pickers: {
-      deep: true,
-      handler(pickers) {
-        if (!this.pickerReset) return
-        this.changingIndex = pickers.changingIndex
-        this.pickerList = resetPickerList(pickers)
-      }
-    }
+  mounted() {
+    if (!this.pickerReset) return
+    this.$watch('pickers', pickers => {
+      this.pickerList = resetPickerList(pickers)
+    })
   },
   methods: {
     itemChanged(index, value, text) {
