@@ -3,6 +3,7 @@ div(:class="[classes.pickers]")
   template(v-for="(pickerListData, index) of pickerList")
     picker-list(v-bind="pickerListData",
     :index="index",
+    :maxWidth="maxWidth",
     :hasTitle="hasTitle",
     :visibleCount="visibleCount",
     @itemChanged="itemChanged")

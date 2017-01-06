@@ -1,3 +1,5 @@
+import {mapGetters} from 'vuex'
+
 import PickerList from './PickerList'
 
 import {isArray, isObject, isOdd, error} from 'utils'
@@ -29,17 +31,17 @@ export default require('./index.pug')({
     const isDouble = length === 2
 
     pickerList.forEach((picker, index) => {
-      const valueKey = picker.valueKey || 'key'
-      const valueText = picker.valueText || 'value'
+      const valueKey = picker.valueKey || 'value'
+      const textKey = picker.textKey || 'text'
 
       pickerList[index] = {
         ...picker,
         valueKey,
-        valueText,
+        textKey,
         textAlign: picker.textAlign || isDouble && (index ? 'left' : 'right'),
         values: picker.values.map((value, index) => isObject(value) ? {...value} : {
           [valueKey]: index,
-          [valueText]: value
+          [textKey]: value
         })
       }
     })
@@ -50,13 +52,21 @@ export default require('./index.pug')({
       result: pickerList.map(picker => {
         const currIndex = picker.defaultIndex || 0
         const value = picker.values[currIndex]
-        return [value[picker.valueKey], value[picker.valueText]]
+        return [value[picker.valueKey], value[picker.textKey]]
       })
     }
   },
   computed: {
+    ...mapGetters(['appWidth', 'rem']),
     hasTitle() {
       return !!(this.pickerTitle || this.pickers.find(picker => picker.title))
+    },
+    maxWidth() {
+      const placeholderWith = 30 * this.rem
+      const baseWidth = this.appWidth - placeholderWith
+      const length = this.pickerList.length
+      const offset = this.pickerDivider && placeholderWith * (length - 1)
+      return (baseWidth - offset) / length + 'px'
     }
   },
   watch: {
@@ -65,8 +75,8 @@ export default require('./index.pug')({
     }
   },
   methods: {
-    itemChanged(index, valueKey, valueText) {
-      this.result[index] = [valueKey, valueText]
+    itemChanged(index, value, text) {
+      this.result[index] = [value, text]
       this.$emit('itemChanged', ...arguments)
     }
   },

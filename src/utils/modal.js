@@ -45,29 +45,33 @@ export const picker = props => vueProp.$modal.open({
 })
 
 export const distPicker = props => System.import('components/HiPicker/districts').then(all => {
+  const CODE = 'code'
+  const TEXT = 'text'
+
   const origProvinces = all[100000]
-  const provinces = obj2Arr(origProvinces)
+  const provinces = obj2Arr(origProvinces, CODE, TEXT)
 
-  const originCities = all[provinces[0].key]
-  const cities = obj2Arr(originCities)
+  const originCities = all[provinces[0][CODE]]
+  const cities = obj2Arr(originCities, CODE, TEXT)
 
-  const originDistricts = all[cities[0].key]
-  const districts = obj2Arr(originDistricts)
-
-  console.log(districts)
+  const originDistricts = all[cities[0][CODE]]
+  const districts = obj2Arr(originDistricts, CODE, TEXT)
 
   return picker(Object.assign(props, {
-    pickers: [
-      {
-        values: provinces
-      },
-      {
-        values: cities
-      },
-      {
-        values: districts
-      }
-    ]
+    pickerDivider: false,
+    pickers: [{
+      valueKey: CODE,
+      values: provinces
+    }, {
+      valueKey: CODE,
+      values: cities
+    }, {
+      valueKey: CODE,
+      values: districts
+    }],
+    pickerChanged() {
+      console.log(arguments)
+    }
   }))
 })
 

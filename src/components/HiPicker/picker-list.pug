@@ -3,9 +3,9 @@ div(:class="[classes.pickerList, className, `text-${textAlign || 'center'}`]",
 v-touch="{methods: true}")
   div(:class="classes.pickerContainer")
     div(v-if="hasTitle", :class="classes.pickerTitle") {{ title || '&nbsp;' }}
-    div(:class="classes.pickerContent", :style="{height}")
+    div(:class="classes.pickerContent", :style="{height, maxWidth}")
       .border-tb(:class="classes.pickerHighlight")
       ul.list-unstyled(:class="classes.pickerItems", :style="{transform}")
         li(v-for="(value, index) of values",
         :class="[classes.pickerItem, {'theme-color': currIndex === index}]",
-        @tap="tapItem(index)") {{ value[valueText] }}
+        @tap="tapItem(index)") {{ value[textKey] }}

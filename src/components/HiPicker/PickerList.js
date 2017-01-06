@@ -15,10 +15,11 @@ export default require('./picker-list.pug')({
     flex: Number,
     hasTitle: Boolean,
     index: Number,
+    maxWidth: String,
     title: String,
     textAlign: [Boolean, String],
     valueKey: String,
-    valueText: String,
+    textKey: String,
     values: Array,
     visibleCount: REQUIRED_NUMBER
   },
@@ -75,7 +76,7 @@ export default require('./picker-list.pug')({
     },
     emit() {
       const value = this.values[this.currIndex]
-      this.$emit('itemChanged', this.index, value[this.valueKey], value[this.valueText])
+      this.$emit('itemChanged', this.index, value[this.valueKey], value[this.textKey])
     },
     tapItem(index) {
       const prevIndex = this.currIndex
