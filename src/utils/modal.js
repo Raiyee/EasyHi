@@ -70,6 +70,8 @@ export const regionPicker = (function () {
     return regionIndex >= 0 ? regionIndex : 0
   }
 
+  let timeout
+
   return (props, defaults = []) => System.import('components/HiPicker/regions').then(regions => {
     if (vueProp.$modal.existModal(REGION_PICKER_ID)) return picker(null, NOT_DESTROY, REGION_PICKER_ID)
 
@@ -131,11 +133,13 @@ export const regionPicker = (function () {
 
         if (!IS_ANDROID_TBS) return
 
-        log('hacking Android TBS!')
-
-        const regionModal = vueProp.$modal.getModalEl(REGION_PICKER_ID)
-        document.body.appendChild(regionModal)
-        document.getElementById('modal').appendChild(regionModal)
+        clearTimeout(timeout)
+        timeout = setTimeout(() => {
+          log('hacking Android TBS!')
+          const regionModal = vueProp.$modal.getModalEl(REGION_PICKER_ID)
+          document.body.appendChild(regionModal)
+          document.getElementById('modal').appendChild(regionModal)
+        }, 0)
       },
       confirm() {
         this.changingIndex = null
