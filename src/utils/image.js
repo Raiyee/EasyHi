@@ -45,9 +45,9 @@ export const drawImageFix = (function () {
 
 // eslint-disable-next-line max-params
 export function resizeImg(url, success, error, imgType, width, height) {
-  const img = new Image()
+  const img = new Image();
 
-  if (/^https?:\/\//i.test(url)) img.crossOrigin = 'Anonymous'
+  /^https?:\/\//i.test(url) && (img.crossOrigin = 'Anonymous')
 
   one(img, 'load', function () {
     const imgWidth = this.width
