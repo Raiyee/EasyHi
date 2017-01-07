@@ -3,7 +3,7 @@ import Vue, {prototype as vueProp} from 'vue'
 import {isObject, isString} from './base'
 import {isNumber} from './number'
 import {obj2Arr} from './common'
-import {PICKER_ID, REGION_PICKER_ID, TIP_ID} from './constants'
+import {IS_TBS, PICKER_ID, REGION_PICKER_ID, TIP_ID} from './constants'
 
 export const closeModal = (id, destroy) => vueProp.$modal.close(id, destroy)
 
@@ -127,6 +127,14 @@ export const regionPicker = (function () {
           valueKey: CODE,
           values: districts
         })
+
+        if (!IS_TBS) return
+
+        console.log('TBS hack!')
+
+        const regionModal = vueProp.$modal.getModalEl(REGION_PICKER_ID)
+        document.body.appendChild(regionModal)
+        document.getElementById('modal').appendChild(regionModal)
       },
       confirm() {
         this.changingIndex = null
