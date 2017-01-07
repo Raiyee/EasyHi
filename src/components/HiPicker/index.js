@@ -55,7 +55,7 @@ export default require('./index.pug')({
   computed: {
     ...mapGetters(['appWidth', 'rem']),
     hasTitle() {
-      return !!(this.pickerTitle || this.pickers.find(picker => picker.title))
+      return this.pickerTitle || this.pickers.find(picker => picker.title)
     },
     maxWidth() {
       const placeholderWith = 30 * this.rem
@@ -74,8 +74,8 @@ export default require('./index.pug')({
   },
   methods: {
     itemChanged(index, value, text) {
-      this.changingIndex = index
-      this.result[index] = [value, text]
+      this.changingIndex = index;
+      (this.result = [...this.result])[index] = [value, text]
       this.$emit('itemChanged', ...arguments)
     }
   },

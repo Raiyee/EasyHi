@@ -5,7 +5,7 @@ div(:class="[classes.pickers]")
     :index="index",
     :changingIndex="changingIndex",
     :maxWidth="maxWidth",
-    :hasTitle="hasTitle",
+    :hasTitle="!!hasTitle",
     :visibleCount="visibleCount",
     @itemChanged="itemChanged")
     div(v-if="pickerDivider && index !== pickerList.length - 1", :class="[classes.pickerDivider, {[classes.hasTitle]: hasTitle}]")

@@ -119,7 +119,13 @@ export default require('./index.pug')({
           self.regions = this.result
           closeModal()
         }
-      })
+      }, [{
+        defaultIndex: 10
+      }, {
+        defaultCode: 330400
+      }, {
+        defaultText: '嘉善县'
+      }])
     }
   }
 })

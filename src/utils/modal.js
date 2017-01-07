@@ -1,6 +1,7 @@
 import Vue, {prototype as vueProp} from 'vue'
 
-import {isString} from './base'
+import {isObject, isString} from './base'
+import {isNumber} from './number'
 import {obj2Arr} from './common'
 import {PICKER_ID, REGION_PICKER_ID, TIP_ID} from './constants'
 
@@ -45,32 +46,56 @@ export const picker = (props, options, id) => vueProp.$modal.open({
 })
 
 export const regionPicker = (function () {
+  const CODE = 'code'
+  const TEXT = 'text'
   const NOT_DESTROY = {destroy: false}
 
-  return props => System.import('components/HiPicker/regions').then(regions => {
-    if (vueProp.$modal.existModal(REGION_PICKER_ID)) return picker(null, NOT_DESTROY, REGION_PICKER_ID)
+  const getRegionIndex = (regions, originRegions, defaultRegion) => {
+    if (!isObject(defaultRegion)) return 0
 
-    const CODE = 'code'
-    const TEXT = 'text'
+    let regionIndex = 0
+
+    const {defaultIndex, defaultCode, defaultText} = defaultRegion
+
+    if (isNumber(defaultIndex) && regions[defaultIndex]) {
+      regionIndex = defaultIndex
+    } else if (originRegions[defaultCode]) {
+      // code in region object is key, so it is string, defaultCode could be a number or a string either
+      regionIndex = regions.findIndex(region => +region[CODE] === +defaultCode)
+    } else if (defaultText) {
+      regionIndex = regions.findIndex(region => region[TEXT] === defaultText)
+    }
+
+    return regionIndex >= 0 ? regionIndex : 0
+  }
+
+  return (props, defaults = []) => System.import('components/HiPicker/regions').then(regions => {
+    if (vueProp.$modal.existModal(REGION_PICKER_ID)) return picker(null, NOT_DESTROY, REGION_PICKER_ID)
 
     const origProvinces = regions[100000]
     const provinces = obj2Arr(origProvinces, CODE, TEXT)
+    const provinceIndex = getRegionIndex(provinces, origProvinces, defaults[0])
 
-    let originCities = regions[provinces[0][CODE]]
+    let originCities = regions[provinces[provinceIndex][CODE]]
     let cities = obj2Arr(originCities, CODE, TEXT)
+    const cityIndex = getRegionIndex(cities, originCities, defaults[1])
 
-    let originDistricts = regions[cities[0][CODE]]
+    let originDistricts = regions[cities[cityIndex][CODE]]
     let districts = obj2Arr(originDistricts, CODE, TEXT)
+    const districtIndex = getRegionIndex(districts, originDistricts, defaults[2])
 
     const pickers = [{
       valueKey: CODE,
-      values: provinces
+      values: provinces,
+      defaultIndex: provinceIndex
     }, {
       valueKey: CODE,
-      values: cities
+      values: cities,
+      defaultIndex: cityIndex
     }, {
       valueKey: CODE,
-      values: districts
+      values: districts,
+      defaultIndex: districtIndex
     }]
 
     return picker(Object.assign({}, props, {
