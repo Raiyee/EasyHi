@@ -6,7 +6,7 @@ Vue.use(VueRouter)
 
 import {dispatch, getters} from 'store'
 import routes from './routes'
-import utils, {alert, changeTitle, isArray, isFunction} from 'utils'
+import utils, {alert, changeTitle, closeModal, isArray, isFunction, TIP_ID} from 'utils'
 
 dispatch('parsePath', location.pathname)
 
@@ -44,6 +44,8 @@ const resolveData = (data, meta, next) => {
 const BG = 'bg'
 
 const resolveRoute = (to, from, next) => {
+  closeModal() && closeModal(TIP_ID)
+
   dispatch('setProgress', 50)
 
   const meta = to.meta

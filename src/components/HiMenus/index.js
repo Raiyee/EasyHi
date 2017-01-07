@@ -5,6 +5,7 @@ import ModalItem from 'components/HiModal/ModalItem'
 import classes from './index.styl'
 
 export default require('./index.pug')({
+  name: 'hi-menus',
   data: () => ({
     classes,
     menus: [{
