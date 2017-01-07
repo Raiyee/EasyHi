@@ -6,7 +6,7 @@ const Random = Mock.Random
 
 const VERIFICATION = 'VERIFICATION'
 const correctCode = 345678
-const verificationCache = getItem(VERIFICATION) || setItem(VERIFICATION, {})
+const verificationCache = getItem(VERIFICATION) || {}
 
 const minusTimeLint = verification => {
   const intervalId = setInterval(() => {
