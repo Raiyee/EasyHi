@@ -5,6 +5,7 @@ import classes from './coach-item.styl'
 import {REQUIRED_OBJECT} from 'utils'
 
 export default require('./coach-item.pug')({
+  name: 'coach-item',
   props: {
     activeCoachId: String,
     coachItem: REQUIRED_OBJECT

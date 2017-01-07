@@ -3,7 +3,7 @@ import {mapGetters, mapActions} from 'vuex'
 import classes from './index.styl'
 
 export default require('./index.pug')({
-  name: 'login',
+  name: 'hi-login',
   data() {
     return {
       classes,
@@ -13,8 +13,8 @@ export default require('./index.pug')({
     }
   },
   props: {
-    confirmName: String,
-    confirmBehavior: Function
+    confirmText: String,
+    confirm: Function
   },
   created() {
     this.loginMobile = this.mobile
@@ -63,7 +63,7 @@ export default require('./index.pug')({
         if (error) return this.$util.alert(error)
         __MOCK__ && require('utils/json').setItems({mobile})
         this.resetRole(Object.assign({mobile}, data))
-        this.confirmBehavior && this.confirmBehavior()
+        this.confirm && this.confirm()
       })
     }
   },

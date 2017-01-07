@@ -3,6 +3,7 @@ import {mapGetters, mapActions} from 'vuex'
 import classes from './index.styl'
 
 export default require('./index.pug')({
+  name: 'floating-menu',
   data: () => ({classes}),
   computed: {
     ...mapGetters(['rem', 'currRole', 'isAdmin', 'menuOpen', 'menuShow', 'subscribeType']),

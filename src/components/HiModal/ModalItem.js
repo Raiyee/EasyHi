@@ -2,6 +2,7 @@ import {isEmptyStr, warn, error} from 'utils'
 import classes from './modal-item.styl'
 
 export default require('./modal-item.pug')({
+  name: 'modal-item',
   props: {
     id: [Number, String],
     header: [Boolean, String],

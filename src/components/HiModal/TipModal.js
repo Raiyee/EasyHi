@@ -3,7 +3,7 @@ import ModalItem from 'components/HiModal/ModalItem'
 import classes from './tip-modal.styl'
 
 export default require('./tip-modal.pug')({
-  name: 'prompt',
+  name: 'tip-modal',
   props: {
     tipText: String,
     confirm: Function,

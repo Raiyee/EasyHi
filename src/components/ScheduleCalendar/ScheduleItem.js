@@ -3,6 +3,7 @@ import classes from './schedule-item.styl'
 import {REQUIRED_NUMBER, REQUIRED_STRING} from 'utils'
 
 export default require('./schedule-item.pug')({
+  name: 'schedule-item',
   props: {
     coursePicUrl: REQUIRED_STRING,
     scheduleBooked: REQUIRED_NUMBER,

@@ -1,7 +1,7 @@
 export default {
-  path: '/member-subscribe/:courseTypeId(\\d+)?/:date(\\d{4}-\\d{2}-\\d{2})?',
-  name: 'memberSubscribe',
-  component: () => System.import('views/MemberSubscribe'),
+  path: '/subscribe-schedule/:courseTypeId(\\d+)?/:date(\\d{4}-\\d{2}-\\d{2})?',
+  name: 'subscribeSchedule',
+  component: () => System.import('views/SubscribeSchedule'),
   meta: {
     init: {
       url: '/get-schedules'

@@ -7,6 +7,7 @@ import classes from './calendar.styl'
 const periodWidth = 7 * 50 + 5
 
 export default require('./calendar.pug')({
+  name: 'calendar',
   props: {
     calendar: Array,
     activeIndex: Number,

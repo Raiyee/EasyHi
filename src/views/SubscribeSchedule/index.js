@@ -7,7 +7,7 @@ import classes from './index.styl'
 import {omitObj, replaceRoute} from 'utils'
 
 export default require('./index.pug')({
-  name: 'member-subscribe',
+  name: 'subscribe-schedule',
   data() {
     const route = this.$route
     const params = route.params
@@ -61,11 +61,11 @@ export default require('./index.pug')({
             courseTypeIndex: this.courseTypes.findIndex(courseType => courseTypeId === courseType.courseTypeId)
           })
           this.toggleSubscribeType(this.courseTypes[this.courseTypeIndex].subscribeType)
-          replaceRoute(`/member-subscribe/${this.courseTypeId}`)
+          replaceRoute(`/subscribe-schedule/${this.courseTypeId}`)
         })
     },
     toggleActiveDate(activeDate) {
-      replaceRoute(`/member-subscribe/${this.courseTypeId}/${activeDate}`)
+      replaceRoute(`/subscribe-schedule/${this.courseTypeId}/${activeDate}`)
     }
   },
   components: {

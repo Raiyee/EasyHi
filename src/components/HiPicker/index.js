@@ -25,6 +25,7 @@ const generatePicker = (pickers, index) => {
 }
 
 export default require('./index.pug')({
+  name: 'hi-picker',
   props: {
     pickers: REQUIRED_ARRAY,
     pickerDivider: {

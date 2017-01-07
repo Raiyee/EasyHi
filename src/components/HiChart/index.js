@@ -35,6 +35,7 @@ const MOUSE_EVENTS = [
   'globalout'
 ]
 export default require('./index.pug')({
+  name: 'hi-chart',
   props: ['options', 'theme', 'initOptions', 'group'],
   data() {
     return {

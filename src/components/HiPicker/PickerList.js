@@ -5,6 +5,7 @@ import {REQUIRED_NUMBER, intervalVal, isJsonSame} from 'utils'
 import classes from './picker-list.styl'
 
 export default require('./picker-list.pug')({
+  name: 'picker-list',
   props: {
     changingIndex: Number,
     className: [Array, String, Object],

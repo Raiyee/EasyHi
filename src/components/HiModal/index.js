@@ -3,6 +3,7 @@ import Vue from 'vue'
 import {addClass, isPromise, pickObj, removeClass, ensure, TIP_ID} from 'utils'
 
 export default require('./index.pug')({
+  name: 'hi-modal',
   beforeCreate() {
     Object.defineProperty(Vue.prototype, '$modal', {
       value: this,
@@ -37,7 +38,9 @@ export default require('./index.pug')({
       if (!modal) return
       const {options, props} = modal
       options.show = false
-      const callback = () => { options.destroy || destroy ? this.removeModal(modalId) : this.resetCurrModal(modalId) }
+      const callback = () => {
+        options.destroy || destroy ? this.removeModal(modalId) : this.resetCurrModal(modalId)
+      }
       props && props.transition
         ? ensure(this.$refs.modal[index].$el, 'animationend transitionend', callback) : callback()
     },

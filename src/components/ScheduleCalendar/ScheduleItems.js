@@ -5,6 +5,7 @@ import ScheduleItem from './ScheduleItem'
 import {REQUIRED_ARRAY, REQUIRED_BOOLEAN, REQUIRED_NUMBER, REQUIRED_STRING} from 'utils'
 
 export default require('./schedule-items.pug')({
+  name: 'schedule-items',
   props: {
     date: REQUIRED_STRING,
     itemsHeight: REQUIRED_NUMBER,

@@ -18,7 +18,7 @@ const statusText = (status, date) => {
 }
 
 export default require('./calendar-item.pug')({
-  name: 'schedule-calendar-item',
+  name: 'calendar-item',
   props: {
     active: REQUIRED_BOOLEAN,
     date: REQUIRED_STRING,

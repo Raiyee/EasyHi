@@ -1,13 +1,13 @@
-import Login from 'components/HiLogin'
+import HiLogin from 'components/HiLogin'
 
-export default {
-  template: '<Login confirmName="登录" :confirmBehavior="confirmBehavior"></Login>',
+export default require('./index.pug')({
+  name: 'login',
   methods: {
-    confirmBehavior() {
+    confirm() {
       this.$router.replace(this.$route.query.from || '/')
     }
   },
   components: {
-    Login
+    HiLogin
   }
-}
+})
