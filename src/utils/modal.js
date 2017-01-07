@@ -3,7 +3,8 @@ import Vue, {prototype as vueProp} from 'vue'
 import {isObject, isString} from './base'
 import {isNumber} from './number'
 import {obj2Arr} from './common'
-import {IS_TBS, PICKER_ID, REGION_PICKER_ID, TIP_ID} from './constants'
+import {IS_ANDROID_TBS, PICKER_ID, REGION_PICKER_ID, TIP_ID} from './constants'
+import {log} from './console'
 
 export const closeModal = (id, destroy) => vueProp.$modal.close(id, destroy)
 
@@ -128,9 +129,9 @@ export const regionPicker = (function () {
           values: districts
         })
 
-        if (!IS_TBS) return
+        if (!IS_ANDROID_TBS) return
 
-        console.log('TBS hack!')
+        log('hacking Android TBS!')
 
         const regionModal = vueProp.$modal.getModalEl(REGION_PICKER_ID)
         document.body.appendChild(regionModal)
