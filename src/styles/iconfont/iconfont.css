@@ -16,9 +16,13 @@
 }
 .icon-check:before { content: "\e60a"; }
 
+.icon-bianji:before { content: "\e630"; }
+
 .icon-book:before { content: "\e613"; }
 
 .icon-radio:before { content: "\e609"; }
+
+.icon-shanchu:before { content: "\e61a"; }
 
 .icon-close:before { content: "\e60c"; }
 
@@ -71,6 +75,10 @@
 .icon-speaker:before { content: "\e6fe"; }
 
 .icon-card:before { content: "\e6ff"; }
+
+.icon-xiangshang1:before { content: "\e677"; }
+
+.icon-xiangxia1:before { content: "\e678"; }
 
 .icon-booking:before { content: "\e72e"; }
 

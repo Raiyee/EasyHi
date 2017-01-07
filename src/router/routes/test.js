@@ -17,4 +17,7 @@ export default [{
 }, {
   path: '/modal',
   component: () => System.import('views/_Test/Modal')
+}, {
+  path: '/operator-menu',
+  component: () => System.import('views/_Test/OperatorMenu')
 }]
