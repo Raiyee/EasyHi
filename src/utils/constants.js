@@ -25,3 +25,5 @@ export const EMPTY_IMG = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAA
 export const MOBILE_REGEX = /^1[35789]\d{9}$/
 
 export const DATE_REGEX = /^(19|20)\d{2}[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])$/
+
+export const IS_TBS = /MQQBrowser/i.test(navigator.userAgent)

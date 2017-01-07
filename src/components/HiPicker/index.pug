@@ -1,4 +1,4 @@
-div(:class="[classes.pickers]")
+div(:class="[classes.pickers, {[classes.tbs]: $util.IS_TBS && changingIndex != null}]")
   div(v-if="pickerTitle", :class="classes.pickersTitle") {{ pickerTitle }}
   template(v-for="(pickerListData, index) of pickerList")
     picker-list(v-bind="pickerListData",

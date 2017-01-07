@@ -1,4 +1,4 @@
-div(:class="[classes.pickerList, className, `text-${textAlign}`]",
+div(:class="[classes.pickerList, `text-${textAlign}`, {[classes.tbs]: $util.IS_TBS && changingIndex != null}, className]",
 :style="{flex}",
 v-touch="{methods: true}")
   div(:class="classes.pickerContainer")
