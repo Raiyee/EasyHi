@@ -1,7 +1,5 @@
 import Vue from 'vue'
 
-import {EMPTY_IMG} from './constants'
-
 export const changeTitle = title => {
   document.title = title
 
@@ -9,7 +7,7 @@ export const changeTitle = title => {
 
   const iframe = document.createElement('iframe')
 
-  iframe.src = EMPTY_IMG
+  iframe.src = '//m.baidu.com/favicon.ico'
   iframe.style.display = 'none'
 
   const {body} = document
