@@ -7,7 +7,6 @@ import router from 'router'
 import App from 'views/App'
 
 import utils, {deleteItem, on, throttle} from 'utils'
-import {PERMISSION} from 'store/constants'
 
 Object.defineProperty(Vue.prototype, '$util', {
   value: utils,
@@ -33,9 +32,8 @@ on(document, 'click', () => getters.menuOpen && dispatch('toggleMenuOpen', false
 resize()
 
 utils.logout = () => {
-  store.dispatch('setEnv', {authorized: false, mobile: null})
   store.dispatch('resetRole')
-  deleteItem(PERMISSION)
+  __MOCK__ && deleteItem('mobile')
   location.reload()
 }
 

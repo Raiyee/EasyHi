@@ -1,4 +1,5 @@
 import {isObject} from './base'
+import {each} from './common'
 
 class JsonLoop {
   constructor(json, level = Infinity) {
@@ -37,6 +38,14 @@ export const parseJsonLoop = (data, level) => new JsonLoop(data, level).parse()
 export const getItem = (key, level) => parseJsonLoop(localStorage.getItem(key), level)
 
 export const setItem = (key, data) => localStorage.setItem(key, JSON.stringify(data)) || getItem(key)
+
+export const setItems = val => {
+  const result = []
+  each(val, (data, key) => {
+    result.push(setItem(key, data))
+  })
+  return setItems
+}
 
 export const deleteItem = key => delete localStorage[key]
 

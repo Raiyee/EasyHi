@@ -8,8 +8,6 @@ export const MEMBER = 'MEMBER'
 export const VISITOR = 'VISITOR'
 export const OTHER = 'OTHER'
 
-export const PERMISSION = 'PERMISSION'
-
 export const ROLES = {ADVISOR, COACH, MERCHANT, MEMBER, OTHER, SERVICE, VISITOR, MANAGER}
 export const ROLE_NAMES = {
   [ADVISOR]: '会籍',

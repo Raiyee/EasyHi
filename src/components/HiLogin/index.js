@@ -61,8 +61,8 @@ export default require('./index.pug')({
       }).then(({data}) => {
         const {error} = data
         if (error) return this.$util.alert(error)
-        this.setEnv({mobile, authorized: true})
-        this.resetRole(data)
+        __MOCK__ && require('utils/json').setItems({mobile})
+        this.resetRole(Object.assign({mobile}, data))
         this.confirmBehavior && this.confirmBehavior()
       })
     }

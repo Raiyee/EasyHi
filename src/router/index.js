@@ -114,7 +114,7 @@ router.beforeEach((to, from, next) => {
   if (getters.initialized) return resolveRoute(to, from, next)
 
   axios.post(`center/${getters.tcode || ''}/initialize/get-base-data`)
-    .then(({data: {error, coachAlias, currentRole, merchantName, roles, theme}}) => {
+    .then(({data: {error, coachAlias, currentRole, merchantName, mobile, roles, theme}}) => {
       if (error) return router.history.updateRoute(NOT_FOUND_ROUTE)
 
       changeTitle(merchantName)
@@ -122,7 +122,7 @@ router.beforeEach((to, from, next) => {
       System.import(`styles/theme-${theme}`)
 
       dispatch('initialize', {coachAlias, merchantName})
-      currentRole && dispatch('resetRole', {currentRole, roles})
+      currentRole && dispatch('resetRole', {currentRole, roles, mobile})
 
       resolveRoute(to, from, next)
     })

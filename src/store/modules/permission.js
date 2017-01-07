@@ -7,6 +7,7 @@ const {COACH, VISITOR, MANAGER, SERVICE, MERCHANT} = ROLES
 const PARSE_PATH = 'PARSE_PATH'
 const SET_ROLES = 'SET_ROLES'
 const SET_CURRENT_ROLES = 'SET_CURRENT_ROLES'
+const SET_MOBILE = 'SET_MOBILE'
 const INITIALIZE = 'INITIALIZE'
 const TOGGLE_SUBSCRIBE_TYPE = 'TOGGLE_SUBSCRIBE_TYPE'
 const TOGGLE_MENU_OPEN = 'TOGGLE_MENU_OPEN'
@@ -30,6 +31,8 @@ let isStatic
 let suffix
 
 const state = Object.assign({
+  mobile: null,
+  authorized: false,
   roles: [VISITOR],
   currentRole: VISITOR,
   currentRoleName: ROLE_NAMES[VISITOR],
@@ -43,6 +46,8 @@ const state = Object.assign({
 }, INIT_STATE)
 
 const getters = {
+  mobile: state => state.mobile,
+  authorized: state => state.authorized,
   ctx: state => state.ctx,
   tcode: state => state.tcode,
   base: state => state.base,
@@ -86,9 +91,13 @@ const actions = {
   setCurrentRole({commit}, currentRole = VISITOR) {
     commit(SET_CURRENT_ROLES, currentRole)
   },
-  resetRole({dispatch}, {roles, currentRole} = {}) {
+  setMobile({commit}, mobile) {
+    commit(SET_MOBILE, mobile)
+  },
+  resetRole({dispatch}, {roles, currentRole, mobile} = {}) {
     dispatch('setRoles', roles)
     dispatch('setCurrentRole', currentRole)
+    dispatch('setMobile', mobile)
   },
   toggleMenuOpen({commit}, menuOpen) {
     commit(TOGGLE_MENU_OPEN, menuOpen)
@@ -103,6 +112,9 @@ const mutations = {
     base = payload.base
     Object.assign(state, payload)
     Object.assign(utils, payload)
+  },
+  [SET_MOBILE](state, mobile) {
+    state.authorized = !!(state.mobile = mobile)
   },
   [INITIALIZE](state, {coachAlias, merchantName}) {
     coachAlias && (ROLE_NAMES[COACH] = coachAlias)
