@@ -1,7 +1,5 @@
-import {ROLES} from 'utils'
-
 // eslint-disable-next-line no-unused-vars
-const {ADVISOR, COACH, MERCHANT, MEMBER, SERVICE, VISITOR} = ROLES
+import {ADVISOR, COACH, MERCHANT, MEMBER, SERVICE, VISITOR} from 'utils'
 
 export default [{
   path: '/member-index',

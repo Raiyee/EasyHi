@@ -1,8 +1,6 @@
 import Mock, {Random} from 'mockjs'
 
-import {PERMISSIONS, ROLES, getItem} from 'utils'
-
-const {VISITOR} = ROLES
+import {PERMISSIONS, VISITOR, getItem} from 'utils'
 
 const TCODES = [12345678910]
 

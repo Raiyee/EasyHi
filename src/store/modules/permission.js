@@ -1,8 +1,6 @@
-import {ROLES, ROLE_NAMES, STAFFS} from '../constants'
+import {COACH, VISITOR, MANAGER, SERVICE, MERCHANT, ROLE_NAMES, STAFFS} from '../constants'
 
 import utils from 'utils'
-
-const {COACH, VISITOR, MANAGER, SERVICE, MERCHANT} = ROLES
 
 const PARSE_PATH = 'PARSE_PATH'
 const SET_ROLES = 'SET_ROLES'
