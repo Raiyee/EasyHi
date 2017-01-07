@@ -32,7 +32,7 @@ export default require('./index.pug')({
       modalId = modalId || this.currModalId
       if (!modalId) return
       let modal
-      const index = this.modalIndex(modalId)
+      const index = this.getModalIndex(modalId)
       index === -1 || (modal = this.modals[index])
       if (!modal) return
       const {options, props} = modal
@@ -48,16 +48,8 @@ export default require('./index.pug')({
       this.modals.splice(this.modals.findIndex(m => m.id === modalId), 1)
       this.resetCurrModal(modalId)
     },
-    modalIndex(modalId) {
+    getModalIndex(modalId) {
       return this.modals.findIndex(m => m.id === modalId)
-    },
-    existModal(modalId) {
-      return this.modalIndex(modalId) !== -1
-    },
-    getModalEl(modalId) {
-      const index = this.modalIndex(modalId)
-      if (index === -1) return
-      return this.$refs.modal[index].$el
     },
     mount(modal) {
       const modalId = modal.id
