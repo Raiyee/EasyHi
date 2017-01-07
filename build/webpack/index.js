@@ -223,6 +223,7 @@ if (__DEV__ || __TESTING__) {
   debug(`Extract styles of app and bootstrap for ${NODE_ENV}.`)
   webpackConfig.plugins.push(
     new webpack.optimize.UglifyJsPlugin({
+      mangle: !sourceMap,
       compress: {
         unused: true,
         dead_code: true,
