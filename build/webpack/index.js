@@ -227,7 +227,8 @@ if (__DEV__ || __TESTING__) {
         unused: true,
         dead_code: true,
         warnings: false
-      }
+      },
+      sourceMap
     }),
     // 将 bootstrap 和 app 分别导出到单独的文件中, 这里的顺序就是被注入到 HTML 中时加载的顺序
     bootstrapLoader,
