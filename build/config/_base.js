@@ -51,9 +51,7 @@ const config = {
     'moment',
     'vue',
     'vue-router',
-    'vuex',
-    'vuex-actions',
-    'vuex-localstorage'
+    'vuex'
   ]
 }
 

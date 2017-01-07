@@ -55,9 +55,7 @@
     "v-touch": "^1.0.7",
     "vue": "^2.1.8",
     "vue-router": "^2.1.1",
-    "vuex": "^2.0.0",
-    "vuex-actions": "^1.1.1",
-    "vuex-localstorage": "^0.5.0"
+    "vuex": "^2.0.0"
   },
   "devDependencies": {
     "autoprefixer": "^6.6.1",
