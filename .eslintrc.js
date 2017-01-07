@@ -16,6 +16,7 @@ module.exports = {
   },
   globals: {
     __DEV__: false,
+    __PROD__: false,
     __MOCK__: false,
     BASE_URL: false,
     CONTEXT: false,
