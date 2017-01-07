@@ -43,12 +43,12 @@ export default require('./index.pug')({
     },
     showAllMenus() {
       this.$modal.open({
+        component: System.import('../HiMenus'),
         options: {
           backdrop: false,
           show: true,
           destroy: false
-        },
-        component: System.import('../AllMenu')
+        }
       })
     }
   }

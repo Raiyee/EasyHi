@@ -19,6 +19,7 @@ Mock.mock(/\/initialize\/get-base-data$/, ({url}) => {
     roles,
     currentRole,
     mobile,
+    isEnterprise: Random.boolean(),
     theme: Random.pick('blue', 'green', 'purple', 'red'),
     merchantName: Random.ctitle(),
     coachAlias: Random.pick(['教练', '老师', '教官', '导师'])

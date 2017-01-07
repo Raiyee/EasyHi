@@ -2,6 +2,12 @@ $theme-color ?= $theme-purple
 $theme-color-darker ?= $theme-purple-darker
 
 // @stylint off
+.theme-before-color:before
+  color $theme-color
+
+.theme-before-bg:before
+  background-color $theme-color
+
 .theme-color
   color $theme-color !important
 

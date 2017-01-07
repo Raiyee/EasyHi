@@ -1,0 +1,92 @@
+$recommended-bg = #fb623b
+
+.container
+  span
+    display block
+
+  :global
+    .modal-content
+      border 0
+
+    .modal-body
+      padding 0
+      overflow-y auto
+
+    .modal-footer
+      border-top 0
+      padding 20px
+      text-align center
+      background-color $card-line-color
+
+    .icon-close
+      font-size 30px
+      color $subtext-color
+      line-height 1
+
+.menu-title
+  padding 10px
+  text-align center
+  color $primary-color
+  background-color $card-title-back
+  font-size $primary-size
+  font-weight 500
+
+.menu-items
+  relative()
+  padding 10px
+  overflow hidden
+
+  ul
+    margin-bottom 0
+
+  &:before
+    absolute()
+    left 0
+    top 0
+    z-index 1
+    content ''
+    width 20px
+    height 16px
+    border 4px solid $card-line-color
+    border-top 0
+    border-bottom-right-radius 1rem
+
+  &.recommended:before
+    content '推荐'
+    left -40px
+    width auto
+    height auto
+    border 0
+    border-radius 0
+    padding 5px 40px
+    color $reverse-color
+    font-size $primary-size
+    background-color $recommended-bg
+    transform scale(.6) rotate(-45deg)
+
+.menu-item
+  width 20%
+  text-align center
+  display inline-block
+  font-size $small-size
+  color $primary-color
+
+  :global(.iconfont)
+    font-size 44px
+
+  &:global(.disabled)
+    relative()
+
+    &:before
+      absolute()
+      z-index 1
+      content '企'
+      top 0
+      right 10px
+      size 20px
+      border-radius 50%
+      color $reverse-color
+      background-color $remark-color
+
+    span
+      color $subtext-color

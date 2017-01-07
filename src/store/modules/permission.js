@@ -34,7 +34,7 @@ const state = Object.assign({
   roles: [VISITOR],
   currentRole: VISITOR,
   currentRoleName: ROLE_NAMES[VISITOR],
-  isAdmin: false,
+  isEnterprise: false,
   menuOpen: false,
   menuShow: false,
   initialized: false,
@@ -55,6 +55,7 @@ const getters = {
   currentRoleName: state => ROLE_NAMES[state.currentRole],
   isStaff: state => STAFFS.includes(state.currentRole),
   isAdmin: state => [MERCHANT, MANAGER, SERVICE].includes(state.currentRole),
+  isEnterprise: state => state.isEnterprise,
   menuOpen: state => state.menuOpen,
   menuShow: state => state.menuShow,
   initialized: state => state.initialized,
@@ -114,9 +115,10 @@ const mutations = {
   [SET_MOBILE](state, mobile) {
     state.authorized = !!(state.mobile = mobile)
   },
-  [INITIALIZE](state, {coachAlias, merchantName}) {
+  [INITIALIZE](state, {coachAlias, isEnterprise, merchantName}) {
     coachAlias && (ROLE_NAMES[COACH] = coachAlias)
     state.initialized = true
+    state.isEnterprise = isEnterprise
     state.merchantName = merchantName
     isStatic = /\/yoga-system-res\//.test(OLD_SERVER_PREFIX)
     suffix = isStatic ? '.html' : ''
