@@ -1,6 +1,6 @@
 import {mapGetters, mapActions} from 'vuex'
 
-import {MENUS_ID} from 'utils'
+import {MENUS_ID, toggleModal} from 'utils'
 
 import classes from './index.styl'
 
@@ -44,15 +44,19 @@ export default require('./index.pug')({
       console.log('changeTheme')
     },
     showAllMenus() {
-      this.$modal.open({
-        id: MENUS_ID,
-        component: System.import('../HiMenus'),
-        options: {
-          backdrop: false,
-          show: true,
-          destroy: false
-        }
-      })
+      try {
+        toggleModal(MENUS_ID)
+      } catch (e) {
+        this.$modal.open({
+          id: MENUS_ID,
+          component: System.import('../HiMenus'),
+          options: {
+            backdrop: false,
+            show: true,
+            destroy: false
+          }
+        })
+      }
     }
   }
 })
