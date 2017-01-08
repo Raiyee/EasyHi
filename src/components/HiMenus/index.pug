@@ -1,19 +1,18 @@
 modal-item(:class="classes.container",)
-  .modal-body(slot="body", :style="{height}")
-    template(v-for="({title, items}, index) of menus")
-      div(:class="classes.menuTitle") {{ title }}
-      .theme-before-bg(:class="[classes.menuItems, {[classes.recommended]: !index}]")
-        ul.list-unstyled
-          template(v-for="({icon, name, auth}) of items")
-            li.disabled(v-if="auth && !isEnterprise",
-            :class="[classes.menuItem]",
-            @click="$util.alert('您当前使用的服务为“创业版”，需升级“企业版”方可使用此功能哦。')")
-              span.iconfont(:class="[`icon-${icon}`, {'theme-color': isEnterprise || !auth}]")
-              span {{ name }}
-            router-link(v-else,
-            tag="li",
-            :to="'/'",
-            :class="classes.menuItem")
-              span.iconfont.theme-color(:class="`icon-${icon}`")
-              span {{ name }}
+  template(v-for="({title, items}, index) of menus")
+    div(:class="classes.menuTitle") {{ title }}
+    .theme-before-bg(:class="[classes.menuItems, {[classes.recommended]: !index}]")
+      ul.list-unstyled
+        template(v-for="({icon, name, auth}) of items")
+          li.disabled(v-if="auth && !isEnterprise",
+          :class="[classes.menuItem]",
+          @click="$util.alert('您当前使用的服务为“创业版”，需升级“企业版”方可使用此功能哦。')")
+            span.iconfont(:class="[`icon-${icon}`, {'theme-color': isEnterprise || !auth}]")
+            span {{ name }}
+          router-link(v-else,
+          tag="li",
+          :to="'/'",
+          :class="classes.menuItem")
+            span.iconfont.theme-color(:class="`icon-${icon}`")
+            span {{ name }}
   span.iconfont.icon-close(slot="footer", @click="$util.closeModal()")

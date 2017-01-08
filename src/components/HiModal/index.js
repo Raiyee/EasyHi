@@ -58,13 +58,15 @@ export default require('./index.pug')({
       const modalId = modal.id
       const m = this.modals.find(m => m.id === modalId)
       const options = pickObj(modal.options, ['backdrop', 'destroy', 'show'])
+      const props = modal.props
       if (m) {
-        Object.assign(m.props, modal.props)
+        Object.assign(m.props, props)
         Object.assign(m.options, options)
         m.component = modal.component
         modal = m
       } else {
         modal.options = options
+        props || (modal.props = {})
         this.modals.push(modal)
       }
       const currModalId = this.currModalId

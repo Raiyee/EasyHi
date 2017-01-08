@@ -18,9 +18,12 @@ export const isoWeekdays = [...rest, first];
 
 export const EMPTY_FUNC = () => {}
 
-export const PICKER_ID = '__picker__'
-export const REGION_PICKER_ID = '__region_picker__'
-export const TIP_ID = '__tip__'
+const wrap = text => `__${text}__`
+
+export const MENUS_ID = wrap('menus')
+export const PICKER_ID = wrap('picker')
+export const REGION_PICKER_ID = wrap('region_picker')
+export const TIP_ID = wrap('tip')
 
 export const EMPTY_IMG = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=='
 

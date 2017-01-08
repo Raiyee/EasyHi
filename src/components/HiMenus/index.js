@@ -80,10 +80,7 @@ export default require('./index.pug')({
     }]
   }),
   computed: {
-    ...mapGetters(['isEnterprise', 'rem', 'winHeight']),
-    height() {
-      return this.winHeight - 70 * this.rem + 'px'
-    }
+    ...mapGetters(['isEnterprise'])
   },
   components: {
     ModalItem

@@ -1,5 +1,7 @@
 import {mapGetters, mapActions} from 'vuex'
 
+import {MENUS_ID} from 'utils'
+
 import classes from './index.styl'
 
 export default require('./index.pug')({
@@ -43,6 +45,7 @@ export default require('./index.pug')({
     },
     showAllMenus() {
       this.$modal.open({
+        id: MENUS_ID,
         component: System.import('../HiMenus'),
         options: {
           backdrop: false,
