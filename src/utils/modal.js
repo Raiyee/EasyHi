@@ -110,8 +110,9 @@ export const regionPicker = (function () {
 
     return picker({
       ...props,
-      pickerDivider: false,
       pickers,
+      pickerDivider: false,
+      pickerMask: true,
       pickerChanged(index, code) {
         if (index === 2) return
 

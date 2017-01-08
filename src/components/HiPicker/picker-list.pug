@@ -3,7 +3,7 @@ div(:class="[classes.pickerList, `text-${textAlign}`, className]",
 v-touch="{methods: true}")
   div(:class="classes.pickerContainer")
     div(v-if="hasTitle", :class="classes.pickerTitle") {{ title || '&nbsp;' }}
-    div(:class="classes.pickerContent", :style="{height, maxWidth}")
+    div(:class="[classes.pickerContent, {[classes.mask]: mask}]", :style="{height, maxWidth}")
       .border-tb(:class="classes.pickerHighlight")
       ul.list-unstyled(:class="classes.pickerItems", :style="{transform}")
         li(v-for="(value, index) of values",

@@ -6,13 +6,10 @@ import classes from './login-modal.styl'
 export default require('./login-modal.pug')({
   name: 'login-modal',
   props: {
-    transition: [Boolean, String],
+    transition: true,
     close: Function,
     confirm: Function,
-    confirmText: {
-      type: String,
-      default: '立即下单'
-    }
+    confirmText: true
   },
   methods: {
     closeLogin: function () {

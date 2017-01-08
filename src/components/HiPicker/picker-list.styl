@@ -15,14 +15,15 @@ $item-height = 36px
   relative()
   overflow hidden
 
-  &:before, &:after
-    absolute()
-    left 0
-    content ''
-    width 100%
-    height $item-height
-    z-index 2
-    pointer-events none
+  &.mask
+    &:before, &:after
+      absolute()
+      left 0
+      content ''
+      width 100%
+      height $item-height
+      z-index 2
+      pointer-events none
 
   &:before
     top 0

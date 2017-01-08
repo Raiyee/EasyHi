@@ -4,8 +4,8 @@ div
 
   br
 
-  button.btn.btn-theme-default(@click="loginModal") login modal
-  button.btn.btn-theme-default(@click="alertModal") Alert modal
+  button.btn.btn-theme-default(@click="$util.login({confirmText: '立即下单'})") Login modal
+  button.btn.btn-theme-default(@click="$util.alert(`I am  an alert <span style='color: red'>red</span> modal Text`)") Alert modal
   button.btn.btn-theme-default(@click="confirmModal") Confirm modal
   button.btn.btn-theme-default(@click="toastModal") Toast modal
   button.btn.btn-theme-default(@click="promptModal") Prompt modal

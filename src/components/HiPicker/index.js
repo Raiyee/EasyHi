@@ -36,6 +36,7 @@ export default require('./index.pug')({
       type: Boolean,
       default: true
     },
+    pickerMask: Boolean,
     pickerTitle: String,
     visibleCount: {
       type: Number,

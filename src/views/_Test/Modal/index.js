@@ -1,4 +1,4 @@
-import {alert, confirm, toast, prompt, picker, regionPicker, login, closeModal} from 'utils'
+import {confirm, toast, prompt, picker, regionPicker, closeModal} from 'utils'
 
 let modalId
 
@@ -49,9 +49,6 @@ export default require('./index.pug')({
     }
   },
   methods: {
-    loginModal() {
-      login()
-    },
     addModal() {
       modalId = this.$modal.open({
         id: modalId,
@@ -79,9 +76,6 @@ export default require('./index.pug')({
           closeModal()
         }
       })
-    },
-    alertModal() {
-      alert('I am  an alert <span style="color: red">red</span> modal Text')
     },
     toastModal() {
       toast({

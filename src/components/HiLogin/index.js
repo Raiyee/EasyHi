@@ -13,7 +13,10 @@ export default require('./index.pug')({
     }
   },
   props: {
-    confirmText: String,
+    confirmText: {
+      type: String,
+      default: '登录'
+    },
     confirm: Function
   },
   created() {
