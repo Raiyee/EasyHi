@@ -8,19 +8,24 @@ then
   echo "last commit message:"
   echo "$MESSAGE"
 
-  git clone ssh://git@gitlab.raiyee.cn:10022/easyhi/yoga-vision.git sync -b pages
+  git clone git@github.com:Raiyee/EasyHi.git sync -b gh-pages
   rm -rf sync/*
 
   cd sync
   cp -rf ../dist/* .
-  cp ../*.md .
+  cp ../*.md ../circle.yml .
+  touch .nojekyll
 
   git add -A
   git status -s |
   if read
   then
     git commit -m "$MESSAGE"
-    git push --force --quiet ssh://git@gitlab.raiyee.cn:10022/easyhi/yoga-vision.git pages:pages
+    git push --force --quiet git@github.com:Raiyee/EasyHi.git gh-pages:gh-pages
+    git push --force --quiet git@git.coding.net:Raiyee/EasyHi.git gh-pages:coding-pages
+
+    npm i -D coveralls codecov
+    npm run coveralls && npm run codecov
   else
     echo "there is nothing changed and to commit"
   fi
