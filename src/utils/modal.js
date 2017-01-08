@@ -41,7 +41,10 @@ const DEFAULT_OPTIONS = {
 export const picker = (props, options, id) => vueProp.$modal.open({
   id: id || PICKER_ID,
   component: System.import('components/HiModal/PickerModal'),
-  options: Object.assign({}, DEFAULT_OPTIONS, options),
+  options: {
+    ...DEFAULT_OPTIONS,
+    ...options
+  },
   props: {
     transition: true,
     ...props
@@ -105,7 +108,8 @@ export const regionPicker = (function () {
       defaultIndex: districtIndex
     }]
 
-    return picker(Object.assign({}, props, {
+    return picker({
+      ...props,
       pickerDivider: false,
       pickers,
       pickerChanged(index, code) {
@@ -149,14 +153,15 @@ export const regionPicker = (function () {
         this.changingIndex = null
         props.confirm && props.confirm.apply(this, arguments)
       }
-    }), NOT_DESTROY, REGION_PICKER_ID)
+    }, NOT_DESTROY, REGION_PICKER_ID)
   })
 }())
 
-export const login = () => vueProp.$modal.open({
+export const login = props => vueProp.$modal.open({
   component: System.import('components/HiModal/LoginModal'),
   options: DEFAULT_OPTIONS,
   props: {
+    ...props,
     transition: true
   }
 })

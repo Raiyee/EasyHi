@@ -51,9 +51,7 @@ export default require('./floating-menu.pug')({
           id: MENUS_ID,
           component: System.import('./AllMenus'),
           options: {
-            backdrop: false,
-            show: true,
-            destroy: false
+            show: true
           }
         })
       }
