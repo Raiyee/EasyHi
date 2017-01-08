@@ -6,7 +6,9 @@ import {obj2Arr} from './common'
 import {IS_ANDROID_TBS, PICKER_ID, REGION_PICKER_ID, TIP_ID} from './constants'
 import {log} from './console'
 
+export const openModal = modal => vueProp.$modal.open(modal)
 export const closeModal = (id, destroy) => vueProp.$modal.close(id, destroy)
+export const toggleModal = (id, show = true) => openModal({id, options: {show}})
 
 const DEFAULT_PROPS = {
   backdrop: true,

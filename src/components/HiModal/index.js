@@ -57,14 +57,16 @@ export default require('./index.pug')({
     mount(modal) {
       const modalId = modal.id
       const m = this.modals.find(m => m.id === modalId)
+      const component = modal.component
       const options = pickObj(modal.options, ['backdrop', 'destroy', 'show'])
       const props = modal.props
       if (m) {
         Object.assign(m.props, props)
         Object.assign(m.options, options)
-        m.component = modal.component
+        component && (m.component = component)
         modal = m
       } else {
+        if (!component) throw new ReferenceError('no component passed on initialization')
         modal.options = options
         props || (modal.props = {})
         this.modals.push(modal)
@@ -74,7 +76,7 @@ export default require('./index.pug')({
       currModalId === modalId || this.close()
       modal.options.show && (this.currModal = modal)
     },
-    open(modal: {id: void | string | number, component: Object, options: void | Object, props: void | Object}) {
+    open(modal: {id: void | string | number, component: void | Object, options: void | Object, props: void | Object}) {
       modal.id = modal.id || 'modal_' + +new Date()
       isPromise(modal.component)
         ? modal.component.then(component => this.mount(Object.assign(modal, {component}))) : this.mount(modal)
