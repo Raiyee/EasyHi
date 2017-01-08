@@ -1,5 +1,5 @@
 div(v-if="modals.length")
-  .black-mask(v-if="currModal && currModal.options.backdrop")
+  .mask(v-if="backdrop", :class="{transparent: backdrop === 'transparent'}", @click="toggle")
   component(v-for="{component, id, props, options} of modals",
   :is="component",
   :key="id",

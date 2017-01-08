@@ -1,6 +1,6 @@
 import Vue from 'vue'
 
-import {addClass, isPromise, pickObj, removeClass, ensure, TIP_ID} from 'utils'
+import {addClass, isPromise, removeClass, ensure, TIP_ID} from 'utils'
 
 export default require('./index.pug')({
   name: 'hi-modal',
@@ -18,6 +18,9 @@ export default require('./index.pug')({
     }
   },
   computed: {
+    backdrop() {
+      return this.currModal && this.currModal.options.backdrop
+    },
     currModalId() {
       return this.currModal && this.currModal.id
     }
@@ -58,7 +61,7 @@ export default require('./index.pug')({
       const modalId = modal.id
       const m = this.modals.find(m => m.id === modalId)
       const component = modal.component
-      const options = pickObj(modal.options, ['backdrop', 'destroy', 'show'])
+      const options: void | {backdrop: void | boolean | 'static' | 'transparent'} = modal.options
       const props = modal.props
       if (m) {
         Object.assign(m.props, props)
@@ -67,12 +70,12 @@ export default require('./index.pug')({
         modal = m
       } else {
         if (!component) throw new ReferenceError('no component passed on initialization')
-        modal.options = options
-        props || (modal.props = {})
+        modal.options = {...options}
+        modal.props = {...props}
         this.modals.push(modal)
       }
       const currModalId = this.currModalId
-      if (currModalId && modalId === TIP_ID) return
+      if (currModalId && modalId === TIP_ID) return (modal.props.backdrop = !this.currModal.options.backdrop)
       currModalId === modalId || this.close()
       modal.options.show && (this.currModal = modal)
     },
@@ -81,6 +84,11 @@ export default require('./index.pug')({
       isPromise(modal.component)
         ? modal.component.then(component => this.mount(Object.assign(modal, {component}))) : this.mount(modal)
       return modal.id
+    },
+    toggle() {
+      if (this.backdrop === 'static') return
+      const close = this.currModal.props.close
+      close ? close.apply(this.$refs.modal[this.getModalIndex(this.currModalId)], arguments) : this.close()
     }
   }
 })

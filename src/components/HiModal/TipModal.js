@@ -5,6 +5,7 @@ import classes from './tip-modal.styl'
 export default require('./tip-modal.pug')({
   name: 'tip-modal',
   props: {
+    backdrop: Boolean,
     tipText: String,
     confirm: Function,
     close: Function,

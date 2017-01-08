@@ -10,7 +10,7 @@ div
     div(:class="classes.rightBtn", @click="toggleMenu", slot="right")
       | {{ '按钮' }}
 
-  .white-mask(v-if="open", @click="toggleMenu")
+  .mask.transparent(v-if="open", @click="toggleMenu")
   div(:class="[classes.dropMenu, open ? classes.open : classes.close]", @click="toggleMenu")
     ul
       li 全部全部全部

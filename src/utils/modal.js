@@ -10,8 +10,8 @@ export const openModal = modal => vueProp.$modal.open(modal)
 export const closeModal = (id, destroy) => vueProp.$modal.close(id, destroy)
 export const toggleModal = (id, show = true) => openModal({id, options: {show}})
 
-const DEFAULT_PROPS = {
-  backdrop: true,
+const DEFAULT_OPTIONS = {
+  backdrop: 'static',
   show: true,
   destroy: true
 };
@@ -21,7 +21,7 @@ const DEFAULT_PROPS = {
   module.exports[value] = props => vueProp.$modal.open({
     id: TIP_ID,
     component: System.import('components/HiModal/TipModal'),
-    options: DEFAULT_PROPS,
+    options: DEFAULT_OPTIONS,
     props: {
       cancelText: '取消',
       confirmText: '确定',
@@ -41,7 +41,7 @@ const DEFAULT_PROPS = {
 export const picker = (props, options, id) => vueProp.$modal.open({
   id: id || PICKER_ID,
   component: System.import('components/HiModal/PickerModal'),
-  options: Object.assign({}, DEFAULT_PROPS, options),
+  options: Object.assign({}, DEFAULT_OPTIONS, options),
   props: {
     transition: true,
     ...props
@@ -155,7 +155,7 @@ export const regionPicker = (function () {
 
 export const login = () => vueProp.$modal.open({
   component: System.import('components/HiModal/LoginModal'),
-  options: DEFAULT_PROPS,
+  options: DEFAULT_OPTIONS,
   props: {
     transition: true
   }

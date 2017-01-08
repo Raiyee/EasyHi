@@ -204,17 +204,11 @@ input
     + .btn
       margin-left 10px
 
-.white-mask, .black-mask
-  position fixed
-  top 0
-  right 0
-  bottom 0
-  left 0
+.mask
+  fixed(top right bottom left)
   z-index 500
   background-color $stress-color
-
-.white-mask
-  opacity 0
-
-.black-mask
   opacity .5
+
+  &.transparent
+    opacity 0
