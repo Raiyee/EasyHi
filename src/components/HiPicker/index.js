@@ -24,6 +24,10 @@ const generatePicker = (pickers, index) => {
   }
 }
 
+const refError = text => {
+  throw new ReferenceError(`should not modify ${text} directly`)
+}
+
 export default require('./index.pug')({
   name: 'hi-picker',
   props: {
@@ -46,7 +50,7 @@ export default require('./index.pug')({
       classes,
       changingIndex: null,
       pickerList,
-      result: pickerList.map(picker => {
+      resulting: pickerList.map(picker => {
         const currIndex = picker.defaultIndex || 0
         const value = picker.values[currIndex]
         return [value[picker.valueKey], value[picker.textKey]]
@@ -64,6 +68,14 @@ export default require('./index.pug')({
       const length = this.pickerList.length
       const offset = this.pickerDivider && placeholderWith * (length - 1)
       return (baseWidth - offset) / length + 'px'
+    },
+    result: {
+      get() {
+        return [...this.resulting]
+      },
+      set() {
+        refError('result')
+      }
     }
   },
   watch: {
@@ -71,12 +83,15 @@ export default require('./index.pug')({
       if (this.changingIndex == null) return
       const index = this.changingIndex + 1
       this.$set(this.pickerList, index, generatePicker(pickers, index))
+    },
+    resulting(curr, prev) {
+      curr === prev || refError('resulting')
     }
   },
   methods: {
     itemChanged(index, value, text) {
-      this.changingIndex = index;
-      (this.result = [...this.result])[index] = [value, text]
+      this.changingIndex = index
+      this.$set(this.resulting, index, [value, text])
       this.$emit('itemChanged', ...arguments)
     }
   },
