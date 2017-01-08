@@ -1,6 +1,6 @@
-import classes from './index.styl'
+import classes from './operator-menu.styl'
 
-export default require('./index.pug')({
+export default require('./operator-menu.pug')({
   data() {
     return {
       classes,

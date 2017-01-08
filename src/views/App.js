@@ -3,7 +3,7 @@ import {mapGetters} from 'vuex'
 import HiLoading from 'components/HiLoading'
 import HiProgress from 'components/HiProgress'
 import HiModal from 'components/HiModal'
-import FloatingMenu from 'components/FloatingMenu'
+import FloatingMenu from 'components/HiMenu/FloatingMenu'
 
 export default require('./App.pug')({
   data: () => ({transition: 'slide-fade'}),

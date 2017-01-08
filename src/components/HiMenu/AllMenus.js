@@ -2,9 +2,9 @@ import {mapGetters} from 'vuex'
 
 import ModalItem from 'components/HiModal/ModalItem'
 
-import classes from './index.styl'
+import classes from './all-menus.styl'
 
-export default require('./index.pug')({
+export default require('./all-menus.pug')({
   name: 'hi-menus',
   data: () => ({
     classes,

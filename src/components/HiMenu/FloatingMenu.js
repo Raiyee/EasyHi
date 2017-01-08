@@ -2,9 +2,9 @@ import {mapGetters, mapActions} from 'vuex'
 
 import {MENUS_ID, toggleModal} from 'utils'
 
-import classes from './index.styl'
+import classes from './floating-menu.styl'
 
-export default require('./index.pug')({
+export default require('./floating-menu.pug')({
   name: 'floating-menu',
   data: () => ({classes}),
   computed: {
@@ -49,7 +49,7 @@ export default require('./index.pug')({
       } catch (e) {
         this.$modal.open({
           id: MENUS_ID,
-          component: System.import('../HiMenus'),
+          component: System.import('./AllMenus'),
           options: {
             backdrop: false,
             show: true,

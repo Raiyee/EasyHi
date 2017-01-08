@@ -1,4 +1,4 @@
-import HiOperatorMenu from 'components/HiOperatorMenu'
+import HiOperatorMenu from 'components/HiMenu/OperatorMenu'
 
 export default require('./index.pug')({
   methods: {
