@@ -1,6 +1,6 @@
 modal-item(:class="classes.container",)
   .modal-body(slot="body", :style="{height}")
-    template(v-for="({title, items}, index) of menus", :class="classes.menuType")
+    template(v-for="({title, items}, index) of menus")
       div(:class="classes.menuTitle") {{ title }}
       .theme-before-bg(:class="[classes.menuItems, {[classes.recommended]: !index}]")
         ul.list-unstyled

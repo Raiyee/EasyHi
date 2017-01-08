@@ -71,22 +71,25 @@ $recommended-bg = #fb623b
   font-size $small-size
   color $primary-color
 
-  :global(.iconfont)
-    font-size 44px
-
-  &:global(.disabled)
+  :first-child
     relative()
+    display inline-block
 
     &:before
+      font-size 44px
+
+  &:global(.disabled)
+    :first-child:after
       absolute()
       z-index 1
       content '企'
       top 0
-      right 10px
+      right -5px
       size 20px
       border-radius 50%
       color $reverse-color
       background-color $remark-color
+      scaleSize(12)
 
-    span
+    :last-child
       color $subtext-color
