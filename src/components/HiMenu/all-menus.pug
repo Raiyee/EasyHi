@@ -1,4 +1,4 @@
-modal-item(:class="classes.container",)
+modal-item(:class="classes.container", :transition="true")
   template(v-for="({title, items}, index) of menus")
     div(:class="classes.menuTitle") {{ title }}
     .theme-before-bg(:class="[classes.menuItems, {[classes.recommended]: !index}]")
