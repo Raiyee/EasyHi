@@ -1,5 +1,3 @@
-import {getters} from 'store'
-
 import utils from 'utils'
 
 export default [{
