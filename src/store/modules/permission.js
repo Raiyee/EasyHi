@@ -21,7 +21,7 @@ const INIT_STATE = {
 
 Object.assign(utils, INIT_STATE, {
   replaceRoute(route) {
-    history.replaceState(null, null, base + route)
+    history.replaceState(null, null, '#' + route)
   }
 })
 
