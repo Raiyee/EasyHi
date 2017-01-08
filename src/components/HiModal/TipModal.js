@@ -13,7 +13,6 @@ export default require('./tip-modal.pug')({
     cancelText: String,
     type: Number,
     timeout: Number,
-    transition: [Boolean, String],
     promptText: String,
     placeholder: String
   },

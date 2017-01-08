@@ -7,8 +7,8 @@ import classes from './picker-modal.styl'
 
 export default require('./picker-modal.pug')({
   name: 'picker-modal',
-  props: ['close', 'confirm', 'footer', 'transition', 'pickers',
-    'pickerChanged', 'pickerDivider', 'pickerMask', 'pickerTitle', 'visibleCount'],
+  props: ['close', 'confirm', 'footer', 'pickers', 'pickerChanged',
+    'pickerDivider', 'pickerMask', 'pickerTitle', 'visibleCount'],
   data() {
     return {classes}
   },

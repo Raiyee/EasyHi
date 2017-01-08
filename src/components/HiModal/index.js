@@ -1,6 +1,6 @@
 import Vue from 'vue'
 
-import {addClass, isPromise, removeClass, ensure, TIP_ID} from 'utils'
+import {addClass, isPromise, removeClass, ensure, warn, TIP_ID} from 'utils'
 
 export default require('./index.pug')({
   name: 'hi-modal',
@@ -35,17 +35,20 @@ export default require('./index.pug')({
     close(modalId, destroy) {
       modalId = modalId || this.currModalId
       if (!modalId) return
-      let modal
       const index = this.getModalIndex(modalId)
-      index === -1 || (modal = this.modals[index])
-      if (!modal) return
-      const {options, props} = modal
+      if (index === -1) return
+      const modal = this.modals[index]
+      const {options} = modal
       options.show = false
       const callback = () => {
         options.destroy || destroy ? this.removeModal(modalId) : this.resetCurrModal(modalId)
       }
-      props && props.transition
-        ? ensure(this.$refs.modal[index].$el, 'animationend transitionend', callback) : callback()
+      const modalRef = this.$refs.modal[index]
+      const modalItem = modalRef.$children[0]
+      modalItem || warn(`this modal is not a Vue component, HiModal will not respect it's transition`)
+      const propsData = modalItem && modalItem.$options.propsData
+      propsData && propsData.transition
+        ? ensure(modalRef.$el, 'animationend transitionend', callback) : callback()
     },
     resetCurrModal(modalId) {
       modalId === this.currModalId && (this.currModal = null)

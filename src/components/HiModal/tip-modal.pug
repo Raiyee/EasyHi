@@ -1,4 +1,4 @@
-modal-item(:class="[classes.tip, {[classes.backdrop]: backdrop}]", :transition="transition")
+modal-item(:class="[classes.tip, {[classes.backdrop]: backdrop}]", :transition="true")
   template(v-if="type === 3")
     .modal-title(slot="header") {{ tipText }}
     div(slot="body", :class="classes.promptText")

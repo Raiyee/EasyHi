@@ -26,7 +26,6 @@ const DEFAULT_OPTIONS = {
       cancelText: '取消',
       confirmText: '确定',
       tipText: '系统消息',
-      transition: true,
       ...isString(props) ? {
         tipText: props,
         confirm() {
@@ -45,10 +44,7 @@ export const picker = (props, options, id) => vueProp.$modal.open({
     ...DEFAULT_OPTIONS,
     ...options
   },
-  props: {
-    transition: true,
-    ...props
-  }
+  props
 })
 
 export const regionPicker = (function () {
@@ -159,10 +155,8 @@ export const regionPicker = (function () {
 }())
 
 export const login = props => vueProp.$modal.open({
+  id: 'login',
   component: System.import('components/HiModal/LoginModal'),
   options: DEFAULT_OPTIONS,
-  props: {
-    ...props,
-    transition: true
-  }
+  props
 })

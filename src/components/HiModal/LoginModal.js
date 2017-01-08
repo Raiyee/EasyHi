@@ -6,7 +6,6 @@ import classes from './login-modal.styl'
 export default require('./login-modal.pug')({
   name: 'login-modal',
   props: {
-    transition: true,
     close: Function,
     confirm: Function,
     confirmText: true
