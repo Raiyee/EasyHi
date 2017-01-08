@@ -335,12 +335,12 @@ export default {
 ``` stylus
 @import "../../styles/_variables"
 
-IMG_WRAP_MARGIN = 40px
+$img-wrap-margin = 40px
 
 .yoga
   size 95px
-  margin-top IMG_WRAP_MARGIN
-  margin-bottom IMG_WRAP_MARGIN
+  margin-top $img-wrap-margin
+  margin-bottom $img-wrap-margin
   relative()
   background-color $back-color
 
