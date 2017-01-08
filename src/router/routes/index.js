@@ -8,6 +8,6 @@ routes.push({
 })
 
 export default {
-  mode: 'history',
+  mode: 'hash',
   routes
 }

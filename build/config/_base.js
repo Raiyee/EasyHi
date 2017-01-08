@@ -23,8 +23,8 @@ const config = {
   // ----------------------------------
   // Server Configuration
   // ----------------------------------
-  server_host: 'local.easy-hi.com',
-  server_port: process.env.PORT || 8090,
+  server_host: 'local.1stg.me',
+  server_port: process.env.PORT || 3000,
 
   // ----------------------------------
   // Compiler Configuration
@@ -66,12 +66,9 @@ config.globals = {
   __TEST__: NODE_ENV === 'test',
   __TESTING__: NODE_ENV === 'testing',
   __MOCK__: !!argv.mock,
-  __PAGES__: !!argv.pages,
-  BASE_URL: JSON.stringify('/yoga-system'),
-  CONTEXT: JSON.stringify('/yoga-vision'),
-  IMG_PATH_PREFIX: JSON.stringify(process.env.IMG_PATH_PREFIX || 'https://placem.at/'),
-  NON_INDEX_REGEX: /^(?!.*[/\\](index)\.js).*\.js$/.toString(),
-  OLD_SERVER_PREFIX: JSON.stringify(process.env.OLD_SERVER_PREFIX || 'http://local.easy-hi.com:8090/yoga-system-res/')
+  CONTEXT: JSON.stringify('/'),
+  IMG_PATH_PREFIX: JSON.stringify('https://placem.at/'),
+  NON_INDEX_REGEX: /^(?!.*[/\\](index)\.js).*\.js$/.toString()
 }
 
 // ------------------------------------

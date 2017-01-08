@@ -18,11 +18,9 @@ module.exports = {
     __DEV__: false,
     __PROD__: false,
     __MOCK__: false,
-    BASE_URL: false,
     CONTEXT: false,
     IMG_PATH_PREFIX: false,
-    NON_INDEX_REGEX: false,
-    OLD_SERVER_PREFIX: false
+    NON_INDEX_REGEX: false
   },
   parserOptions: {
     ecmaVersion: 6,

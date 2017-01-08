@@ -4,7 +4,6 @@ import axios, {interceptors} from 'axios'
 import store from 'store'
 import utils, {alert, login, on, warn} from 'utils'
 
-axios.defaults.baseURL = BASE_URL
 axios.defaults.headers['X-Requested-With'] = ['XMLHttpRequest']
 
 Vue.prototype.$http = axios
