@@ -21,7 +21,6 @@ export default [{
   name: '404',
   component: () => System.import('components/NotFound'),
   beforeEnter() {
-    location.href = getters.urlPrefix + getters.currRole + '/index'
     utils.router.history.updateRoute(utils.NOT_FOUND_ROUTE)
   }
 }]
