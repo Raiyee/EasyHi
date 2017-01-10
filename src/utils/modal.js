@@ -3,8 +3,7 @@ import Vue, {prototype as vueProp} from 'vue'
 import {isObject, isString} from './base'
 import {isNumber} from './number'
 import {obj2Arr} from './common'
-import {IS_ANDROID_TBS, PICKER_ID, REGION_PICKER_ID, TIP_ID} from './constants'
-import {log} from './console'
+import {PICKER_ID, REGION_PICKER_ID, TIP_ID} from './constants'
 
 export const openModal = modal => vueProp.$modal.open(modal)
 export const closeModal = (id, destroy) => vueProp.$modal.close(id, destroy)
@@ -73,8 +72,6 @@ export const regionPicker = (function () {
 
   const modalIndex = () => vueProp.$modal.getModalIndex(REGION_PICKER_ID)
 
-  let timeout
-
   return (props, defaults = []) => System.import('components/HiPicker/regions').then(regions => {
     if (modalIndex() >= 0) return picker(null, NOT_DESTROY, REGION_PICKER_ID)
 
@@ -135,16 +132,6 @@ export const regionPicker = (function () {
           valueKey: CODE,
           values: districts
         })
-
-        if (!IS_ANDROID_TBS) return
-
-        clearTimeout(timeout)
-        timeout = setTimeout(() => {
-          log('hacking Android TBS!')
-          const regionModal = vueProp.$modal.$refs.modal[modalIndex()].$el
-          document.body.appendChild(regionModal)
-          document.getElementById('modal').appendChild(regionModal)
-        }, 0)
       },
       confirm() {
         this.changingIndex = null
