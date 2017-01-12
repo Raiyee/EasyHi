@@ -2,29 +2,62 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import _debug from 'debug'
 import {argv} from 'yargs'
 
-import {globals} from '../config'
+import config, {globals} from '../config'
+
+const {__DEV__, __TEST__, __PROD__} = globals
+
+const sourceMap = !!config.compiler_devtool
+const browsers = config.compiler_browsers
 
 // generate loader string to be used with extract text plugin
 export const generateLoaders = (loader, loaders, options = {}) => {
-  const sourceLoaders = (loader ? [...loaders, loader] : loaders).map(loader => {
+  const sourceLoaders = (loader ? [...loaders, loader] : loaders).map((loader, index) => {
     const hyphen = /\?/.test(loader) ? '&' : '?'
-    return loader + (options.sourceMap ? hyphen + 'sourceMap' : '')
+    return loader + (sourceMap && index ? hyphen + 'sourceMap' : '')
   }).join('!')
 
   const styleLoader = `${options.vue ? 'vue-' : ''}style-loader`
 
   let extract = options.extract
   return extract ? (extract.extract ? extract : ExtractTextPlugin).extract({
-    fallbackLoader: styleLoader,
-    loader: sourceLoaders
-  }) : [styleLoader, sourceLoaders].join('!')
+      fallbackLoader: styleLoader,
+      loader: sourceLoaders
+    }) : [styleLoader, sourceLoaders].join('!')
 }
 
-export const baseLoaders = ['css-loader?-minimize', 'postcss-loader']
-export const localIdentName = globals.__DEV__ ? '[name]__[local]___[hash:base64:5]' : '[hash:base64]'
-const cssModuleSuffix = `&modules&camelCase&importLoaders=2&localIdentName=${localIdentName}`
-const [css, postcss] = baseLoaders
-export const cssModuleLoaders = [css + cssModuleSuffix, postcss]
+const minimize = __TEST__ || __PROD__ && {
+    autoprefixer: {
+      add: true,
+      remove: true,
+      browsers
+    },
+    discardComments: {
+      removeAll: true
+    },
+    discardUnused: false,
+    mergeIdents: false,
+    normalizeUrl: false,
+    reduceIdents: false,
+    safe: true,
+    sourcemap: sourceMap
+  }
+
+const cssOptions = {
+  minimize,
+  sourceMap
+}
+
+export const baseLoaders = ['css-loader?' + JSON.stringify(cssOptions)]
+export const localIdentName = __DEV__ ? '[name]__[local]___[hash:base64:5]' : '[hash:base64]'
+
+const cssModuleOptions = {
+  modules: true,
+  camelCase: true,
+  importLoaders: 2,
+  localIdentName
+}
+
+export const cssModuleLoaders = ['css-loader?' + JSON.stringify(Object.assign({}, cssOptions, cssModuleOptions))]
 
 const loaderMap = {
   css: '',
@@ -34,6 +67,7 @@ const loaderMap = {
   styl: 'stylus-loader',
   stylus: 'stylus-loader'
 }
+
 const debug = argv.debug
 const debugPrefix = 'hi:webpack:'
 export const nodeModules = /\bnode_modules\b/

@@ -2,8 +2,6 @@ import webpack from 'webpack'
 import CopyWebpackPlugin from 'copy-webpack-plugin'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
-import autoprefixer from 'autoprefixer'
-import cssnano from 'cssnano'
 import _debug from 'debug'
 import pug from 'pug'
 
@@ -74,42 +72,32 @@ webpackConfig.module.rules = [
     exclude: ['styl']
   }),
   ...__TESTING__ ? [{
+      test: /\.styl$/,
+      loader: generateLoaders(STYLUS_LOADER, baseLoaders),
+      exclude: nodeModules
+    }] : [{
+      test: /[/\\]app\.styl$/,
+      loader: generateLoaders(STYLUS_LOADER, baseLoaders, {
+        extract: !__DEV__ && (appLoader = new ExtractTextPlugin('app.[contenthash].css'))
+      }),
+      exclude: nodeModules
+    }, {
+      test: /[/\\]bootstrap\.styl$/,
+      loader: generateLoaders(STYLUS_LOADER, baseLoaders, {
+        extract: !__DEV__ && (bootstrapLoader = new ExtractTextPlugin('bootstrap.[contenthash].css'))
+      }),
+      exclude: nodeModules
+    }, {
+      test: /[/\\]theme-\w+\.styl$/,
+      loader: generateLoaders(STYLUS_LOADER, baseLoaders),
+      exclude: nodeModules
+    }, {
+      test: /^(?!.*[/\\](app|bootstrap|theme-\w+)\.styl$).*\.styl$/,
+      loader: generateLoaders(STYLUS_LOADER, cssModuleLoaders),
+      exclude: nodeModules
+    }], {
     test: /\.styl$/,
-    loader: generateLoaders(STYLUS_LOADER, baseLoaders, {
-      sourceMap
-    }),
-    exclude: nodeModules
-  }] : [{
-    test: /[/\\]app\.styl$/,
-    loader: generateLoaders(STYLUS_LOADER, baseLoaders, {
-      sourceMap,
-      extract: !__DEV__ && (appLoader = new ExtractTextPlugin('app.[contenthash].css'))
-    }),
-    exclude: nodeModules
-  }, {
-    test: /[/\\]bootstrap\.styl$/,
-    loader: generateLoaders(STYLUS_LOADER, baseLoaders, {
-      sourceMap,
-      extract: !__DEV__ && (bootstrapLoader = new ExtractTextPlugin('bootstrap.[contenthash].css'))
-    }),
-    exclude: nodeModules
-  }, {
-    test: /[/\\]theme-\w+\.styl$/,
-    loader: generateLoaders(STYLUS_LOADER, baseLoaders, {
-      sourceMap
-    }),
-    exclude: nodeModules
-  }, {
-    test: /^(?!.*[/\\](app|bootstrap|theme-\w+)\.styl$).*\.styl$/,
-    loader: generateLoaders(STYLUS_LOADER, cssModuleLoaders, {
-      sourceMap
-    }),
-    exclude: nodeModules
-  }], {
-    test: /\.styl$/,
-    loader: generateLoaders(STYLUS_LOADER, baseLoaders, {
-      sourceMap
-    }),
+    loader: generateLoaders(STYLUS_LOADER, baseLoaders),
     include: nodeModules
   }, {
     test: /\.js$/,
@@ -117,7 +105,7 @@ webpackConfig.module.rules = [
     exclude: nodeModules
   }, {
     test: /\.pug$/,
-    loader: `vue-template-es2015-loader!template-file-loader?raw&doctype=html`,
+    loader: `vue-template-es2015-loader!template-file-loader?raw&pretty=${__DEV__}&doctype=html`,
     exclude: nodeModules
   }, {
     test: /\.(png|jpe?g|gif)$/,
@@ -139,18 +127,10 @@ webpackConfig.module.rules = [
 
 __MOCK__ && debug(`enable mock for ${NODE_ENV}`)
 
-const postcss = []
-
 webpackConfig.plugins = [
   new webpack.ContextReplacementPlugin(/\.\/locale$/, null, false, /js$/),
   new webpack.DefinePlugin(globals),
   new webpack.LoaderOptionsPlugin({
-    minimize: __PROD__,
-    debug: __DEV__,
-    options: {
-      context: __dirname,
-      postcss
-    },
     stylus: {
       default: {
         preferPathResolver: 'webpack',
@@ -187,38 +167,13 @@ if (!__TESTING__) {
     }))
 }
 
-const browsers = config.compiler_browsers
-
-if (__DEV__ || __TESTING__) {
-  debug(`Enable postcss processor(autoprefixer) for ${NODE_ENV}`)
-
-  postcss.push(autoprefixer({browsers}))
-
+if (__DEV__) {
   debug('Enable plugins for live development (HMR, NoErrors).')
   webpackConfig.plugins.push(
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
+    new webpack.NoEmitOnErrorsPlugin()
   )
-} else {
-  debug(`Enable postcss processor(cssnano) for ${NODE_ENV}`)
-
-  postcss.push(cssnano({
-    autoprefixer: {
-      add: true,
-      remove: true,
-      browsers
-    },
-    discardComments: {
-      removeAll: true
-    },
-    discardUnused: false,
-    mergeIdents: false,
-    normalizeUrl: false,
-    reduceIdents: false,
-    safe: true,
-    sourcemap: sourceMap
-  }))
-
+} else if (!__TESTING__) {
   debug(`Enable plugins for ${NODE_ENV} (OccurenceOrder, Dedupe & UglifyJS).`)
   debug(`Extract styles of app and bootstrap for ${NODE_ENV}.`)
   webpackConfig.plugins.push(
@@ -229,6 +184,7 @@ if (__DEV__ || __TESTING__) {
         dead_code: true,
         warnings: false
       },
+      comments: false,
       sourceMap
     }),
     // 将 bootstrap 和 app 分别导出到单独的文件中, 这里的顺序就是被注入到 HTML 中时加载的顺序
