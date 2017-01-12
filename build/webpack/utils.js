@@ -20,27 +20,27 @@ export const generateLoaders = (loader, loaders, options = {}) => {
 
   let extract = options.extract
   return extract ? (extract.extract ? extract : ExtractTextPlugin).extract({
-      fallbackLoader: styleLoader,
-      loader: sourceLoaders
-    }) : [styleLoader, sourceLoaders].join('!')
+    fallbackLoader: styleLoader,
+    loader: sourceLoaders
+  }) : [styleLoader, sourceLoaders].join('!')
 }
 
 const minimize = __TEST__ || __PROD__ && {
-    autoprefixer: {
-      add: true,
-      remove: true,
-      browsers
-    },
-    discardComments: {
-      removeAll: true
-    },
-    discardUnused: false,
-    mergeIdents: false,
-    normalizeUrl: false,
-    reduceIdents: false,
-    safe: true,
-    sourcemap: sourceMap
-  }
+  autoprefixer: {
+    add: true,
+    remove: true,
+    browsers
+  },
+  discardComments: {
+    removeAll: true
+  },
+  discardUnused: false,
+  mergeIdents: false,
+  normalizeUrl: false,
+  reduceIdents: false,
+  safe: true,
+  sourcemap: sourceMap
+}
 
 const cssOptions = {
   minimize,

@@ -72,30 +72,30 @@ webpackConfig.module.rules = [
     exclude: ['styl']
   }),
   ...__TESTING__ ? [{
-      test: /\.styl$/,
-      loader: generateLoaders(STYLUS_LOADER, baseLoaders),
-      exclude: nodeModules
-    }] : [{
-      test: /[/\\]app\.styl$/,
-      loader: generateLoaders(STYLUS_LOADER, baseLoaders, {
-        extract: !__DEV__ && (appLoader = new ExtractTextPlugin('app.[contenthash].css'))
-      }),
-      exclude: nodeModules
-    }, {
-      test: /[/\\]bootstrap\.styl$/,
-      loader: generateLoaders(STYLUS_LOADER, baseLoaders, {
-        extract: !__DEV__ && (bootstrapLoader = new ExtractTextPlugin('bootstrap.[contenthash].css'))
-      }),
-      exclude: nodeModules
-    }, {
-      test: /[/\\]theme-\w+\.styl$/,
-      loader: generateLoaders(STYLUS_LOADER, baseLoaders),
-      exclude: nodeModules
-    }, {
-      test: /^(?!.*[/\\](app|bootstrap|theme-\w+)\.styl$).*\.styl$/,
-      loader: generateLoaders(STYLUS_LOADER, cssModuleLoaders),
-      exclude: nodeModules
-    }], {
+    test: /\.styl$/,
+    loader: generateLoaders(STYLUS_LOADER, baseLoaders),
+    exclude: nodeModules
+  }] : [{
+    test: /[/\\]app\.styl$/,
+    loader: generateLoaders(STYLUS_LOADER, baseLoaders, {
+      extract: !__DEV__ && (appLoader = new ExtractTextPlugin('app.[contenthash].css'))
+    }),
+    exclude: nodeModules
+  }, {
+    test: /[/\\]bootstrap\.styl$/,
+    loader: generateLoaders(STYLUS_LOADER, baseLoaders, {
+      extract: !__DEV__ && (bootstrapLoader = new ExtractTextPlugin('bootstrap.[contenthash].css'))
+    }),
+    exclude: nodeModules
+  }, {
+    test: /[/\\]theme-\w+\.styl$/,
+    loader: generateLoaders(STYLUS_LOADER, baseLoaders),
+    exclude: nodeModules
+  }, {
+    test: /^(?!.*[/\\](app|bootstrap|theme-\w+)\.styl$).*\.styl$/,
+    loader: generateLoaders(STYLUS_LOADER, cssModuleLoaders),
+    exclude: nodeModules
+  }], {
     test: /\.styl$/,
     loader: generateLoaders(STYLUS_LOADER, baseLoaders),
     include: nodeModules

@@ -3,7 +3,6 @@ module.exports = {
   parser: 'babel-eslint',
   plugins: [
     'babel',
-    'react',
     'flowtype',
     'standard'
   ],
