@@ -3,6 +3,8 @@ const loaderUtils = require('loader-utils')
 const compiler = require('vue-template-compiler')
 const transpile = require('vue-template-es2015-compiler')
 
+const genId = require('./gen-id')
+
 // vue compiler module for using transforming `<tag>:<attribute>` to `require`
 const defaultTransformToRequire = {
   img: 'src'
@@ -67,14 +69,11 @@ module.exports = function (content) {
     preserveWhitespace: vueOptions.preserveWhitespace
   }, defaultCompileOptions))
 
-  const id = module.id
+  const id = genId(this.resourcePath)
 
   compiled.errors.forEach(error => {
     this.emitError('template syntax error ' + error)
   })
-
-  const shouldHotReload = !isServer && !this.minimize &&
-    process.env.NODE_ENV !== 'production'
 
   const bubleOptions = vueOptions.buble
   let output = transpile(writeRenderCode(compiled, id), bubleOptions)
@@ -87,7 +86,8 @@ module.exports = function (content) {
     output += `\nrender._withStripped = true`
   }
 
-  if (shouldHotReload) {
+  if (!isServer && !this.minimize &&
+    process.env.NODE_ENV !== 'production') {
     output += writeHotReloadCode(id)
   }
 
