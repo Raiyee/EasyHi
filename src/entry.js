@@ -34,7 +34,7 @@ utils.logout = () => {
   location.reload()
 }
 
-module.hot && module.hot.accept()
+if (module.hot) module.hot.accept()
 
 // eslint-disable-next-line no-new
 new Vue({

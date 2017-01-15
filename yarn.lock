@@ -7759,9 +7759,9 @@ vue-template-es2015-compiler@^1.4.0:
   version "1.4.0"
   resolved "http://registry.npm.taobao.org/vue-template-es2015-compiler/download/vue-template-es2015-compiler-1.4.0.tgz#7b88853ca4bf8d84ae54ab9e56771de271e60198"
 
-vue-template-es2015-loader@^2.1.0:
-  version "2.1.0"
-  resolved "http://registry.npm.taobao.org/vue-template-es2015-loader/download/vue-template-es2015-loader-2.1.0.tgz#fa8944f7341d8a2ebf14d2714085837903956f54"
+vue-template-es2015-loader@^2.1.1:
+  version "2.1.1"
+  resolved "http://registry.npm.taobao.org/vue-template-es2015-loader/download/vue-template-es2015-loader-2.1.1.tgz#f1536197d35ed19743d0c26f0f6866ad02e407b5"
   dependencies:
     hash-sum "^1.0.2"
     loader-utils "^0.2.16"

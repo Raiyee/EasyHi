@@ -1,9 +1,14 @@
+const path = require('path')
+
 const loaderUtils = require('loader-utils')
 
 const compiler = require('vue-template-compiler')
 const transpile = require('vue-template-es2015-compiler')
 
-const genId = require('./gen-id')
+const hash = require('hash-sum')
+const cache = Object.create(null)
+
+const genId = file => cache[file] || (cache[file] = hash(file))
 
 // vue compiler module for using transforming `<tag>:<attribute>` to `require`
 const defaultTransformToRequire = {
@@ -69,7 +74,7 @@ module.exports = function (content) {
     preserveWhitespace: vueOptions.preserveWhitespace
   }, defaultCompileOptions))
 
-  const id = genId(this.resourcePath)
+  const id = genId(path.relative(this.options.context, this.resourcePath))
 
   compiled.errors.forEach(error => {
     this.emitError('template syntax error ' + error)
@@ -102,8 +107,8 @@ function writeRenderCode(compiled, id) {
     '  options = options || {}',
     '  options.render = render',
     '  options.staticRenderFns = staticRenderFns',
-    '  if (module.hot && api) {',
-    `    api.createRecord("${id}", options)`,
+    '  if (module.hot) {',
+    `    api && api.createRecord("${id}", options)`,
     '  }',
     '  return options',
     '}\n'
