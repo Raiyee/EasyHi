@@ -1,4 +1,4 @@
-div(:class="[classes.pickerList, `text-${textAlign}`, className]",
+div(:class="[classes.pickerList, `text-${align}`, className]",
 :style="{flex}",
 v-touch="{methods: true}")
   div(:class="classes.pickerContainer")
@@ -7,6 +7,6 @@ v-touch="{methods: true}")
       .border-tb(:class="classes.pickerHighlight")
       ul.list-unstyled(:class="classes.pickerItems", :style="{transform}")
         li(v-for="(value, index) of values",
-        :key="value[valueKey]",
+        :key="object ? value[valueKey] : index",
         :class="[classes.pickerItem, {'theme-color': currIndex === index}]",
-        @tap="tapItem(index)") {{ value[textKey] }}
+        @tap="tapItem(index)") {{ object ? value[textKey] : value }}

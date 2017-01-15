@@ -1,4 +1,4 @@
-import {isEmptyStr, warn, error} from 'utils'
+import {isBlankStr, warn, error} from 'utils'
 import classes from './modal-item.styl'
 
 export default require('./modal-item.pug')({
@@ -17,7 +17,7 @@ export default require('./modal-item.pug')({
   computed: {
     label() {
       const header = this.header
-      return isEmptyStr(header) ? '&nbsp;' : header
+      return isBlankStr(header) ? '&nbsp;' : header
     }
   },
   methods: {

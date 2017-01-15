@@ -6,7 +6,8 @@ schedule-calendar(:calendar="calendar",
 :schedules="schedules",
 :coaches="coaches",
 :contentStyle="contentStyle",
-@toggleActiveDate="toggleActiveDate")
+@toggleActiveDate="toggleActiveDate",
+@toggleActiveSchedule="toggleActiveSchedule")
   ul.list-unstyled.clearfix.scroll-list(:class="classes.courseTypes", :style="typesStyle")
     li(v-for="(courseType, index) of courseTypes",
     :class="{first: !index, active: courseTypeId === courseType.courseTypeId}",

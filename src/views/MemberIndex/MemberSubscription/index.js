@@ -1,20 +1,21 @@
-import Tab from './tab.js'
+import HiTab from 'components/HiTab'
+
 import classes from './index.styl'
 
 export default require('./index.pug')({
-  name: 'memberSubscription',
+  name: 'member-subscription',
   data() {
     return {
-      tabName: undefined,
+      text: null,
       open: false,
       classes,
       ...this.$route.meta.data
     }
   },
   methods: {
-    toggleTab: function (item, index) {
+    toggleTab: function (index, value, text) {
       console.log(index)
-      this.tabName = item.tabName || item
+      this.text = text
     },
     toggleMenu() {
       this.open = !this.open
@@ -24,6 +25,6 @@ export default require('./index.pug')({
     }
   },
   components: {
-    Tab
+    HiTab
   }
 })

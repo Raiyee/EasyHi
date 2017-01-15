@@ -6,10 +6,10 @@ li.media(:class="classes.media")
       span.iconfont.active(:class="`icon-${coachItem.coachGender ? '' : 'fe'}male`")
     template(v-if="active")
       span(@click="toggleChecked(false)")
-        span.iconfont.icon-radio(:class="checked ? 'inactive' : 'theme-color'")
+        span.iconfont.icon-radio(:class="checked ? 'remark-color' : 'theme-color'")
         | 60min
       span(@click="toggleChecked(true)")
-        span.iconfont.icon-radio(:class="checked ? 'theme-color' : 'inactive'")
+        span.iconfont.icon-radio(:class="checked ? 'theme-color' : 'remark-color'")
         | 120min
     template(v-else)
       span.iconfont.icon-morning(v-if="coachItem.min060.morning.length")

@@ -5,6 +5,7 @@ import {REQUIRED_NUMBER, REQUIRED_STRING} from 'utils'
 export default require('./schedule-item.pug')({
   name: 'schedule-item',
   props: {
+    scheduleId: REQUIRED_STRING,
     coursePicUrl: REQUIRED_STRING,
     scheduleBooked: REQUIRED_NUMBER,
     scheduleCoach: REQUIRED_STRING,
@@ -17,6 +18,11 @@ export default require('./schedule-item.pug')({
   computed: {
     scheduleDuration() {
       return (this.scheduleEndTime - this.scheduleStartTime) / 1000 / 60
+    }
+  },
+  methods: {
+    toggleActive: function (e) {
+      !this.scheduleRemaining || this.$emit('toggleActiveData', e, this.scheduleId)
     }
   }
 })

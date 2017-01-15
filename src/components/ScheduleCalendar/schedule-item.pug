@@ -1,5 +1,5 @@
 li.media(:class="classes.media")
-  .media-body
+  .media-body(@click="toggleActive")
     h4.media-heading
       | {{ scheduleStartTime | formatDate("HH:mm") }}
       | {{ scheduleName }}

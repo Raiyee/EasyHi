@@ -7,7 +7,7 @@ import classes from './index.styl'
 import {omitObj, replaceRoute} from 'utils'
 
 export default require('./index.pug')({
-  name: 'subscribe-schedule',
+  name: 'subscribe-index',
   data() {
     const route = this.$route
     const params = route.params
@@ -54,18 +54,21 @@ export default require('./index.pug')({
     ...mapActions(['toggleSubscribeType']),
     toggleCourseType(courseTypeId) {
       if (this.courseTypeId === courseTypeId) return
-      return this.$http.post('/get-schedules', {courseTypeId})
+      return this.$http.post('/subscribe-index', {courseTypeId})
         .then(({data}) => {
           Object.assign(this, omitObj(data, 'courseTypes'), {
             courseTypeId,
             courseTypeIndex: this.courseTypes.findIndex(courseType => courseTypeId === courseType.courseTypeId)
           })
           this.toggleSubscribeType(this.courseTypes[this.courseTypeIndex].subscribeType)
-          replaceRoute(`/subscribe-schedule/${this.courseTypeId}`)
+          replaceRoute(`/subscribe-index/${this.courseTypeId}`)
         })
     },
     toggleActiveDate(activeDate) {
-      replaceRoute(`/subscribe-schedule/${this.courseTypeId}/${activeDate}`)
+      replaceRoute(`/subscribe-index/${this.courseTypeId}/${activeDate}`)
+    },
+    toggleActiveSchedule(e, scheduleId) {
+      this.$router.push(`/subscribe-lesson/${scheduleId}`)
     }
   },
   components: {

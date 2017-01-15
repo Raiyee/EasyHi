@@ -1,4 +1,4 @@
-import {reverse, isEmptyStr} from 'utils/string'
+import {reverse, isBlankStr} from 'utils/string'
 
 describe('utils-string', () => {
   it('should reverse string', () => {
@@ -6,6 +6,6 @@ describe('utils-string', () => {
   })
 
   it('should return true when passing a tab', () => {
-    expect(isEmptyStr('\t')).to.equal(true)
+    expect(isBlankStr('\t')).to.equal(true)
   })
 })

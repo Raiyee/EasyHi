@@ -5,26 +5,26 @@ $recommended-bg = #fb623b
     display block
 
   :global
-    .modal-dialog,
-    .modal-content
-      height 100%
-
     .modal-content
       border 0
       border-radius 0
-      padding-bottom 70px
-      overflow-y auto
 
     .modal-body
       padding 0
+      overflow-y auto
 
     .modal-footer
-      fixed(bottom)
-      width 100%
       border-top 0
       padding 20px
       text-align center
       background-color $card-back
+
+    .media
+      margin-top 0
+      padding 10px
+
+    img
+      size 70px
 
     .icon-close
       font-size 30px
@@ -80,11 +80,10 @@ $recommended-bg = #fb623b
   color $primary-color
 
   :first-child
-    relative()
     display inline-block
 
     &:before
-      font-size 44px
+      font-size 40px
 
   &:global(.disabled)
     :first-child:after

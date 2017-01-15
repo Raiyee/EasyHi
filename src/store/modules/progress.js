@@ -1,17 +1,21 @@
+import {generateGetters} from 'utils'
+
 const SET_PROGRESS = 'SET_PROGRESS'
 
 const state = {
   progress: 0
 }
 
-const getters = {
-  progress: state => state.progress
-}
+const getters = generateGetters('progress')
+
+let timeout
 
 const actions = {
   setProgress({commit}, progress) {
+    clearTimeout(timeout)
     commit(SET_PROGRESS, progress)
-    progress === 100 && setTimeout(() => {
+    if (progress !== 100) return
+    timeout = setTimeout(() => {
       commit(SET_PROGRESS, 0)
     }, 500)
   }

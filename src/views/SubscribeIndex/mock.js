@@ -4,7 +4,7 @@ import moment from 'moment'
 import {DATE_FORMAT, HOUR_FORMAT, firstDayOfWeek, omitObj, randomImg} from 'utils'
 
 const Random = Mock.Random
-Mock.mock(/\/get-schedules$/, (() => {
+Mock.mock(/\/subscribe-index$/, (() => {
   const CACHE = {}
   let COURSE_TYPES
 

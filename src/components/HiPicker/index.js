@@ -6,24 +6,6 @@ import {isObject, isOdd, error, REQUIRED_ARRAY} from 'utils'
 
 import classes from './index.styl'
 
-const generatePicker = (pickers, index) => {
-  const picker = pickers[index]
-
-  const valueKey = picker.valueKey || 'value'
-  const textKey = picker.textKey || 'text'
-
-  return {
-    ...picker,
-    valueKey,
-    textKey,
-    textAlign: picker.textAlign || pickers.length === 2 && (index ? 'left' : 'right') || 'center',
-    values: picker.values.map((value, index) => isObject(value) ? value : {
-      [valueKey]: index,
-      [textKey]: value
-    })
-  }
-}
-
 const refError = text => {
   throw new ReferenceError(`should not modify ${text} directly`)
 }
@@ -31,7 +13,18 @@ const refError = text => {
 export default require('./index.pug')({
   name: 'hi-picker',
   props: {
-    pickers: REQUIRED_ARRAY,
+    pickers: {
+      ...REQUIRED_ARRAY,
+      validator: pickers => {
+        if (!pickers.length) return false
+        return pickers.every(picker => {
+          const values = picker.values
+          if (!values || !values.length) return false
+          const object = isObject(values[0])
+          return values.every(value => isObject(value) === object)
+        })
+      }
+    },
     pickerDivider: {
       type: Boolean,
       default: true
@@ -45,16 +38,13 @@ export default require('./index.pug')({
     }
   },
   data() {
-    const pickerList = []
-    this.pickers.forEach((picker, index) => pickerList.push(generatePicker(this.pickers, index)))
     return {
       classes,
-      changingIndex: null,
-      pickerList,
-      resulting: pickerList.map(picker => {
-        const currIndex = picker.defaultIndex || 0
-        const value = picker.values[currIndex]
-        return [value[picker.valueKey], value[picker.textKey]]
+      resulting: this.pickers.map(picker => {
+        const index = picker.defaultIndex || 0
+        const value = picker.values[index]
+        const object = isObject(value)
+        return [object ? value[picker.valueKey || 'value'] : index, object ? value[picker.textKey || 'text'] : value]
       })
     }
   },
@@ -66,7 +56,7 @@ export default require('./index.pug')({
     maxWidth() {
       const placeholderWith = 30 * this.rem
       const baseWidth = this.appWidth - placeholderWith
-      const length = this.pickerList.length
+      const length = this.pickers.length
       const offset = this.pickerDivider && placeholderWith * (length - 1)
       return (baseWidth - offset) / length + 'px'
     },
@@ -80,18 +70,12 @@ export default require('./index.pug')({
     }
   },
   watch: {
-    pickers(pickers) {
-      if (this.changingIndex == null) return
-      const index = this.changingIndex + 1
-      this.$set(this.pickerList, index, generatePicker(pickers, index))
-    },
     resulting(curr, prev) {
       curr === prev || refError('resulting')
     }
   },
   methods: {
     itemChanged(index, value, text) {
-      this.changingIndex = index
       this.$set(this.resulting, index, [value, text])
       this.$emit('itemChanged', ...arguments)
     }

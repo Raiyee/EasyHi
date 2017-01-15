@@ -8,7 +8,7 @@ export default require('./index.pug')({
     Object.defineProperty(Vue.prototype, '$modal', {
       value: this,
       readable: true,
-      writable: __DEV__
+      writable: __DEV__ || __TESTING__
     })
   },
   data() {
@@ -35,15 +35,14 @@ export default require('./index.pug')({
     close(modalId, destroy) {
       modalId = modalId || this.currModalId
       if (!modalId) return
-      const index = this.getModalIndex(modalId)
-      if (index === -1) return
-      const modal = this.modals[index]
+      const modal = this.getModal(modalId)
+      if (!modal) return
       const {options} = modal
       options.show = false
       const callback = () => {
         options.destroy || destroy ? this.removeModal(modalId) : this.resetCurrModal(modalId)
       }
-      const modalRef = this.$refs.modal[index]
+      const modalRef = this.getModalRef(modalId)
       const modalItem = modalRef.$children[0]
       modalItem || warn(`this modal is not a Vue component, HiModal will not respect it's transition`)
       const propsData = modalItem && modalItem.$options.propsData
@@ -54,15 +53,21 @@ export default require('./index.pug')({
       modalId === this.currModalId && (this.currModal = null)
     },
     removeModal(modalId) {
-      this.modals.splice(this.modals.findIndex(m => m.id === modalId), 1)
+      this.modals.splice(this.getModalIndex(modalId), 1)
       this.resetCurrModal(modalId)
+    },
+    getModal(modalId) {
+      return this.modals.find(m => m.id === modalId)
     },
     getModalIndex(modalId) {
       return this.modals.findIndex(m => m.id === modalId)
     },
+    getModalRef(modalId) {
+      return this.$refs.modal[this.getModalIndex(modalId)]
+    },
     mount(modal) {
       const modalId = modal.id
-      const m = this.modals.find(m => m.id === modalId)
+      const m = this.getModal(modalId)
       const component = modal.component
       const options: void | {backdrop: void | boolean | 'static' | 'transparent'} = modal.options
       const props = modal.props
@@ -91,7 +96,7 @@ export default require('./index.pug')({
     toggle() {
       if (this.backdrop === 'static') return
       const close = this.currModal.props.close
-      close ? close.apply(this.$refs.modal[this.getModalIndex(this.currModalId)], arguments) : this.close()
+      close ? close.apply(this.getModalRef(this.currModalId), arguments) : this.close()
     }
   }
 })

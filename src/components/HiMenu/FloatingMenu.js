@@ -8,16 +8,23 @@ export default require('./floating-menu.pug')({
   name: 'floating-menu',
   data: () => ({classes}),
   computed: {
-    ...mapGetters(['rem', 'currRole', 'isAdmin', 'menuOpen', 'menuShow', 'subscribeType']),
+    ...mapGetters(['rem', 'currRole', 'isAdmin', 'isService',
+      'menuOpen', 'menuShow', 'subscribeType']),
     width() {
       return (50 + +this.menuOpen * this.menus.length * 60) * this.rem + 'px'
     },
     menus() {
       const route = this.$route
-      const menus = [{text: '订课', link: '/member-subscribe', inactive: route.name === 'memberSubscribe'}]
+
+      const menus = [{
+        text: '订课',
+        link: '/subscribe-index',
+        inactive: route.name === 'memberSubscribe'
+      }]
+
       const indexLink = `/${this.currRole}-index`
 
-      if (!this.isAdmin) {
+      if (!this.isAdmin && !this.isService) {
         menus.push({text: '我的', link: indexLink, inactive: route.fullPath.indexOf(indexLink) !== -1})
       } else if (this.subscribeType) {
         menus.push(

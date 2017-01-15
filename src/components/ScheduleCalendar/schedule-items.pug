@@ -4,4 +4,5 @@ li(:style="itemsStyle")
     schedule-item(v-for="(scheduleItem, index) of scheduleItems",
     :key="scheduleItem.scheduleId",
     :class="{disabled: !scheduleItem.scheduleRemaining}",
+    @toggleActiveData="toggleActiveData",
     v-bind="scheduleItem")

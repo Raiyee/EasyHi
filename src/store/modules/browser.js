@@ -1,8 +1,11 @@
+import {generateGetters} from 'utils'
+
 const SET_SIZE = 'SET_SIZE'
 
 const state = {
   baseWidth: 375,
   baseFontSize: 16,
+  dpi: 1,
   winHeight: 0,
   winWidth: 0,
   appWidth: 0,
@@ -13,23 +16,14 @@ const state = {
   mode: true
 }
 
-const getters = {
-  baseWidth: state => state.baseWidth,
-  baseFontSize: state => state.baseFontSize,
-  winHeight: state => state.winHeight,
-  winWidth: state => state.winWidth,
-  appWidth: state => state.appWidth,
-  rem: state => state.rem,
-  fontSize: state => state.fontSize,
-  logicWidth: state => state.logicWidth,
-  threshold: state => state.threshold,
-  mode: state => state.mode
-}
+const getters = generateGetters(['baseWidth', 'baseFontSize', 'dpi', 'winHeight', 'winWidth',
+  'appWidth', 'rem', 'fontSize', 'logicWidth', 'threshold', 'mode'])
 
 const actions = {
   setSize({commit}, {winHeight, winWidth}) {
     const size = {winHeight, winWidth}
     const baseWidth = state.baseWidth
+    size.dpi = window.devicePixelRatio
     const mode = size.mode = winWidth < state.threshold
     let logicWidth
     size.rem = (logicWidth = size.logicWidth =

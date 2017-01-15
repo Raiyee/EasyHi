@@ -148,6 +148,9 @@ export default require('./index.pug')({
     },
     toggleActiveCoach(coachId) {
       this.activeCoachId = coachId
+    },
+    toggleActiveSchedule(e, data) {
+      this.$emit('toggleActiveSchedule', e, data)
     }
   },
   components: {

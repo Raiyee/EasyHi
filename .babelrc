@@ -6,21 +6,22 @@
   "plugins": [
     "add-module-exports",
     "syntax-flow",
-    "transform-async-to-generator",
-    "transform-flow-strip-types",
-    "transform-runtime",
-    [
-      "typecheck",
-      {
-        "disable": {
-          "production": true
-        }
-      }
-    ]
+    "transform-flow-strip-types"
   ],
   "comments": false,
   "passPerPreset": true,
   "env": {
+    "development": {
+      "plugins": [
+        [
+          "flow-runtime",
+          {
+            "assert": true,
+            "decorate": true
+          }
+        ]
+      ]
+    },
     "testing": {
       "plugins": [
         [

@@ -35,6 +35,7 @@ div(:class="classes.scheduleCalendar")
       :date="date",
       :last="index === Object.keys(activeItems).length - 1",
       :itemsHeight="itemsHeight",
+      @toggleActiveSchedule="toggleActiveSchedule",
       :scheduleItems="scheduleItems")
 
       coach-item(v-if="subscribeType == 2",

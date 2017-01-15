@@ -1,34 +1,41 @@
 import {mapGetters} from 'vuex'
 
-import {REQUIRED_NUMBER, intervalVal, isJsonSame} from 'utils'
+import {REQUIRED_ARRAY, REQUIRED_BOOLEAN, REQUIRED_NUMBER, intervalVal, isJsonSame, isObject} from 'utils'
 
 import classes from './picker-list.styl'
 
 export default require('./picker-list.pug')({
   name: 'picker-list',
   props: {
-    changingIndex: Number,
     className: [Array, String, Object],
     defaultIndex: {
       type: Number,
       default: 0
     },
-    divider: String,
     flex: Number,
-    hasTitle: Boolean,
-    index: Number,
+    hasTitle: REQUIRED_BOOLEAN,
+    index: REQUIRED_NUMBER,
+    length: REQUIRED_NUMBER,
     maxWidth: String,
     mask: Boolean,
     title: String,
     textAlign: String,
-    valueKey: String,
-    textKey: String,
-    values: Array,
+    valueKey: {
+      type: String,
+      default: 'value'
+    },
+    textKey: {
+      type: String,
+      default: 'text'
+    },
+    values: REQUIRED_ARRAY,
     visibleCount: REQUIRED_NUMBER
   },
   data() {
+    const object = isObject(this.values[0])
     return {
       classes,
+      object,
       baseIndex: (this.visibleCount - 1) / 2,
       currIndex: this.defaultIndex,
       translateY: 0
@@ -39,6 +46,9 @@ export default require('./picker-list.pug')({
   },
   computed: {
     ...mapGetters(['rem']),
+    align() {
+      return this.textAlign || this.length === 2 ? this.index ? 'left' : 'right' : 'center'
+    },
     itemHeight() {
       return 36 * this.rem
     },
@@ -84,8 +94,9 @@ export default require('./picker-list.pug')({
       this.currIndex = index
     },
     emitChange() {
-      const value = this.values[this.currIndex]
-      this.$emit('itemChanged', this.index, value[this.valueKey], value[this.textKey])
+      const {currIndex: index, object} = this
+      const value = this.values[index]
+      this.$emit('itemChanged', this.index, object ? value[this.valueKey] : index, object ? value[this.textKey] : value)
     },
     tapItem(index) {
       if (this.setCurrIndex(index)) return

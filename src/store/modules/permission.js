@@ -1,6 +1,6 @@
-import {COACH, VISITOR, MANAGER, SERVICE, MERCHANT, ROLE_NAMES, STAFFS} from '../constants'
+import {COACH, VISITOR, SERVICE, MERCHANT, ROLE_NAMES, ADMINS, STAFFS, CONSUMERS} from '../constants'
 
-import utils from 'utils'
+import utils, {generateGetters} from 'utils'
 
 const PARSE_PATH = 'PARSE_PATH'
 const SET_ROLES = 'SET_ROLES'
@@ -28,6 +28,7 @@ Object.assign(utils, INIT_STATE, {
 const state = Object.assign({
   mobile: null,
   authorized: false,
+  coachAlias: ROLE_NAMES[COACH],
   roles: [VISITOR],
   currentRole: VISITOR,
   currentRoleName: ROLE_NAMES[VISITOR],
@@ -37,26 +38,22 @@ const state = Object.assign({
   initialized: false,
   merchantName: null,
   subscribeType: 0,
-  oldServer: null
+  oldServer: null,
+  isOnlinePayment: false,
+  checkIn: 0
 }, INIT_STATE)
 
 const getters = {
-  mobile: state => state.mobile,
-  authorized: state => state.authorized,
-  ctx: state => state.ctx,
-  tcode: state => state.tcode,
-  base: state => state.base,
-  roles: state => state.roles,
-  currentRole: state => state.currentRole,
+  ...generateGetters(['mobile', 'authorized', 'ctx', 'tcode', 'base',
+    'coachAlias', 'roles', 'currentRole', 'isEnterprise', 'menuOpen', 'menuShow',
+    'initialized', 'subscribeType', 'oldServer', 'isOnlinePayment', 'checkIn']),
   currRole: state => state.currentRole.toLowerCase(),
   currentRoleName: state => ROLE_NAMES[state.currentRole],
+  isAdmin: state => ADMINS.includes(state.currentRole),
   isStaff: state => STAFFS.includes(state.currentRole),
-  isAdmin: state => [MERCHANT, MANAGER, SERVICE].includes(state.currentRole),
-  isEnterprise: state => state.isEnterprise,
-  menuOpen: state => state.menuOpen,
-  menuShow: state => state.menuShow,
-  initialized: state => state.initialized,
-  subscribeType: state => state.subscribeType
+  isConsumer: state => CONSUMERS.includes(state.currentRole),
+  isMerchant: state => MERCHANT === state.currentRole,
+  isService: state => SERVICE === state.currentRole
 }
 
 const actions = {
@@ -108,11 +105,13 @@ const mutations = {
   [SET_MOBILE](state, mobile) {
     state.authorized = !!(state.mobile = mobile)
   },
-  [INITIALIZE](state, {coachAlias, isEnterprise, merchantName}) {
-    coachAlias && (ROLE_NAMES[COACH] = coachAlias)
+  [INITIALIZE](state, {coachAlias, isEnterprise, isOnlinePayment, merchantName, checkIn}) {
+    coachAlias && (ROLE_NAMES[COACH] = coachAlias) && (state.coachAlias = coachAlias)
     state.initialized = true
     state.isEnterprise = isEnterprise
+    state.isOnlinePayment = isOnlinePayment
     state.merchantName = merchantName
+    state.checkIn = checkIn
   },
   [TOGGLE_SUBSCRIBE_TYPE](state, subscribeType) {
     state.subscribeType = subscribeType

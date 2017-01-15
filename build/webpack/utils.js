@@ -25,7 +25,7 @@ export const generateLoaders = (loader, loaders, options = {}) => {
   }) : [styleLoader, sourceLoaders].join('!')
 }
 
-const minimize = __TEST__ || __PROD__ && {
+const minimize = (__TEST__ || __PROD__) && {
   autoprefixer: {
     add: true,
     remove: true,
@@ -34,17 +34,14 @@ const minimize = __TEST__ || __PROD__ && {
   discardComments: {
     removeAll: true
   },
-  discardUnused: false,
-  mergeIdents: false,
-  normalizeUrl: false,
-  reduceIdents: false,
   safe: true,
   sourcemap: sourceMap
 }
 
 const cssOptions = {
   minimize,
-  sourceMap
+  sourceMap,
+  ...minimize
 }
 
 export const baseLoaders = ['css-loader?' + JSON.stringify(cssOptions)]

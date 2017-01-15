@@ -1,0 +1,16 @@
+div(:class="[classes.container, {'shadow-bottom': shadow, clearfix: $slots.default}]")
+  div(:class="[classes.content, {'pull-left': $slots.default}]", :style="{width}", ref="container")
+    ul.theme-color(:style="{width: itemsWidth + 'px', transform}",
+    v-touch="{methods: true, enable: touchEnable}",
+    ref="ulContainer")
+      tab-item(v-for="(item, index) in items",
+      :style="{width: itemWidth + 'px'}",
+      :item="item",
+      :index="index",
+      :valueKey="valueKey",
+      :textKey="textKey",
+      :touchEnable="touchEnable",
+      @tapItem="toggleItem")
+    .theme-color(:class="classes.border",
+    :style="{transform: borderTransform, width: itemWidth + 'px'}")
+  slot

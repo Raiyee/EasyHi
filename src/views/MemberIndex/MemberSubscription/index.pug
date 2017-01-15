@@ -1,13 +1,10 @@
 div
-  tab(
+  hi-tab(
   :items="items",
   :width="'80%'",
-  :pageNum="3",
-  :index="0",
-  :autoToggle="true",
   @toggleTab="toggleTab",
   v-touch="{methods: true}")
-    div(:class="classes.rightBtn", @click="toggleMenu", slot="right")
+    div(:class="classes.rightBtn", @click="toggleMenu")
       | {{ '按钮' }}
 
   .mask.transparent(v-if="open", @click="toggleMenu")
@@ -16,4 +13,4 @@ div
       li 全部全部全部
       li 小班课
       li 小班课
-  div {{ tabName }}
+  div {{ text }}

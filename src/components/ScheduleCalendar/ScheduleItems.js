@@ -23,6 +23,11 @@ export default require('./schedule-items.pug')({
       }
     }
   },
+  methods: {
+    toggleActiveData: function (e, data) {
+      this.$emit('toggleActiveSchedule', e, data)
+    }
+  },
   components: {
     ScheduleItem
   }
