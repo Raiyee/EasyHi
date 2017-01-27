@@ -17,7 +17,7 @@
           "flow-runtime",
           {
             "assert": true,
-            "decorate": true
+            "annotate": true
           }
         ]
       ]

@@ -161,10 +161,7 @@ webpackConfig.plugins = [
 // Don't split bundles during testing, since we only want import one bundle
 if (!__TESTING__) {
   webpackConfig.plugins.push(
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      chunks: ['vendor']
-    }))
+    new webpack.optimize.CommonsChunkPlugin('vendor'))
 }
 
 if (__DEV__) {

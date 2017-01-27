@@ -44,6 +44,7 @@ const config = {
     chunkModules: false
   },
   compiler_alias: {
+    'flow-runtime': 'flow-runtime/dist/flow-runtime',
     vue: 'vue/dist/vue.common'
   },
   compiler_vendor: [
