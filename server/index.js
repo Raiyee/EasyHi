@@ -1,5 +1,6 @@
 import Koa from 'koa'
 import logger from 'koa-logger'
+import compress from 'koa-compress'
 import serve from './static'
 import _debug from 'debug'
 import config from '../build/config'
@@ -13,6 +14,8 @@ const debug = _debug('hi:server')
 const app = new Koa()
 
 app.use(history())
+
+app.use(compress())
 
 app.use(logger())
 
