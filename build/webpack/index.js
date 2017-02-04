@@ -64,7 +64,7 @@ webpackConfig.output = {
 // ------------------------------------
 
 const sourceMap = !!config.compiler_devtool
-const STYLUS_LOADER = 'stylus-loader'
+const STYLUS_LOADER = 'stylus-loader?paths=node_modules/bootstrap-styl/'
 let appLoader, bootstrapLoader
 
 webpackConfig.module.rules = [
