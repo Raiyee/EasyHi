@@ -2,6 +2,7 @@ import webpack from 'webpack'
 import CopyWebpackPlugin from 'copy-webpack-plugin'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
+import SWPrecacheWebpackPlugin from 'sw-precache-webpack-plugin'
 import _debug from 'debug'
 import pug from 'pug'
 
@@ -141,7 +142,8 @@ webpackConfig.plugins = [
   new HtmlWebpackPlugin({
     templateContent: pug.renderFile(paths.src('index.pug'), {
       pretty: !config.compiler_html_minify,
-      title: `${pkg.name} - ${pkg.description}`
+      title: `${pkg.name} - ${pkg.description}`,
+      polyfill: !__DEV__
     }),
     favicon: paths.src('static/favicon.ico'),
     hash: false,
@@ -183,6 +185,12 @@ if (__DEV__) {
       },
       comments: false,
       sourceMap
+    }),
+    new SWPrecacheWebpackPlugin({
+      cacheId: 'easy-hi',
+      filename: 'service-worker.js',
+      dontCacheBustUrlsMatching: /./,
+      staticFileGlobsIgnorePatterns: [/index\.html$/, /\.map$/]
     }),
     // 将 bootstrap 和 app 分别导出到单独的文件中, 这里的顺序就是被注入到 HTML 中时加载的顺序
     bootstrapLoader,
