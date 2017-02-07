@@ -127,7 +127,7 @@
     "stylus": "^0.54.5",
     "stylus-loader": "^2.4.0",
     "stylus-pxtorem": "^1.0.11",
-    "sw-precache-webpack-plugin": "^0.8.0",
+    "sw-precache-webpack-plugin": "^0.9.0",
     "template-file-loader": "^0.0.1",
     "url-loader": "^0.5.7",
     "vconsole": "^2.5.2",
