@@ -1,5 +1,7 @@
 # EasyHi-Vue
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/Raiyee/EasyHi.svg)](https://greenkeeper.io/)
+
 [![CircleCI](https://circleci.com/gh/Raiyee/EasyHi.svg?style=svg)](https://circleci.com/gh/Raiyee/EasyHi)
 [![Build Status](https://travis-ci.org/Raiyee/EasyHi.svg?branch=master)](https://travis-ci.org/Raiyee/EasyHi?branch=master)
 [![codecov](https://codecov.io/gh/Raiyee/Easyhi/branch/master/graph/badge.svg)](https://codecov.io/gh/Raiyee/Easyhi)
