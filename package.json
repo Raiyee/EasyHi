@@ -104,7 +104,7 @@
     "koa-compress": "^2.0.0",
     "koa-logger": "^2.0.1",
     "koa-static": "^3.0.0",
-    "koa-webpack": "^0.2.1",
+    "koa-webpack": "^0.3.0",
     "mocha": "^3.2.0",
     "mockjs": "^1.0.1-beta3",
     "nib": "^1.1.2",
