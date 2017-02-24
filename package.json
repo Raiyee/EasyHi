@@ -64,7 +64,7 @@
     "babel-loader": "^6.2.10",
     "babel-plugin-__coverage__": "^11.0.0",
     "babel-plugin-add-module-exports": "^0.2.1",
-    "babel-plugin-flow-runtime": "^0.5.0",
+    "babel-plugin-flow-runtime": "^0.6.0",
     "babel-plugin-syntax-flow": "^6.18.0",
     "babel-plugin-transform-flow-strip-types": "^6.22.0",
     "babel-polyfill": "^6.22.0",
