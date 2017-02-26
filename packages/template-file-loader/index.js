@@ -5,7 +5,7 @@ const extname = require('path').extname
 module.exports = function (content) {
   this.cacheable && this.cacheable()
   const callback = this.async()
-  const opt = loaderUtils.parseQuery(this.query)
+  const opt = loaderUtils.getOptions(this)
 
   function exportContent(content) {
     callback(null, opt.raw ? content : 'module.exports = ' + JSON.stringify(content))

@@ -58,7 +58,7 @@ module.exports = function (content) {
   const isProduction = this.minimize || process.env.NODE_ENV === 'production'
   const isServer = this.options.target === 'node'
 
-  const query = loaderUtils.parseQuery(this.query)
+  const query = loaderUtils.getOptions(this)
   const vueOptions = this.options.__vueOptions__ = this.options.__vueOptions__ ||
     Object.assign({}, this.options.vue, this.vue, query)
 
