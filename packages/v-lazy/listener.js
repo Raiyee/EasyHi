@@ -18,6 +18,12 @@ export default class ReactiveListener {
 
     this.initState()
 
+    this.performanceData = {
+      init: Date.now(),
+      loadStart: null,
+      loadEnd: null
+    }
+
     this.rect = el.getBoundingClientRect()
 
     this.$parent = $parent
@@ -30,6 +36,10 @@ export default class ReactiveListener {
       loaded: false,
       rendered: false
     }
+  }
+
+  record(event) {
+    this.performanceData[event] = Date.now()
   }
 
   update({src, loading, error}) {
@@ -52,53 +62,58 @@ export default class ReactiveListener {
 
   load() {
     if ((this.attempt > this.options.attempt - 1) && this.state.error) {
-      if (!this.options.slient) console.log('error end')
+      if (!this.options.silent) console.log('error end')
       return
     }
 
     if (this.state.loaded || imageCache[this.src]) {
-      return this.render('loaded')
+      return this.render('loaded', true)
     }
 
-    this.render('loading', true)
+    this.render('loading', false)
 
     this.attempt++
+
+    this.record('loadStart')
 
     loadImageAsync({
       src: this.src
     }, data => {
+      this.src = data.src
       this.naturalHeight = data.naturalHeight
       this.naturalWidth = data.naturalWidth
       this.state.loaded = true
       this.state.error = false
-      this.render('loaded', true)
+      this.record('loadEnd')
+      this.render('loaded', false)
       imageCache[this.src] = 1
     }, () => {
       this.state.error = true
       this.state.loaded = false
-      this.render('error', true)
+      this.render('error', false)
     })
   }
 
-  render(state, notify) {
-    let src
-    switch (state) {
-      case 'loading':
-        src = this.loading
-        break
-      case 'error':
-        src = this.error
-        break
-      default:
-        src = this.src
-        break
+  render(state, cache) {
+    this.elRenderer(this, state, cache)
+  }
+
+  performance() {
+    let state = 'loading'
+    let time = 0
+
+    if (this.state.loaded) {
+      state = 'loaded'
+      time = (this.performanceData.loadEnd - this.performanceData.loadStart) / 1000
     }
 
-    this.elRenderer({
-      el: this.el,
-      bindType: this.bindType,
-      src: src
-    }, state, notify)
+    if (this.state.error) state = 'error'
+
+    return {
+      src: this.src,
+      state,
+      time
+    }
   }
 
   destroy() {

@@ -1,13 +1,13 @@
-import Vue from 'vue'
+import {supportWebp, getDPR, scrollParent, getBestSelectionFromSrcset} from './util'
 
-import {on, off, remove, throttle} from 'utils'
-import {supportWebp, getDPR} from './util'
+import {remove, isObject, throttle, on, off} from 'utils'
+
 import ReactiveListener from './listener'
 
 const DEFAULT_URL = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
-const DEFAULT_EVENTS = ['scroll', 'wheel', 'mousewheel', 'resize', 'animationend', 'transitionend']
+const DEFAULT_EVENTS = ['scroll', 'wheel', 'mousewheel', 'resize', 'animationend', 'transitionend', 'touchmove']
 
-export default class Lazy {
+export default Vue => class {
   constructor({preLoad, error, loading, attempt, silent, scale, listenEvents, filter, adapter}) {
     this.ListenerQueue = []
     this.options = {
@@ -32,11 +32,21 @@ export default class Lazy {
         catIn = listener.checkInView()
         catIn && listener.load()
       })
-    }, 300)
+    }, 200)
+  }
+
+  config(options = {}) {
+    Object.assign(this.options, options)
+  }
+
+  addLazyBox(vm) {
+    this.ListenerQueue.push(vm)
+    this.options.hasbind = true
+    this.initListen(window, true)
   }
 
   add(el, binding, vnode) {
-    if (this.ListenerQueue.some(item => item.el === el)) {
+    if (this.ListenerQueue.find(item => item.el === el)) {
       this.update(el, binding)
       return Vue.nextTick(this.lazyLoadHandler)
     }
@@ -44,6 +54,12 @@ export default class Lazy {
     let {src, loading, error} = this.valueFormatter(binding.value)
 
     Vue.nextTick(() => {
+      let tmp = getBestSelectionFromSrcset(el, this.options.scale)
+
+      if (tmp) {
+        src = tmp
+      }
+
       const container = Object.keys(binding.modifiers)[0]
       let $parent
 
@@ -51,6 +67,10 @@ export default class Lazy {
         $parent = vnode.context.$refs[container]
         // if there is container passed in, try ref first, then fallback to getElementById to support the original usage
         $parent = $parent ? $parent.$el || $parent : document.getElementById(container)
+      }
+
+      if (!$parent) {
+        $parent = scrollParent(el)
       }
 
       this.ListenerQueue.push(this.listenerFilter(new ReactiveListener({
@@ -69,6 +89,7 @@ export default class Lazy {
       this.options.hasbind = true
       this.initListen(window, true)
       $parent && this.initListen($parent, true)
+      this.lazyLoadHandler()
       Vue.nextTick(() => this.lazyLoadHandler())
     })
   }
@@ -83,12 +104,19 @@ export default class Lazy {
       loading,
       error
     })
+    this.lazyLoadHandler()
+    Vue.nextTick(() => this.lazyLoadHandler())
   }
 
   remove(el) {
     if (!el) return
     const existItem = this.ListenerQueue.find(item => item.el === el)
     existItem && remove(this.ListenerQueue, existItem) && existItem.destroy()
+    this.options.hasbind && !this.ListenerQueue.length && this.initListen(window, false)
+  }
+
+  removeComponent(vm) {
+    vm && remove(this.ListenerQueue, vm)
     this.options.hasbind && !this.ListenerQueue.length && this.initListen(window, false)
   }
 
@@ -103,37 +131,63 @@ export default class Lazy {
         loading: [],
         loaded: [],
         error: []
-      },
-      $on(event, func) {
-        this.listeners[event].push(func)
-      },
-      $once(event, func) {
-        const vm = this
-
-        function on() {
-          vm.$off(event, on)
-          func.apply(vm, arguments)
-        }
-
-        this.$on(event, on)
-      },
-      $off(event, func) {
-        if (!func) {
-          this.listeners[event] = []
-          return
-        }
-        remove(this.listeners[event], func)
-      },
-      $emit(event, context) {
-        this.listeners[event].forEach(func => func(context))
       }
+    }
+
+    this.$on = (event, func) => this.Event.listeners[event].push(func)
+
+    this.$once = (event, func) => {
+      const vm = this
+
+      function on() {
+        vm.$off(event, on)
+        func.apply(vm, arguments)
+      }
+
+      this.$on(event, on)
+    }
+
+    this.$off = (event, func) => {
+      if (!func) {
+        this.Event.listeners[event] = []
+        return
+      }
+      remove(this.Event.listeners[event], func)
+    }
+
+    this.$emit = (event, context, inCache) => {
+      this.Event.listeners[event].forEach(func => func(context, inCache))
     }
   }
 
-  elRenderer(data, state, notify) {
-    const {el, bindType, src} = data
+  performance() {
+    return this.ListenerQueue.map(item => item.performance())
+  }
+
+  /**
+   * set element attribute with image'url and state
+   * @param  {object} listener: lazyload listener object
+   * @param  {string} state:  will be rendered
+   * @param  {bool} cache: is rendered from cache
+   * @return
+   */
+  elRenderer(listener, state, cache) {
+    const {el, bindType} = listener
 
     if (!el) return
+
+    let src
+    switch (state) {
+      case 'loading':
+        src = listener.loading
+        break
+      case 'error':
+        src = listener.error
+        break
+      default:
+        src = listener.src
+        break
+    }
 
     if (bindType) {
       el.style[bindType] = 'url(' + src + ')'
@@ -143,9 +197,8 @@ export default class Lazy {
 
     el.setAttribute('lazy', state)
 
-    if (!notify) return
-    this.Event.$emit(state, data)
-    this.options.adapter[state] && this.options.adapter[state](data, this.options)
+    this.$emit(state, listener, cache)
+    this.options.adapter[state] && this.options.adapter[state](listener, this.options)
   }
 
   listenerFilter(listener) {
@@ -158,16 +211,22 @@ export default class Lazy {
     return listener
   }
 
+  /**
+   * generate loading loaded error image url
+   * @param {string} value: image's src
+   * @return {object} image's loading, loaded, error url
+   */
   valueFormatter(value) {
-    let src = value
-    let loading = this.options.loading
-    let error = this.options.error
+    let {loading, error, silent} = this.options
 
-    if (Vue.util.isObject(value)) {
-      if (!value.src && !this.options.slient) Vue.util.warn('Vue Lazyload warning: miss src with ' + value)
+    let src = value
+
+    // value is object
+    if (isObject(value)) {
+      if (!value.src && !silent) error('Vue Lazyload warning: miss src with ' + value)
       src = value.src
-      loading = value.loading || this.options.loading
-      error = value.error || this.options.error
+      loading = value.loading || loading
+      error = value.error || error
     }
     return {
       src,

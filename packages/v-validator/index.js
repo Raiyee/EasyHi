@@ -3,9 +3,11 @@ import {isArray, isFunction, isObjectLike, error, log, warn} from 'utils'
 import * as validators from './validators'
 
 const applyRule = function (model, rule) {
-  const modelVal = this[model]
+  let modelVal
   const validation = {}
   for (let [ruleKey, ruleVal] of Object.entries(rule)) {
+    modelVal = this[model]
+
     if (isFunction(ruleVal)) {
       validation[ruleKey] = ruleVal.call(this, modelVal)
       continue
@@ -53,11 +55,17 @@ export default (Vue, options = {}) => {
       validator.rules || (validator = {rules: validator})
 
       let rules = validator.rules
-      const auto = !!validator.auto
+      const auto = validator.auto
 
       if (!isObjectLike(rules)) return warn('rules of validator should be an object')
 
-      defineReactive(this, '$v', {})
+      const $vError = () => (this.$v.$error = !!Object.keys(rules).find(model => this.$v[model].$error))
+
+      defineReactive(this, '$v', {
+        $touch: () => Object.keys(rules).forEach(model => this.$v[model].$touch()),
+        $reset: () => Object.keys(rules).forEach(model => this.$v[model].$reset()),
+        $error: false
+      })
 
       for (const [model, rule] of Object.entries(rules)) {
         defineReactive(this.$v, model, {
@@ -70,16 +78,14 @@ export default (Vue, options = {}) => {
 
         Object.assign(vModel, {
           $touch: () => {
-            if (vModel.$dirty) return
-
             vModel.$dirty = true
             applyRule.call(this, model, rule)
+            $vError()
           },
           $reset: () => {
-            if (!vModel.$dirty) return
-
             vModel.$dirty = false
             applyRule.call(this, model, rule)
+            $vError()
           }
         })
 

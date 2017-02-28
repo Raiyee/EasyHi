@@ -73,7 +73,7 @@ export const regionPicker = (function () {
   const modalIndex = () => vueProp.$modal.getModalIndex(REGION_PICKER_ID)
 
   return (props, defaults = []) => System.import('components/HiPicker/regions').then(regions => {
-    if (modalIndex() >= 0) return picker(null, NOT_DESTROY, REGION_PICKER_ID)
+    if (modalIndex() >= 0) return picker(undefined, NOT_DESTROY, REGION_PICKER_ID)
 
     const origProvinces = regions[100000]
     const provinces = obj2Arr(origProvinces, CODE, TEXT)
