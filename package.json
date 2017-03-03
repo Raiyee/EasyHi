@@ -137,6 +137,6 @@
     "vue-template-es2015-loader": "^2.1.2",
     "webpack": "^2.2.1",
     "webpack-dev-server": "^2.4.1",
-    "yargs": "^6.6.0"
+    "yargs": "^7.0.1"
   }
 }
