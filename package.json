@@ -126,7 +126,7 @@
     "stylint": "^1.5.9",
     "stylint-stylish": "^1.4.0",
     "stylus": "^0.54.5",
-    "stylus-loader": "^2.5.0",
+    "stylus-loader": "^3.0.0",
     "stylus-pxtorem": "^1.0.11",
     "sw-precache-webpack-plugin": "^0.9.0",
     "template-file-loader": "^0.0.2",
