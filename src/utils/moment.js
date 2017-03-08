@@ -1,8 +1,8 @@
 import _moment from 'moment'
 
-const moment = (first, ...rest) => _moment(first || [], ...rest)
-
 import {DATE_FORMAT, isoWeekdays} from './constants'
+
+const moment = (first, ...rest) => _moment(first || [], ...rest)
 
 /**
  * 获取指定日期当周周几的日期

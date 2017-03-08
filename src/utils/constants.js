@@ -1,8 +1,8 @@
-export * from 'store/constants'
-
 import {util} from 'vue'
 
 import {trueType} from './base'
+
+export * from 'store/constants'
 
 export const DATE_FORMAT = 'YYYY-MM-DD'
 export const HOUR_FORMAT = 'HH:mm'

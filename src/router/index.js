@@ -2,11 +2,11 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import axios from 'axios'
 
-Vue.use(VueRouter)
-
 import {dispatch, getters} from 'store'
 import routes from './routes'
 import utils, {alert, changeTitle, closeModal, isArray, isFunction, TIP_ID} from 'utils'
+
+Vue.use(VueRouter)
 
 dispatch('parsePath', location.pathname)
 

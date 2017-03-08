@@ -1,8 +1,9 @@
 import middleware from 'koa-webpack'
 import _debug from 'debug'
 import config from '../build/webpack'
-const debug = _debug('hi:webpack-dev')
 import compiler from '../build/config'
+
+const debug = _debug('hi:webpack-dev')
 
 export default app => {
   debug('Enable Webpack Dev Middleware & Hot Module Replacement (HMR).')

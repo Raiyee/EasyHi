@@ -40,6 +40,8 @@ module.exports = {
     ],
     'max-nested-callbacks': 2,
     'max-params': [2, 5],
+    'no-mixed-operators': 0,
+    'standard/no-callback-literal': 0,
     'space-before-function-paren': [
       2,
       {

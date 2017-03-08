@@ -23,6 +23,7 @@ const buildComponent = (comps, notFirst) => {
   let wrapComp = {}
   let count = 0
 
+  // eslint-disable-next-line no-use-before-define
   comps.forEach(({name = `_${index}`, template, data, methods, components}, index) => {
     if (!template) return nonMsg('template')
 
