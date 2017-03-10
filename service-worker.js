@@ -37,8 +37,8 @@
 /* eslint-disable indent, no-unused-vars, no-multiple-empty-lines, max-nested-callbacks, space-before-function-paren, quotes, comma-spacing */
 'use strict';
 
-var precacheConfig = [["0.77d098bb2ff2022b1784.js","61274a342bcf644eb36c343a8a7b9fea"],["1.725b41d496a2d15bbe45.js","b6bc0f307e9dfb878a6b0d1eaa10b6d2"],["10.99a73207a16e7d09b4c4.js","917fb269c9f96dfdee54a63675d59e38"],["11.f847ce437cc72dc87ed6.js","31d5a51a6ec2fc2ca5ba161c4c3ea22e"],["12.cf05a50903fa1badebcf.js","86fe55bdae23b28df059e5dee4277fce"],["13.08aa77b013883ba8bf00.js","f1709495e9c0d44cef9dc87968cde7b0"],["14.d5fbbddce4ba81396045.js","ba3ae504c492df01191abaeeb11ec360"],["15.e4868a1dfc50149f7e5d.js","a941ae990d7699442cc2a4e3593c650a"],["16.a32bc256c998ab7d204c.js","f48c09afdb4f8fae35a29638ea55d1c7"],["17.9f4c72da99dc5bda2229.js","67de3c8566a4d9bc46858a15ce559e5b"],["18.44c5c102e267eb0b1b34.js","1ebaa1a2a8c1c7e50d72fc787e51ccca"],["19.8c54551a70d3a65657f4.js","8550c198b995fabb2ab8b5248aed4def"],["2.f73389e703a4086bf1bb.js","83cf49a97f429a5ac3784fc311d35376"],["20.7ca79707cba23dd078d0.js","0ae639aa745ff5d07180b103bcbfb513"],["21.8518c15052402c004277.js","1f063a68f2c23ae48945eb72e81612ec"],["22.afe40ab3d40e92f97836.js","5fca56c2cae9978c0e6eb8cb5b7aaa48"],["24.d7429e0963905a32254a.js","fbb533cc3f975462b6dad5455e69c646"],["3.790ba0dfa9e0ddade2fd.js","5dbf40e7ee9aeccbc372e42130a0931a"],["4.feef5de5ab9fce22e359.js","028a970906ebd53c117b52ce53d8fff9"],["5.f3cafb7b61ec5dc4f452.js","2317993c380a7162876c2979cc33d58d"],["6.6006f90162349810e2f6.js","eac4872fcf87219ce23b703eeb05f54b"],["7.0b28c5de0ffc6d463b99.js","8793d086df57559bc077fe79308347fe"],["8.b2a1b92bea43996ee139.js","bb18f42440927ef3aaf90d56426990e4"],["9.b85c0294218f4d198fa7.js","5d3e57b52ebec6f89c0bab2b528958d5"],["CNAME","58e622340325843359475fb423e22b4c"],["app.dd6fb146ff7653c86d8a9791e8e20e71.css","dd6fb146ff7653c86d8a9791e8e20e71"],["app.fdaa846ad71492bb4e78.js","4819936a677b175db0d7737fd3670810"],["bootstrap.2fe36b8fb0685bfe3ceea85aba2cda1d.css","2fe36b8fb0685bfe3ceea85aba2cda1d"],["favicon.ico","247d66e4e5457cd042283cd6e94284bf"],["glyphicons-halflings-regular.448c34a56d699c29117adc64c43affeb.woff2","448c34a56d699c29117adc64c43affeb"],["glyphicons-halflings-regular.89889688147bd7575d6327160d64e760.svg","89889688147bd7575d6327160d64e760"],["glyphicons-halflings-regular.e18bbf611f2a2e43afc071aa2f4e1512.ttf","e18bbf611f2a2e43afc071aa2f4e1512"],["glyphicons-halflings-regular.f4769f9bdb7466be65088239c12046d1.eot","f4769f9bdb7466be65088239c12046d1"],["glyphicons-halflings-regular.fa2772327f55d8198301fdb8bcfc8158.woff","fa2772327f55d8198301fdb8bcfc8158"],["home-01.02df33497b5857b1c5601a93d1f0e891.jpg","02df33497b5857b1c5601a93d1f0e891"],["home-01@2x.92078c744ea94765a50ed6691f225ce8.jpg","92078c744ea94765a50ed6691f225ce8"],["home-02.665e39e278ae3c7ad05ec1bdefcf1e4b.jpg","665e39e278ae3c7ad05ec1bdefcf1e4b"],["home-02@2x.0f2801bca3142ebd3333a5be9add0ffa.jpg","0f2801bca3142ebd3333a5be9add0ffa"],["iconfont.30e37c3980766e7371abd25fcb45f244.ttf","30e37c3980766e7371abd25fcb45f244"],["iconfont.554125c6746c834d348ebabf7db9e40b.svg","554125c6746c834d348ebabf7db9e40b"],["iconfont.c519ab8f9736e55eddd98b3e9f74c866.woff","c519ab8f9736e55eddd98b3e9f74c866"],["iconfont.e545710268f376f687379a402eb210c8.eot","e545710268f376f687379a402eb210c8"],["member-female.f0028f3a40df12e895c1a9b6f6ba5394.jpg","f0028f3a40df12e895c1a9b6f6ba5394"],["no-item.442a86628ce6a1ba9a0e462385b17233.png","442a86628ce6a1ba9a0e462385b17233"],["vendor.27ee14c676e9ad0c8fdf.js","74dd08956aae86e76456e77a75fdbb6a"],["yoga.b124d4aa1794ed4ac0ec0be1879afdaa.jpg","b124d4aa1794ed4ac0ec0be1879afdaa"]];
-var cacheName = 'sw-precache-v2-easy-hi-' + (self.registration ? self.registration.scope : '');
+var precacheConfig = [["0.b6e1db04aedbde8181db.js","45b618ac83efe3de01bb70a72e26fbae"],["1.f7fc190e3ffcf6f39073.js","d89832a1c28f22b78bde077415ff001b"],["10.a7b21688259a7715467a.js","76e8b0d95be4c3ec46c07e87dbeb6a73"],["11.c3670fe507b101679c9e.js","68e49b129ed643cb74602b365f37f0d1"],["12.82581be9a12f21aad416.js","eaf72277177d6f3cdf6a0d8a55f7decb"],["13.ef3370b1cba334ff9137.js","fc0d31b61e7cd34b1358e39ff1a0af9b"],["14.6d8e1e1ba334f4958c95.js","6a9b8210f54ec4e9018d78c10a77061c"],["15.a2d7163eaa370e9dba82.js","eebd75d15c229610e9187933c36ffd6b"],["16.1094a6b1503c8d0886c4.js","e2b4ea3263064d2e55fe7a917f145965"],["17.37b283fcfd923c331cdb.js","3ca26058d67d486ab2c38f8514872482"],["18.8e2f7d20d701b70e398b.js","244d4b41770cb8259eaee3d5450fcb43"],["19.71187f9fa6696c457e5b.js","35ef9ff89f8aebbf4c35c0f1aa0a812a"],["2.89759b526a643cc246fd.js","144a946528530ed162b1795b23587817"],["20.bbd09a167905a5c753dd.js","f49a1d190668bae561360ef01ec5a0e2"],["21.0e8807249d1e11ace183.js","2011b030ed78a30e8b708becfa6cdd16"],["22.19fe7fae77890b964ed7.js","b58a9a87146e79f07fb0a2033d110302"],["24.d4731384b26697d433fc.js","c88c8571e718cc6dbbc9f084be31d753"],["3.1a6692e4bca02eb73ec7.js","7937e5fbdf1a1b01bca24a3648830a20"],["4.d12701808ad598cebf01.js","7bbedf4d4ca301250df43275c09a7109"],["5.e94d6ea9b39ec724fc25.js","b635ea2b37451459eaf3d158666a7b08"],["6.0f67cd1ab66cc5ab03b2.js","d10697275b25ff7adcef15e2d177749b"],["7.5150fae6e8f892b0856d.js","e8c3f93dff56aa2610b72bee66178e99"],["8.6bb8770f8162e89aa5cb.js","6588dc3d4880361faf82d974a6b8d408"],["9.8b07672d7c44a0aa3c1b.js","15f3593cb00bf8435cb6d0a055bbf045"],["CNAME","58e622340325843359475fb423e22b4c"],["app.2499ea33b978383d855d.js","04d99525347501e0354af4710d08cf04"],["app.dd6fb146ff7653c86d8a9791e8e20e71.css","dd6fb146ff7653c86d8a9791e8e20e71"],["bootstrap.2fe36b8fb0685bfe3ceea85aba2cda1d.css","2fe36b8fb0685bfe3ceea85aba2cda1d"],["favicon.ico","247d66e4e5457cd042283cd6e94284bf"],["glyphicons-halflings-regular.448c34a56d699c29117adc64c43affeb.woff2","448c34a56d699c29117adc64c43affeb"],["glyphicons-halflings-regular.89889688147bd7575d6327160d64e760.svg","89889688147bd7575d6327160d64e760"],["glyphicons-halflings-regular.e18bbf611f2a2e43afc071aa2f4e1512.ttf","e18bbf611f2a2e43afc071aa2f4e1512"],["glyphicons-halflings-regular.f4769f9bdb7466be65088239c12046d1.eot","f4769f9bdb7466be65088239c12046d1"],["glyphicons-halflings-regular.fa2772327f55d8198301fdb8bcfc8158.woff","fa2772327f55d8198301fdb8bcfc8158"],["home-01.02df33497b5857b1c5601a93d1f0e891.jpg","02df33497b5857b1c5601a93d1f0e891"],["home-01@2x.92078c744ea94765a50ed6691f225ce8.jpg","92078c744ea94765a50ed6691f225ce8"],["home-02.665e39e278ae3c7ad05ec1bdefcf1e4b.jpg","665e39e278ae3c7ad05ec1bdefcf1e4b"],["home-02@2x.0f2801bca3142ebd3333a5be9add0ffa.jpg","0f2801bca3142ebd3333a5be9add0ffa"],["iconfont.30e37c3980766e7371abd25fcb45f244.ttf","30e37c3980766e7371abd25fcb45f244"],["iconfont.554125c6746c834d348ebabf7db9e40b.svg","554125c6746c834d348ebabf7db9e40b"],["iconfont.c519ab8f9736e55eddd98b3e9f74c866.woff","c519ab8f9736e55eddd98b3e9f74c866"],["iconfont.e545710268f376f687379a402eb210c8.eot","e545710268f376f687379a402eb210c8"],["member-female.f0028f3a40df12e895c1a9b6f6ba5394.jpg","f0028f3a40df12e895c1a9b6f6ba5394"],["no-item.442a86628ce6a1ba9a0e462385b17233.png","442a86628ce6a1ba9a0e462385b17233"],["vendor.516cef208d6dd789c453.js","2680e2427be9726e97a0470d10c73b6d"],["yoga.b124d4aa1794ed4ac0ec0be1879afdaa.jpg","b124d4aa1794ed4ac0ec0be1879afdaa"]];
+var cacheName = 'sw-precache-v3-easy-hi-' + (self.registration ? self.registration.scope : '');
 
 
 var ignoreUrlParametersMatching = [/^utm_/];
@@ -53,6 +53,28 @@ var addDirectoryIndex = function (originalUrl, index) {
     return url.toString();
   };
 
+var cleanResponse = function (originalResponse) {
+    // If this is not a redirected response, then we don't have to do anything.
+    if (!originalResponse.redirected) {
+      return Promise.resolve(originalResponse);
+    }
+
+    // Firefox 50 and below doesn't support the Response.body stream, so we may
+    // need to read the entire body to memory as a Blob.
+    var bodyPromise = 'body' in originalResponse ?
+      Promise.resolve(originalResponse.body) :
+      originalResponse.blob();
+
+    return bodyPromise.then(function(body) {
+      // new Response() is happy when passed either a stream or a Blob.
+      return new Response(body, {
+        headers: originalResponse.headers,
+        status: originalResponse.status,
+        statusText: originalResponse.statusText
+      });
+    });
+  };
+
 var createCacheKey = function (originalUrl, paramName, paramValue,
                            dontCacheBustUrlsMatching) {
     // Create a new URL object to avoid modifying originalUrl.
@@ -61,7 +83,7 @@ var createCacheKey = function (originalUrl, paramName, paramValue,
     // If dontCacheBustUrlsMatching is not set, or if we don't have a match,
     // then add in the extra cache-busting URL parameter.
     if (!dontCacheBustUrlsMatching ||
-        !(url.toString().match(dontCacheBustUrlsMatching))) {
+        !(url.pathname.match(dontCacheBustUrlsMatching))) {
       url.search += (url.search ? '&' : '') +
         encodeURIComponent(paramName) + '=' + encodeURIComponent(paramValue);
     }
@@ -134,10 +156,19 @@ self.addEventListener('install', function(event) {
           Array.from(urlsToCacheKeys.values()).map(function(cacheKey) {
             // If we don't have a key matching url in the cache already, add it.
             if (!cachedUrls.has(cacheKey)) {
-              return cache.add(new Request(cacheKey, {
-                credentials: 'same-origin',
-                redirect: 'follow'
-              }));
+              var request = new Request(cacheKey, {credentials: 'same-origin'});
+              return fetch(request).then(function(response) {
+                // Bail out of installation unless we get back a 200 OK for
+                // every request.
+                if (!response.ok) {
+                  throw new Error('Request for ' + cacheKey + ' returned a ' +
+                    'response with status ' + response.status);
+                }
+
+                return cleanResponse(response).then(function(responseToCache) {
+                  return cache.put(cacheKey, responseToCache);
+                });
+              });
             }
           })
         );
