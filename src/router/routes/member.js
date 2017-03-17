@@ -86,7 +86,7 @@ export default [{
 }, {
   path: '/member-review/:reviewId(\\d+)',
   name: 'memberReview',
-  component: () => System.import('views/MemberIndex/MemberReview/ReviewDetail'),
+  component: () => import('views/MemberIndex/MemberReview/ReviewDetail'),
   meta: {
     init: {
       url: to => `/comment/get-comment/${to.params.reviewId}`

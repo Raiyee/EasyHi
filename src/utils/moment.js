@@ -2,9 +2,9 @@ import {emptyArr} from './array'
 
 import _moment from 'moment'
 
-export const moment = (first, ...rest) => _moment(first || [], ...rest)
-
 import {DATE_FORMAT, DATE_FORMAT2, isoWeekdays, months} from './constants'
+
+export const moment = (first, ...rest) => _moment(first || [], ...rest)
 
 /**
  * 获取指定日期当周周几的日期

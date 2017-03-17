@@ -54,6 +54,7 @@ module.exports = {
     'max-params': [2, 5],
     'no-mixed-operators': 0,
     'object-curly-spacing': 0,
+    'standard/no-callback-literal': 0,
     'prefer-const': [2, {
       destructuring: 'all'
     }],

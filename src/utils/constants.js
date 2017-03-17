@@ -1,6 +1,8 @@
-export * from 'store/constants'
-
 import {trueType} from './base'
+
+import memberFemale from 'assets/portrait/member-female.jpg'
+
+export * from 'store/constants'
 
 export const DATE_FORMAT = 'YYYY-MM-DD'
 export const DATE_FORMAT2 = 'YYYY.MM.DD'
@@ -54,8 +56,6 @@ export const MIN_MONEY = 0.01
 export const MAX_MONEY = 100000
 
 export DEFAULT_LOGO from 'assets/yoga.jpg'
-
-import memberFemale from 'assets/portrait/member-female.jpg'
 
 export const FEMALE_PORTRAIT_C = memberFemale
 export MALE_PORTRAIT_C from 'assets/portrait/member-male.jpg'
