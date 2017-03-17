@@ -1,14 +1,9 @@
-import {getters} from 'store'
-
-// import utils from 'utils'
+import utils from 'utils'
 
 export default [{
   path: '/',
   name: 'home',
   component: () => import('views/Home'),
-  beforeEnter(to, from, next) {
-    __DEV__ ? next() : (location.href = getters.memberUrlPrefix)
-  },
   meta: {
     menuShow: false
   }
@@ -32,7 +27,7 @@ export default [{
   name: '404',
   component: () => import('components/HiWidgets/NotFound'),
   beforeEnter() {
-    location.href = getters.urlPrefix + getters.currRole + '/index'
-    // utils.router.history.updateRoute(utils.NOT_FOUND_ROUTE)
+    // location.href = getters.urlPrefix + getters.currRole + '/index'
+    utils.router.history.updateRoute(utils.NOT_FOUND_ROUTE)
   }
 }]
