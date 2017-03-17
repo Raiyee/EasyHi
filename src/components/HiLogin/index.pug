@@ -1,26 +1,38 @@
 div(:class="classes.container")
-  .center-block.img-circle(:class="classes.yoga")
-    img.img-circle(src="./yoga.jpg", alt="瑜伽")
+  slot
+    .center-block.img-circle(:class="classes.yoga")
+      img.img-circle(:src="merchantLogo", alt="瑜伽")
   form(action="javascript:;", @submit.prevent="submit")
     div(:class="[classes.formGroup, $v.loginMobile.$error && 'has-error']")
       .input-group.input-group-primary
         span.input-group-addon
           span.glyphicon.glyphicon-phone
-        input.form-control(type="number", placeholder="请输入手机号",
+        input.form-control(type="tel", placeholder="请输入手机号",
         v-model="loginMobile", ref="mobile",
         @focus="$v.loginMobile.$reset",
         @blur="$v.loginMobile.$touch")
         span.input-group-addon(v-if="loginMobile", @click="clearMobile")
           span.glyphicon.glyphicon-remove-sign
       p.form-control-static(v-if="$v.loginMobile.$error") 请输入正确的手机号码
-    div(:class="[classes.formGroup, $v.verificationCode.$error && 'has-error']")
+    div(v-if="showImgCaptcha", :class="[classes.formGroup, $v.imgCaptcha.$error && 'has-error']")
       .input-group.input-group-primary
         span.input-group-addon
           span.glyphicon.glyphicon-lock
-        input.form-control(type="number", placeholder="请输入验证码",
-        v-model="verificationCode",
-        @focus="$v.verificationCode.$reset",
-        @blur="$v.verificationCode.$touch")
+        input.form-control(type="text", placeholder="请输入验证码",
+        v-model="imgCaptcha",
+        @focus="$v.imgCaptcha.$reset",
+        @blur="$v.imgCaptcha.$touch")
+        span.input-group-addon(@click="getImgCaptcha")
+          img(v-if="captchaSrc", :src="captchaSrc")
+      p.form-control-static(v-if="$v.imgCaptcha.$error") 请输入正确的验证码
+    div(:class="[classes.formGroup, $v.captcha.$error && 'has-error']")
+      .input-group.input-group-primary
+        span.input-group-addon
+          span.glyphicon.glyphicon-lock
+        input.form-control(type="tel", placeholder="请输入验证码",
+        v-model="captcha",
+        @focus="$v.captcha.$reset",
+        @blur="$v.captcha.$touch")
         span.input-group-addon.theme-color(@click="getVerificationCode") {{this.limit ? this.limit + 's' : '获取验证码'}}
-      p.form-control-static(v-if="$v.verificationCode.$error") 请输入正确的验证码
+      p.form-control-static(v-if="$v.captcha.$error") 请输入正确的验证码
     button.btn.btn-theme-primary.btn-block.btn-hg(type="submit") {{confirmText}}

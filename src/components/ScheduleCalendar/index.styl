@@ -3,12 +3,15 @@
   > div
     &:first-child
       flex 1
+      white-space nowrap
     &:last-child
       flex 9
       overflow auto
 
+      @media (max-width 374px)
+        flex 4
+
 .content
-  overflow auto
   .schedule-items
     padding 0 10px
     margin-bottom 3px
@@ -48,7 +51,7 @@
         padding 10px
         overflow hidden
         @media (min-width: 768px)
-          overflow auto
+          scrollSmooth(true)
     .scroll-list
       margin-bottom 0
       &, li

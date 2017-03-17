@@ -1,9 +1,13 @@
-modal-item(:class="classes.pickerModal", :transition="true")
+modal-item(:class="[classes.pickerModal, {[classes.backdrop]: backdrop}]", :transition="true")
   template(slot="header")
     div
       span(@click="closePicker") 取消
     .text-right
       span.theme-color(@click="confirmPicker") 确定
+  hi-tab(v-if="pickerTabs",
+  :class="classes.pickerTabs",
+  v-bind="pickerTabs",
+  @toggleTab="toggleTab")
   hi-picker(ref="picker",
   :pickers="pickers",
   :pickerDivider="pickerDivider",

@@ -1,33 +1,30 @@
 li.media(:class="classes.media")
-  .media-left.media-middle
-    .media-object.img-circle(v-lazy:background-image="$util.imgPath(coachItem.coachPortrait)", lazy="loading")
+  .media-left.media-middle(@click="gotoDetail")
+    .media-object(:class="style ? 'square' : 'img-circle'", v-lazy:background-image="$util.imgPath(coachItem.coachPortrait)", lazy="loading")
   .media-body.media-middle
     h4.media-heading {{coachItem.coachName}}
       span.iconfont.active(:class="`icon-${coachItem.coachGender ? '' : 'fe'}male`")
     template(v-if="active")
-      span(@click="toggleChecked(false)")
-        span.iconfont.icon-radio(:class="checked ? 'remark-color' : 'theme-color'")
-        | 60min
-      span(@click="toggleChecked(true)")
-        span.iconfont.icon-radio(:class="checked ? 'theme-color' : 'remark-color'")
-        | 120min
+      span(v-for="({minute}, index) of coachItem.times", @click="activeIndex = index")
+        span.iconfont.icon-radio(:class="`${activeIndex === index ? 'theme' : 'remark'}-color`")
+        | {{ minute }}min
     template(v-else)
-      span.iconfont.icon-morning(v-if="coachItem.min060.morning.length")
-        span.iconfont.icon-afternoon(v-if="coachItem.min060.afternoon.length")
-          span.iconfont.icon-evening(v-if="coachItem.min060.evening.length")
+      span.iconfont.icon-morning(v-if="activeItems.morning.length")
+      span.iconfont.icon-afternoon(v-if="activeItems.afternoon.length")
+      span.iconfont.icon-evening(v-if="activeItems.evening.length")
   .media-right.media-middle
     button.btn.btn-theme-default(@click="toggleActive") {{ active ? "收起" : "选择时间" }}
-  div(v-if="hasItems", :class="classes.timeItems", :style="style")
+  div(v-if="hasItems", :class="classes.timeItems", :style="itemStyle")
     ol.list-unstyled
       li(v-for="(times, key) of activeItems", v-if="times.length", :class="classes[key]")
         span.iconfont(:class="`icon-${key}`")
         ol.list-unstyled.clearfix
           li(v-for="time of times")
-            div(:class="[classes.timeItem, {active: time === activeTime}]", @click="toggleTime(time)")
+            div(:class="[classes.timeItem, {active: time === activeTime, square: style}]", @click="activeTime = time === activeTime ? null : time")
               span {{time}}
               span.iconfont.icon-check(v-show="time === activeTime")
               span 开始
     .text-center
-      button.btn.btn-theme-primary(@click="orderSchedule") 预订
-  div(v-else, :class="classes.timeItems", :style="style")
+      button.btn.btn-theme-primary(@click="subscribePrivate") 预订
+  div(v-else, :class="classes.timeItems", :style="itemStyle")
     div(:class="classes.noItem") 没有可以预订的时间

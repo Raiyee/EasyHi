@@ -1,0 +1,119 @@
+.content
+  $header-height = 188px
+
+  header
+    height $header-height
+    retina('./banner')
+    background-size cover
+
+    @media (min-width $threshold)
+      height $header-height * 2
+      background-size 100% 100%
+
+  main
+    padding 10px 20px
+    margin-bottom 72px
+
+    :global
+      .dashed-line
+        relative()
+        margin 20px 0
+
+        &:not(:first-child)
+          margin-top 30px
+
+        span
+          middleCenter(, scaleY(2))
+          padding 0 20px
+          background-color $back-light-color
+
+.reward
+  :global
+    .media
+      margin-top 0
+
+    .media-heading
+      line-height (20 / 14)
+      margin-bottom 8px
+
+      + div
+        color $subtext-color
+        margin-bottom 15px
+
+.no-reward
+  padding 10px
+  padding-bottom 20px
+  text-align center
+  color $subtext-color
+
+.process
+  $process-height = 72px
+
+  retina('./process')
+  height $process-height
+  background-size cover
+
+  @media (min-width $threshold)
+    height $process-height * 2
+    background-size 100% 100%
+
+$border-color-orange = #ffefd1
+$bg-color-orange = #fff9ee
+
+.invitation, .invitations
+  border 1px solid $border-color-orange
+  border-radius 20px
+  display flex
+  text-align center
+  background-color $bg-color-orange
+
+.invitation
+  padding 18px
+
+  > div
+    flex 1
+
+    > div
+      font-size 24px
+
+.invitations
+  padding 0 18px
+  table
+    margin-bottom 0
+
+    tr:not(:last-child) td
+      border1px-b($border-color-orange)
+
+    td
+      padding 12px 0
+
+      span
+        display inline-block
+        transform none
+        width 16px
+
+.tooltip
+  display inline-block
+
+  :global(.tooltip)
+    scaleSize($smaller-size, , translateX(-5px), left)
+
+.illustrate
+  :global
+    .modal-dialog .modal-content
+      width 320px
+
+.qrious
+  text-align center
+
+  h4
+    font-weight normal
+
+  img
+    display block
+    margin 10px auto
+
+  :last-child
+    width 200px
+    margin 0 auto
+    color $subtext-color

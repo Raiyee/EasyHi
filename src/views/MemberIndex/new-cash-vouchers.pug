@@ -1,0 +1,16 @@
+modal-item(:class="classes.container",
+:transition="true",
+:border="false")
+  button.close(slot="header", @click="$modal.close()") ×
+  .modal-body(slot="body")
+    div(:class="classes.giftBg")
+    div(:class="classes.title") 优惠券已到账，速速收下吧！
+    div(:class="newCashVouchers.length > 1 ? classes.vouchers : ''")
+      ul.list-unstyled
+        li(v-for="(cashVoucher, index) in newCashVouchers")
+          hi-voucher(:key="cashVoucher.voucherId", :voucher="cashVoucher", :extraBtn="false")
+          .dashed-line(v-if="newCashVouchers.length > 1 && index != newCashVouchers.length - 1")
+
+    div(:class="classes.tipText") 领取后可在个人中心-优惠券中查看哦~
+
+    .theme-bg(:class="classes.success", @click="$modal.close()") 立即收下

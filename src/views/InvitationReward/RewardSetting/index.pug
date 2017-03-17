@@ -1,0 +1,51 @@
+div(:class="classes.content")
+  .panel.panel-theme
+    .panel-heading
+      .panel-title 邀请人奖励
+    .panel-body
+      ol.list-unstyled(v-if="inviterReward.length", :class="classes.inviterRewards")
+        li(v-for="(reward, index) of inviterReward", :key="reward.rewardId")
+          inviter-reward(ref="inviterReward", :reward="reward")
+          span.iconfont.icon-remove(@click="removeInviterReward(index)")
+
+      span.theme-color(:class="classes.addReward", @click="addInviterReward")
+        span.iconfont.icon-jiahao
+        | 添加奖励阶梯
+      span.remark-color
+        span.iconfont.icon-prompt
+        | 邀请人需联系场馆兑奖
+
+  .panel.panel-theme
+    .panel-heading
+      .panel-title 被邀请人奖励
+    .panel-body
+      template(v-if="isEnterprise")
+        div(v-if="inviteeRewardVoucher", :class="classes.inviteeReward")
+          .header.clearfix
+            | 体验券
+            button.btn.btn-theme-default.pull-right(@click="setInviteeReward") 修改
+          .body
+            .clearfix
+              | {{ inviteeRewardVoucher.voucherName }}
+              .pull-right 可上课
+                span.theme-color.primary-size {{inviteeRewardVoucher.voucherTimes}}
+                | 次
+            | {{ inviteeRewardVoucher.voucherDescription }}
+            br
+            | 有效期: {{ inviteeRewardVoucher.voucherExpiredType ?  $util.combineDuration(inviteeRewardVoucher.voucherExpiredRange) : inviteeRewardVoucher.voucherExpiredLimit + '天' }}
+          span.iconfont.icon-remove(@click="removeInviteeReward")
+        span.theme-color(v-else, :class="classes.addReward", @click="setInviteeReward")
+          span.iconfont.icon-jiahao
+          | 添加体验券
+      div(v-else, :class="classes.inviteeReward")
+        .clearfix
+          | 奖励内容
+          textarea(v-model="inviteeRewardContent", placeholder="如奖励体验券、续卡、瑜伽垫等，建议分点叙述", rows="3")
+          .remark-color.pull-right {{ inviteeRewardContent.length }}/100
+      span.remark-color
+        span.iconfont.icon-prompt
+        | 体验券将在被邀请人登录成功后自动入账
+
+  .fixed-bottom.border-t
+    button.btn.btn-theme-default(@click="$router.go(-1)") 取消
+    button.btn.btn-theme-primary(@click="publishInvitationReward") 发布

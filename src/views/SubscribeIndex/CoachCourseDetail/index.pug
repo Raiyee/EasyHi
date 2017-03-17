@@ -1,0 +1,76 @@
+div
+  hi-tab(:items="items", @toggleTab="toggleTab", v-if="$route.query.courseId && $route.query.coachId")
+
+  div(:class="classes.course", v-if="$route.query.courseId && index === 0")
+    div(:class="classes.coursePic", v-lazy:background-image="$util.imgPath(course.courseImg)")
+
+    div(:class="classes.header")
+      div
+        span {{ course.courseName }}
+        hi-rate(:rate="course.courseRate", v-if="course.courseRate")
+        span(v-else) 暂无评分
+      p(v-if="!showCourseContent") 暂无课程简介
+
+    .shadow-bottom(:class="classes.content", v-if="showCourseContent")
+      ul.theme-color
+        li(v-if="course.courseProfile")
+          div 课程简介
+          div {{ course.courseProfile }}
+
+        li(v-if="course.courseEfficacy")
+          div  课程功效
+          div {{ course.courseEfficacy }}
+
+        li(v-if="course.actionFeature")
+          div  动作特点
+          div {{ course.actionFeature }}
+
+        li(v-if="course.applicableCrowd")
+          div 适合人群
+          div {{ course.applicableCrowd }}
+
+        li(v-if="course.courseTaboo")
+          div 禁忌
+          div {{ course.courseTaboo }}
+
+  div(:class="classes.coach", v-else)
+    div
+      .img-circle(:class="classes.portrait", v-lazy:background-image="$util.portraitPath(coach.coachPortrait,coach.coachGender)")
+      div(:class="classes.coachRate")
+        hi-rate(:rate="coach.coachRate", v-if="coach.coachRate")
+        div(:class="classes.noRate", v-else) 暂无评分
+
+    p {{ coach.coachName }}&nbsp;
+      span.iconfont(:class="[coach.coachGender ? 'icon-male male-color' : 'icon-female female-color']")
+
+    .border-b
+
+    div(:class="classes.noContent", :style="{backgroundImage: 'none'}", v-if="!showCoachContent")
+      p 暂无教练介绍
+
+    .shadow-bottom(:class="classes.content", :style="{backgroundImage: 'none'}", v-else)
+      ul.theme-color
+        li(v-if="coach.coachProfile")
+          div 个人简介
+          div {{ coach.coachProfile }}
+
+        li(v-if="coach.coachPrize")
+          div  奖项/证书
+          div {{ coach.coachPrize }}
+
+        li(v-if="coach.coachSpeciality")
+          div  擅长
+          div {{ coach.coachSpeciality }}
+
+        li(v-if="coach.teachingExp")
+          div 教学经验
+          div {{ coach.teachingExp }}
+
+  template(v-if="showReviews")
+    div(:class="classes.header")
+      div
+        span 会员评价（{{ reviews.length }}）
+
+    hi-review(:reviews="reviews", v-if="reviews.length")
+    div(:class="classes.noContent", v-else)
+      div 暂无评价

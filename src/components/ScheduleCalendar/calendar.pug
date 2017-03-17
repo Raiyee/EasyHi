@@ -6,6 +6,6 @@ ol.list-unstyled.clearfix.scroll-list(:class="[classes.calendar, flex && classes
   :class="{first: !(index % 7)}",
   :active="activeIndex === index",
   :key="date",
-  @toggleActive="toggleActive")
-  li.scroll-bg(:class="{active: activeIndex !== -1}", :style="{transform}")
+  @toggleActive="toggleActive(date)")
+  li.scroll-bg(:class="{active: activeIndex !== -1, square: style}", :style="{transform}")
     .theme-bg

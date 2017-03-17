@@ -21,21 +21,25 @@ export const isNaN = value => isNumberFunc(value) && isNaNFunc(value)
  */
 export const isNumber = value => isNumberFunc(value) && !isNaNFunc(value)
 
-export const toNum = numText => {
-  numText = (numText || '').toString()
+export const toNum = (numText, trans = true) => {
+  if (!numText) return trans ? 0 : numText
+
+  numText = numText.toString().trim()
   const isNegative = numText.indexOf('-') === 0
 
   numText = numText.replace(/[^\d.]/g, '')
   const pointIndex = numText.indexOf('.')
   numText = numText.replace(/\./g, '')
 
-  if (pointIndex !== -1) {
+  if (pointIndex !== -1 && pointIndex !== numText.length) {
     const arr = numText.split('')
     arr.splice(pointIndex, 0, '.')
     numText = arr.join('')
   }
 
-  return +(numText && isNegative ? `-${numText}` : numText)
+  numText = numText && isNegative ? `-${numText}` : numText
+
+  return trans ? +numText : numText
 }
 
 export const isLength = value => isNumber(value) && value > -1 && value % 1 === 0 && value <= MAX_SAFE_INTEGER

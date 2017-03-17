@@ -1,39 +1,44 @@
 import Mock from 'mockjs'
 
-import {getItem, setItem, MEMBER, PERMISSIONS} from 'utils'
+import {getItem, setItem, randomImg, imgPath, MEMBER, PERMISSIONS} from 'utils'
 
 const Random = Mock.Random
 
 const VERIFICATION = 'VERIFICATION'
-const correctCode = 345678
-const verificationCache = getItem(VERIFICATION) || {}
+const correctCode = 4567
+const captchaCache = getItem(VERIFICATION) || {}
 
 const minusTimeLint = verification => {
   const intervalId = setInterval(() => {
     verification.timeLimit ? --verification.timeLimit : clearInterval(intervalId)
-    setItem(VERIFICATION, verificationCache)
+    setItem(VERIFICATION, captchaCache)
   }, 1000)
   return intervalId
 }
 
-Mock.mock(/\/getVerificationCode$/, ({body}) => {
-  const mobile = JSON.parse(body).mobile
-  let verification = verificationCache[mobile]
+Mock.mock(/\/send-authc-captcha\/\d+$/, ({url}) => {
+  const mobile = url.match(/\/send-authc-captcha\/(\d+)/)[1]
+
+  let verification = captchaCache[mobile]
   let timeLimit
 
   if (verification && (timeLimit = verification.timeLimit)) return minusTimeLint(verification) && timeLimit
 
-  verification = verificationCache[mobile] = {
-    code: Random.natural(100000, 999999),
+  verification = captchaCache[mobile] = {
+    code: Random.natural(1000, 9999),
     timeLimit: 60
   }
 
   return minusTimeLint(verification) && verification.timeLimit
 })
 
+Mock.mock(/\/get-captcha\?t=\d+/, () => {
+  return imgPath(randomImg(120, 30, Random.integer()))
+})
+
 Mock.mock(/\/verifyCode$/, req => {
   const {verificationCode, mobile} = JSON.parse(req.body)
-  const verification = verificationCache[mobile]
+  const verification = captchaCache[mobile]
 
   if (!verification) {
     return {
@@ -55,3 +60,7 @@ Mock.mock(/\/verifyCode$/, req => {
     currentRole
   }
 })
+
+Mock.mock(/\/login$/, ({
+  code: 'success'
+}))

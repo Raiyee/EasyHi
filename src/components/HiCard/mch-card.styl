@@ -1,0 +1,57 @@
+.container
+  display block
+
+.card-no
+  font-size 12px
+
+.card-name
+  font-size 18px
+
+.card-detail
+  absolute()
+  width 100%
+  bottom 45px
+  font-size 14px
+
+  > div:not(:first-child)
+    margin-top 2px
+
+.has-operation
+  bottom 0
+
+.card-name, .card-detail, .card-no
+  padding 0 15px
+
+.state
+  absolute()
+  right 30px
+  height 48px
+  width 48px
+
+.operation
+  relative()
+  display flex
+  line-height 20px
+  border-top 1px solid rgba(0, 0, 0, .1)
+
+  > span
+    flex 1
+    margin 12px 0
+    text-align center
+
+    &:not(:last-child)
+      border-right 1px solid $reverse-color
+
+.edit
+  absolute()
+  top 20px
+  right 15px
+  width 30px
+  height 30px
+  border-radius 15px
+  background-color rgba(0, 0, 0, .3)
+
+  > i
+    display block
+    text-align center
+    line-height 30px

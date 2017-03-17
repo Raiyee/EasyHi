@@ -1,0 +1,26 @@
+.container
+  :global
+    .left-crumbs
+      border-left 4px solid
+      border-left-color()
+      padding-left 5px
+      padding-right 50px
+    .duration
+      line-height 30px
+      padding 0 20px
+      background-color $card-back
+      .left
+        float left
+      .right
+        float right
+    .detail
+      &.media
+        margin-top 0
+      padding 0 20px
+      background $reverse-color
+      .media-body, .media-right
+        padding  10px 0
+      .pay-type
+        white-space nowrap
+      .text-right
+        text-align right

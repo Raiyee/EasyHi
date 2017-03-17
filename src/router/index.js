@@ -2,11 +2,11 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import axios from 'axios'
 
+Vue.use(VueRouter)
+
 import {dispatch, getters} from 'store'
 import routes from './routes'
-import utils, {alert, changeTitle, closeModal, isArray, isFunction, TIP_ID} from 'utils'
-
-Vue.use(VueRouter)
+import utils, {alert, changeTitle, closeModal, error, isArray, isFunction, isString, EMPTY_FUNC, TIP_ID} from 'utils'
 
 dispatch('parsePath', location.pathname)
 
@@ -21,7 +21,7 @@ const routeCache = {}
 const resolveData = (data, meta, next) => {
   dispatch('setProgress', 90)
 
-  const init = meta.init
+  const {init} = meta
   const actions = init.actions
 
   if (!actions) {
@@ -43,17 +43,17 @@ const resolveData = (data, meta, next) => {
 
 const BG = 'bg'
 
-const resolveRoute = (to, from, next) => {
+const resolveRoute = async (to, from, next) => {
   closeModal() && closeModal(TIP_ID)
 
   dispatch('setProgress', 50)
 
-  const meta = to.meta
+  const {meta} = to
   const bg = meta.bg
 
   utils[`${bg == null || bg ? 'add' : 'remove'}Class`](body, BG)
 
-  let {auth} = meta
+  let {auth, init} = meta
 
   // 判断是否需要登录权限
   if (auth) {
@@ -62,6 +62,7 @@ const resolveRoute = (to, from, next) => {
       return next({name: 'login', query: {from: to.fullPath}})
       // 已经登录判断是否只需要校验登录，无需校验身份
     } else if (auth !== true) {
+      isFunction(auth) && (auth = auth(to, from))
       // 如果需要的角色列表不是数组，变更为数组
       isArray(auth) || (auth = [auth])
 
@@ -72,37 +73,41 @@ const resolveRoute = (to, from, next) => {
     }
   }
 
-  const fullPath = to.fullPath
-  let init, cache
+  const {fullPath} = to
 
   // 如果不需要先初始化数据或者已经拉取过数据则直接进入
-  if (!(init = meta.init)) return next()
-  // eslint-disable-next-line no-cond-assign
-  if (cache = routeCache[fullPath]) return resolveData(cache, meta, next)
+  if (!init) return next()
 
-  if (isFunction(init)) return init(to, from, next)
+  const cache = routeCache[fullPath]
+  if (cache) return resolveData(cache, meta, next)
+
+  if (isFunction(init)) init = init(to, from)
+  if (isString(init)) init = {url: init}
+
+  let {url, params, restore, options, type} = init
+
+  isFunction(url) && (url = url(to, from))
 
   dispatch('setProgress', 70)
 
-  axios({
-    method: init.type || 'post',
-    url: init.url,
-    data: {
-      ...to.params,
-      ...to.query
-    },
-    noInterceptor: true,
-    ...init.options
-  }).then(({data}) => {
+  params = params === undefined ? {
+    ...to.params,
+    ...to.query
+  } : params
+
+  try {
+    const {data} = await axios[type || 'post'](url, params && Object.keys(params).length ? params : null, {
+      noInterceptor: true,
+      ...options
+    })
     resolveData(data, meta, next)
-    if (init.restore == null || init.restore) {
-      routeCache[fullPath] = data
-    }
-  }).catch(() => {
+    restore && (routeCache[fullPath] = data)
+  } catch (e) {
+    error(e)
     alert('系统异常，无法跳转')
     next(false)
     dispatch('setProgress', 0)
-  })
+  }
 }
 
 const NOT_FOUND_ROUTE = router.match('/404')
@@ -115,31 +120,38 @@ Object.assign(utils, {
 router.beforeEach((to, from, next) => {
   if (getters.initialized) return resolveRoute(to, from, next)
 
-  axios.post(`center/${getters.tcode || ''}/initialize/get-base-data`)
-    .then(({
-      data: {
-        error, checkIn, coachAlias, currentRole, isEnterprise,
-        isOnlinePayment, merchantName, mobile, roles, theme
-      }
-    }) => {
+  const promise = axios.post(`/center/${getters.tcode || ''}/initialize/get-base-data`)
+    .then(({data}) => {
+      const {error, currentRole, merchantName, theme} = data
+
       if (error) return router.history.updateRoute(NOT_FOUND_ROUTE)
 
       changeTitle(merchantName)
 
-      System.import(`styles/theme-${theme}`)
+      if (theme.startsWith('#')) {
+        import('plugins/theme').then(module => module(theme))
+      } else {
+        import(`styles/theme-${theme}`)
+      }
 
-      dispatch('initialize', {checkIn, coachAlias, isEnterprise, isOnlinePayment, merchantName})
-      currentRole && dispatch('resetRole', {currentRole, roles, mobile})
+      dispatch('initialize', data)
+
+      currentRole && dispatch('resetRole', data)
 
       resolveRoute(to, from, next)
     })
+
+  __TESTING__ && promise.catch(EMPTY_FUNC)
 })
 
 router.afterEach((to, from, next) => {
   dispatch('setProgress', 100)
   const {menuShow} = to.meta
   dispatch('toggleMenuShow', menuShow == null || menuShow)
-  window.scrollTo(0, 0)
+  Object.assign(router.app.$el, {
+    scrollTop: 0,
+    scrollLeft: 0
+  })
 })
 
 export default router

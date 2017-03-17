@@ -1,9 +1,11 @@
-import Vue from 'vue'
+import {isIOS} from './constants'
+
+export const isWechat = navigator.userAgent.indexOf('MicroMessenger') !== -1
 
 export const changeTitle = title => {
   document.title = title
 
-  if (!Vue.util.isIOS) return
+  if (!isIOS) return
 
   const iframe = document.createElement('iframe')
 

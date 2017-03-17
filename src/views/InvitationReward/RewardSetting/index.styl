@@ -1,0 +1,53 @@
+.content
+  margin-bottom 72px
+
+  :global
+    .panel-body
+      text-align center
+
+    .icon-remove
+      absolute(top, right)
+      color $remark-color
+      font-size 20px
+      line-height 1
+      transform translate3d(25%, -25%, 0)
+
+.add-reward
+  display block
+  margin-bottom 15px
+
+  &, + span
+    > span
+      margin-right 6px
+      transform scale(1.5)
+
+.inviter-rewards
+  > li
+    relative()
+
+.invitee-reward
+  borderRadius(, 20px)
+  padding 12px 20px
+  margin-bottom 10px
+  text-align left
+  color $primary-color
+
+  :global
+    .header
+      line-height 24px
+      margin-bottom 5px
+
+      .btn
+        padding 1px 10px
+        scaleSize()
+
+    .body
+      color $subtext-color
+
+  textarea
+    display block
+    width 100%
+    resize none
+    border 0
+    outline 0
+    padding 0

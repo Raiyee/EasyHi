@@ -1,72 +1,79 @@
 import {isObject, isString} from './base'
 import {isArrayLike} from './array'
 
-const pickOrOmit = (pickOrOmit, objOrArr, obj, ...args) => {
+function pickOrOmit(pickOrOmit, param, ...args) {
+  if (!param) return param
+
+  const arg = args[0]
+
+  args.length === 1 && !isString(arg) && isArrayLike(arg) && (args = Array.from(arg))
+
+  const objOrArr = isObject(param)
+
   const processed = objOrArr ? {} : []
 
-  if (obj == null) return processed
-
-  const firstArg = args[0]
-
-  if (args.length === 1 && !isString(firstArg) && isArrayLike(firstArg)) {
-    args = Array.from(firstArg)
-  }
-
-  for (const [key, value] of Object.entries(obj)) {
-    const includes = args.includes(key) || args.includes(+key)
-    if (pickOrOmit ? includes : !includes) {
-      objOrArr ? (processed[key] = value) : processed.push(value)
+  if (pickOrOmit) {
+    for (const arg of args) {
+      const value = param[arg]
+      const keys = Object.keys(param)
+      if (keys.includes(arg + '')) {
+        objOrArr ? (processed[arg] = value) : processed.push(value)
+      }
+    }
+  } else {
+    for (const [key, value] of Object.entries(param)) {
+      if (!args.includes(key) && !args.includes(+key)) {
+        objOrArr ? (processed[key] = value) : processed.push(value)
+      }
     }
   }
 
   return processed
 }
 
-export const pickObj = (...args) => {
-  return pickOrOmit(true, true, ...args)
-}
+export const pick = (...args) => pickOrOmit(true, ...args)
 
-export const omitObj = (...args) => {
-  return pickOrOmit(false, true, ...args)
-}
-
-export const pickArr = (...args) => {
-  return pickOrOmit(true, false, ...args)
-}
-
-export const omitArr = (...args) => {
-  return pickOrOmit(false, false, ...args)
-}
+export const omit = (...args) => pickOrOmit(false, ...args)
 
 export const each = (collection, iteratee: Function, context) => {
   iteratee = context ? iteratee.bind(context) : iteratee
-  if (isArrayLike(collection)) [].forEach.call(collection, iteratee)
-  else if (isObject(collection)) {
-    for (const [key, value] of Object.entries(collection)) {
-      iteratee(value, key, collection)
+  let entries
+
+  if (isArrayLike(collection)) {
+    entries = Array.from(collection).entries()
+  } else if (isObject(collection)) {
+    entries = Object.entries(collection)
+  }
+
+  if (entries) {
+    for (const [key, value] of entries) {
+      if (iteratee(value, key, collection) === false) return
     }
   } else each([collection], iteratee, context)
-  return this
 }
 
-export function throttle(action, delay) {
-  let timeout = null
-  let lastRun = 0
+export function throttle(action: Function, delay = 300, context, debounce) {
+  let timeout
+  let last = 0
+
+  function callback() {
+    last = debounce || Date.now()
+    timeout = null
+    action.apply(context, arguments)
+  }
 
   return function () {
-    if (timeout) return
-
-    const runCallback = () => {
-      lastRun = Date.now()
-      timeout = false
-      action.apply(this, arguments)
-    }
-
-    Date.now() - lastRun >= delay ? runCallback() : (timeout = setTimeout(runCallback, delay))
+    if (timeout && !debounce) return
+    context = context || this
+    if (!debounce && (Date.now() - last >= delay)) return callback()
+    debounce && clearTimeout(timeout)
+    timeout = setTimeout(callback, delay)
   }
 }
 
-export function obj2Arr(obj, objKey = 'key', objValue = 'value') {
+export const debounce = (action, delay, context) => throttle(action, delay, context, true)
+
+export function obj2Arr(obj: Object, objKey = 'key', objValue = 'value') {
   const result = []
   for (const [key, value] of Object.entries(obj)) {
     result.push({

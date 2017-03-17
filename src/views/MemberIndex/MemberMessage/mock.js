@@ -16,10 +16,10 @@ const MESSAGE_TYPE = [
   '退款提醒']
 
 Mock.mock(/\/member-message$/, () => {
-  let now = moment()
+  const now = moment()
   return {
     messages: new Array(Random.integer(0, 5)).fill(0).map(() => {
-      let date = now.add(-Random.integer(1, 3), 'd').format('YYYY-MM-DD')
+      const date = now.add(-Random.integer(1, 3), 'd').format('YYYY-MM-DD')
       return {
         date,
         msgs: new Array(Random.integer(1, 3)).fill(0).map(() => ({

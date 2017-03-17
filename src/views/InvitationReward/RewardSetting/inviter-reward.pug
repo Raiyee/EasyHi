@@ -1,0 +1,10 @@
+div(:class="classes.content")
+  .header.border-b(:class="{error: thresholdError}")
+    | 办卡成功好友满多少后可兑奖
+    .input-wrapper
+      input(type="tel", v-model="rewardThreshold", @focus="$v.rewardThreshold.$reset()", @blur="$v.rewardThreshold.$touch()")
+    .text-right(v-if="thresholdError") 人数需为大于0的整数
+  .body.clearfix
+    h5 奖励内容
+    textarea(v-model="rewardContent", placeholder="如奖励体验券、续卡、瑜伽垫等，建议分点叙述", rows="2")
+    .remark-color.pull-right {{ rewardContent.length }}/100

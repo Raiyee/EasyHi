@@ -4,8 +4,6 @@ import webpackConfig from '../../build/webpack'
 const debug = require('debug')('hi:karma')
 debug('Create configuration.')
 
-const alias = {...webpackConfig.resolve.alias, vue: 'vue/dist/vue'}
-
 const karmaConfig = {
   basePath: '../../', // project root in relation to bin/karma.js
   files: [
@@ -34,7 +32,7 @@ const karmaConfig = {
   browsers: ['PhantomJS'],
   webpack: {
     devtool: webpackConfig.devtool,
-    resolve: {...webpackConfig.resolve, alias},
+    resolve: webpackConfig.resolve,
     resolveLoader: webpackConfig.resolveLoader,
     plugins: webpackConfig.plugins,
     module: {

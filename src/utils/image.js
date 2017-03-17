@@ -1,9 +1,21 @@
 import {isOdd} from './number'
 import {one} from './dom'
-import {EMPTY_IMG} from './constants'
+import {
+  EMPTY_IMG,
+  DEFAULT_PORTRAIT,
+  FEMALE_PORTRAIT_C,
+  MALE_PORTRAIT_C,
+  FEMALE_PORTRAIT_B,
+  MALE_PORTRAIT_B,
+  MAX_IMG_SIZE
+} from './constants'
+import {alert} from './modal'
 
-export const imgPath = (path, defaultImg) =>
+export const imgPath = (path, defaultImg = DEFAULT_PORTRAIT) =>
   path ? /^(https?:\/|data:image)\//ig.test(path) ? path : IMG_PATH_PREFIX + path : defaultImg
+
+export const portraitPath = (path, gender, isStaff) => imgPath(path, isStaff
+  ? gender ? MALE_PORTRAIT_B : FEMALE_PORTRAIT_B : gender ? MALE_PORTRAIT_C : FEMALE_PORTRAIT_C)
 
 export const drawImageFix = (function () {
   // Detects vertical squash in loaded image.
@@ -57,7 +69,9 @@ export function resizeImg(url, success, error, imgType, width, height) {
     canvas.width = width
     canvas.height = height
     drawImageFix(canvas.getContext('2d'), img, 0, 0, width, height)
-    success && success.call(this, canvas.toDataURL(imgType || 'image/jpeg'))
+    const result = canvas.toDataURL(imgType || 'image/jpeg')
+    if (result.length > MAX_IMG_SIZE) return alert('图片压缩后仍超过3M, 请更换后重试!')
+    success && success.call(this, result)
   })
 
   one(img, 'error', error)
@@ -71,9 +85,13 @@ export function resizeImg(url, success, error, imgType, width, height) {
 }
 
 export function resizeImgFile(file, success, error, width, height) {
+  const fileType = file.type
+
+  if (!/^image\//i.test(fileType)) return alert('请确保文件为图像类型')
+
   const reader = new FileReader()
   reader.readAsDataURL(file)
   one(reader, 'load', function () {
-    resizeImg(this.result, success, error, file.type, width, height)
+    resizeImg(this.result, success, error, fileType, width, height)
   })
 }

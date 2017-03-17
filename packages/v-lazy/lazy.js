@@ -54,7 +54,7 @@ export default Vue => class {
     let {src, loading, error} = this.valueFormatter(binding.value)
 
     Vue.nextTick(() => {
-      let tmp = getBestSelectionFromSrcset(el, this.options.scale)
+      const tmp = getBestSelectionFromSrcset(el, this.options.scale)
 
       if (tmp) {
         src = tmp
@@ -95,7 +95,7 @@ export default Vue => class {
   }
 
   update(el, binding) {
-    let {src, loading, error} = this.valueFormatter(binding.value)
+    const {src, loading, error} = this.valueFormatter(binding.value)
 
     const exist = this.ListenerQueue.find(item => item.el === el)
 

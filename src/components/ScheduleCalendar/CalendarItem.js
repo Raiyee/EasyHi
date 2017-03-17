@@ -14,7 +14,7 @@ const statusText = (status, date) => {
     case (2):
       return '订满'
   }
-  return getWeekday(date)
+  return getWeekday(date, true)
 }
 
 export default require('./calendar-item.pug')({
@@ -36,8 +36,8 @@ export default require('./calendar-item.pug')({
     }
   },
   methods: {
-    toggleActive(e) {
-      this.active || this.disabled || this.$emit('toggleActive', e, this.date)
+    toggleActive() {
+      this.active || this.disabled || this.$emit('toggleActive')
     }
   }
 })

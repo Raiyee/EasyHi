@@ -24,8 +24,8 @@ export default require('./schedule-items.pug')({
     }
   },
   methods: {
-    toggleActiveData: function (e, data) {
-      this.$emit('toggleActiveSchedule', e, data)
+    activeSchedule(scheduleId, remainingNum) {
+      this.$emit('activeSchedule', scheduleId, remainingNum)
     }
   },
   components: {

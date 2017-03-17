@@ -1,0 +1,208 @@
+.course-img
+  width 10000px
+  text-align center
+  height 188px
+  position relative
+  display table-cell
+  vertical-align middle
+  color $back-light-color
+  background center center / cover
+
+  &.active
+    .mask
+      transform translate3d(0, 0, 0)
+
+    .mask
+      position absolute
+      top 0
+      left 0
+      width 100%
+      height 100%
+      background-color rgba(0, 0, 0, .35)
+
+    .content
+      position relative
+
+      span
+        &:first-child
+          font-size 40px
+
+        &:last-child
+          color $icon-color
+          font-size $smaller-size
+
+.drop-area
+  position absolute
+  padding 0 15px
+  top 0
+  right 0
+  z-index 2
+
+.drop-menu
+  padding 6px
+  color $back-light-color
+  border-bottom-left-radius 15px
+  border-bottom-right-radius 15px
+  background-color rgba(0, 0, 0, .4)
+
+  .icon-arrow-down, .icon-arrow-up
+    scaleSize(19)
+
+  .icon-arrow-down:before
+    content "\e114"
+
+.mask
+  position absolute
+  top 0
+  z-index 1
+  width 100%
+  height 100%
+  color $back-light-color
+  background-color rgba(0, 0, 0, .4)
+  transform translate3d(0, -100%, 0)
+  transition all .5s ease
+
+.mask-content
+  top 50%
+  left 50%
+  display table
+  padding-left 0
+  position absolute
+  transform translate3d(-50%, -50%, 0)
+
+  li
+    padding 50px
+    list-style none
+    text-align center
+    display table-cell
+
+    span
+      position relative
+      width 40px
+      height 40px
+      display block
+      font-size 20px
+      margin-bottom 5px
+      text-align center
+      border-radius 22px
+      border 2px solid $back-light-color
+
+      &:before
+        position absolute
+        top 50%
+        left 50%
+        transform translate3d(-50%, -50%, 0)
+
+.course-info, .course-reviews
+  background-color $back-light-color
+
+.course-info
+  padding 0 10px
+  position relative
+  margin-bottom 8px
+
+.course-header
+  padding 10px 0 5px
+
+  span
+    vertical-align middle
+
+.detail-icon
+  margin-right 3px
+  scaleSize($small-size)
+
+.course-duration
+  margin-right 18px
+
+.course-rate, .no-rate
+  vertical-align middle
+
+.course-rate
+  margin-right 5px
+  font-size $primary-size
+
+.icon-right
+  color $subtext-color
+
+.no-rate
+  color $remark-color
+  scaleSize($small-size)
+
+.detail-body
+  color $subtext-color
+  scaleSize($small-size, , , left)
+
+.card-rule
+  padding 15px 0
+
+  span
+    display table-cell
+    vertical-align middle
+
+    &:first-child
+      width 9500px
+
+    &:last-child
+      width 500px
+      text-align right
+
+.course-detail
+  margin 0
+  overflow hidden
+  max-height 100px
+  padding 15px 25px
+  margin-bottom 25px
+  font-size $common-size
+  transition all .5s ease
+
+  li
+    margin-bottom 8px
+
+.open
+  max-height 280px
+  overflow scroll
+
+.detail-item
+  color $stress-color
+  vertical-align middle
+
+  div
+    line-height 20px
+    color $subtext-color
+    font-size $small-size
+
+  span
+    scaleSize(18)
+    margin-right 5px
+    vertical-align middle
+
+.open-or-close
+  width 100%
+  left 0
+  bottom 0
+  padding 5px
+  position absolute
+  text-align center
+  font-size $small-size
+  background-color $back-light-color
+  box-shadow 0 -3px 40px $back-light-color
+
+  span
+    vertical-align middle
+
+.icon-arrow
+  scaleSize(13)
+  margin-left 5px
+
+.detail-title, .title
+  padding 10px 5px
+  font-size $primary-size
+  border-bottom 1px dashed $remark-color
+
+.title
+  margin 0 10px
+
+.empty-text
+  padding 15px
+  color $remark-color
+  font-size $small-size

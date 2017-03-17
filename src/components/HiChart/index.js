@@ -106,7 +106,7 @@ export default require('./index.pug')({
     }
   },
   mounted() {
-    let chart = echarts.init(this.$el, this.theme, this.initOptions)
+    const chart = echarts.init(this.$el, this.theme, this.initOptions)
     // use assign statements to tigger "options" and "group" setters
     chart.setOption(this.options)
     this.$watch('options', options => {

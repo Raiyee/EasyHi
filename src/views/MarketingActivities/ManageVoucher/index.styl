@@ -1,0 +1,72 @@
+.content
+  header
+    padding 10px
+    color $reverse-color
+
+    h5
+      font-size 16px
+      font-weight normal
+
+      + div
+        font-size 60px
+
+    :global(.iconfont)
+      transform none
+
+  main
+    padding 0 10px
+    margin-top 10px
+
+    :global
+      .media-flex
+        display flex
+        margin-bottom 10px
+        background-color $back-light-color
+
+      .media-left, .media-body
+        display flex
+        align-items center
+
+      .media-left
+        flex 0 0 130 * $rem-base
+        color $reverse-color
+        padding-right 0
+        flex-wrap wrap
+        text-align center
+        overflow ellipsis
+        justify-content center
+
+        span
+          font-size 35px
+
+      .media-body
+        flex 1
+        padding 10px
+
+        > div
+          width 100%
+
+        h4
+          font-size 16px
+          margin-top 0
+          margin-bottom 8px
+          line-height 26px
+          font-weight normal
+
+        h4 + div, .dashed-line + span
+          color $subtext-color
+          display inline-block
+          scaleSize($smaller-size, , , left)
+
+        .btn
+          float right
+          padding 2px 18px
+          scaleSize()
+
+        .dashed-line
+          margin 4px 0
+
+    li
+      :global(.media-left)
+        retina('assets/voucher/cash-available-bg', 'png')
+        background-size cover

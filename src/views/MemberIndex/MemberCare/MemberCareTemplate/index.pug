@@ -1,0 +1,15 @@
+div
+  .header(:class="classes.header")
+    div
+    div 请点击模板进行编辑
+    div
+  hi-tab(v-if="items.length > 1", :items="items",
+  valueKey="cardTypeId",
+  textKey="cardTypeName",
+  @toggleTab="toggleTab")
+  div(:class="classes.container")
+    .template-list(v-if="templates.length")
+      .template-item(@click="toShowEdit(sceneId)", v-for="{sceneName,sceneId,sceneCover} in templates")
+        .item-cover(v-lazy:background-image="$util.imgPath(sceneCover)", lazy="loading")
+        .item-title {{sceneName}}
+    hi-empty(v-else, text="没有符合条件的模板")

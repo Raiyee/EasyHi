@@ -1,14 +1,23 @@
 import webpack from 'webpack'
-import CopyWebpackPlugin from 'copy-webpack-plugin'
+import CopyPlugin from 'copy-webpack-plugin'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
-import SWPrecacheWebpackPlugin from 'sw-precache-webpack-plugin'
+import SWPrecachePlugin from 'sw-precache-webpack-plugin'
 import _debug from 'debug'
 import pug from 'pug'
 
-import config, {globals, paths, pkg} from '../config'
-import utils, {baseLoaders, cssModuleLoaders, generateLoaders, nodeModules} from './utils'
-const {NODE_ENV, __DEV__, __PROD__, __TESTING__, __MOCK__} = globals
+import config, {globals, paths} from '../config'
+import {
+  commonCssLoaders,
+  cssModuleOptions,
+  baseLoaders,
+  cssModuleLoaders,
+  generateLoaders,
+  nodeModules,
+  vueCssLoaders
+} from './utils'
+
+const {NODE_ENV, __DEV__, __TEST__, __TESTING__, __PROD__, __MOCK__} = globals
 
 const debug = _debug('hi:webpack:config')
 
@@ -17,7 +26,7 @@ const webpackConfig = {
   target: 'web',
   resolve: {
     modules: [paths.src(), paths.base('packages'), 'node_modules'],
-    extensions: ['.js', '.styl', '.pug'],
+    extensions: ['.vue', '.js', '.styl', '.pug'],
     enforceExtension: false,
     enforceModuleExtension: false,
     alias: config.compiler_alias
@@ -39,11 +48,11 @@ const webpackConfig = {
 // ------------------------------------
 // Entry Points
 // ------------------------------------
-const APP_ENTRY_PATH = paths.src('index.js')
+const APP_ENTRY_PATH = ['regenerator-runtime/runtime', paths.src('index.js')]
 
 webpackConfig.entry = {
   app: __DEV__
-    ? [APP_ENTRY_PATH, 'webpack-hot-middleware/client']
+    ? [...APP_ENTRY_PATH, 'webpack-hot-middleware/client']
     : APP_ENTRY_PATH,
   vendor: config.compiler_vendor
 }
@@ -52,11 +61,13 @@ webpackConfig.entry = {
 // Bundle Output
 // ------------------------------------
 
+const prodEmpty = str => __PROD__ ? '' : str
+
 webpackConfig.output = {
   path: paths.dist(),
   publicPath: config.compiler_public_path,
-  filename: `[name].[${config.compiler_hash_type}].js`,
-  chunkFilename: `[id].[${config.compiler_hash_type}].js`
+  filename: `${prodEmpty('[name].')}[${config.compiler_hash_type}].js`,
+  chunkFilename: `${prodEmpty('[id].')}[${config.compiler_hash_type}].js`
 }
 
 // ------------------------------------
@@ -64,28 +75,27 @@ webpackConfig.output = {
 // ------------------------------------
 
 const sourceMap = !!config.compiler_devtool
-const STYLUS_LOADER = 'stylus-loader?paths=node_modules/bootstrap-styl/'
+const STYLUS_LOADER = 'stylus-loader'
 let appLoader, bootstrapLoader
 
+const extracting = __TEST__ || __PROD__
+
+const IMG_LOADER = __DEV__ ? '' : '!img-loader?minimize&progressive=true'
+
 webpackConfig.module.rules = [
-  ...utils.commonCssLoaders({
+  ...commonCssLoaders({
     sourceMap,
-    exclude: ['styl']
-  }),
-  ...__TESTING__ ? [{
-    test: /\.styl$/,
-    loader: generateLoaders(STYLUS_LOADER, baseLoaders),
-    exclude: nodeModules
-  }] : [{
+    exclude: ['styl', 'stylus']
+  }), {
     test: /[/\\]app\.styl$/,
     loader: generateLoaders(STYLUS_LOADER, baseLoaders, {
-      extract: !__DEV__ && (appLoader = new ExtractTextPlugin('app.[contenthash].css'))
+      extract: extracting && (appLoader = new ExtractTextPlugin(`${prodEmpty('app.')}[contenthash].css`))
     }),
     exclude: nodeModules
   }, {
     test: /[/\\]bootstrap\.styl$/,
     loader: generateLoaders(STYLUS_LOADER, baseLoaders, {
-      extract: !__DEV__ && (bootstrapLoader = new ExtractTextPlugin('bootstrap.[contenthash].css'))
+      extract: extracting && (bootstrapLoader = new ExtractTextPlugin(`${prodEmpty('bootstrap.')}[contenthash].css`))
     }),
     exclude: nodeModules
   }, {
@@ -96,28 +106,38 @@ webpackConfig.module.rules = [
     test: /^(?!.*[/\\](app|bootstrap|theme-\w+)\.styl$).*\.styl$/,
     loader: generateLoaders(STYLUS_LOADER, cssModuleLoaders),
     exclude: nodeModules
-  }], {
+  }, {
     test: /\.styl$/,
     loader: generateLoaders(STYLUS_LOADER, baseLoaders),
     include: nodeModules
   }, {
+    test: /\.stylus$/,
+    loader: generateLoaders(STYLUS_LOADER, baseLoaders, {style: false})
+  }, {
     test: /\.js$/,
     loader: 'babel-loader?cacheDirectory',
     exclude: nodeModules
+  }, {
+    test: /\.vue$/,
+    loader: 'vue-loader',
+    options: {
+      ...vueCssLoaders(),
+      cssModules: cssModuleOptions
+    }
   }, {
     test: /\.pug$/,
     loader: `vue-template-es2015-loader!template-file-loader?raw&pretty=${__DEV__}&doctype=html`,
     exclude: nodeModules
   }, {
     test: /\.(png|jpe?g|gif)$/,
-    loader: 'url-loader?limit=10000&name=[name].[hash].[ext]!img-loader?minimize&progressive=true'
+    loader: `url-loader?limit=10000&name=${prodEmpty('[name].')}[hash].[ext]${IMG_LOADER}`
   },
   {
     test: /\.(svg|woff2?|eot|ttf)$/,
     loader: 'url-loader',
     query: {
       limit: 10000,
-      name: '[name].[hash].[ext]'
+      name: `${prodEmpty('[name].')}[hash].[ext]`
     }
   }
 ]
@@ -132,18 +152,18 @@ webpackConfig.plugins = [
   new webpack.ContextReplacementPlugin(/\.\/locale$/, null, false, /js$/),
   new webpack.DefinePlugin(globals),
   new webpack.LoaderOptionsPlugin({
+    minimize: __PROD__,
     stylus: {
       default: {
-        preferPathResolver: 'webpack',
-        import: [paths.src('styles/_variables.styl')]
+        import: [paths.src('styles/_variables.styl')],
+        paths: 'node_modules/bootstrap-styl',
+        preferPathResolver: 'webpack'
       }
     }
   }),
   new HtmlWebpackPlugin({
     templateContent: pug.renderFile(paths.src('index.pug'), {
-      pretty: !config.compiler_html_minify,
-      title: `${pkg.name} - ${pkg.description}`,
-      polyfill: !__DEV__
+      pretty: !config.compiler_html_minify
     }),
     favicon: paths.src('static/favicon.ico'),
     hash: false,
@@ -153,7 +173,7 @@ webpackConfig.plugins = [
       minifyJS: config.compiler_html_minify
     }
   }),
-  new CopyWebpackPlugin([{
+  new CopyPlugin([{
     from: paths.src('static')
   }], {
     ignore: ['*.ico', '*.md']
@@ -162,8 +182,7 @@ webpackConfig.plugins = [
 
 // Don't split bundles during testing, since we only want import one bundle
 if (!__TESTING__) {
-  webpackConfig.plugins.push(
-    new webpack.optimize.CommonsChunkPlugin('vendor'))
+  webpackConfig.plugins.push(new webpack.optimize.CommonsChunkPlugin('vendor'))
 }
 
 if (__DEV__) {
@@ -186,8 +205,8 @@ if (__DEV__) {
       comments: false,
       sourceMap
     }),
-    new SWPrecacheWebpackPlugin({
-      cacheId: 'easy-hi',
+    new SWPrecachePlugin({
+      cacheId: 'yoga-vision',
       filename: 'service-worker.js',
       dontCacheBustUrlsMatching: /./,
       staticFileGlobsIgnorePatterns: [/index\.html$/, /\.map$/]

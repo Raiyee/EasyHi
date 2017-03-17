@@ -4,7 +4,8 @@ module.exports = {
   plugins: [
     'babel',
     'flowtype',
-    'standard'
+    'standard',
+    'vue'
   ],
   extends: [
     'standard',
@@ -15,12 +16,23 @@ module.exports = {
   },
   globals: {
     __DEV__: false,
+    __TEST__: false,
     __TESTING__: false,
+    __PAGES__: false,
     __PROD__: false,
     __MOCK__: false,
+    BASE_URL: false,
     CONTEXT: false,
     IMG_PATH_PREFIX: false,
-    NON_INDEX_REGEX: false
+    NON_INDEX_REGEX: false,
+    OLD_SERVER_PREFIX: false,
+    SUCCESS: false,
+    ALERT: false,
+    CONFIRM: false,
+    REDIRECT: false,
+    RELOAD: false,
+    PROMPT: false,
+    REMIND: false
   },
   parserOptions: {
     ecmaVersion: 6,
@@ -41,14 +53,16 @@ module.exports = {
     'max-nested-callbacks': 2,
     'max-params': [2, 5],
     'no-mixed-operators': 0,
-    'standard/no-callback-literal': 0,
+    'object-curly-spacing': 0,
+    'prefer-const': [2, {
+      destructuring: 'all'
+    }],
     'space-before-function-paren': [
       2,
       {
         anonymous: 'always',
         named: 'never'
       }
-    ],
-    'object-curly-spacing': 0
+    ]
   }
 }

@@ -1,0 +1,83 @@
+:global(.split-line)
+  width 100%
+  border($border-color, 1px, dashed)
+  transform scaleY(.5)
+
+.container
+  :global
+    .iconfont
+      display inline-block
+      transform scale(1.3)
+      padding 0 8px
+    .panel
+      background-color white
+      margin-bottom 20px
+    .header
+      padding 10px
+      border-bottom 1px solid $border-color
+      .header-content
+        margin-bottom 20px
+        .media-center
+          width 10000px
+          display table-cell
+          vertical-align middle
+          padding-left 10px
+        .media-left, .media-right
+          display table-cell
+          vertical-align middle
+          img
+            width 70px
+            height 70px
+            border-radius 100%
+            &.img-square
+              border-radius 5px
+      .header-bottom
+        line-height 22px
+        font-size 15px
+        margin-top 10px
+        display flex
+        .header-bottom-left
+          flex 1
+          text-align left
+        .header-bottom-right
+          flex 1
+          text-align right
+
+    .card, .voucher
+      padding 0 10px
+      .panel-header
+        line-height 40px
+      .panel-content
+        transition height ease .5s
+        overflow hidden
+        .no-items
+          margin-left 40px
+          border1px-b($border-color)
+      .panel-drop
+        line-height 38px
+        margin-left 40px
+        border1px-t($border-color)
+        .right
+          float right
+
+    .button-area
+      background-color white
+      margin-top 0
+      padding 10px
+      .hight-light-color
+        display block
+        color $highlight-color
+      .media-body
+        line-height 22px
+        overflow visible
+      .media-left
+        white-space nowrap
+        line-height 22px
+      .media-right
+        width 35%
+        button
+          width 100%
+
+.wrapper
+  overflow-x hidden
+  overflow-y auto

@@ -33,7 +33,7 @@ scaleSize(size = $small-size, baseSize = null, transform = null, origin = null)
 borderLine(direction, borderColor = $border-color)
   return linear-gradient(to direction, transparent 50%, borderColor 50%)
 
-borderRadius(borderColor = $border-color, borderRadius = $border-radius-base, borderBeforeRadius = $border-radius-lg)
+borderRadius(borderColor = $border-color, borderRadius = $border-radius-base)
   border 1px solid borderColor
   border-radius borderRadius
 
@@ -53,7 +53,7 @@ borderRadius(borderColor = $border-color, borderRadius = $border-radius-base, bo
       transform-origin 0 0
       padding 1px
       box-sizing border-box
-      border-radius borderBeforeRadius
+      border-radius borderRadius * 2
       pointer-events none
 
 border1px(borderColor = $border-color)
@@ -85,7 +85,7 @@ border1px-t(borderColor = $border-color)
   border-top 1px solid borderColor
 
   @media (min-resolution 2dppx)
-    border 0
+    border-top-color transparent
     background-position left top
     background-image borderLine(top, borderColor)
     @extend $border1px-tb
@@ -94,18 +94,19 @@ border1px-b(borderColor = $border-color)
   border-bottom 1px solid borderColor
 
   @media (min-resolution 2dppx)
-    border 0
+    border-bottom-color transparent
     background-position left bottom
     background-image borderLine(bottom, borderColor)
     @extend $border1px-tb
 
 border1px-tb(borderColor = $border-color)
-  border-top borderColor 1px solid
-  border-bottom borderColor 1px solid
+  border-top 1px solid borderColor
+  border-bottom 1px solid borderColor
   background-image none
 
   @media (min-resolution 2dppx)
-    border 0
+    border-top-color transparent
+    border-bottom-color transparent
     background-image borderLine(top, borderColor), borderLine(bottom, borderColor)
     background-position top, bottom
     @extend $border1px-tb
@@ -118,7 +119,7 @@ border1px-l(borderColor = $border-color)
   border-left 1px solid borderColor
 
   @media (min-resolution 2dppx)
-    border 0
+    border-left-color transparent
     background-position left top
     background-image borderLine(left, borderColor)
     @extend $border1px-lr
@@ -127,7 +128,51 @@ border1px-r(borderColor = $border-color)
   border-right 1px solid borderColor
 
   @media (min-resolution 2dppx)
-    border 0
+    border-right-color transparent
     background-position right top
     background-image borderLine(right, borderColor)
     @extend $border1px-lr
+
+$border-ab
+  relative()
+
+  &:before, &:after
+    absolute(top, right, bottom, left)
+    content ''
+    size 100%
+    pointer-events none
+
+border1px-rb(borderColor = $border-color)
+  @extend $border-ab
+
+  &:before
+    border1px-r(borderColor)
+
+  &:after
+    border1px-b(borderColor)
+
+border1px-lb(borderColor = $border-color)
+  @extend $border-ab
+
+  &:before
+    border1px-l(borderColor)
+
+  &:after
+    border1px-b(borderColor)
+
+retina($file, $ext = 'jpg')
+  background-image url($file'.'$ext)
+  background-size cover
+
+  @media (min-resolution 2dppx)
+    background-image url($file'@2x.'$ext)
+
+scrollSmooth($type = null)
+  if ($type)
+    overflow-y hidden
+    overflow-x auto
+  else
+    overflow-x hidden
+    overflow-y auto
+  scroll-behavior smooth  // @stylint ignore
+  -webkit-overflow-scrolling touch

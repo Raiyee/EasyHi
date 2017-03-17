@@ -1,12 +1,14 @@
 import HiOperatorMenu from 'components/HiMenu/OperatorMenu'
 
+import {log} from 'utils'
+
 export default require('./index.pug')({
   methods: {
     updateItem() {
-      console.log('update operator')
+      log('update operator')
     },
     deleteItem() {
-      console.log('delete operator')
+      log('delete operator')
     }
   },
   components: {

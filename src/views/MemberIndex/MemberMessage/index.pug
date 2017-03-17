@@ -7,4 +7,4 @@ ol.list-unstyled(v-if="messages && messages.length")
         span {{ type }}
         span(:class="classes.time") {{ createTime | formatDate('HH:mm') }}
         div(:class="classes.messageContent") {{ messageContent }}
-no-item(v-else, text="亲~您还没有任何消息哟~")
+hi-empty(v-else, text="亲~您还没有任何消息哟~")

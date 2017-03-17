@@ -1,0 +1,60 @@
+.follow-dynamic-modal
+
+  .body
+    padding 0 15px
+    background-color $bg-color
+
+    .item
+      padding-top 15px
+
+      .item-title
+        padding 0 5px
+        margin-bottom 15px
+        border-left 2px solid
+
+      .item-content
+        borderRadius($border-color, 30px)
+        padding 0 20px
+        background-color $back-light-color
+
+        .follow-state
+          padding 15px 0
+
+        .uncheck
+          color $icon-color
+
+        .icon
+          float right
+          scaleSize(20)
+
+        textarea
+          width 100%
+          border 0
+          resize none
+          height 100px
+          outline-style none
+
+        .font-num
+          text-align right
+          color $input-border-color
+
+      .follow-content
+        padding-top 10px
+        padding-bottom 5px
+
+    .prompt
+      left 0
+      width 100%
+      z-index 100
+      bottom 73px
+      padding 12px 0
+      position fixed
+      text-align center
+      color $remark-color
+      display inline-block
+      background-color $back-light-color
+
+      .icon-prompt
+        scaleSize(20)
+        margin-right 5px
+        color $icon-color

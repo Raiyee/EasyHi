@@ -15,7 +15,7 @@ export default require('./calendar.pug')({
   },
   data: () => ({classes}),
   computed: {
-    ...mapGetters(['mode', 'rem', 'appWidth']),
+    ...mapGetters(['mode', 'rem', 'appWidth', 'style']),
     baseWidth() {
       return (periodWidth * this.calendar.length / 7 + 10) * this.rem
     },
@@ -42,8 +42,8 @@ export default require('./calendar.pug')({
     }
   },
   methods: {
-    toggleActive(e, date) {
-      this.$emit('toggleActiveDate', e, date)
+    toggleActive(date) {
+      this.$emit('toggleActiveDate', date)
     }
   },
   components: {

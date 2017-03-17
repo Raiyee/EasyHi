@@ -1,0 +1,15 @@
+div(:class="[classes.container, {editing}]")
+  div(:class="classes.header")
+    span.theme-bd {{ rulesTitle }}
+    span.theme-color.pull-right(v-if="!editing", @click="edit") 编辑
+  rule-detail(v-for="ruleDetail of ruleDetails",
+  ref="ruleDetail",
+  :key="ruleDetail.detailId + changed",
+  :ruleDetail="ruleDetail",
+  :editing="editing")
+  .text-center(v-if="editing", @click="effective = !effective")
+    span.iconfont(:class="[`icon-${effective ? '' : 'un'}check`, {'theme-color': effective}]")
+    | 对已有排期生效
+  .fixed-bottom.border-t(v-if="editing")
+    button.btn.btn-theme-default(@click="cancelEdit") 取消
+    button.btn.btn-theme-primary(@click="confirmEdit") 确定

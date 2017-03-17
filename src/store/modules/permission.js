@@ -1,6 +1,9 @@
-import {COACH, VISITOR, SERVICE, MERCHANT, ROLE_NAMES, ADMINS, STAFFS, CONSUMERS} from '../constants'
+import {
+  COACH, VISITOR, SERVICE, MERCHANT, ROLE_NAMES, ADMINS, STAFFS,
+  STAFFS_SA, STAFFS_A, STAFFS_S, CONSUMERS
+} from '../constants'
 
-import utils, {generateGetters} from 'utils'
+import utils, {generateGetters, isWechat, deleteItem, imgPath, setItems, DEFAULT_LOGO} from 'utils'
 
 const PARSE_PATH = 'PARSE_PATH'
 const SET_ROLES = 'SET_ROLES'
@@ -10,6 +13,7 @@ const INITIALIZE = 'INITIALIZE'
 const TOGGLE_SUBSCRIBE_TYPE = 'TOGGLE_SUBSCRIBE_TYPE'
 const TOGGLE_MENU_OPEN = 'TOGGLE_MENU_OPEN'
 const TOGGLE_MENU_SHOW = 'TOGGLE_MENU_SHOW'
+const TOGGLE_SKIN = 'TOGGLE_SKIN'
 
 let base = ''
 
@@ -25,6 +29,9 @@ Object.assign(utils, INIT_STATE, {
   }
 })
 
+const isStatic = /\/yoga-system-res\//.test(OLD_SERVER_PREFIX)
+const suffix = (isStatic ? '.html' : '') + (isWechat ? '?route=' : '#')
+
 const state = Object.assign({
   mobile: null,
   authorized: false,
@@ -32,41 +39,66 @@ const state = Object.assign({
   roles: [VISITOR],
   currentRole: VISITOR,
   currentRoleName: ROLE_NAMES[VISITOR],
-  isEnterprise: false,
   menuOpen: false,
   menuShow: false,
   initialized: false,
   merchantName: null,
+  merchantAddress: null,
+  serviceMobile: null,
+  theme: null,
   subscribeType: 0,
   oldServer: null,
+  isEnterprise: false,
   isOnlinePayment: false,
-  checkIn: 0
+  checkIn: false
 }, INIT_STATE)
 
 const getters = {
-  ...generateGetters(['mobile', 'authorized', 'ctx', 'tcode', 'base',
-    'coachAlias', 'roles', 'currentRole', 'isEnterprise', 'menuOpen', 'menuShow',
-    'initialized', 'subscribeType', 'oldServer', 'isOnlinePayment', 'checkIn']),
+  ...generateGetters(['mobile', 'authorized', 'ctx', 'tcode', 'base', 'coachAlias', 'roles', 'currentRole',
+    'isEnterprise', 'menuOpen', 'menuShow', 'initialized', 'subscribeType', 'oldServer', 'isOnlinePayment',
+    'checkIn', 'merchantLogo', 'merchantName', 'merchantAddress', 'sceneUrlPrefix', 'serviceMobile',
+    'style', 'theme', 'oauthUrlTemplate']),
   currRole: state => state.currentRole.toLowerCase(),
   currentRoleName: state => ROLE_NAMES[state.currentRole],
   isAdmin: state => ADMINS.includes(state.currentRole),
   isStaff: state => STAFFS.includes(state.currentRole),
+  isStaffSA: state => STAFFS_SA.includes(state.currentRole),
+  isStaffS: state => STAFFS_S.includes(state.currentRole),
+  isStaffA: state => STAFFS_A.includes(state.currentRole),
   isConsumer: state => CONSUMERS.includes(state.currentRole),
   isMerchant: state => MERCHANT === state.currentRole,
-  isService: state => SERVICE === state.currentRole
+  hasMerchantRole: state => state.roles.includes(MERCHANT),
+  isService: state => SERVICE === state.currentRole,
+  urlPrefix: state => state.oldServer + (getters.isStaff(state) ? 'merchant' : 'member') + suffix,
+  hipayUrlPrefix: state => state.oldServer + 'hipay' + suffix,
+  memberUrlPrefix: state => state.oldServer + 'member' + suffix,
+  merchantUrlPrefix: state => state.oldServer + 'merchant' + suffix
 }
 
 const actions = {
   parsePath({commit}, path) {
-    if (!path.startsWith(CONTEXT)) return
+    const isVision = path.startsWith(CONTEXT)
+    const isSystem = path.startsWith(BASE_URL)
 
-    const tcode = path.split('/').splice(1, 2)[1] || ''
+    if (!isVision && !isSystem) return
 
-    commit(PARSE_PATH, {
-      ctx: CONTEXT,
-      tcode,
-      base: CONTEXT + '/' + tcode
-    })
+    if (isVision) {
+      const tcode = path.split('/').splice(1, 2)[1] || ''
+
+      commit(PARSE_PATH, {
+        ctx: CONTEXT,
+        tcode,
+        base: CONTEXT + '/' + tcode
+      })
+    } else if (isSystem) {
+      const tcode = path.split('/')[3] || ''
+
+      commit(PARSE_PATH, {
+        ctx: BASE_URL,
+        tcode,
+        base: BASE_URL + '/center/' + tcode + '/index/vision'
+      })
+    }
   },
   initialize({commit}, payload) {
     commit(INITIALIZE, payload)
@@ -82,17 +114,22 @@ const actions = {
   },
   setMobile({commit}, mobile) {
     commit(SET_MOBILE, mobile)
+    __MOCK__ && mobile && setItems({mobile})
   },
   resetRole({dispatch}, {roles, currentRole, mobile} = {}) {
     dispatch('setRoles', roles)
     dispatch('setCurrentRole', currentRole)
     dispatch('setMobile', mobile)
+    __MOCK__ && !mobile && deleteItem('mobile')
   },
   toggleMenuOpen({commit}, menuOpen) {
     commit(TOGGLE_MENU_OPEN, menuOpen)
   },
   toggleMenuShow({commit}, menuShow) {
     commit(TOGGLE_MENU_SHOW, menuShow)
+  },
+  toggleSkin({commit}, skin) {
+    commit(TOGGLE_SKIN, skin)
   }
 }
 
@@ -105,13 +142,25 @@ const mutations = {
   [SET_MOBILE](state, mobile) {
     state.authorized = !!(state.mobile = mobile)
   },
-  [INITIALIZE](state, {coachAlias, isEnterprise, isOnlinePayment, merchantName, checkIn}) {
+  [INITIALIZE](state, {
+                 checkIn, coachAlias, isEnterprise, isOnlinePayment, merchantLogo, merchantName, merchantAddress,
+                 sceneUrlPrefix, serviceMobile, style, theme, oauthUrlTemplate
+               }) {
     coachAlias && (ROLE_NAMES[COACH] = coachAlias) && (state.coachAlias = coachAlias)
+    state.checkIn = checkIn
     state.initialized = true
     state.isEnterprise = isEnterprise
     state.isOnlinePayment = isOnlinePayment
     state.merchantName = merchantName
-    state.checkIn = checkIn
+    state.merchantAddress = merchantAddress
+    state.merchantLogo = imgPath(merchantLogo, DEFAULT_LOGO)
+    state.sceneUrlPrefix = sceneUrlPrefix
+    state.serviceMobile = serviceMobile
+    state.style = style
+    state.theme = theme
+    state.oauthUrlTemplate = oauthUrlTemplate
+    state.oldServer = OLD_SERVER_PREFIX +
+      (isStatic ? 'dev/modules/index/html/' : `${isWechat ? 'oauth/' : ''}center/${state.tcode}/index/`)
   },
   [TOGGLE_SUBSCRIBE_TYPE](state, subscribeType) {
     state.subscribeType = subscribeType
@@ -128,6 +177,10 @@ const mutations = {
   },
   [TOGGLE_MENU_SHOW](state, menuShow) {
     state.menuShow = menuShow
+  },
+  [TOGGLE_SKIN](state, {style, theme}) {
+    state.style = style
+    state.theme = theme
   }
 }
 

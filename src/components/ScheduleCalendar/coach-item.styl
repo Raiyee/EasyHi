@@ -5,9 +5,16 @@
   border-bottom 1px solid $card-line-color
   box-shadow $bottom-shadow
 
-  :global(.btn-theme-default)
-    width 80px
-    padding 4px
+  :global
+    .media-heading span
+      vertical-align middle
+
+    .media-body > span + span
+        margin-left 8px
+
+    .btn-theme-default
+      width 80px
+      padding 4px
 
 .time-items
   height 0
@@ -61,6 +68,11 @@
   text-align center
   display table-cell
   vertical-align middle
+
+  &:global(.square)
+    > span:global(.icon-check)
+      transform translate3d(50%, 50%, 0)
+
   > span
     font-size 16px
     display block

@@ -33,9 +33,9 @@ module.exports = {
   requireSpaceAfterCodeOperator: true,
   requireSpacesInsideAttributeBrackets: null,
   requireSpecificAttributes: [
-    {
-      form: 'action'
-    },
+    // {
+    //   form: 'action'
+    // },
     // {
     //   img: 'alt'
     // },

@@ -13,12 +13,12 @@ export default require('./coach-item.pug')({
   data() {
     return {
       classes,
-      checked: false,
-      activeTime: null
+      activeTime: null,
+      activeIndex: 0
     }
   },
   computed: {
-    ...mapGetters(['rem']),
+    ...mapGetters(['memberUrlPrefix', 'rem', 'style']),
     hasItems() {
       for (const value of Object.values(this.activeItems)) {
         if (value.length) return true
@@ -27,8 +27,14 @@ export default require('./coach-item.pug')({
     active() {
       return this.coachItem.coachId === this.activeCoachId
     },
+    activeTimes() {
+      return this.coachItem.times[this.activeIndex]
+    },
+    activeMinute() {
+      return this.activeTimes.minute
+    },
     activeItems() {
-      return this.coachItem[`min${this.checked ? '120' : '060'}`]
+      return this.activeTimes.data
     },
     height() {
       const rem = this.rem
@@ -39,9 +45,10 @@ export default require('./coach-item.pug')({
       for (const value of Object.values(this.activeItems)) {
         height += value.length && (Math.ceil(value.length / 4) * 65 + 10)
       }
+
       return height * rem
     },
-    style() {
+    itemStyle() {
       return this.active && {
         height: `${this.height}px`
       }
@@ -51,13 +58,11 @@ export default require('./coach-item.pug')({
     toggleActive() {
       this.$emit('toggleActiveCoach', this.active ? null : this.coachItem.coachId)
     },
-    toggleChecked(checked) {
-      this.checked = checked
+    subscribePrivate() {
+      this.activeTime && this.$emit('subscribePrivate', this.activeMinute, this.activeTime)
     },
-    toggleTime(time) {
-      this.activeTime = time === this.activeTime ? null : time
-    },
-    orderSchedule(e) {
+    gotoDetail() {
+      this.$router.push({path: '/coach-course-detail', query: {coachId: this.coachItem.coachId}})
     }
   }
 })

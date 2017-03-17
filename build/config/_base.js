@@ -44,12 +44,12 @@ const config = {
     chunkModules: false
   },
   compiler_alias: {
-    'flow-runtime': 'flow-runtime/dist/flow-runtime',
     vue: 'vue/dist/vue.common'
   },
   compiler_vendor: [
     'axios',
     'moment',
+    'qs',
     'vue',
     'vue-router',
     'vuex'
@@ -59,17 +59,37 @@ const config = {
 // ------------------------------------
 // Environment
 // ------------------------------------
+
+const __MOCK__ = !!argv.mock
+
+const __DEV__ = NODE_ENV === 'development'
+
+let NON_INDEX_REGEX = /^(?!.*[/\\](index)\.js).*\.(js|vue)$/.toString()
+
+__DEV__ || (NON_INDEX_REGEX = NON_INDEX_REGEX.replace('index', 'index|test'))
+
 config.globals = {
   'process.env.NODE_ENV': JSON.stringify(NODE_ENV),
   NODE_ENV,
-  __DEV__: NODE_ENV === 'development',
+  __DEV__,
   __PROD__: NODE_ENV === 'production',
   __TEST__: NODE_ENV === 'test',
   __TESTING__: NODE_ENV === 'testing',
-  __MOCK__: !!argv.mock,
-  CONTEXT: JSON.stringify('/'),
-  IMG_PATH_PREFIX: JSON.stringify('https://placem.at/'),
-  NON_INDEX_REGEX: /^(?!.*[/\\](index)\.js).*\.js$/.toString()
+  __MOCK__,
+  __PAGES__: !!argv.pages,
+  BASE_URL: JSON.stringify('/yoga-system'),
+  CONTEXT: JSON.stringify('/yoga-vision'),
+  IMG_PATH_PREFIX: JSON.stringify(!__MOCK__ && process.env.IMG_PATH_PREFIX || 'https://placem.at/'),
+  NON_INDEX_REGEX,
+  OLD_SERVER_PREFIX: JSON.stringify(process.env.OLD_SERVER_PREFIX || 'http://local.easy-hi.com:8090/yoga-system-res/'),
+  // result code
+  SUCCESS: JSON.stringify('0'),
+  ALERT: JSON.stringify('1'),
+  CONFIRM: JSON.stringify('2'),
+  REDIRECT: JSON.stringify('3'),
+  RELOAD: JSON.stringify('4'),
+  PROMPT: JSON.stringify('5'),
+  REMIND: JSON.stringify('10')
 }
 
 // ------------------------------------
@@ -77,10 +97,10 @@ config.globals = {
 // ------------------------------------
 config.compiler_vendor = config.compiler_vendor
   .filter(dep => ({...config.pkg.dependencies, ...config.compiler_alias}.hasOwnProperty(dep) ? true : debug(
-      'Package "' + dep + '" was not found as an npm dependency in package.json; ' +
-      'it won\'t be included in the webpack vendor bundle.\n' +
-      'Consider removing it from compiler_vendor in "./config/_base.js"'
-    )))
+    'Package "' + dep + '" was not found as an npm dependency in package.json; ' +
+    'it won\'t be included in the webpack vendor bundle.\n' +
+    'Consider removing it from compiler_vendor in "./config/_base.js"'
+  )))
 
 // ------------------------------------
 // Utilities

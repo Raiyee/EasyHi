@@ -15,9 +15,8 @@ const app = new Koa()
 
 app.use(history())
 
-app.use(compress())
-
 app.use(logger())
+app.use(compress())
 
 // handle error
 app.use(error())

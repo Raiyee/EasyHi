@@ -50,3 +50,5 @@ export const setItems = val => {
 export const deleteItem = key => delete localStorage[key]
 
 export const isJsonSame = (x, y) => x === y || JSON.stringify(x) === JSON.stringify(y)
+
+export const jsonClone = val => JSON.parse(JSON.stringify(val))
