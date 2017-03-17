@@ -1,0 +1,65 @@
+.content
+  p
+    margin-top 10px
+    color $primary-color
+
+  :global
+    .media-object
+      size 40px
+
+    .media
+      background-color $card-back
+      color $primary-color
+      margin-top 0
+      margin-bottom 10px
+
+      .media-object
+        size 60px
+
+      .media-body
+        padding-right 10px
+
+      .media-heading + span
+        display inline-block
+        scaleSize($smaller-size, null, null, left bottom)
+
+        + div
+          scaleSize($smaller-size, null, null, right bottom)
+
+.rate
+  + .rate
+    margin-left 10px
+
+  > span:first-child
+    display inline-block
+    scaleSize($smaller-size, null, null, left)
+    color $subtext-color
+    margin-right -8px
+
+.review-reply
+  relative()
+  background-color $card-back
+  padding 10px
+  margin-top 15px
+  word-break break-word
+
+  &:before
+    absolute(top)
+    content ''
+    left 20px
+    border 8px solid transparent
+    border-bottom-color $card-back
+    transform translate3d(0, -100%, 0)
+
+.operator
+  text-align right
+
+  > button
+    padding 0 5px
+
+    + button
+      margin-left 10px
+
+    > span
+      display inline-block
+      scaleSize($smaller-size)

@@ -1,0 +1,35 @@
+.voucher
+  :global(.media-heading)
+    > span
+      display table-cell
+
+      &:first-child
+        white-space nowrap
+
+      &:last-child
+        width 10000px
+        text-align right
+
+.content
+  width ($common-size / $smaller-size * 100) %
+  scaleSize($smaller-size, , , left)
+
+.times
+  font-size 24px
+
+.footer
+  margin-top 10px
+
+  input
+    border 0
+    outline 0
+    display inline-block
+    width 32px
+    text-align center
+
+  :global
+    .dashed-line
+      margin-bottom 10px
+
+    .iconfont
+      margin-left 5px

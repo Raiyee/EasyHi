@@ -1,0 +1,55 @@
+form(@submit.prevent="saveInfo")
+  ul.list-group(:class="classes.listItems")
+    li.list-group-item(:class="classes.text")
+      .list-group-left 头像
+      .list-group-right(@click="$refs.file.click()")
+        input.hidden(type="file", @change="previewFile", ref="file")
+        span(:class="classes.portrait", v-lazy:background-image="$util.portraitPath(portrait, gender, isStaff)")
+        span.iconfont.icon-arrow-right
+
+    li.list-group-item(:class="classes.text")
+      .list-group-left 用户名
+      .list-group-right
+        input(v-model="name", :class="classes.name")
+
+    li.list-group-item(:class="classes.text")
+      .list-group-left 性别
+      .list-group-right
+        each val, i in [{gender:true, icon:''}, {gender:false, icon:'fe'}]
+          - var gender = "{active: " + (i ? "!" : "") + "gender}"
+          span(:class="classes.gender", @click="gender = " + val.gender)
+            span(:class=gender) #{val.gender ? '男' : '女'}
+            span(:class=gender, class="iconfont icon-" + val.icon + "male")
+
+    li.list-group-item(:class="classes.text", v-if="currentRole === 'MEMBER'")
+      .list-group-left 二维码
+      .list-group-right(@click="toggleQrCode")
+        span.iconfont.icon-qr-code &nbsp
+        span.iconfont.icon-arrow-right
+        qrious.hidden(:value="qrcodeUrl", :size="205", ref="qrious")
+
+    template(v-if="!isStaff")
+      li.list-group-item(:class="classes.text")
+        .list-group-left 生日
+        .list-group-right(@click="pickDate")
+          span {{ birthday }}
+          span.iconfont.icon-arrow-right
+
+      li.list-group-item(:class="classes.text")
+        .list-group-left 地址
+        .list-group-right(@click="pickRegion")
+          span(:class="[classes.address]") {{ address }}
+          span.iconfont.icon-arrow-right
+
+      li.list-group-item 个人简介
+        textarea(v-model="profile", rows=3, :class="classes.text", placeholder="请输入个人简介，不超过50个字")
+
+  ul.list-group(:class="classes.security")
+    router-link.list-group-item(tag="li", to="/personal-security")
+      .list-group-left 账号安全
+      .list-group-right(:class="classes.text")
+        span(v-if="!hasMerchantRole") 可修改绑定手机号
+        span.iconfont.icon-arrow-right
+
+  .border-t.fixed-bottom
+    button.btn.btn-theme-primary(type="submit") 保存

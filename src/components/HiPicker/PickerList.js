@@ -47,7 +47,7 @@ export default require('./picker-list.pug')({
   computed: {
     ...mapGetters(['rem']),
     align() {
-      return this.textAlign || this.length === 2 ? this.index ? 'left' : 'right' : 'center'
+      return this.textAlign || (this.length === 2 ? this.index ? 'left' : 'right' : 'center')
     },
     itemHeight() {
       return 36 * this.rem
@@ -61,9 +61,11 @@ export default require('./picker-list.pug')({
   },
   watch: {
     values(curr, prev) {
-      if (isJsonSame(curr, prev)) return
-      this.currIndex = 0
+      // if (isJsonSame(curr, prev)) return
+      if (curr === prev) return
+      this.currIndex = this.defaultIndex
       this.resetTranslateY()
+      if (isJsonSame(curr, prev)) return
       this.emitChange()
     }
   },

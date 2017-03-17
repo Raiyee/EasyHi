@@ -1,0 +1,20 @@
+div(:class="classes.container")
+  template(v-if="editing")
+    .media.border-b
+      .media-body
+        .input-group
+          label.input-group-addon(for="mobile") 新手机号
+          input.form-control#mobile(type="number", v-model="newMobile", ref="mobile")
+          span.input-group-addon(v-if="newMobile", @click="clearMobile")
+            span.iconfont.icon-remove
+    .text-center
+      button.btn(:class="$v.newMobile.$error ? 'btn-disabled-primary' : 'btn-theme-primary'", @click="validateMobile") 验证手机号
+  template(v-else)
+    .media.border-b(@click="edit")
+      .media-body
+        .media-heading {{ hasMerchantRole ? '手机号码' : '更换手机号' }}
+          span.theme-color.pull-right {{ hasMerchantRole ? mobile : $util.hide(mobile) }}
+        div(v-if="!hasMerchantRole", :class="classes.tips") *若您的验证手机丢失或停用，请立即修改更换
+      .media-right.media-middle(v-if="!hasMerchantRole")
+        span.iconfont.icon-arrow-right.remark-color
+    .fixed-bottom.theme-color.border-t(@click="logout") 退出登录

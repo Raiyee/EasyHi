@@ -1,6 +1,11 @@
 $header-back-color = #f9f9f9
 
+.backdrop
+  composes backdrop from './tip-modal.styl'
+
 .picker-modal
+  user-select none
+
   :global(.modal-header)
     display flex
     background-color $header-back-color
@@ -14,8 +19,14 @@ $header-back-color = #f9f9f9
         padding 15px
 
   :global(.modal-content)
-    fixed(bottom)
+    fixed(left, bottom)
     width 100%
     border-radius 0
     border 0
     box-shadow none
+
+.picker-tabs
+  relative()
+  z-index 2
+  margin-left -10px
+  margin-right -10px

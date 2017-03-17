@@ -1,0 +1,14 @@
+ul.list-unstyled(:class="[classes.content, {[classes.padding]: padding}]")
+  li(v-for="(img, index) of imgs")
+    div(v-lazy:background-image="$util.imgPath(img)", @click="previewImg(index)")
+    span.iconfont.icon-remove(v-if="upload", @click="removeImg(index)")
+  li(v-if="upload && imgs.length !== 6", :class="classes.upload")
+    div(@click="chooseImg")
+      .remark-color
+        span.iconfont.icon-pic
+        | 添加照片
+    input.hidden(type="file",
+    accept="image/png,image/jpg,image/jpeg",
+    :value="null",
+    ref="file",
+    @change="fileChanged")

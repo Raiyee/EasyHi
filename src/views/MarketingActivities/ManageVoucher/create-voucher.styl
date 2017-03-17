@@ -1,0 +1,59 @@
+.content
+  :global
+    .modal-body
+      background-color $bg-color
+
+      > ul
+        padding 10px
+
+        li
+          .form-control-static
+            display none
+            padding-left 24px
+
+          &.has-error .form-control-static
+            display block
+
+          + li
+            margin-top 10px
+
+.expire
+  width 100%
+
+  > div
+    &:first-child
+      padding-top 6px
+
+      :global(.input-group-addon)
+        text-align left
+
+    &:last-child
+      padding-left 25px
+      padding-right 12px
+      padding-bottom 6px
+
+      input
+        border 0
+        outline 0
+        display inline-block
+        width 32px
+        text-align center
+
+.courses
+  padding 0
+  font-size 0
+  margin-bottom 10px
+
+  > li
+    display inline-block
+    font-size $common-size
+    width 150px
+    margin-left 10px
+
+    @media(max-width $threshold)
+      &:nth-child(2n + 1)
+        margin-left 0
+
+    button
+      width 100%
+      overflow ellipsis

@@ -1,0 +1,19 @@
+div
+  .shadow-bottom
+    div(:class="classes.rate", v-if="subscribeType === 1")
+      div 为课程“{{ scheduleName }}”打分
+      hi-rate(:rate="courseRate", :scale="2.5", @activeRate="toggleCourseRate")
+
+    div(:class="classes.rate")
+      div 为{{ coachAlias }}“{{ coachName }}”打分
+      hi-rate(:rate="coachRate", :scale="2.5", @activeRate="toggleCoachRate")
+
+  .shadow-bottom(:class="classes.content")
+    textarea.textarea(maxlength="200", v-model="reviewContent", :placeholder="`课程或${coachAlias}满足您的期待吗？说说您的感受和建议吧`")
+    hi-image.border-b(:imgs="reviewImgs", :upload="true", ref="images")
+    div(:class="classes.anonymous", @click="toggleAnonymous")
+      span.iconfont(:class="[anonymous ? 'theme-color icon-check' : 'subtext-color icon-uncheck']")
+      span.subtext-color &nbsp; 匿名
+      span.remark-color 勾选后您的评价将以匿名形式展现
+  div(:class="classes.footer")
+    .btn.btn-theme-primary(@click="commitReview") 提交评价

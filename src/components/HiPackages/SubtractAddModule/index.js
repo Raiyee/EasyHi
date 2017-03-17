@@ -10,23 +10,43 @@ export default require('./index.pug')({
     }
   },
   props: {
-    min: REQUIRED_NUMBER,
-    max: REQUIRED_NUMBER,
-    step: REQUIRED_NUMBER,
-    curr: REQUIRED_NUMBER
+    min: {
+      REQUIRED_NUMBER,
+      default: 1
+    },
+    max: {
+      REQUIRED_NUMBER,
+      default: Number.MAX_SAFE_INTEGER
+    },
+    step: {
+      REQUIRED_NUMBER,
+      default: 1
+    },
+    curr: {
+      REQUIRED_NUMBER,
+      default: 1
+    },
+    isForbidden: {
+      type: Boolean,
+      default: false
+    }
   },
   methods: {
     clickEvent(step) {
-      this.currIns += step * this.step
-      this.$emit('clickEvent', this.currIns)
+      this.$emit('clickEvent', this.isForbidden ? this.currIns : this.currIns += step * this.step, step)
+    }
+  },
+  watch: {
+    curr(val) {
+      this.currIns = val
     }
   },
   computed: {
     canAdd: function () {
-      return (this.currIns + this.step) < this.max
+      return (this.currIns + this.step) <= this.max
     },
     canSubtract: function () {
-      return (this.currIns - this.step) > this.min
+      return (this.currIns - this.step) >= this.min
     }
   }
 })

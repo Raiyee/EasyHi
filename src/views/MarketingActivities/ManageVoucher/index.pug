@@ -1,0 +1,33 @@
+div(:class="classes.content")
+  hi-scroll(:enable="isAdmin")
+    router-link.text-center.theme-bg(tag="header", to="/presented-vouchers")
+      h5 本月已赠送优惠券 (张)
+      div {{ presentedNum }}
+      .text-right 查看发券详情
+        span.iconfont.icon-arrow-right
+    hi-tab(:items="['体验券', '现金券']",
+    :defaultIndex="typeIndex",
+    @toggleTab="toggleTab")
+    main(v-if="allVouchers[typeIndex].length")
+      ol.list-unstyled
+        router-link.media-flex(tag="li",
+        v-for="(voucher, index) of allVouchers[typeIndex]",
+        :key="voucher.voucherId",
+        :to="`/${typeIndex ? 'cash' : 'exp'}-voucher-detail/${voucher.voucherId}`")
+          template(v-if="typeIndex")
+            .media-left
+              div ￥
+                span {{ voucher.voucherValue }}
+                br
+                | 满 {{ voucher.miniConsume }} 元可用
+            .media-body.border
+              div
+                h4.clearfix {{ voucher.voucherName }}
+                  button.btn.btn-theme-default(@click.stop="presentVoucher(voucher.voucherId, index)") 赠送
+                div {{ voucher.voucherExpiredType ? '有效期: ' + $util.combineDuration(voucher.voucherExpiredRange) : '领券后' + voucher.voucherExpiredLimit + '天内有效'}}
+                .dashed-line
+                span {{ voucher.presentedNum ? '已赠送: ' + voucher.presentedNum + ' 张' : '未赠送' }}
+          hi-voucher(v-else, :voucher="voucher")
+    hi-empty(v-else, :text="`您现在还没有${typeText}哦，赶紧创建吧~`")
+  .fixed-bottom.border-t(v-if="isAdmin")
+    button.btn.btn-theme-primary(@click="createVoucher") 创建{{ typeText }}

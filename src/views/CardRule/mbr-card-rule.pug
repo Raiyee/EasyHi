@@ -1,0 +1,9 @@
+ul.list-unstyled
+  li(v-for="rules of [available, unavailable]")
+    div(:class="classes.header")
+      span.theme-bd {{ rules.rulesTitle }}
+    template(v-if="rules.ruleDetails.length")
+      rule-detail(v-for="ruleDetail of rules.ruleDetails",
+      :key="ruleDetail.detailId",
+      :ruleDetail="ruleDetail")
+    .shadow-bottom(v-else, :class="classes.noItem") 暂无任何课程

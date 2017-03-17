@@ -1,0 +1,17 @@
+div(:class="classes.container")
+  card(:card="card")
+    div(:class="classes.cardName") {{ card.cardName }}
+    div(:class="classes.cardNo") NO.{{ card.cardNo }}
+    div(:class="classes.edit", v-if="hasOperation")
+      i.iconfont.icon-bianji
+    img(:src="cardState", :class="classes.state", v-if="cardState")
+    div(:class="[classes.cardDetail, {[classes.hasOperation]: hasOperation}]")
+      div {{ cardTimes }}
+        span(v-if="availTimes") {{ availTimes }}
+      div(v-if="card.isValueCard") {{ cardDiscount }}
+      div {{ deadLine }}
+      div(:class="classes.operation", v-if="hasOperation")
+        span 续卡
+        span 补扣
+        span 启用
+        span 转卡

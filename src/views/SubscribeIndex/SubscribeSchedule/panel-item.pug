@@ -1,0 +1,30 @@
+.media(:class="classes.media", :style="{'margin-top':0}")
+  template(v-if="!isCard")
+    .media-left.media-middle(:class="classes.mediaLeft")
+      span.iconfont.theme-color.stress-size(
+      :class="[checked ?'icon-check':'icon-uncheck',classes[beHide && 'beHide']]", @click="check")
+    .media-body.media-middle(:class="[classes.mediaBody,{'remark-color':beHide}]",
+    @click="check", :style="{padding:'12px 0'}")
+      span.iconfont.icon-exp-voucher.stress-size.theme-color
+      span(:class="[classes.boldFont,!beHide && classes.stressColor]") {{item.expvoucherName}}
+      span.right(:class="classes.right")  {{ item | voucherState}}
+      br
+      span(:class="!beHide && classes.primaryColor") {{`剩余${item.vestigialTimes}次`}}
+      br
+      span(:class="!beHide && classes.primaryColor")
+      | {{item.expiredValue == '-1'?'无限期':`有效期${item.state ?'至':''}${item.endTime}`}}
+  template(v-else)
+    .media-left.media-middle(:class="classes.mediaLeft")
+      span.iconfont.theme-color.stress-size(
+      :class="[checked ?'icon-check':'icon-uncheck',classes[beHide && 'beHide']]", @click="check")
+    .media-body.media-middle(:class="[classes.mediaBody,{'remark-color':beHide}]",
+    @click="check", :style="{padding:'12px 0'}")
+      span(:class="[classes.boldFont,!beHide && classes.stressColor]") {{item.cardName}}
+      span.right(:class="classes.right") {{item | cardState}}
+      br
+      span(v-if="item.yearCardTag") 本课所在周
+      span(:class="!beHide && classes.primaryColor") 剩余{{item.availTimes < 0?'无限':item.availTimes}}{{item.isValueCard?'元' : '次'}}
+      span(v-if="item.discount!=10&&item.isValueCard") &nbsp;{{`(消费享${item.discount}折)`}}
+      br
+      span(:class="!beHide && classes.primaryColor")
+      | {{item.expiredValue == '-1'?'无限期':`有效期${item.state ?'至':''}${item.expired}`}}

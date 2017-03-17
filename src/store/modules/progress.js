@@ -17,7 +17,7 @@ const actions = {
     if (progress !== 100) return
     timeout = setTimeout(() => {
       commit(SET_PROGRESS, 0)
-    }, 500)
+    }, 600)
   }
 }
 

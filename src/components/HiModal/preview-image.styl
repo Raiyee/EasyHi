@@ -1,0 +1,22 @@
+.content
+  :global
+    .modal-body
+      background-color $stress-color
+      overflow hidden
+
+      > ul
+        display flex
+        transition .5s ease-out
+
+        &, li, li > div
+          height 100%
+          transition .5s ease-out
+
+      li
+        flex 1
+        padding 10px
+
+        >div
+          background-size contain
+          background-repeat no-repeat
+          background-position center

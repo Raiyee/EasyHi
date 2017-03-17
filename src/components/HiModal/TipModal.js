@@ -23,11 +23,19 @@ export default require('./tip-modal.pug')({
     }
   },
   mounted() {
-    this.type || setTimeout(() => {
-      this.closeModal()
-    }, this.timeout || 2000)
+    this.setToast()
+  },
+  watch: {
+    type() {
+      this.setToast()
+    }
   },
   methods: {
+    setToast() {
+      this.type || setTimeout(() => {
+        this.closeModal()
+      }, this.timeout || 2000)
+    },
     closeModal() {
       this.close ? this.close(...arguments) : this.$modal.close(this.$util.TIP_ID)
     },

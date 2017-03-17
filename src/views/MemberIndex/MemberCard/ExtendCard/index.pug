@@ -1,0 +1,40 @@
+div
+  hi-scroll
+    div(:class="classes.cardHead")
+      div(:class="classes.card")
+        mbr-card(:card="mbrCard")
+      .dashed-line
+      form(v-if="mbrCard.isValueCard", action="javascript:;", @submit.prevent="submit")
+        div(:class="[classes.formGroup, error && 'has-error']")
+          .input-group.input-group-primary
+            span.input-group-addon
+              span 充值金额
+            input.form-control(:placeholder="`不低于${mbrCard.cardPrice}元`",
+            v-money="cardPrice",
+            @focus="reSetPrice",
+            @blur="getCashVoucher")
+          p.form-control-static(v-if="error") 充值金额不低于{{mbrCard.cardPrice}}元
+
+      div(v-if="!mbrCard.isValueCard && !mbrCard.cardLimit", :class="classes.headItem") 增加次数:&nbsp
+        span {{ mbrCard.cardTimes === -1 ? '无限' : mbrCard.cardTimes}}次
+      div(:class="[classes.headItem, classes[mbrCard.isValueCard ? 'valueCard':'']]") 有效期至:&nbsp
+        span {{ extendEndDate === '无限期' ? extendEndDate : $util.formatDate(extendEndDate, 'YYYY.MM.DD') }}
+
+    div(:class="classes.cardBody")
+      .border-b(:class="classes.title")
+        span.theme-bd 订单信息
+      div(:class="classes.item") {{mbrCard.isValueCard ? '充值金额' : '会员卡价格'}}:
+        span {{cardPrice ? cardPrice : 0}} 元
+      div(:class="classes.item", @click="selectVoucher") 优惠券:
+        span {{ cashVoucher ? '-' + cashVoucher.voucherValue + '元' : '暂无可用券' }}
+        .pull-right
+          span.iconfont.icon-arrow-right
+      div(:class="classes.item") 账单小计:
+        span {{bill}} 元
+      div(:class="classes.item") 支付方式:
+        span 微信支付
+
+  .border-t.fixed-bottom(:class="classes.pay")
+    div(:class="classes.paymentAmount") 待支付：{{ bill }} 元
+      span(v-if="cashVoucher") (已优惠{{cashVoucher.voucherValue}}元)
+    div(:class="[!error ? 'theme-bg' : classes.btnDisable, classes.payButton]", @click="!error && startPay()") 立即支付

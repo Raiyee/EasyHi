@@ -1,0 +1,37 @@
+.content
+  header
+    relative()
+    padding 15px 10px
+    background-color $back-light-color
+
+    &:before
+      middleCenter()
+      content '以下是已邀请过好友的会员'
+      background-color $back-light-color
+      z-index 1
+      padding 0 20px
+      white-space nowrap
+      color $subtext-color
+
+  main
+    background-color $back-light-color
+
+    ol
+      margin-bottom 0
+
+    :global
+      .media
+        margin-top 0
+
+      .media-left
+        padding 20px 10px
+
+      .media-object
+        size 60px
+
+.tip
+  scaleSize($smaller-size)
+  color $remark-color
+  text-align center
+  padding 10px
+

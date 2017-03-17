@@ -1,26 +1,25 @@
-modal-item(:class="classes.container", :transition="true")
+modal-item(:class="classes.container", :border="false", :full="true", :transition="true")
   .modal-body(slot="body", :style="{height}", ref="body")
     template(v-for="({title, items}, index) of menus")
       div(:class="classes.menuTitle") {{ title }}
       .theme-before-bg(:class="[classes.menuItems, {[classes.recommended]: !index}]")
         ul.list-unstyled
-          template(v-for="{icon, name, auth, link} of items")
+          template(v-for="{icon, name, auth, link, confirm} of items")
             li.disabled(v-if="auth && !isEnterprise",
             :class="[classes.menuItem]",
             @click="$util.alert('您当前使用的服务为“创业版”，需升级“企业版”方可使用此功能哦。')")
               span.iconfont(:class="[`icon-${icon}`, {'theme-color': isEnterprise || !auth}]")
               span {{ name }}
-            router-link(v-else,
-            :to="link",
-            tag="li",
-            :class="classes.menuItem")
+            li(v-else,
+            :class="classes.menuItem",
+            @click="resolveItem(link, confirm)")
               span.iconfont.theme-color(:class="`icon-${icon}`")
               span {{ name }}
 
     div(:class="classes.menuTitle") 我的专属客服
     .media
       .media-left.media-middle
-        img.img-circle(src="~assets/member-female.jpg")
+        img.img-circle(src="~assets/portrait/member-female.jpg")
       .media-body.media-middle
         span.theme-color 奕姐
         span.theme-color 18061768778

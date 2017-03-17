@@ -38,9 +38,12 @@ export default require('./index.pug')({
     }
   },
   data() {
+    const pickerLists = [...this.pickers]
+
     return {
       classes,
-      resulting: this.pickers.map(picker => {
+      pickerLists,
+      resulting: pickerLists.map(picker => {
         const index = picker.defaultIndex || 0
         const value = picker.values[index]
         const object = isObject(value)
@@ -51,12 +54,12 @@ export default require('./index.pug')({
   computed: {
     ...mapGetters(['appWidth', 'rem']),
     hasTitle() {
-      return this.pickerTitle || this.pickers.find(picker => picker.title)
+      return this.pickerTitle || this.pickerLists.find(picker => picker.title)
     },
     maxWidth() {
       const placeholderWith = 30 * this.rem
       const baseWidth = this.appWidth - placeholderWith
-      const length = this.pickers.length
+      const length = this.pickerLists.length
       const offset = this.pickerDivider && placeholderWith * (length - 1)
       return (baseWidth - offset) / length + 'px'
     },

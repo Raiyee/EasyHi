@@ -1,0 +1,57 @@
+$padding-vertical-1 = 15px
+$padding-vertical-2 = 25px
+
+.container
+  :global
+    ul, .media
+      background-color $reverse-color
+
+    .media
+      margin-top 0
+
+      .media-left, .media-right
+        padding $padding-vertical-1 $padding-horizontal
+
+      .media-body
+        padding-top $padding-vertical-1
+        padding-bottom $padding-vertical-1
+        padding-right $padding-vertical-1
+
+  header
+    :global
+      .media-left, .media-body
+        padding-top $padding-vertical-2
+        padding-bottom $padding-vertical-2
+
+    > :first-child
+      color $subtext-color
+      white-space nowrap
+
+    > :last-child
+      text-align right
+
+      span
+        font-size 24px
+        font-weight 500
+
+.title
+  padding 5px 10px
+  color $remark-color
+
+.value-card
+  + ul
+    transition height .5s
+    overflow-y auto
+
+    li
+      padding $padding-horizontal
+
+      + li
+        relative()
+
+        &:after
+          absolute(top, left)
+          content ''
+          width 100%
+          border-bottom 1px dashed $dashed-line-color
+          transform scaleY(.5)

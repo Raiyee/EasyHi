@@ -1,0 +1,12 @@
+div
+  hi-tab(width="100%", :items="items", :class="classes.tab", @toggleTab="toggleTab")
+  div(:class="classes.cardList")
+    template(v-if="cards.length")
+      mbr-card(v-for="card in cards",
+      :card="card",
+      :hasOperation="true",
+      :usable="enabled",
+      :key="card.mbrCardId")
+    hi-empty(v-else, :text="`暂无${enabled ? '' : '不'}可用会员卡`")
+  div(:class="classes.buyCard", :style="maxWidth", v-if="isOnlinePayment")
+    router-link.theme-bg(to="/card-sales/customer", tag="div") 购买会员卡

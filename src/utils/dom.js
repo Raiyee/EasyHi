@@ -4,25 +4,20 @@ import {each} from './common'
 
 export const inBrowser = typeof window !== 'undefined' && isWindow(window)
 
-const domEach = (el, ...args) => each(isArray(el) || el instanceof NodeList ? el : [el], ...args)
+export const domEach = (el, ...args) => each(isArray(el) || el instanceof NodeList ? el : [el], ...args)
 
 const classRegExp = className => new RegExp(`(^|\\s+)${className.toString().trim()}(\\s+|$)`, 'g')
 
 export const hasClass = (el, className) => classRegExp(className).test(el.className)
 
-export const addClass = function (el, className) {
-  domEach(el, el => {
-    let classNames = className.split(' ')
-    classNames.length > 1 ? each(classNames, className => addClass(el, className))
-      : hasClass(el, className) || (el.className = `${el.className} ${className}`.trim())
-  })
-  return this
-}
+export const addClass = (el, className) => domEach(el, el => {
+  const classNames = className.split(' ')
+  classNames.length > 1 ? each(classNames, className => addClass(el, className))
+    : hasClass(el, className) || (el.className = `${el.className} ${className}`.trim())
+})
 
-export const removeClass = function (el, className) {
+export const removeClass = (el, className) =>
   domEach(el, el => (el.className = el.className.replace(classRegExp(className), ' ').trim()))
-  return this
-}
 
 const abs = Math.abs
 
@@ -34,51 +29,65 @@ export const animate = (() => {
     value: 0
   }
 
-  return function (el, type, options) {
-    domEach(el, el => {
-      // 如果只有两个参数且第二个参数是对象时，将 type 视为 options，且 type 包含在 options 对象中
-      if (arguments.length === 2 && isObject(type)) {
-        options = type
-        type = options.type
+  return (el, type, options) => domEach(el, el => {
+    // 如果只有两个参数且第二个参数是对象时，将 type 视为 options，且 type 包含在 options 对象中
+    if (arguments.length === 2 && isObject(type)) {
+      options = type
+      type = options.type
+    }
+
+    // options 存在且不是对象时视为设置的 value
+    options != null && !isObject(options) && (options = {value: options})
+
+    const {callback, duration, value} = Object.assign({}, DEFAULT_OPTIONS, options)
+
+    let origin = el[type]
+    let requestId
+    const step = 1000 * (value - origin) / duration / 60
+    const animation = () => {
+      if (abs(value - origin) <= abs(step / 2)) {
+        return cancelAnimationFrame(requestId) || callback && callback()
       }
-
-      // options 存在且不是对象时视为设置的 value
-      options != null && !isObject(options) && (options = {value: options})
-
-      const {callback, duration, value} = Object.assign({}, DEFAULT_OPTIONS, options)
-
-      let origin = el[type]
-      let requestId
-      const step = 1000 * (value - origin) / duration / 60
-      const animation = () => {
-        if (abs(value - origin) <= abs(step / 2)) {
-          return cancelAnimationFrame(requestId) || callback && callback()
-        }
-        el[type] = origin += step
-        requestId = requestAnimationFrame(animation)
-      }
+      el[type] = origin += step
       requestId = requestAnimationFrame(animation)
-    })
-    return this
-  }
+    }
+    requestId = requestAnimationFrame(animation)
+  })
 })()
 
-export const on = function (el, events, handler, useCapture = false) {
-  domEach(el, el => events.trim().split(' ').forEach(event => el.addEventListener(event, handler, useCapture)))
-  return this
+function testSupportsPassive() {
+  if (!inBrowser) return
+  let support = false
+  try {
+    const opts = Object.defineProperty({}, 'passive', {
+      get: function () {
+        support = true
+      }
+    })
+    window.addEventListener('test', null, opts)
+  } catch (e) {
+  }
+  return support
 }
 
-export const off = function (el, events, handler, useCapture = false) {
-  domEach(el, el => events.trim().split(' ').forEach(event => el.removeEventListener(event, handler, useCapture)))
-  return this
+const EVENT_OPTIONS = testSupportsPassive() && {passive: false}
+
+export const on = (el, events, handler, options = EVENT_OPTIONS) => {
+  if (isObject(events)) return each(events, (value, key) => on(el, key, value, handler))
+  domEach(el, el => events.trim().split(' ').forEach(event => el.addEventListener(event, handler, options)))
 }
 
-export const one = function (el, events, handler, useCapture = false) {
+export const off = (el, events, handler, options = EVENT_OPTIONS) => {
+  if (isObject(events)) return each(events, (value, key) => off(el, key, value, handler))
+  domEach(el, el => events.trim().split(' ').forEach(event => el.removeEventListener(event, handler, options)))
+}
+
+export const one = (el, events, handler, options = EVENT_OPTIONS) => {
   const wrapper = function () {
-    off(el, events, wrapper, useCapture)
+    off(el, events, wrapper, options)
     handler.apply(this, arguments)
   }
-  return on(el, events, wrapper, useCapture)
+  on(el, events, wrapper, options)
 }
 
 /**
@@ -90,22 +99,19 @@ export const one = function (el, events, handler, useCapture = false) {
  * @param timeout         事件未触发的时间限制，一般比预期事件处理多 100 毫秒以等待预期事件处理
  * @returns {ensure}      主要用于修复 animationend 及 transitionend 事件等未按预期触发的情况
  */
-export const ensure = function (el, events, handler, timeout = 600) {
-  domEach(el, el => {
-    let end
+export const ensure = (el, events, handler, timeout = 600) => domEach(el, el => {
+  let end
 
-    const wrapper = function () {
-      off(el, events, wrapper)
-      end = true
-      handler.apply(this, arguments)
-    }
+  const wrapper = function () {
+    off(el, events, wrapper)
+    end = true
+    handler.apply(this, arguments)
+  }
 
-    on(el, events, wrapper)
+  on(el, events, wrapper)
 
-    setTimeout(() => {
-      off(el, events, wrapper)
-      end || handler(false, el)
-    }, timeout)
-  })
-  return this
-}
+  setTimeout(() => {
+    off(el, events, wrapper)
+    end || handler(false, el)
+  }, timeout)
+})

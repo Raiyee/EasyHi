@@ -1,10 +1,9 @@
 .bounce-enter-active,
 .bounce-leave-active,
-.slide-fade-enter-active,
-.slide-fade-leave-active
+.fade-enter-active,
+.fade-leave-active
   absolute(left top)
-  width 100%
-  height 100%
+  size 100%
 
 .bounce-enter-active
   z-index 1
@@ -34,9 +33,8 @@
   to
     transform scale(0)
 
-.slide-fade-enter-active, .slide-fade-leave-active
-  transition all .8s ease
+.fade-enter-active, .fade-leave-active
+  transition opacity .5s
 
-.slide-fade-enter, .slide-fade-leave-active
-  transform translateX(200%)
+.fade-enter, .fade-leave-active
   opacity 0

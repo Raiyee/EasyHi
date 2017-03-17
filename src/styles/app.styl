@@ -6,21 +6,30 @@
   display none
   background transparent
 
+*
+  user-select none
+  zoom 1
+
+input, textarea, [contenteditable], [contenteditable] *
+  user-select text
+
 body
   font-hei()
-  overflow-x hidden
-  overflow-y auto
 
-  &.bg
-    background-color $bg-color
+:root, body, #app
+  height 100%
+
+.scroll
+  scrollSmooth()
+
+.scroll-x
+  scrollSmooth(true)
 
 #app
   relative()
   max-width 1024px
-  margin 0 auto
-  height 100%
-  scroll-behavior smooth // @stylint ignore
-  -webkit-overflow-scrolling touch
+  margin-left auto
+  margin-right auto
 
 a
   &, &:active, &:hover, &:visited
@@ -40,12 +49,24 @@ input
   cursor not-allowed
 // @stylint on
 
-.btn.btn-hg
-  padding 11px 15px
+.btn
+  &.btn-hg
+    padding 11px 15px
+
+  &.btn-disabled-default,
+  &.btn-disabled-primary
+    border-color $remark-color
+
+  &.btn-disabled-default
+    color $remark-color
+
+  &.btn-disabled-primary
+    color $reverse-color
+    background-color $remark-color
 
 .input-group-addon
-  color $icon-color
-  background-color $back-light-color
+  .iconfont, .glyphicon
+    color $icon-color
 
 .form-control
   height $input-size
@@ -73,26 +94,41 @@ input
     border-radius 0 $half-input-size $half-input-size 0
 
 .input-group-primary
-  border 1px solid $input-border-color
-  border-radius $half-input-size
+  borderRadius(, $half-input-size)
   overflow hidden
+  background-color $back-light-color
 
   .input-group-addon,
   .form-control
-    border 0
+    border-color transparent
+    background-color transparent
+
+  .input-group-addon.required
+    padding-left 30px
+
+    &:before
+      relative()
+      content '*'
+      color $highlight-color
+      top 2px
+      margin-left -15px
+      padding-right 5px
 
 .has-error
   .input-group-primary
-    border-color $highlight-color
+    borderRadius($highlight-color, $half-input-size)
 
   .input-group-addon, .form-control
     &, &:focus
-      border-color $highlight-color
-      background-color $back-light-color
+      border-color transparent
+      background-color transparent
       box-shadow none
 
   .input-group-addon
-    color $icon-color
+    color $primary-color
+
+    .iconfont, .glyphicon
+      color $icon-color
 
   .form-control-static
     color $highlight-color
@@ -107,19 +143,10 @@ input
   margin-left -2px
   margin-right -2px
 
-.remark-color
-  color $remark-color
-
-.remark-bg
-  background-color $remark-color
-
 .panel-full
   padding-left 10px
   padding-right 10px
   border-radius 0
-
-  .panel-heading
-    border-color $card-line-color
 
   .panel-heading, .panel-body, .panel-footer
     padding-left 0
@@ -149,6 +176,10 @@ input
 
 .border-radius
   @extend $border-radius
+
+.dashed-line
+  border-bottom 1px dashed $border-color
+  transform scaleY(.5)
 
 .list-group
   background-color $back-light-color
@@ -191,14 +222,17 @@ input
       &, input
         text-align right
 
+.fix-bottom
+  margin-bottom 72px
+
 .fixed-bottom
-  fixed()
-  bottom 0
+  fixed(bottom)
   width 100%
   max-width 1024px
   padding 12px 16px
   background-color $back-light-color
   display flex
+  z-index 100
 
   .btn
     flex 1
@@ -215,3 +249,91 @@ input
 
   &.transparent
     opacity 0
+
+.vertical-line
+  border1px-l($border-color)
+  width 1px
+  margin 0 8px
+
+.split-line
+  relative()
+
+  &:before
+    middleCenter(, scaleY(.5))
+    content ''
+    width 100%
+    height 1px
+    background-color $back-color
+
+.textarea
+  resize none
+  width 100%
+  padding 10px
+  margin 0
+  outline 0
+  border 0
+  vertical-align middle
+  background-color transparent
+
+.square
+  border-radius 5px !important // @stylint ignore
+
+.small-size
+  scaleSize()
+
+.small-size-left
+  scaleSize(, , , left)
+
+.small-size-right
+  scaleSize(, , , right)
+
+.smaller-size
+  scaleSize($smaller-size)
+
+.smaller-size-left
+  scaleSize($smaller-size, , , left)
+
+.smaller-size-right
+  scaleSize($smaller-size, , , right)
+
+.primary-size
+  font-size $primary-size
+
+.stress-size
+  font-size $stress-size
+
+.reserve-color
+  color $reverse-color
+
+.reverse-bg
+  background-color $reverse-color
+
+.remark-color
+  color $remark-color
+
+.remark-bg
+  background-color $remark-color
+
+.remark-lighter-color
+  color $remark-lighter-color
+
+.subtext-color
+  color $subtext-color
+
+.stress-color
+  color $stress-color
+
+.bg
+  background-color $bg-color
+
+.icon-color
+  color $icon-color
+
+.primary-color
+  color $primary-color
+
+.female-color
+  color $female-color
+
+.male-color
+  color $male-color

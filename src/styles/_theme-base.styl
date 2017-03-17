@@ -1,6 +1,3 @@
-$theme-color ?= $theme-purple
-$theme-color-darker ?= $theme-purple-darker
-
 // @stylint off
 .theme-before-color:before
   color $theme-color
@@ -31,6 +28,24 @@ $theme-color-darker ?= $theme-purple-darker
     bbActive $reverse-color $theme-color
 // @stylint on
 
+.panel.panel-theme
+  background-color transparent
+  margin-bottom 0
+
+  .panel-heading
+    background-color transparent
+    padding 10px
+
+  .panel-title
+    border-left 4px solid $theme-color
+    color $theme-color
+    padding-left 5px
+    font-size $common-size
+
+  .panel-body
+    background-color $back-light-color
+    padding 10px
+
 @keyframes rotate
   from
     transform translate3d(-50%, -50%, 0) rotate(0) scale(1)
@@ -38,6 +53,11 @@ $theme-color-darker ?= $theme-purple-darker
     transform translate3d(-50%, -50%, 0) rotate(180deg) scale(.6)
   to
     transform translate3d(-50%, -50%, 0) rotate(360deg) scale(1)
+
+[lazy="loaded"]
+  background-size cover
+  background-position center
+  background-repeat no-repeat
 
 [lazy="loading"], [lazy="error"]
   relative()

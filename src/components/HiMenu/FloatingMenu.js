@@ -9,27 +9,29 @@ export default require('./floating-menu.pug')({
   data: () => ({classes}),
   computed: {
     ...mapGetters(['rem', 'currRole', 'isAdmin', 'isService',
-      'menuOpen', 'menuShow', 'subscribeType']),
+      'menuOpen', 'menuShow', 'subscribeType', 'memberUrlPrefix', 'merchantUrlPrefix']),
     width() {
       return (50 + +this.menuOpen * this.menus.length * 60) * this.rem + 'px'
     },
     menus() {
       const route = this.$route
+      const {subscribeType, currRole, isAdmin, isService, merchantUrlPrefix} = this
 
       const menus = [{
         text: '订课',
         link: '/subscribe-index',
-        inactive: route.name === 'memberSubscribe'
+        inactive: route.name === 'subscribeIndex'
       }]
 
-      const indexLink = `/${this.currRole}-index`
+      const indexLink = `/${currRole}-index`
 
-      if (!this.isAdmin && !this.isService) {
-        menus.push({text: '我的', link: indexLink, inactive: route.fullPath.indexOf(indexLink) !== -1})
-      } else if (this.subscribeType) {
+      if (!isAdmin && !isService) {
+        menus.push({text: '我的', link: indexLink, inactive: route.name === 'memberIndex'})
+      } else if (subscribeType) {
         menus.push(
-          {text: this.subscribeType - 1 ? '私教管理' : '调课', link: '/'},
-          {text: '换肤', action: this.changeTheme},
+          {text: subscribeType - 1 ? '私教管理' : '调课',
+            link: merchantUrlPrefix + (subscribeType - 1 ? 'private-manage/index' : 'scheduling/index')},
+          {text: '换肤', action: this.changeSkin},
           {text: '工作台', link: indexLink, inactive: route.fullPath.indexOf(indexLink) !== -1}
         )
       } else {
@@ -47,8 +49,15 @@ export default require('./floating-menu.pug')({
     toggleMenu() {
       this.toggleMenuOpen(!this.menuOpen)
     },
-    changeTheme() {
-      console.log('changeTheme')
+    changeSkin() {
+      this.$modal.open({
+        id: 'change-skin',
+        component: import('./ChangeSkin'),
+        options: {
+          show: true,
+          backdrop: true
+        }
+      })
     },
     showAllMenus() {
       try {
@@ -56,7 +65,7 @@ export default require('./floating-menu.pug')({
       } catch (e) {
         this.$modal.open({
           id: MENUS_ID,
-          component: System.import('./AllMenus'),
+          component: import('./AllMenus'),
           options: {
             show: true
           }

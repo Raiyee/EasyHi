@@ -1,0 +1,52 @@
+.container
+  :global
+    .modal-dialog
+      .modal-header
+        border-bottom none
+
+      .modal-content
+        middleCenter(fixed)
+        text-align center
+        background-color $bg-color
+        width 280px
+
+        ul
+          margin-bottom 0
+          overflow hidden
+
+          > li > div:first-child
+              margin 0
+              white-space nowrap
+              transform scale(75 / 93)
+              transform-origin left
+
+.vouchers
+  max-height 190px
+  margin-bottom 8px
+  overflow-y auto
+
+.gift-bg
+  height 60px
+  background-size cover
+  retina('../../assets/voucher/winning', 'png')
+
+.title
+  line-height 1
+  padding 18px 0 8px
+  color $stress-color
+
+.tip-text
+  line-height 1
+  margin-bottom 30px
+  color $remark-color
+
+.success
+  absolute()
+  width 150px
+  left 65px
+  bottom -17px
+  font-size 16px
+  line-height 1
+  padding 8px 0
+  border-radius 18px
+  color $reverse-color

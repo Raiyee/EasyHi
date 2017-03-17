@@ -1,0 +1,7 @@
+div(:class="classes.container")
+  .outlet(@mouseover="autoShowWithMode", @mouseleave="autoHideWithMode", @click="autoShowWithMode")
+    slot(name="outlet")
+  .tooltip(:style="tooltipStyle")
+    .inner
+      slot(name="tooltip")
+    .arrow(:style="arrowStyle")

@@ -1,0 +1,31 @@
+modal-item(:class="classes.modalItem", :footer="true", :confirm="confirmModal", :close="close")
+  div(:class="classes.container")
+    template(v-if="sectionsType === 'card'")
+      .select-left
+        .left-item.item-right-line(
+        v-for="{cardTypeId,cardTypeName,cards} in sections[sectionsType]",
+        @click="clickLeftItem(cardTypeId)",
+        :class="currCardTypeId == cardTypeId ? 'selected theme-color' : ''")
+          | {{cardTypeName}}
+      .select-right
+        template(v-if="currCards.length > 0")
+          .right-item(
+          v-for="{cardId,cardName,cardTypeId} in currCards",
+          @click="clickRightItem(cardId)",
+          :class="cardId == currCardId ? 'theme-color' : ''")
+            | {{cardName}}
+    template(v-if="sectionsType === 'time'")
+      .select-left
+        .left-item.be-center.item-right-line(
+        v-for="entry in Object.entries(sections[sectionsType])",
+        :key="entry[0]",
+        @click="clickLeftItem(entry[0])",
+        :class="currTimeCode === entry[0] ? 'theme-color' : ''")
+          | {{entry[1]}}
+    template(v-if="sectionsType === 'people'")
+      .select-left
+        .left-item.be-center.item-right-line(
+        v-for="entry in Object.entries(sections[sectionsType])",
+        @click="clickLeftItem(entry[0])",
+        :class="currPeopleCode == entry[0] ? 'theme-color' : ''")
+          | {{entry[1]}}

@@ -1,0 +1,51 @@
+div(:class="classes.container")
+  template(v-if="result")
+    .border-b.shadow-bottom(:class="classes.result")
+      template(v-if="result === 'voucher'")
+        div(:class="classes.resultGiftBg")
+        div 优惠券入账啦!
+      template(v-else)
+        span.iconfont.icon-check.theme-color(:class="classes.resultIconCheck")
+        div 登录成功!
+
+      div(:class="classes.resultTitleText", v-if="result === 'successHas'") 新人礼记得联系场馆兑换哦~
+      div(:class="classes.resultTitleText", style="background:none;")
+        | 长按二维码进入我们的公众号{{result === 'voucher' ? '查看' : ''}}吧
+      div(:class="classes.resultMerchantQrCode")
+        qrious(:value="attentionUrl", :size="100", foreground="#808080")
+
+    .border-b.shadow-bottom(:class="classes.resultMerchantInfo")
+      .img-circle(:class="classes.resultMerchantPortrait",
+      v-lazy:background-image="$util.imgPath(merchantLogo)", lazy="loading")
+      .clearfix(:class="classes.resultMerchant")
+        .theme-color(:class="classes.resultMerchantName") {{merchantName}}
+        div {{serviceMobile}}
+        div(:class="classes.resultMerchantAddress") {{merchantAddress}}
+
+  template(v-else)
+    .theme-bg(:class="[classes.header, classes[`${theme}`]]")
+      .img-circle(:class="classes.merchantPortrait", v-lazy:background-image="$util.imgPath(merchantLogo)", lazy="loading")
+      div(:class="classes.merchantName") {{merchantName}}欢迎您
+
+    div(:class="classes.body")
+      div(:class="classes.memberName", v-if="!authorized") 您的好友
+        span.theme-color {{memberName}}
+        | 邀您一起轻松拥有好身材!
+
+      div(:class="classes.gift", v-if="!authorized && inviteeRewardId")
+        .theme-color(:class="classes.title")
+          span.theme-color.iconfont.icon-gift(:class="classes.iconGift")
+          span.theme-color 新人得好礼
+        div(:class="classes.voucher") 新人登录后可获得 "{{inviteeRewardContent}}" 体验券1张
+
+      hi-login(v-if="!authorized", :confirm="confirm", :confirmText="confirmText", :inviter="userId")
+        div
+
+      div(:class="classes.oldUser", v-if="authorized")
+        div(:class="classes.hello") 您好，老朋友~
+        div(:class="classes.alreadyUser") 您已是本馆的用户，直接进入公众号吧
+
+    div(:class="classes.qrCode")
+      .theme-color(:class="classes.title") 长按二维码{{promptText}}
+      div(:class="classes.merchantQrCode")
+        qrious(:value="attentionUrl", :size="99")

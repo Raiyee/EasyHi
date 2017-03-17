@@ -1,0 +1,7 @@
+div(:class="classes.container")
+  dropdown(:selections="selections",
+  :selected="selected",
+  :getSelections="getSelections",
+  @toggleActive="toggleActive")
+    div(slot="left") 搜索
+    div(slot="right") 搜索

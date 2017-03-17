@@ -24,7 +24,7 @@ export default require('./actual-modal.pug')({
     confirm() {
       modalId = this.$modal.open({
         id: modalId,
-        component: System.import('./ActualModal'),
+        component: import('./ActualModal'),
         options: {
           backdrop: true,
           destroy: true,

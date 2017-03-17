@@ -1,0 +1,35 @@
+.card-name
+  font-size 18px
+
+.card-name, .card-detail, .card-footer
+  padding-left 15px
+  padding-right 15px
+
+.card-detail
+  absolute()
+  bottom 40px
+  width 100%
+
+.card-detail-item:not(:first-child)
+  margin-top 10px
+
+.card-price
+  absolute()
+  bottom 3px
+  right -2px
+  text-align center
+  font-size 16px
+  padding 7.5px 10px 5px
+  color $reverse-color
+  retina('assets/card/price', 'png')
+  background-size cover
+
+.card-footer
+  absolute()
+  bottom 0
+  width 100%
+  padding-top 10px
+  padding-bottom 10px
+  text-align right
+  color $reverse-color
+  opacity .5

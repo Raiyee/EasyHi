@@ -1,6 +1,6 @@
 import Vue from 'vue'
 
-import {addClass, isPromise, removeClass, ensure, warn, TIP_ID} from 'utils'
+import {addClass, isPromise, removeClass, ensure, warn, TIP_ID, PICKER_ID} from 'utils'
 
 export default require('./index.pug')({
   name: 'hi-modal',
@@ -39,9 +39,8 @@ export default require('./index.pug')({
       if (!modal) return
       const {options} = modal
       options.show = false
-      const callback = () => {
-        options.destroy || destroy ? this.removeModal(modalId) : this.resetCurrModal(modalId)
-      }
+      const callback = () => options.destroy || destroy
+        ? this.removeModal(modalId, options.destroyed) : this.resetCurrModal(modalId)
       const modalRef = this.getModalRef(modalId)
       const modalItem = modalRef.$children[0]
       modalItem || warn(`this modal is not a Vue component, HiModal will not respect it's transition`)
@@ -52,9 +51,11 @@ export default require('./index.pug')({
     resetCurrModal(modalId) {
       modalId === this.currModalId && (this.currModal = null)
     },
-    removeModal(modalId) {
-      this.modals.splice(this.getModalIndex(modalId), 1)
+    removeModal(modalId, destroyed) {
+      const modalIndex = this.getModalIndex(modalId)
+      modalIndex + 1 && this.modals.splice(modalIndex, 1)
       this.resetCurrModal(modalId)
+      destroyed && destroyed()
     },
     getModal(modalId) {
       return this.modals.find(m => m.id === modalId)
@@ -83,7 +84,9 @@ export default require('./index.pug')({
         this.modals.push(modal)
       }
       const currModalId = this.currModalId
-      if (currModalId && modalId === TIP_ID) return (modal.props.backdrop = !this.currModal.options.backdrop)
+      if (currModalId && [TIP_ID, PICKER_ID].includes(modalId)) {
+        return (modal.props.backdrop = !this.currModal.options.backdrop)
+      }
       currModalId === modalId || this.close()
       modal.options.show && (this.currModal = modal)
     },

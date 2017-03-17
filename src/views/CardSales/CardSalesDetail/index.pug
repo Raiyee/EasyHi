@@ -1,0 +1,62 @@
+div
+  hi-scroll(:enable="!auth")
+    div(:class="classes.cardHead")
+      div(:class="classes.card")
+        card-name(:card="card", :soldNumState="auth ? -1 : 0")
+      .dashed-line
+      div(v-if="auth", :class="classes.soldNum",
+      @click="$util.resolveRoute($router, `/card-sales/sold-list/${card.cardId}`)")
+        | 本月已售: {{card.soldNum}}张
+        span.iconfont.icon-arrow-right(:class="classes.iconRight")
+
+    div(v-if="!auth", :class="classes.cardBody")
+      .border-b(:class="classes.title")
+        span.theme-bd 订单信息
+      div(:class="classes.item") 会员卡名称:
+        span {{card.cardName}}（{{card.cardTypeName}}）
+      div(:class="classes.item") 会员卡价格:
+        span {{card.cardPrice}} 元
+      div(:class="classes.item") 购买张数:
+        span 1张
+      div(v-if="!isStaff && (cashVoucher || cashVoucher == null)", :class="classes.item", @click="selectVoucher") 优惠券:
+        span {{ cashVoucher ? '-' + cashVoucher.voucherValue + '元' : '不使用现金券' }}
+        .pull-right
+          span.iconfont.icon-arrow-right
+      div(:class="classes.item") 账单小计:
+        span {{ bill }} 元
+      div(:class="classes.item") 支付方式:
+        span 微信支付
+
+    div(:class="classes.cardBody")
+      .border-b(:class="classes.title")
+        span.theme-bd 会员卡使用规则
+      div(v-if="card.applicableCourses", :class="classes.item") 适用规则:
+        span(v-for="(courseName, index) in card.applicableCourses")
+          | {{index ? '、' : ''}}{{courseName}}
+      div(v-if="card.applicablePeriods", :class="classes.item") 可用时段:
+        span(v-for="(period, index) of card.applicablePeriods")
+          | {{index ? '、' : ''}}{{period.startTime}}-{{period.endTime}}
+      div(:class="classes.item") 激活方式:
+        span 购买成功后订课时激活
+
+    div(v-if="auth", :class="classes.cardBody")
+      .border-b(:class="classes.title")
+        span.theme-bd 购买信息
+      div(:class="classes.item")
+        span 1、一个手机号码一次只能购买一张会员卡，订单请发起支付后请于3日内完成付款，超时将自动取消订单；
+      div(:class="classes.item")
+        span 2、本卡购买成功后即绑定到购买人的会员帐号中，购买成功后可以在“个人中心”查看会员卡，并可进行约课；
+      div(:class="classes.item")
+        span 3、使用本卡需遵守本场馆的会员守则，本卡的最终解释权归{{merchantName}}所有；
+
+    div(v-if="!auth", :class="classes.protocol")
+      span.iconfont.theme-color(:class="[`icon-${agree ? 'selected' : 'unselect'}`, classes.selectButton]",
+      @click="toggleAgree")
+      span(:class="classes.text", @click="toggleAgree") 我已阅读并同意
+      span.theme-color(:class="classes.payProtocol", @click="showIllustration") 购买协议
+
+    .border-tb(v-if="auth", :class="classes.cardFoot", @click="offSales") 将此卡撤售
+
+  .border-t.fixed-bottom(v-if="!auth", :class="classes.pay")
+    div(:class="classes.paymentAmount") 待支付：{{ bill }} 元
+    div(:class="[agree ? 'theme-bg' : classes.btnDisable, classes.payButton]", @click="agree && startPay()") 立即支付

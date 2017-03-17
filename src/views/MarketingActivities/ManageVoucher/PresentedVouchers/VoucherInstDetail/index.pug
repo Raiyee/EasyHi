@@ -1,0 +1,32 @@
+div(:class="classes.content")
+  header
+    hi-voucher(:voucher="voucher")
+  .media(:class="classes.useCondition")
+    .media-left 使用条件:
+    .media-body.subtext-color 本券可用于{{ useCondition }}
+  .panel.panel-theme
+    .panel-heading
+      .panel-title 详细信息
+    .panel-body
+      | 获取方式:
+      span.subtext-color {{ sourceActivityRange ? '营销获取' : '员工赠送' }}
+      br
+      | {{ sourceActivityRange ? '活动信息' : '赠送人' }}:
+      span.subtext-color {{ sourceContent + (sourceActivityRange ? '(' + $util.combineDuration(sourceActivityRange) + ')' : '') }}
+      br
+      | {{ sourceActivityRange ? '领取' : '赠送' }}时间:
+      span.subtext-color {{ receivedTime | formatDate($util.DATETIME_FORMAT)}}
+      br
+      | 领取人:
+      span.subtext-color {{ userName }}
+      br
+      | 使用状态:
+      span.subtext-color {{ usedTime ? '已使用' :  voucherExpired ? '已过期' : '未使用' }}
+      template(v-if="usedTime")
+        br
+        | 使用时间:
+        span.subtext-color {{ usedTime | formatDate($util.DATETIME_FORMAT)}}
+        template(v-if="purchasedContent")
+          br
+          | 购买会员卡:
+          span.subtext-color {{ purchasedContent }}

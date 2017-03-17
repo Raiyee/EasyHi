@@ -1,0 +1,21 @@
+div(:class="classes.container", v-paging="paging")
+  dropdown(:selections="selections", :selected="selected", @toggleActive="toggleActive")
+    .left-crumbs.theme-bd.theme-color(:class="classes.leftCrumbs", slot="left") 卡收益明细
+  template(v-if="earningsDetails && earningsDetails.length")
+    .earning-details(v-for="{earningsDuration, totalEarnings, earningsDetail},index of earningsDetails",
+    :key="earningsDuration")
+      .duration.media
+        .left.subtext-color {{earningsDuration | formatDate('YYYY年MM月')}}
+        .right.subtext-color {{totalEarnings}}
+      .media.detail(
+      v-for="{memberName, memberMobile, mbrCardId, cardName, logType, payType, operatorTime, earnings}, index of earningsDetail",
+      :key="index", @click="toCardDetail(mbrCardId)")
+        .media-body
+          .stress-color {{memberName}}{{memberMobile}}
+          .stress-color {{cardName}}
+          .remark-color {{logType}}&nbsp;&nbsp;{{operatorTime | formatDate('YYYY.MM.DD')}}
+        .media-right.text-right
+          .card-tip-bg-green {{earnings}}
+          .remark-color.pay-type {{payType | payTypeWithOutBracket}}
+        .split-line(v-if="index < earningsDetail.length -1 ")
+  hi-empty(v-else, text="当前没有相应的收益明细")

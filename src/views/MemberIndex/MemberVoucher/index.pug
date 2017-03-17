@@ -1,0 +1,11 @@
+ul(:class="classes.container")
+  li(v-for="(voucher, index) in vouchers")
+    hi-voucher(:voucher="voucher", :key="index")
+
+  div(v-if="vouchers.length > 0", :class="classes.prompt", @click="showPrompt")
+    span.theme-color.iconfont.icon-question-mark
+    span.theme-color 现金券使用说明
+
+  hi-empty(v-else)
+    div 暂无任何可用优惠券
+    .btn.btn-theme-primary(:class="classes.getVoucher", @click="getVoucher") 去抢券

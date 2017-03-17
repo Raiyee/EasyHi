@@ -16,8 +16,10 @@ const state = {
   mode: true
 }
 
-const getters = generateGetters(['baseWidth', 'baseFontSize', 'dpi', 'winHeight', 'winWidth',
-  'appWidth', 'rem', 'fontSize', 'logicWidth', 'threshold', 'mode'])
+const getters = {
+  ...generateGetters(['baseWidth', 'baseFontSize', 'dpi', 'winHeight', 'winWidth',
+    'appWidth', 'rem', 'fontSize', 'logicWidth', 'threshold', 'mode'])
+}
 
 const actions = {
   setSize({commit}, {winHeight, winWidth}) {

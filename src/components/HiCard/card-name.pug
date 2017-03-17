@@ -1,0 +1,9 @@
+card(:class="classes.container", :card="card", :selectable="selectable", :selected="selected")
+  div(:class="classes.cardName", slot="header") {{ card.cardName }}
+  div(:class="classes.cardDetail")
+    div(:class="classes.cardDetailItem") {{ cardTimes }}
+    div(:class="classes.cardDetailItem") {{ deadLine }}
+    div(:class="classes.cardPrice") ￥{{ card.cardPrice }}
+
+  div(:class="classes.cardFooter", v-if="soldNumState >= 0", slot="footer")
+    | {{ soldNumState > 0 ? '本月已售' + card.soldNum : '已售' + card.totalSoldNum }}张

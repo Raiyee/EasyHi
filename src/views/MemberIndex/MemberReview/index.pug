@@ -1,0 +1,8 @@
+div
+  .border-b(:class="classes.header")
+    span 请给出您宝贵的意见或建议~
+    span.btn.theme-color.theme-bd(@click="goReview") 去评价
+  hi-tab(:items="items", @toggleTab="toggleTab")
+  hi-review(:class="classes.reviews", :showCourse="true", :reviews="filteredReviews",
+  @toggleReview="toggleReview", v-if="filteredReviews.length")
+  hi-empty(:text="`您还没有写过${index ? '该类' : ''}评价哦~`", v-else)

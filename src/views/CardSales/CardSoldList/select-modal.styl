@@ -1,0 +1,48 @@
+.modal-item
+  :global
+    .modal-content
+      border-radius 0
+      border 0
+      margin-top 40px
+      box-shadow none
+    .modal-body
+      padding 0
+    .modal-footer
+      text-align center
+
+.container
+  display flex
+  :global
+    .select-left
+      flex 1
+      height(300px)
+      overflow-y scroll
+      border1px-r($border-color)
+      .left-item
+        height 40px
+        line-height 40px
+        border1px-b($border-color)
+        padding 0 40px
+        text-overflow ellipsis
+        white-space nowrap
+        overflow hidden
+        &.selected
+          border-right 0
+          background $bg-color
+        &.be-center
+          text-align center
+
+    .select-right
+      flex 1
+      max-height(300px)
+      background $bg-color
+      overflow-y scroll
+      .right-item
+        height 40px
+        line-height 40px
+        border1px-b($border-color)
+        padding 0 28px
+        text-overflow ellipsis
+        white-space nowrap
+        overflow hidden
+

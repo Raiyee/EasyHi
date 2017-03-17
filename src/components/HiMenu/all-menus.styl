@@ -1,20 +1,9 @@
 $recommended-bg = #fb623b
 
 .container
-  span
-    display block
-
   :global
-    .modal-content
-      border 0
-      border-radius 0
-
-    .modal-body
-      padding 0
-      overflow-y auto
-
     .modal-footer
-      border-top 0
+      display block
       padding 20px
       text-align center
       background-color $card-back
@@ -85,6 +74,9 @@ $recommended-bg = #fb623b
     &:before
       font-size 40px
 
+  :last-child
+    display block
+
   &:global(.disabled)
     :first-child:after
       absolute()
@@ -96,7 +88,7 @@ $recommended-bg = #fb623b
       border-radius 50%
       color $reverse-color
       background-color $remark-color
-      scaleSize(12)
+      scaleSize($smaller-size)
 
     :last-child
       color $subtext-color

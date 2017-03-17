@@ -1,0 +1,53 @@
+div(:class="$style.container")
+  .shadow-bottom(:class="$style.coachInfo")
+    operator-menu(@updateItem="updateItem", @deleteItem="deleteItem")
+    div(:class="$style.portrait")
+      .img-circle(:class="$style.coachPortrait", v-lazy:background-image="$util.portraitPath(coachPortrait,coachGender)")
+      div(:class="$style.coachRate")
+        hi-rate(v-if="coachRate", :rate="coachRate", :scale="scale")
+        div(v-else, :class="$style.noRate") 暂无评价
+    .clearfix(:class="$style.coachName")
+      span {{coachName ? coachName : '未填写'}}
+      span.iconfont.active(:class="[`icon-${coachGender ? '' : 'fe'}male`, $style.coachGender]")
+    div(:class="$style.courses")
+      div(v-for="privateCourseName in activeCourseTypes") {{privateCourseName}}
+    .border-t.theme-bd(:class="$style.detail")
+      .theme-color(:class="$style.title") {{coachAlias}}详情
+      ul.theme-color.clearfix(:class="[$style.coachDetail, {[$style.open]: !close}]")
+        li
+          div(:class="[$style.detailItem, $style.mobile]")
+            span.theme-color.iconfont.icon-mobile
+            span {{coachMobile}}
+            span(v-if="!mobileVisible", :class="$style.mobileVisible")
+              span (会员不可见该号码)
+              span.iconfont.icon-eyeclose
+        li
+          div(:class="$style.detailItem") 个人简介
+            div {{coachProfile ? coachProfile : '暂未填写'}}
+        li
+          div(:class="$style.detailItem") 奖项/证书
+            div {{coachPrize ? coachPrize : '暂未填写'}}
+        li
+          div(:class="$style.detailItem") 擅长
+            div {{coachSpeciality ? coachSpeciality : '暂未填写'}}
+        li
+          div(:class="$style.detailItem") 教学经验
+            div {{teachingExp ? teachingExp : '暂未填写'}}
+      .theme-color(:class="$style.openOrClose", @click="changeState")
+        span {{ close ? '展开' : '收起' }}
+        span.theme-color.iconfont(:class="[$style.iconArrow, `icon-arrow-${close ? 'down' : 'up'}`]")
+
+  div(:class="$style.restTimes")
+    div(:class="[$style.addRestTime, {[$style.dashedLine] : restTimes.length}]", @click="selectRestTime")
+      span.theme-color.iconfont.icon-jiahao(:class="$style.iconAdd")
+      span.theme-color 添加临时休息
+    div(v-for="({restRange, restId}, index) in restTimes", :class="[$style.restTimeItem, {['border-t'] : index > 0}]")
+      span {{restRange[0] | formatDate('YYYY.MM.DD')}}
+      span {{restRange[0] | formatDate('HH:mm')}}－{{restRange[1] | formatDate('HH:mm')}}
+      span.theme-color(:class="$style.deleteRestTime", @click="deleteRestTime(restId)") 删除
+
+  div(:class="$style.coachReviews")
+    div(:class="$style.reviewTitle") 会员评价(可见{{reviewVisibleNum}}/共{{reviewNum}})
+    template(v-if="coachReviews.length")
+      hi-review(:reviews="coachReviews")
+    div(v-else, :class="$style.emptyText") 暂无会员评价

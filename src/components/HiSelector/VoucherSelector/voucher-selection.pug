@@ -1,0 +1,20 @@
+.media(:class="classes.voucher", @click="toggleVoucher")
+  .media-left.media-middle
+    span.iconfont(:class="selected ? 'icon-check theme-color' : 'icon-uncheck remark-color'")
+  .media-body
+    h5.media-heading
+      span {{ voucher.voucherName }}
+      span
+        | 可上课
+        span.theme-color(:class="classes.times") {{ voucher.voucherTimes }}
+        | 次
+    .remark-color(:class="classes.content") {{ voucher.voucherDescription }}
+    div(v-if="selected", :class="classes.footer", @click.stop)
+      .dashed-line
+      span(v-if="voucher.voucherExpiredType", @click="(picking = true) && chooseExpiredDates()") {{ voucherExpiredRange }}
+      span(v-else)
+        | 有效期
+        input.border-b(v-model="voucherExpiredLimit", type="number")
+        | 天
+      span.pull-right(@click="changeExpired") {{ voucher.voucherExpiredType ? '指定有效期' : '从领券成功开始计算' }}
+        span.iconfont.icon-arrow-down.remark-color

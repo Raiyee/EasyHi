@@ -1,0 +1,4 @@
+div(:class="classes.dropdownMenu", @click="toggleDropdown")
+  slot
+    span {{currSectionName}}
+  span.iconfont(:class="`icon-arrow-${isOpen ? 'down' : 'up'}`")

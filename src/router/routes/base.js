@@ -1,24 +1,38 @@
-import utils from 'utils'
+import {getters} from 'store'
+
+// import utils from 'utils'
 
 export default [{
   path: '/',
   name: 'home',
-  component: () => System.import('views/Home'),
+  component: () => import('views/Home'),
+  beforeEnter(to, from, next) {
+    __DEV__ ? next() : (location.href = getters.memberUrlPrefix)
+  },
   meta: {
     menuShow: false
   }
 }, {
   path: '/login',
   name: 'login',
-  component: () => System.import('views/Login'),
+  component: () => import('views/Login'),
   meta: {
-    menuShow: false
+    menuShow: false,
+    keepAlive: false
+  }
+}, {
+  path: '/new-user-login/:userId(\\d+)',
+  name: 'newUserLogin',
+  component: () => import('views/Login/NewUser'),
+  meta: {
+    init: to => `/invite/initialize-invitee-data/${to.params.userId}`
   }
 }, {
   path: '/404',
   name: '404',
-  component: () => System.import('components/NotFound'),
+  component: () => import('components/HiWidgets/NotFound'),
   beforeEnter() {
-    utils.router.history.updateRoute(utils.NOT_FOUND_ROUTE)
+    location.href = getters.urlPrefix + getters.currRole + '/index'
+    // utils.router.history.updateRoute(utils.NOT_FOUND_ROUTE)
   }
 }]

@@ -4,7 +4,7 @@ import {argv} from 'yargs'
 
 import config, {globals} from '../config'
 
-const {__DEV__, __TEST__, __PROD__} = globals
+const {__TEST__, __PROD__} = globals
 
 const sourceMap = !!config.compiler_devtool
 const browsers = config.compiler_browsers
@@ -16,45 +16,44 @@ export const generateLoaders = (loader, loaders, options = {}) => {
     return loader + (sourceMap && index ? hyphen + 'sourceMap' : '')
   }).join('!')
 
+  if (options.style === false) return sourceLoaders
+
   const styleLoader = `${options.vue ? 'vue-' : ''}style-loader`
 
-  let extract = options.extract
+  const extract = options.extract
   return extract ? (extract.extract ? extract : ExtractTextPlugin).extract({
-    fallbackLoader: styleLoader,
-    loader: sourceLoaders
+    fallback: styleLoader,
+    use: sourceLoaders
   }) : [styleLoader, sourceLoaders].join('!')
 }
 
-const minimize = (__TEST__ || __PROD__) && {
-  autoprefixer: {
-    add: true,
-    remove: true,
-    browsers
-  },
-  discardComments: {
-    removeAll: true
-  },
-  safe: true,
-  sourcemap: sourceMap
-}
-
 const cssOptions = {
-  minimize,
-  sourceMap,
-  ...minimize
+  minimize: (__TEST__ || __PROD__) && {
+    autoprefixer: {
+      add: true,
+      remove: true,
+      browsers
+    },
+    discardComments: {
+      removeAll: true
+    },
+    safe: true,
+    sourcemap: sourceMap
+  },
+  sourceMap
 }
 
 export const baseLoaders = ['css-loader?' + JSON.stringify(cssOptions)]
-export const localIdentName = __DEV__ ? '[name]__[local]___[hash:base64:5]' : '[hash:base64]'
+const localIdentName = __PROD__ ? '[hash:base64]' : '[name]__[local]___[hash:base64:5]'
 
-const cssModuleOptions = {
+export const cssModuleOptions = Object.assign({}, cssOptions, {
   modules: true,
   camelCase: true,
   importLoaders: 2,
   localIdentName
-}
+})
 
-export const cssModuleLoaders = ['css-loader?' + JSON.stringify(Object.assign({}, cssOptions, cssModuleOptions))]
+export const cssModuleLoaders = ['css-loader?' + JSON.stringify(cssModuleOptions)]
 
 const loaderMap = {
   css: '',
@@ -71,46 +70,45 @@ export const nodeModules = /\bnode_modules\b/
 
 const normalizeExclude = (exclude = []) => Array.isArray(exclude) ? exclude : [exclude]
 
-export default {
-  commonCssLoaders(options = {}) {
-    options.vue = false
+export const commonCssLoaders = (options = {}) => {
+  options.vue = false
 
-    const exclude = normalizeExclude(options.exclude)
-    const loader = []
+  const exclude = normalizeExclude(options.exclude)
+  const loader = []
 
-    for (const [key, value] of Object.entries(loaderMap)) {
-      if (exclude.includes(key)) continue
+  for (const [key, value] of Object.entries(loaderMap)) {
+    if (exclude.includes(key)) continue
 
-      const regExp = new RegExp(`\\.${key}$`)
+    const regExp = new RegExp(`\\.${key}$`)
 
-      loader.push({
-        test: regExp,
-        loader: generateLoaders(value, baseLoaders, options),
-        include: nodeModules
-      }, {
-        test: regExp,
-        loader: generateLoaders(value, cssModuleLoaders, options),
-        exclude: nodeModules
-      })
-    }
-
-    debug && _debug(`${debugPrefix}commonCssLoaders`)(loader)
-
-    return loader
-  },
-  vueCssLoaders(options = {}) {
-    options.vue = true
-
-    const exclude = normalizeExclude(options.exclude)
-    const loader = {}
-
-    for (const [key, value] of Object.entries(loaderMap)) {
-      if (exclude.includes(key)) continue
-      loader[key] = generateLoaders(value, baseLoaders, options)
-    }
-
-    debug && _debug(`${debugPrefix}vueCssLoaders`)(loader)
-
-    return loader
+    loader.push({
+      test: regExp,
+      loader: generateLoaders(value, baseLoaders, options),
+      include: nodeModules
+    }, {
+      test: regExp,
+      loader: generateLoaders(value, cssModuleLoaders, options),
+      exclude: nodeModules
+    })
   }
+
+  debug && _debug(`${debugPrefix}commonCssLoaders`)(loader)
+
+  return loader
+}
+
+export const vueCssLoaders = (options = {}) => {
+  options.vue = true
+
+  const exclude = normalizeExclude(options.exclude)
+  const loader = {}
+
+  for (const [key, value] of Object.entries(loaderMap)) {
+    if (exclude.includes(key)) continue
+    loader[key] = generateLoaders(value, baseLoaders, options)
+  }
+
+  debug && _debug(`${debugPrefix}vueCssLoaders`)(loader)
+
+  return loader
 }

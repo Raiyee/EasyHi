@@ -1,0 +1,39 @@
+div(:class="classes.container")
+  div(:class="classes.header")
+    .header-item(@click="itemEvent('time')")
+      span.header-item-name(:class="openType === 'time' ? 'theme-color':''") {{currTimeName}}
+      span.iconfont(:class="`icon-arrow-${openType === 'time' ? 'up':'down'}`")
+    span.vertical-grabber
+    .header-item(@click="itemEvent('card')")
+      span.header-item-name(:class="openType === 'card' ? 'theme-color':''") {{currCardName}}
+      span.iconfont(:class="`icon-arrow-${openType === 'card' ? 'up':'down'}`")
+    span.vertical-grabber
+    .header-item(@click="itemEvent('people')")
+      span.header-item-name(:class="openType === 'people' ? 'theme-color':''") {{currPeopleName}}
+      span.iconfont(:class="`icon-arrow-${openType === 'people' ? 'up':'down'}`")
+  template(v-if="cards.length")
+    .cards-content(:class="classes.cardsContent", v-for="{timeStamp,subCards} in cards", :key="timeStamp")
+      .header {{timeStamp}}
+      div(v-if="subCards.length > 0",
+      v-for="{userName,mobile,cardTypeName,cardName,price,isOnSale,isOnShelf,isNewMember,userId} in subCards",
+      :key="userId")
+        .sub-card
+          .sub-card-header.theme-bd
+            span {{userName}}
+            span （{{mobile}}）
+            template(v-if="isNewMember")
+              span.newMember.theme-bg 新会员
+          .split-line
+          .media
+            .media-left
+              .card-style.theme-bg {{cardTypeName}}
+            .media-body
+              div
+                span {{cardName}}
+                template(v-if="!isOnShelf")
+                  span.remark-color （已下架）
+                template(v-if="isOnShelf && !isOnSale")
+                  span.remark-color （已撤售）
+              div 购买金额：￥{{price}}
+        .split-line
+  hi-empty(v-else, text="暂无售卡信息")

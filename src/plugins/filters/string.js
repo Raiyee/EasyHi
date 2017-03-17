@@ -1,1 +1,1 @@
-export {reverse} from 'utils'
+export {hide, reverse} from 'utils'

@@ -1,0 +1,46 @@
+modal-item(:full="true", :footer="true", :confirm="onConfirm", :transition="true")
+  .modal-body.bg(slot="body", :style="{height}")
+    .header(:class="classes.header")
+      .header-text {{headerText}}
+      .split-line
+    input-search(text="姓名/电话", @onEnter="onEnter", @onCancel="onCancel")
+    .content(:class="classes.content", v-if="currHighlightUsers.length")
+      .category {{highlightText}}
+      .split-line
+      .user-item.media(
+      v-for="{userId,userName,userPortrait,userMobile,userGender,hasCashVoucher,isVisitor},index in currHighlightUsers",
+      @click="onSelect(userId)", :key="userId")
+        .media-left
+          .member-img.img-circle(v-lazy:background-image="$util.portraitPath(userPortrait,userGender)", lazy="loading")
+        .media-body(:class="[{'border-t': index}]")
+          .name {{userName}}
+            span.iconfont(
+            v-if="userGender !== undefined", :class="`icon-${userGender?'male male-color':'female female-color'}`")
+            span.theme-color.iconfont(v-for="{condition,iconClass} in icons",
+            :class="currHighlightUsers[index][condition] ? iconClass : ''")
+          .mobile.remark-color {{userMobile}}
+        .media-right(:class="[{'border-t': index}]")
+          span.iconfont.stress-size.theme-color(:class="`icon-${selected.indexOf(userId) !== -1 ?'check':'uncheck'}`")
+      .split-line
+    .content(:class="classes.content", v-for="(value,key) of currUsers", :key="key")
+      template(v-if="value && value.length")
+        .category {{key}}
+        .split-line
+        .user-item.media(
+        v-for="{userId,userName,userPortrait,userMobile,userGender,hasCashVoucher,isVisitor},index in value",
+        @click="onSelect(userId)", :key="userId")
+          .media-left
+            .member-img.img-circle(v-lazy:background-image="$util.portraitPath(userPortrait,userGender)", lazy="loading")
+          .media-body(:class="[{'border-b': index < value.length - 1}]")
+            .name {{userName}}
+              span.iconfont(v-if="userGender !== undefined",
+              :class="`icon-${userGender?'male male-color':'female female-color'}`")
+              span.theme-color.iconfont(v-for="{condition,iconClass} in icons",
+              :class="value[index][condition] ? iconClass : ''")
+            .mobile.remark-color {{userMobile}}
+          .media-right
+            span.iconfont.stress-size.theme-color(:class="`icon-${selected.indexOf(userId) !== -1 ?'check':'uncheck'}`")
+        .split-line
+  hi-empty(v-if="!(currUsers && Object.entries(currUsers).length) && !currHighlightUsers.length")
+    | 暂无搜索结果
+  .footer(:class="classes.footer")

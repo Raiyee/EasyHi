@@ -1,0 +1,10 @@
+modal-item(:class="classes.mobileModal")
+  template(slot="header") 验证手机号
+  .remark-color 输入手机尾号{{ mobile.substring(mobile.length - 4) }}接受到的短信验证码
+  .input-group
+    input.form-control(v-model="captcha", type="tel", title="请输入验证码", @input="$v.captcha.$reset(); error = false")
+    span.input-group-addon.theme-color(@click="sendCaptcha") {{ limit ? limit + 's' : '重新发送' }}
+  div(v-if="$v.captcha.$error || error", :class="classes.tips") 验证码错误，请输入正确的验证码！
+  template(slot="footer")
+    div(:class="classes.btn", @click="$modal.close()") 取消
+    .theme-color.border-l(:class="classes.btn", @click="confirmModal") 确定

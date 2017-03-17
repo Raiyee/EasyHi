@@ -1,0 +1,61 @@
+.content
+  padding 10px
+
+  header
+    text-align center
+    margin-bottom 10px
+
+  :global
+    .split-line
+      relative()
+      padding-bottom 20px
+
+      > span
+        middleCenter()
+        background-color $back-light-color
+        padding 0 10px
+
+        > span
+          display inline-block
+
+          &:last-child
+            color $remark-lighter-color
+            margin-left 5px
+
+  main
+    margin-top 10px
+
+  ul
+    :global
+      .media
+        margin-top 0
+
+      .media-left, .media-body, .media-right
+        padding-top 18px
+        padding-bottom 18px
+
+      .media-object
+        size 40px
+
+      .media-right
+        white-space nowrap
+
+.img-wrapper
+  relative()
+  size 95px
+  background-color $back-color
+  margin 0 auto
+  margin-bottom 10px
+
+  > div
+    middleCenter()
+    size 90px
+
+  &, > div
+    border-radius 50%
+
+.tooltip
+  display inline-block
+
+  :global(.tooltip)
+    scaleSize($smaller-size, , translateX(-5px), left)

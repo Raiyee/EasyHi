@@ -20,7 +20,7 @@ const buildComponent = (comps, notFirst) => {
   if (!comps.length) return nonMsg('components')
 
   let wrapTemp = ''
-  let wrapComp = {}
+  const wrapComp = {}
   let count = 0
 
   // eslint-disable-next-line no-use-before-define
@@ -31,7 +31,7 @@ const buildComponent = (comps, notFirst) => {
     const component = wrapComp[name] = {template}
 
     if (isObject(methods)) {
-      let wrapMethods = {}
+      const wrapMethods = {}
       for (const [methodName, method] of Object.entries(methods)) {
         wrapMethods[methodName] = isFunction(method) ? method
           : Function[isArray(method) ? 'apply' : 'call'](null, method)

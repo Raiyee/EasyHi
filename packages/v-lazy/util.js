@@ -65,7 +65,7 @@ export function supportWebp() {
   const d = document
 
   try {
-    let el = d.createElement('object')
+    const el = d.createElement('object')
     el.type = 'image/webp'
     el.innerHTML = '!'
     d.body.appendChild(el)
@@ -79,7 +79,7 @@ export function supportWebp() {
 }
 
 export const loadImageAsync = (item, resolve, reject) => {
-  let image = new Image()
+  const image = new Image()
   image.src = item.src
 
   image.onload = function () {

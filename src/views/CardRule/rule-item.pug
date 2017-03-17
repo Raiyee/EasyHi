@@ -1,0 +1,12 @@
+li(:class="{disabled: !selected}")
+  div(@click="toggleItemSelect")
+    span.iconfont(v-if="editing",
+    :class="[`icon-${selected ? '' : 'un'}check`, {'theme-color': selected}]")
+    | {{ itemName }}
+  div
+    template(v-if="selected")
+      template(v-if="editing")
+        .input-wrapper(:class="{error: dirty && !itemNum}")
+          input(v-money="num", @focus="$emit('itemFocus')", @blur="$emit('itemBlur')")
+      template(v-else) 扣{{ itemNum + (detailType ? '元' : '次')}}
+    template(v-else-if="isAdmin") 不适用

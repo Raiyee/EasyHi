@@ -1,0 +1,15 @@
+div(:class="classes.container")
+  .media(:class="{[classes.fixed]: active}", ref="content")
+    .media-left(v-if="$slots.left")
+      slot(name="left")
+    .media-body
+      ul.list-unstyled
+        li(v-for="{value,text},index in determineCodes", @click="toggleSelector(index)",
+        :class="{'theme-color':activeIndex == index}")
+          span.drop-title {{text}}
+          span.iconfont.remark-color(:class="`icon-arrow-${activeIndex == index ? 'up':'down'}`")
+    .media-right(v-if="$slots.right")
+      slot(name="right")
+    .media-right(v-if="$slots.right1")
+      slot(name="right1")
+  .media(v-if="active", v-html="content")

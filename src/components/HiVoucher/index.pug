@@ -1,0 +1,36 @@
+.clearfix(v-if="voucher.miniConsume", :class="classes.cashVoucherInst")
+  div(:class="[classes.left, classes[`cash${available ? 'Available':'Unavailable'}Bg`]]")
+    div ￥
+      span {{voucher.voucherValue}}
+      br
+      | 满{{voucher.miniConsume}}可用
+  .border(:class="[classes.right, classes[`${available ? '':'unavailable'}`]]")
+    h4.clearfix {{voucher.voucherName}}
+      span.iconfont(v-if="selectable",
+      :class="[classes.icon, classes.uncheck, [`${selected ? 'theme-color icon-check' : 'icon-uncheck'}`]]")
+      button.btn.btn-theme-default(solt="button", v-else-if="showExtraBtn && isConsumer", :class="classes.buyCard",
+      @click="$util.resolveRoute($router, 'card-sales/customer')")
+        span(:class="classes.buttonText") 去买卡
+        span.iconfont.icon-arrow-right(:class="classes.iconArrowRight")
+      div(:class="classes[`cash${cashVoucherState}`]")
+    div(slot="expiredRange", :class="classes.expiredRange") 有效期：{{voucherExpiredRange}}
+
+.shadow-bottom(v-else, :class="[classes.expVoucherInst, classes.availableBg]")
+  .primary-color(:class="classes.name") {{voucher.voucherName}}
+  .primary-color(v-if="voucher.voucherInstId", :class="classes.num")
+    span 次数:
+    span(:class="[classes.totalNum, classes.available]") {{voucher.voucherTimes}}
+    span(v-if="voucher.availableTimes") (剩{{voucher.availableTimes}}次)
+    button.btn(v-if="extraBtn && isConsumer", :class="classes.goSubscribeSchedule", @click="goSubscribeSchedule")
+      span(:class="classes.buttonText") 去订课
+      span.iconfont.icon-arrow-right(:class="classes.iconArrowRight")
+  .primary-color.clearfix(v-else, :class="classes.voucherBody")
+    div(:class="classes.voucherDefault") ￥
+      span 0
+    .clearfix(:class="classes.voucherValue") ￥
+      span {{voucher.voucherValue}}
+      hr
+    div(:class="classes.voucherTimes")
+      span {{voucher.voucherTimes}}
+      | 次
+  .primary-color(:class="classes.date") {{voucherExpired}}

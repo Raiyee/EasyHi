@@ -54,7 +54,7 @@ export default (Vue, options = {}) => {
 
       validator.rules || (validator = {rules: validator})
 
-      let rules = validator.rules
+      const rules = validator.rules
       const auto = validator.auto
 
       if (!isObjectLike(rules)) return warn('rules of validator should be an object')

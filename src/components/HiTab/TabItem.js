@@ -1,6 +1,6 @@
 import {isObject, REQUIRED_BOOLEAN, REQUIRED_NUMBER} from 'utils'
 
-export default require('./tab-item.pug')({
+export default {
   name: 'tab-item',
   props: {
     item: {
@@ -13,11 +13,10 @@ export default require('./tab-item.pug')({
     touchEnable: REQUIRED_BOOLEAN
   },
   data() {
-    const item = this.item
+    const {item} = this
     const object = isObject(item)
     const value = object ? item[this.valueKey] : this.index
     const text = object ? item[this.textKey] : item
-
     const params = [item]
     object && params.unshift(value, text)
     return {
@@ -26,12 +25,7 @@ export default require('./tab-item.pug')({
       text
     }
   },
-  methods: {
-    onClick() {
-      this.touchEnable || this.onTap()
-    },
-    onTap() {
-      this.$emit('tapItem', this.index, ...this.params)
-    }
+  render() {
+    return <li onClick={() => this.$emit('tapItem', this.index, ...this.params)}>{this.text}</li>
   }
-})
+}

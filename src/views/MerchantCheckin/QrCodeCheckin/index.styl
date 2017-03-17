@@ -1,0 +1,126 @@
+.container
+  display block
+
+.header
+  margin-bottom 10px
+  background-color $back-light-color
+  box-shadow 3px 0 10px $back-color
+
+.header-content
+  display flex
+  padding 0 10px
+  white-space nowrap
+
+  > hr
+    flex 1
+    margin 0
+    padding-top 15px
+    border-top none
+    border-bottom 1px solid $back-color
+
+  > div
+    flex 1
+    line-height 1
+    padding 8px 10px 10px
+    text-align center
+
+    > span
+      display inline-block
+      vertical-align middle
+
+
+.success
+  display block
+  text-align center
+
+  > :global(.iconfont)
+    display block
+    font-size 68px
+    padding 25px 0 15px
+
+  > div
+    font-size 18px
+    padding-bottom 27px
+    color $stress-color
+
+    > span
+      display inline-block
+      vertical-align middle
+
+    > :first-child
+      max-width 70px
+      overflow hidden
+      white-space nowrap
+      text-overflow ellipsis
+
+.body
+  background $back-light-color
+  padding 0 10px
+
+  > div:not(:last-child)
+    border-bottom 1px solid $card-line-color
+
+.schedule
+  height 90px
+  padding 16px 0 15px 10px
+
+  :global
+    .media-left
+      font-size 18px
+      color $stress-color
+      white-space nowrap
+
+    .media-body
+      > div:first-child
+        font-size 16px
+        color $stress-color
+
+      > :last-child > :first-child
+        display inline-flex
+        padding-right 15px
+
+    .media-right
+      relative()
+      white-space nowrap
+
+      > :first-child
+        color $remark-color
+
+      > :nth-child(2)
+        absolute(right bottom)
+        line-height 1
+        padding 6px
+        min-width 75px
+        text-align center
+        border 1px solid $list-line-color
+        border-radius 15px
+
+
+.cancel
+  color $subtext-color
+
+.max-width
+  display inline-block
+  max-width 50px
+  overflow hidden
+  vertical-align middle
+  white-space nowrap
+  text-overflow ellipsis
+
+.btn
+  display flex
+  margin-top 50px
+  padding 0 17px
+
+  > div
+    flex 1
+    margin 0 10px
+    border 1px solid
+    text-align center
+    font-size 16px
+    line-height 1
+    padding 9px
+    border-radius 17px
+
+  &:last-child
+    color $reverse-color

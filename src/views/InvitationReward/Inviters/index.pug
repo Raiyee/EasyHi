@@ -1,0 +1,26 @@
+div(:class="classes.content")
+  header.shadow-bottom
+    .split-line
+  input-search(text="姓名/手机号", @onEnter="onEnter", @onCancel="onCancel")
+  template(v-if="members.length")
+    template(v-if="filteredMembers.length")
+      main.border-tb
+        ol.list-unstyled
+          router-link.media(v-for="({userId, memberGender, memberName, memberMobile, memberPortrait, invitedMembershipNum, invitedNum}, index) of filteredMembers",
+          :key="userId",
+          tag="li",
+          :to="`/invitation-reward/inviter/${userId}`")
+            .media-left
+              .media-object.img-circle(v-lazy:background-image="$util.portraitPath(memberPortrait, memberGender)")
+            .media-body.media-middle(:class="{['border-t']: index}")
+              h5.media-heading {{ memberName }}
+              | {{ memberMobile }}
+              div
+                | 已办卡
+                span.theme-color {{ invitedMembershipNum }}
+                | 人 共邀请
+                span.theme-color {{ invitedNum }}
+                | 人
+      footer(:class="classes.tip") 共 {{ members.length }} 个会员已邀请好友
+    div(v-else, :class="classes.tip") 没有符合条件的会员
+  hi-empty(v-else, text="还没有已邀请好友的会员")

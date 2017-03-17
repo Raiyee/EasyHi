@@ -1,0 +1,32 @@
+modal-item(:footer="true", :full="true", :transition="true",
+:close="closeSelector", :confirm="confirmSelector", :afterLeave="afterLeave")
+  .modal-body.bg(slot="body", :style="{height}")
+    div(:class="classes.notUse", @click="toggleSelect()")
+      | 不使用现金券
+      span.iconfont.pull-right(:class="selected ? 'icon-uncheck remark-color' : 'icon-check theme-color'")
+    div(:class="classes.available")
+      .remark-color(v-if="availableVouchers.length") 可用现金券
+        ul.list-unstyled
+          li(v-for="availableVoucher of availableVouchers")
+            hi-voucher(:key="availableVoucher.voucherInstId",
+            :voucher="availableVoucher",
+            :selectable="true",
+            :benchmark="benchmark",
+            :extraBtn="false",
+            :selected="selected === availableVoucher.voucherInstId",
+            @click.native="toggleSelect(availableVoucher.voucherInstId)")
+        span.theme-color(v-if="!unavailableVouchers.length", @click="showIntro")
+          span.iconfont.icon-question-mark
+          | 现金券使用说明
+      .remark-color(v-if="unavailableVouchers.length") 不可用现金券
+        ul.list-unstyled
+          li(v-for="voucher of unavailableVouchers")
+            hi-voucher(:key="voucher.voucherInstId",
+            :voucher="voucher",
+            :extraBtn="false",
+            :benchmark="benchmark",
+            :selectable="false")
+        span.theme-color(@click="showIntro")
+          span.iconfont.icon-question-mark
+          | 现金券使用说明
+    hi-empty(v-if="!availableVouchers.length && !unavailableVouchers.length", text="暂无可用的现金券")

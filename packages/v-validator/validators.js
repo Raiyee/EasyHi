@@ -20,12 +20,12 @@ export const mobile = flag => function (val, model) {
   return !!flag === MOBILE_REGEX.test(this[model])
 }
 
-export const integer = len => function (val, model) {
+export const integer = (len, transform = true) => function (val, model) {
   const flag = !!len
   let valid = true
   if (isNumber(len)) valid = length(len).call(this, val, model)
-  val = this[model].toString().replace(/[^\d]/g, '')
-  val = val === '' ? '' : +val
+  val = (this[model] || '').toString().replace(/[^\d]/g, '')
+  val = val === '' ? '' : transform ? +val : val
   return valid && flag === /\d+/.test(this[model] = val)
 }
 

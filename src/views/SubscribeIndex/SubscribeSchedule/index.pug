@@ -1,0 +1,123 @@
+div(:class="classes.container")
+  div(:class="classes.wrapper", :style="{height}")
+    .header.panel
+      .header-content
+        template(v-if="isHelpSubscribe && !subscribeType")
+          .media-left
+            img(:class="[{'img-square':style}]", :src="parseIcon")
+          .media-center
+            span.primary-size.stress-color {{schedule.scheduleName}}
+            br
+            span 帮订会员: {{schedule.memberName}}
+            br
+            span.small-size 上课时间: {{`${schedule.scheduleDuration}`}} ({{$util.getWeekday(schedule.startTime)}})
+            br
+        template(v-else-if="isHelpSubscribe && !!subscribeType")
+          .media-center
+            span.primary-size.stress-color {{schedule.scheduleName}}
+            br
+            span.small-size 课程类型: {{schedule.courseTypeName}}
+            br
+            span.small-size {{coachAlias}}: {{schedule.coachName}}
+            br
+            span.small-size {{`预订:${schedule.realNum}/${schedule.expectNum}（ 预留${schedule.reservedNum}人）`}}
+            br
+            span.small-size 上课时间: {{`${schedule.scheduleDuration}`}} ({{$util.getWeekday(schedule.startTime)}})
+            br
+          .media-right
+            img(:class="[{'img-square':style}]", :src="parseIcon")
+        template(v-else)
+          .media-left
+            img(:class="[{'img-square':style}]", :src="parseIcon")
+          .media-center
+            span.title {{schedule.scheduleName}}
+            br
+            span.small-size 老师: {{schedule.coachName}}
+            br
+            span.small-size 上课时间: {{`${schedule.scheduleDuration}`}} ({{$util.getWeekday(schedule.startTime)}})
+            br
+      .split-line
+      .header-bottom
+        .header-bottom-left
+          a.iconfont.stress-size.icon-yudingrenshu.theme-color
+          span 预订人数
+        .header-bottom-right
+          subtract-add-module(:min="SubtractAddData.min",
+          :max="SubtractAddData.max",
+          :step="SubtractAddData.step",
+          :curr="SubtractAddData.curr",
+          :isForbidden="forbidden",
+          @clickEvent="subtractOrAddEvent")
+    .voucher.panel
+      .panel-header
+        span.iconfont.stress-size.icon-youhuiquan.theme-color
+        span 优惠券
+      .split-line
+      .panel-content(:style="voucherStyle", ref="vouchersElement")
+        panel-item(v-for="voucher,index in usefulMbrExpVoucher",
+        :key="index",
+        :item="voucher",
+        :checkedItem="checkedExpvoucher",
+        itemType="voucher",
+        @select="select")
+        .no-items.remark-color(v-if="$util.isEmptyArr(usefulMbrExpVoucher)",
+        :style="{'line-height':'38px'}")
+          | 暂无可用优惠券
+        panel-item(v-for="voucher,index in uselessMbrExpVoucher",
+        :key="index",
+        :item="voucher",
+        :checkedItem="checkedExpvoucher",
+        :beHide="true",
+        itemType="voucher",
+        @select="select")
+      .panel-drop(@click="drop('voucher')",
+      v-if="!$util.isEmptyArr(usefulMbrExpVoucher) && usefulMbrExpVoucher.length > 1 || !$util.isEmptyArr(uselessMbrExpVoucher)")
+        | 查看其他券
+        span.iconfont.right(:class="voucherIsOpen?'icon-arrow-up':'icon-arrow-down'")
+    .card.panel
+      .panel-header
+        a.iconfont.icon-member-card.theme-color.stress-size
+        span 会员卡
+      .split-line
+      .panel-content(:style="cardStyle", ref="cardsElement")
+        panel-item(v-for="card,index in usefulMbrCards",
+        :key="index",
+        :item="card",
+        :checkedItem="checkedCard",
+        itemType="card",
+        @select="select")
+        .no-items.remark-color(v-if="$util.isEmptyArr(usefulMbrCards)",
+        :style="{'line-height':'38px'}")
+          | 暂无可用会员卡
+        panel-item(v-for="card,index in uselessMbrCards",
+        :key="index",
+        :item="card",
+        :checkedItem="checkedCard",
+        :beHide="true",
+        itemType="card",
+        @select="select")
+      .panel-drop(@click="drop('card')",
+      v-if="!$util.isEmptyArr(usefulMbrCards) && usefulMbrCards.length  > 1 || !$util.isEmptyArr(uselessMbrCards)")
+        | 查看其它卡
+        span.iconfont.right(:class="cardIsOpen?'icon-arrow-up':'icon-arrow-down'")
+  .button-area.media.border-t
+    .media-left
+      span.iconfont.icon-youhuiquan.theme-color.stress-size
+    .media-body.media-top
+      span(v-if="isValueCard")
+        | 扣
+        span.theme-color {{parseInt(cardConsume*100)/100}}
+        | 元(已优惠
+        span.theme-color {{parseInt(cardDiscountConsume*100)/100}}
+        | 元)
+      span(v-else-if="!isHelpSubscribe") 扣{{cardConsume}}次
+      span(v-else-if="isHelpSubscribe")
+        subtract-add-module(:min="SubtractAddData1.min",
+        :max="SubtractAddData1.max",
+        :step="SubtractAddData1.step",
+        :curr="SubtractAddData1.curr",
+        :isForbidden="forbidden1",
+        @clickEvent="subtractOrAddEvent1")
+      span.hight-light-color(v-if="voucherConsume > 0") 优惠券已经抵扣{{voucherConsume}}人
+    .media-right.media-middle
+      button.btn.btn-theme-primary(@click="confirmSubscribe") {{`确认${!isHelpSubscribe? '预': subscribeData.supplement?'补':'帮'}订`}}

@@ -1,4 +1,5 @@
-import {confirm, toast, prompt, picker, regionPicker, closeModal} from 'utils'
+import {log, confirm, toast, prompt, picker, regionPicker, timePicker, closeModal, randomArr, randomId} from 'utils'
+import {mock} from 'mockjs'
 
 let modalId
 
@@ -52,7 +53,7 @@ export default require('./index.pug')({
     addModal() {
       modalId = this.$modal.open({
         id: modalId,
-        component: System.import('./ActualModal'),
+        component: import('./ActualModal'),
         options: this.options,
         props: {
           bodyMsg: 'Just test body',
@@ -68,11 +69,11 @@ export default require('./index.pug')({
         tipText: '测试confirm 模态框',
         confirmText: '蓝瘦,香菇',
         confirm() {
-          console.log('It is after confirm btn')
+          log('It is after confirm btn')
           closeModal()
         },
         close() {
-          console.log('It is after cancel modal')
+          log('It is after cancel modal')
           closeModal()
         }
       })
@@ -81,7 +82,7 @@ export default require('./index.pug')({
       toast({
         tipText: 'I am  a confirm modal tip Text',
         close() {
-          console.log('It is a toast')
+          log('It is a toast')
           closeModal()
         }
       })
@@ -102,7 +103,7 @@ export default require('./index.pug')({
         pickers: this.pickers,
         pickerTitle: '测试',
         confirm() {
-          console.log(this.result)
+          log(this.result)
         }
       })
     },
@@ -113,13 +114,58 @@ export default require('./index.pug')({
           self.regions = this.result
           closeModal()
         }
-      }, [{
-        defaultIndex: 10
-      }, {
-        defaultCode: 330400
-      }, {
-        defaultText: '嘉善县'
-      }])
+      }, [10, 330400, '嘉善县'])
+    },
+    timePickerModal() {
+      timePicker({
+        pickerTabs: true,
+        confirm(start, end) {
+          log(start, end)
+        }
+      })
+    },
+    usersModal() {
+      const user = {
+        userId: randomId(),
+        userPortrait: '', // 头像
+        userName: '我的名字',
+        userMobile: 18888888888,
+        hasCashVoucher: true, // 是否有现金券标识
+        isVisitor: true, // 是否是访客标识
+        userGender: true // user性别
+      }
+      this.$modal.open({
+        component: import('components/HiSelector/UserSelector'),
+        options: {
+          show: true,
+          backdrop: true,
+          full: true
+        },
+        props: {
+          headerText: '请选择会员/访客',
+          highlightText: '两周内到期会员',
+          highlightUsers: randomArr(5).map(() => {
+            return mock(user)
+          }),
+          users: {
+            A: randomArr(2, 5).map(() => {
+              return mock(user)
+            }),
+            C: randomArr(2, 5).map(() => {
+              return mock(user)
+            })
+          },
+          icons: [{
+            condition: 'hasCashVoucher',
+            iconClass: 'icon-daijinquan'
+          }, {
+            condition: 'isVisitor',
+            iconClass: 'icon-daijinquan'
+          }],
+          confirm() {
+          }
+        }
+      })
     }
   }
 })

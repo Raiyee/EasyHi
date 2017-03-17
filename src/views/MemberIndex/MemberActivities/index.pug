@@ -1,0 +1,17 @@
+div(:class="classes.container")
+  template(v-if="activities && activities.length > 0")
+    .shadow-bottom(:class="classes.activity",
+    v-for="activity in activities", :key="activity.activityId",
+    @click="goActivityDetail(activity)")
+      div(:class="classes.bg",
+      v-lazy:background-image="$util.imgPath(activity.activityImg && activity.activityImg + '.640x320', require('assets/activity/default-bg.jpg'))")
+      div(:class="[classes.state, classes['type-' + activity.activityType]]")
+
+      div(:class="classes.content")
+        div
+          div {{ activity.activityName}}
+          div {{ activity.startTime | formatDate('YYYY.MM.DD')}}-{{ activity.endTime | formatDate('YYYY.MM.DD')}}
+        div
+          span.iconfont.icon-circle-arrow-right
+  hi-empty(:text="`${isAdmin ? '场馆无活动哦，快去创建吧！' : '场馆暂时还没有活动哦~'}`", v-else)
+    router-link(:class="[classes.footer, 'theme-bg']", v-if="isAdmin && isEnterprise", to="/marketing-activities", tag="div") 创建活动

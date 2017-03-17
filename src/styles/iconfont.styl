@@ -2,19 +2,19 @@
 
 .iconfont
   relative()
+  display inline-block
   font-size $common-size
-  &.inactive
-    color $remark-color
+  transform scale(16 / 14)
+  padding-left 1px
+  padding-right 1px
 
 .icon-male, .icon-female
   color $icon-color
 
-.icon-male
-  &.active
+.active
+  &.icon-male
     color $male-color
-
-.icon-female
-  &.active
+  &.icon-female
     color $female-color
 
 .icon-morning
@@ -25,3 +25,9 @@
 
 .icon-evening
   color $evening-color
+
+.icon-wechat-pay
+  color $wechat-color
+
+.icon-value-card
+  color $wallet-color

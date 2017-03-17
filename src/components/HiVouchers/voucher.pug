@@ -1,0 +1,11 @@
+li.border-tb.border-l.border-r.shadow-bottom(:class="[classes.voucher, classes[`${voucherState}`]]", :voucher="voucher")
+  div(:class="[classes.item, {[classes.unavailable] : voucher.state}, classes.name]") {{voucher.expvoucherName}}
+  div(:class="[classes.item, {[classes.unavailable] : voucher.state}, classes.num]")
+    span 次数:
+    span(:class="[{[classes.available] : !voucher.state}, classes.totalNum]") {{voucher.availableTimes}}
+    span(v-if="voucher.state != 'noStocks'") (剩{{voucher.vestigialTimes}}次)
+    button.btn.btn-theme-primary(:class="classes.goSubscribeSchedule",
+    v-if="voucher.state === '' && isStaffS", @click="goSubscribeSchedule")
+      span(:class="classes.buttonText") 去订课
+      span.iconfont.icon-arrow-right(:class="classes.iconArrowRight")
+  div(:class="[classes.item, classes.date]") 有效期: {{voucher.startTime}}-{{voucher.endTime}}

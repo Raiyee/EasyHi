@@ -1,0 +1,57 @@
+.container
+  relative()
+  height 175px
+  border-radius 10px
+  background-position center
+  background-size cover
+  text-align left
+  padding-top 20px
+  color $reverse-color
+
+.selectable
+  absolute()
+  right 10px
+  top 10px
+  font-size 18px
+  background $reverse-color
+  z-index 100
+  border-radius 12px
+  border 1px solid $remark-color
+  line-height 1
+  width 16px
+  height 16px
+
+  &:before
+    middleCenter()
+
+.selected
+  &:before
+    absolute(top left)
+    width 100%
+    border-radius 10px
+    height 175px
+    content ''
+    background-color rgba(0, 0, 0, .3)
+    z-index 10
+
+
+.card-bg-0
+  retina('assets/card/card-0')
+
+.card-bg-1
+  retina('assets/card/card-1')
+
+.card-bg-2
+  retina('assets/card/card-2')
+
+.card-bg-3
+  retina('assets/card/card-3')
+
+.card-bg-4
+  retina('assets/card/card-4')
+
+.card-bg-5
+  retina('assets/card/card-5')
+
+.card-bg-unavailable
+  retina('assets/card/card-unavailable')

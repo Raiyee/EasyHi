@@ -1,0 +1,46 @@
+.content
+  margin-bottom 5px
+  font-size 0
+  background-color $back-light-color
+
+  &.padding
+    padding 10px
+
+  > li
+    relative()
+    display inline-block
+    vertical-align middle
+    margin-bottom 5px
+    font-size $common-size
+
+    &, > div
+      size 115px
+
+    + li:not(:nth-child(3n + 1))
+      margin-left 5px
+
+    @media (min-width $threshold)
+      + li:not(:first-child)
+        margin-left 62.8px
+
+  :global(.icon-remove)
+    absolute()
+    top 5px
+    right 5px
+    line-height 1
+    font-size 20px
+    transform none
+    color $highlight-color
+
+.upload
+  border 1px dashed $border-color
+
+  > div
+    relative()
+    > div
+      middleCenter()
+
+      span
+        display block
+        font-size $top-size
+        text-align center

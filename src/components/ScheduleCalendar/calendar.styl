@@ -12,6 +12,10 @@ $circle-size = 55px
     &, &:global(.scroll-bg) > div
       size $circle-size
       border-radius 50%
+
+    &:global(.square)
+      &, &:global(.scroll-bg) > div
+        border-radius 5px
     > div
       width $circle-size
       middleCenter()
@@ -21,4 +25,4 @@ $circle-size = 55px
       &:first-child
         font-size 20px
       &:last-child
-        scaleSize(12, 16)
+        scaleSize($smaller-size, 16)

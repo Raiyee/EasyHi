@@ -1,0 +1,25 @@
+div(:class="classes.container")
+  card(:card="card", :selectable="selectable", :selected="selected", :unavailable="!usable || !!cardRemainingEnough")
+    router-link(:class="classes.renewal", :to="'/extend-card/' + card.mbrCardId", v-if="hasOperation && renewable", tag="div") 续卡
+    span(:class="classes.cardName") {{ card.cardName}}
+      span(v-if="cardRemainingEnough") ({{ cardRemainingEnough }})
+      span(:class="classes.cardType", v-if="card.cardTypeName") ({{ card.cardTypeName}})
+      div(:class="classes.timeAndState")
+        div(:class="classes.time")
+          |  {{ cardSurplusUnit}}
+          i(:class="classes.timeNum")  {{ cardTimes }}
+          |  {{ cardTimeUnit }}
+          img(:src="cardState", :class="classes.state", v-if="cardState")
+      div(:class="classes.cardNo")
+        span NO.{{card.cardNo}}
+        div(:class="classes.operation", v-if="hasOperation")
+          div(v-if="card.state", @click="memberCardDetail") 消费明细
+          router-link(tag="div",
+          :to="'/mbr-card-rule/'+ (card.isValueCard ? 'stored-card/' : 'card/') + card.cardId") 使用规则
+
+      div(:class="classes.expiresAndConsumer")
+        | {{ deadLine }}
+        template(v-if="hasOperation && card.applicablePeriods")
+          |  (
+          span(:class="classes.timeSlot", @click="showSlot") 限时段
+          | )

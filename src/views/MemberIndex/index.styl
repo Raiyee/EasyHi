@@ -1,6 +1,6 @@
 .container
   :global(.media-object)
-    size 70px
+    size 75px
     border 2px solid $reverse-color
     background-color $reverse-color
 
@@ -29,6 +29,17 @@
       &:before
         font-size 30px
 
+      + div
+        margin-top 10px
+        color $reverse-color
+
+        :global(.icon-qr-code)
+          margin-right 7px
+          transform scale(20 / 14)
+
+        :global(.icon-arrow-right)
+          margin-top -4px
+
       > span
         absolute()
         right -8px
@@ -37,13 +48,15 @@
         background-color $highlight-color
         border-radius 50%
         border 1px solid $reverse-color
-        scaleSize(8)
+        scaleSize($border-radius-lg)
 
 .show
-  background-color $back-color
-  color $stress-color
+  background rgb(254, 240, 204)
   line-height 22px
   padding-left 10px
+
+  :global(.icon-circle-speaker)
+    color rgb(186, 130, 36)
 
   span
     float left
@@ -53,6 +66,12 @@
 
 .count
   font-size 18px
+
+.reply
+  padding 3px 10px
+  border-radius 10px
+  font-size 12px
+  color $reverse-color
 
 .subscription-panel
   :global
@@ -73,7 +92,7 @@
         :global(.iconfont)
           display inline-block
           margin-right 10px
-          scaleSize(18)
+          scaleSize($stress-size)
 
     .panel-footer
       border-top 1px dashed $dashed-line-color
@@ -102,8 +121,15 @@
   color $primary-color
 
   hr
-    margin-top 10px
-    margin-bottom 10px
+    margin 0
 
-  :global(.panel-body)
-    padding 10px 0
+  :global
+    .panel-body
+      padding 10px 0
+
+      .media-body span:first-child
+          display inline-block
+          margin-right 5px
+
+      .icon-arrow-right
+        color $remark-lighter-color

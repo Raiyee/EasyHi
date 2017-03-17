@@ -1,0 +1,78 @@
+div(:class="classes.container")
+  .border-b(:class="classes.visitor")
+    div(:class="classes.visitorInfo")
+      span.theme-color.iconfont.icon-edit-primary(:class="classes.modify", @click="goEditVisitor", v-if="isEnterprise")
+      div(:class="classes.portrait")
+        .img-circle(:class="classes.visitorPortrait", v-lazy:background-image="$util.portraitPath(visitorPortrait,visitorGender)")
+        .border-tb(:class="classes.visitorLevel") {{level}}级
+
+      div(:class="classes.infoItem") {{visitorName ? visitorName : '未填写'}}
+        span.iconfont.active(:class="[`icon-${visitorGender ? '' : 'fe'}male`, classes.visitorGender]")
+        div(:class="classes.source", v-if="sources") 来自{{source}}
+
+      div(:class="classes.advisor", v-if="isEnterprise && isStaffS")
+        span(:class="classes.title") {{advisorId ? '会籍顾问为' : '当前未分配'}}
+        span(:class="classes.name") {{advisorId ? advisorName : ''}}
+        span.theme-color(:class="classes.distributionAdvisor",
+        v-if="isAdmin",
+        @click="toggleAdvisor") {{advisorId ? '更换' : '分配'}}会籍
+
+    .border-t.theme-bd(:class="classes.detail")
+      .theme-color(:class="classes.title") 访客详情
+      ul.theme-color(:class="classes.visitorDetail")
+        li
+          div(:class="[classes.detailItem, classes.mobile]")
+            span.theme-color.iconfont.icon-mobile
+            | {{visitorMobile}}
+        li
+          div(:class="classes.detailItem") 生日：{{birthday || '暂未填写'}}
+        li
+          div(:class="classes.detailItem") 地址：{{allAddress}}
+        li
+          div(:class="classes.detailItem")
+            div(ref="brief",
+            :class="[classes.brief, classes[!briefState.briefIsOpen && briefState.briefIsOverflow &&  'isPackUp']]",
+            @transitionend="briefTransitionEnd", :style="briefStyle") 备注：{{brief || '暂未填写'}}
+              span.theme-color(v-if="briefState.briefIsOpen && briefState.briefIsOverflow",
+              @click="briefToOpen(false)") 收起
+                span.iconfont.icon-arrow-up
+            .theme-color(v-if="!briefState.briefIsOpen && briefState.briefIsOverflow", :class="classes.openBtn",
+            @click="briefToOpen(true)") 展开
+              span.theme-color.iconfont.icon-arrow-down
+
+  .border-tb(:class="classes.followDynamic")
+    .border-b(:class="classes.followDynamicHeader")
+      span 跟进动态
+      span.theme-color.iconfont.icon-jia(:class="classes.add", @click="addFollowDynamic", v-if="isStaffA")
+
+    div(v-if="follows.length <= 0", :class="classes.noFollows") 暂无跟进
+    div(v-else, :class="[classes.followDynamicBody, {[classes.open]: !close}]")
+      .border-l(:class="[classes.followDynamicItem, {[classes.fistItem]: !index, 'theme-color theme-bd': !index}]",
+      v-for="(follow, index) of follows")
+        span.iconfont.icon-radio(:class="[classes.radio, {'theme-color': !index}]")
+        div(:class="classes.title")
+          span {{follow.type === '1' ? '邀约' : '到店'}} {{follow.createTime}}
+          span(:class="classes.visitorName") {{follow.operatorName}}
+        div(:class="classes.remark") {{follow.remark}}
+
+    .theme-color(:class="classes.openOrClose", v-if="follows.length > 1", @click="changeState")
+      | {{ close ? '展开' : '收起' }}
+      span.theme-color.iconfont(:class="`icon-arrow-${close ? 'down' : 'up'}`")
+
+  .border-tb(:class="classes.visitorMarketing")
+    div(:class="classes.visitorMarketingHeader") 营销活动
+    .border-t(v-if="orders.length <= 0 && tickets.length<=0", :class="classes.noVisitorMarketing") 该访客暂未参加营销活动
+    .border-t(v-if="orders.length >= 1", :class="[classes.orders, classes.detail]")
+      div(:class="classes.title") 已上{{orders.length}}节课
+      div(:class="classes.orderItem", v-for="order of orders")
+        div(:class="classes.voucher") {{order.ticketName}} {{order.times}}次
+        div(:class="classes.course") {{order.scheduleTime}} {{order.scheduleName}}
+
+    .border-t(v-if="tickets.length >= 1", :class="[classes.vouchers, classes.detail]")
+      div(:class="classes.title") 已领{{tickets.length}}张券
+      hi-vouchers(:vouchers="tickets", valueKey="expvoucherId", @toggleVoucher="reSetCurrIndex")
+      div(:class="classes.voucherNum", v-if="mode") {{currIndex}}/{{tickets.length}}
+
+  .fixed-bottom.border-t
+    button.btn.btn-theme-default(@click="giftVoucher", v-if="isEnterprise") 送券
+    button.btn.btn-theme-primary(@click="goAddMember") 添加为会员

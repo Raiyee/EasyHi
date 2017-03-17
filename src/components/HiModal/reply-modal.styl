@@ -1,0 +1,47 @@
+.content
+
+  .text-wrapper
+    relative()
+    borderRadius(, 20px)
+    background-color $back-light-color
+
+    textarea
+      height 200px
+
+    span
+      absolute()
+      right 15px
+      bottom 15px
+      color $remark-color
+
+  :global
+    .modal-content
+      background-color $bg-color
+
+      .modal-body
+        padding 15px
+
+    .modal-footer
+      display block
+      padding 0
+
+.tip
+  text-align center
+  padding 15px
+  margin-bottom 10px
+  color $remark-color
+
+  > span
+    vertical-align middle
+    margin-right 5px
+
+  &, + div
+    background-color $back-light-color
+
+  + div
+    display flex
+    padding 10px
+
+    button
+      flex 1
+

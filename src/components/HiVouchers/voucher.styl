@@ -1,0 +1,63 @@
+$voucher-background-color = #fbfbfb
+$voucher-num-color = #f2cb44
+$voucher-border-color = #eeeeee
+$voucher-times-size = 30px
+
+.used-up-bg
+  retina('assets/voucher/used-up-bg', 'png')
+
+.unavailable-bg
+  retina('assets/voucher/unavailable-bg', 'png')
+
+.available-bg
+  retina('assets/voucher/available-bg', 'png')
+
+.voucher
+  float left
+  width 320px
+  height 130px
+  margin 0 5px
+  border-radius 10px
+  padding 15px 10px 20px
+  background-size 100% 100%
+
+  .item
+    color $primary-color
+
+  .unavailable
+    color $remark-color
+
+  .available
+    color $voucher-num-color
+
+  .name
+    font-size $stress-size
+
+  .num
+    position relative
+    margin-bottom 10px
+    font-size $primary-size
+
+    span
+      vertical-align middle
+
+    .total-num
+      padding 0 5px
+      font-size $voucher-times-size
+
+    .go-subscribe-schedule
+      position absolute
+      right 0
+      bottom 0
+      border-color $voucher-num-color
+      background-color $voucher-num-color
+
+      .button-text, .icon-arrow-right
+        vertical-align middle
+
+      .icon-arrow-right
+        scaleSize($common-size)
+
+  .date
+    padding 7px 0
+    color $back-light-color

@@ -1,13 +1,13 @@
+import moment from 'moment'
 import {mapGetters} from 'vuex'
 
 import Calendar from './Calendar'
 import CoachItem from './CoachItem'
 import ScheduleItems from './ScheduleItems'
-import NoItem from 'components/NoItem'
 
 import classes from './index.styl'
 
-import {REQUIRED_ARRAY, animate, formatDate, lastDayOfWeek, weekDates, toNum} from 'utils'
+import {REQUIRED_ARRAY, animate, formatDate, lastDayOfWeek, weekDates, toNum, throttle} from 'utils'
 
 const periodWidth = 7 * 50 + 5
 
@@ -15,12 +15,10 @@ const reset = function () {
   this.translateX = 0
   this.activeDate = null
   this.scrolling = true
-  const $refs = this.$refs
-  animate($refs.calendar, 'scrollLeft', 0)
-  animate($refs.schedules, 'scrollTop', {
-    callback: () => {
-      this.scrolling = false
-    }
+  const {calendar, schedules} = this.$refs
+  animate(calendar, 'scrollLeft', 0)
+  animate(schedules, 'scrollTop', {
+    callback: () => (this.scrolling = false)
   })
 }
 
@@ -54,18 +52,6 @@ export default require('./index.pug')({
       scrolling: false
     }
   },
-  mounted() {
-    const activeIndex = this.activeIndex
-    if (activeIndex < 0) return
-    this.translateX = -Math.floor((activeIndex / 7)) * periodWidth * this.rem
-    this.subscribeType - 1 || setTimeout(() => {
-      this.toggleActiveDate(null, this.activeDate)
-    }, 0)
-  },
-  watch: {
-    mode: reset,
-    calendar: reset
-  },
   computed: {
     ...mapGetters(['mode', 'rem']),
     itemsHeight() {
@@ -89,22 +75,36 @@ export default require('./index.pug')({
       return activeItems
     }
   },
+  watch: {
+    mode: reset,
+    calendar: reset
+  },
+  mounted() {
+    const activeIndex = moment(formatDate(this.activeDate)).diff(this.calendar[0].date, 'days')
+    this.translateX = -Math.floor((activeIndex / 7)) * periodWidth * this.rem
+    this.subscribeType - 1 || setTimeout(() => this.toggleActiveDate(this.activeDate), 0)
+  },
   methods: {
-    toggleActiveDate(e, date) {
+    toggleActiveDate(activeDate) {
       if (this.translating) return
-      const refs = this.$refs
-      const schedules = refs.schedules
-      const dateIndex = Object.keys(this.activeItems).findIndex(scheduleDate => date === scheduleDate)
-      if (dateIndex === -1) return
-      this.scrolling = true
-      refs.date && refs.date[dateIndex] && animate(schedules, 'scrollTop', {
-        value: refs.date[dateIndex].$el.offsetTop - schedules.offsetTop,
-        callback: () => {
-          this.scrolling = false
-        }
-      })
-      this.activeDate = date
-      this.$emit('toggleActiveDate', date)
+      const {date, schedules} = this.$refs
+      const index = Object.keys(this.activeItems).findIndex(scheduleDate => activeDate === scheduleDate)
+      if (index === -1) return
+
+      const dateRef = date[index]
+
+      if (dateRef) {
+        this.scrolling = true
+        animate(schedules, 'scrollTop', {
+          value: dateRef.$el.offsetTop - schedules.offsetTop,
+          callback: () => (this.scrolling = false)
+        })
+      }
+
+      this.emitActiveDate(activeDate)
+    },
+    emitActiveDate(activeDate) {
+      this.$emit('toggleActiveDate', this.activeDate = activeDate)
     },
     moveStart() {
       if (!this.mode) return
@@ -119,44 +119,46 @@ export default require('./index.pug')({
       if (!this.mode) return
       this.panning = false
       const currentIndex = -Math.round(this.translateStart / periodWidth / this.rem)
-      const nextIndex = e.changedX < 0
-        ? Math.min(this.calendar.length / 7 - 1, currentIndex + 1) : Math.max(0, currentIndex - 1)
+      const nextIndex = Math.abs(e.changedX) > 20 ? e.changedX < 0
+        ? Math.min(this.calendar.length / 7 - 1, currentIndex + 1) : Math.max(0, currentIndex - 1) : currentIndex
       this.translateX = -nextIndex * periodWidth * this.rem
       if (currentIndex === nextIndex) return
       this.scrolling = true
-      this.activeDate = this.calendar[nextIndex * 7].date
+      const activeDate = this.calendar[nextIndex * 7].date
+      this.emitActiveDate(activeDate)
       animate(this.$refs.schedules, 'scrollTop', {
-        callback: () => {
-          this.scrolling = false
-        }
+        callback: () => (this.scrolling = false)
       })
     },
     onTransitionEnd() {
       if (this.panning) return
       this.translating = false
     },
-    onScroll() {
+    onScroll: throttle(function () {
       if (this.scrolling || +this.subscribeType === 2) return
-      const refs = this.$refs
-      const schedules = refs.schedules
-      let date
-      for (const vm of refs.date) {
-        if (vm.$el.offsetTop - schedules.offsetTop - schedules.scrollTop >= 3 * this.rem) break
-        date = vm.date
+      const {date, schedules} = this.$refs
+      let activeDate
+      const offset = schedules.offsetTop + schedules.scrollTop
+      for (const vm of date) {
+        if (vm.$el.offsetTop - offset >= 3 * this.rem) break
+        activeDate = vm.date
       }
-      this.activeDate = date
-    },
+      if (this.activeDate === activeDate) return
+      this.emitActiveDate(activeDate)
+    }),
     toggleActiveCoach(coachId) {
       this.activeCoachId = coachId
     },
-    toggleActiveSchedule(e, data) {
-      this.$emit('toggleActiveSchedule', e, data)
+    activeSchedule(scheduleId, remainingNum) {
+      this.$emit('activeSchedule', scheduleId, remainingNum)
+    },
+    subscribePrivate(activeMinute, activeTime) {
+      this.$emit('subscribePrivate', this.activeCoachId, activeMinute, this.activeDate + ' ' + activeTime + ':00')
     }
   },
   components: {
     Calendar,
     CoachItem,
-    ScheduleItems,
-    NoItem
+    ScheduleItems
   }
 })

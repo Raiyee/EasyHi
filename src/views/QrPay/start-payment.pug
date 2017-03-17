@@ -1,0 +1,30 @@
+div(:class="classes.container")
+  header.media
+    .media-left.media-middle 支付金额
+    .media-body ￥
+      span {{ realMoney }}
+
+  main
+    div(:class="classes.title") 支付方式
+    .media(@click="payMbrcardId = payMbrcardId !== -1 && -1")
+      .media-left
+        span.iconfont.icon-wechat-pay
+      .media-body 微信支付
+      .media-right
+        span.iconfont.remark-color(:class="payMbrcardId === -1 ? 'icon-check theme-color' : 'icon-uncheck'")
+    template(v-if="valueCards.length")
+      .media(:class="classes.valueCard", @click="show = !show")
+        .media-left
+          span.iconfont.icon-value-card
+        .media-body.border-t 储值卡
+        .media-right.border-t
+          span.iconfont.remark-color(:class="`icon-arrow-${show ? 'up' : 'down'}`")
+      ul.list-unstyled(:style="{height}")
+        li(v-for="card of sortedValueCards", :key="card.cardId", @click="chooseMbrCard(card)")
+          mbr-card(:card="card",
+          :benchmark="+realMoney",
+          :selectable="true",
+          :selected="payMbrcardId === card.mbrCardId")
+
+  .fixed-bottom.border-t
+    button.btn(:class="`btn-${payMbrcardId ? 'theme' : 'disabled'}-primary`", @click="createOrder") 立即付款

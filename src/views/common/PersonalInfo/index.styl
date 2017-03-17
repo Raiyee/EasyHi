@@ -1,0 +1,56 @@
+.list-items
+  margin-top 20px
+
+.portrait
+  size 60px
+  border-radius 50%
+  display inline-block
+  background-size cover
+  background-position center
+
+.name
+  float right
+  width 90%
+
+.gender
+  margin-left 8px
+  color $placeholder-color
+
+  &:first-child
+    margin-left 0
+
+  span
+    &:global(.active):first-child
+      color $stress-color
+
+    &:last-child
+      font-size 14px
+      margin-left 3px
+
+.address
+  display inline-block
+  overflow ellipsis
+  max-width 80%
+
+.text
+  color $remark-color
+
+  :global(.icon-arrow-right)
+    color $remark-lighter-color
+
+.security
+  margin-bottom 75px
+
+.qrcode
+  :global
+    .modal-dialog
+      .modal-content
+        width 320px
+
+.qrcode-content
+  margin-top 10px
+  text-align center
+
+  > div
+    margin 18px 0 25px
+    color $subtext-color

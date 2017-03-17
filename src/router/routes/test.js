@@ -1,7 +1,7 @@
 export default [{
   path: '/dynamic',
   name: 'dynamic',
-  component: () => System.import('views/_Test/Dynamic'),
+  component: () => import('views/_Test/Dynamic'),
   meta: {
     init: {
       url: '/dynamic'
@@ -10,14 +10,35 @@ export default [{
 }, {
   path: '/chart',
   name: 'chart',
-  component: () => System.import('views/_Test/Chart')
+  component: () => import('views/_Test/Chart')
 }, {
   path: '/picker',
-  component: () => System.import('views/_Test/Picker')
+  component: () => import('views/_Test/Picker')
 }, {
   path: '/modal',
-  component: () => System.import('views/_Test/Modal')
+  component: () => import('views/_Test/Modal')
 }, {
   path: '/operator-menu',
-  component: () => System.import('views/_Test/OperatorMenu')
+  component: () => import('views/_Test/OperatorMenu')
+}, {
+  path: '/cards',
+  component: () => import('views/_Test/Card'),
+  meta: {
+    init: '/test-cards'
+  }
+}, {
+  path: '/vouchers',
+  component: () => import('views/_Test/Voucher'),
+  meta: {
+    init: `/test-vouchers`
+  }
+}, {
+  path: '/drop',
+  component: () => import('views/_Test/Dropdown')
+}, {
+  path: '/review',
+  component: () => import('views/_Test/Review'),
+  meta: {
+    init: '/get-reviews'
+  }
 }]

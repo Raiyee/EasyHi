@@ -1,0 +1,262 @@
+$back-color-level = #eb7064
+$back-color-label = #f2f2f2
+$border-left-color = #e8e8e8
+
+.container
+
+  .visitor, .follow-dynamic, .visitor-marketing
+    background-color $back-light-color
+
+  .visitor, .follow-dynamic
+    margin-bottom 10px
+
+  .no-follows, .no-visitor-marketing
+    color $subtext-color
+    padding 15px 0
+
+  .no-visitor-marketing
+    margin 0 10px
+
+  .detail
+    padding-top 24px
+    position relative
+    color $primary-color
+    font-size $small-size
+
+    .title
+      position absolute
+      left 50%
+      top -10px
+      padding 0 20px
+      font-size $common-size
+      transform translate3d(-50%, 0, 0)
+      background-color $back-light-color
+
+  .visitor
+    padding 10px
+
+    .visitor-info
+      position relative
+      text-align center
+      margin-bottom 20px
+
+      .modify
+        top 15px
+        right 15px
+        z-index 15
+        scaleSize(30)
+        position absolute
+
+      .portrait
+        position relative
+        margin-bottom 5px
+
+        .visitor-portrait
+          width 90px
+          height 90px
+          margin 0 auto
+          background-size cover
+          border 2px solid $back-color
+
+        .visitor-level
+          position absolute
+          left 50%
+          bottom -5px
+          border-radius 30px
+          padding 3px 5px 0
+          color $back-light-color
+          font-size $smaller-size
+          border 1px solid $back-color
+          transform translate3d(-50%, 0, 0)
+          background-color $back-color-level
+
+      .info-item
+        padding 8px
+        font-size $common-size
+
+        .visitor-gender
+          margin-left 5px
+          margin-right 8px
+
+        .source
+          display inline-block
+          position relative
+          scaleSize($smaller-size)
+          padding 3px 8px
+          border-radius 5px
+          background $back-color-label
+
+          &:before
+            top 8px
+            content ""
+            right 100%
+            position absolute
+            border-top 5px solid transparent
+            border-bottom 5px solid transparent
+            border-right 8px solid $back-color-label
+
+      .advisor
+        padding 6px 27px
+        border-radius 30px
+        display inline-block
+        background-color $back-color-label
+
+        span
+          vertical-align middle
+
+        .title
+          color $subtext-color
+
+        .name
+          display inline-block
+          max-width 60px
+          overflow hidden
+          margin-left 5px
+          white-space nowrap
+          color $stress-color
+          text-overflow ellipsis
+
+        .distribution-advisor
+          margin-left 12px
+          padding-left 10px
+          border-left 2px solid $input-border-color
+
+    .detail
+      .visitor-detail
+        margin 0
+        padding-left 25px
+        font-size $common-size
+
+        li
+          margin-bottom 8px
+
+        .detail-item
+          color $primary-color
+
+        .mobile
+          color $stress-color
+
+          span
+            font-size 20px
+            margin-right 5px
+            vertical-align middle
+
+        .brief, .open-btn
+          display inline-block
+          vertical-align middle
+
+        .brief
+          transition height .5s ease
+          overflow hidden
+          &.is-pack-up
+            max-width 260px
+            text-overflow ellipsis
+
+        .open-btn
+          span
+            scaleSize($smaller-size)
+            margin-left 5px
+
+  .follow-dynamic
+    padding 0 18px
+    overflow hidden
+    position relative
+
+    .follow-dynamic-header
+      padding 10px 0
+      overflow hidden
+
+      span
+        vertical-align middle
+
+      .add
+        float right
+        scaleSize(20)
+        margin-right 3px
+
+    .follow-dynamic-body
+      max-height 110px
+      overflow hidden
+      margin-bottom 30px
+      transition all .5s ease
+
+      .follow-dynamic-item
+        position relative
+        margin-left 6px
+        padding-left 10px
+        padding-bottom 10px
+        color $subtext-color
+        border-left-color $border-left-color
+        font-size $smaller-size
+
+        .title
+          margin-bottom 5px
+
+          .visitor-name
+            float right
+            max-width 45px
+            overflow hidden
+            white-space nowrap
+            text-overflow ellipsis
+
+        .radio
+          position absolute
+          left -8px
+          top -3px
+          color $icon-color
+
+          &:before
+            background-color $back-light-color
+
+      .fist-item
+        margin-top 15px
+
+      .last-item
+        padding-bottom 10px
+
+    .open-or-close
+      position absolute
+      width 90%
+      bottom 0
+      padding 5px 0
+      text-align center
+      font-size $small-size
+      box-shadow 0 -3px 40px $back-light-color
+
+      span
+        scaleSize($smaller-size)
+
+    .open
+      overflow scroll
+      max-height 245px
+
+.visitor-marketing
+  padding 0 10px
+  margin-bottom 74px
+
+  .visitor-marketing-header
+    padding 10px
+
+  .detail
+    .title
+      color $subtext-color
+      font-size $small-size
+
+  .orders
+    margin-bottom 20px
+
+    .order-item
+      padding 5px 10px
+
+      .course
+        overflow hidden
+        max-width 340px
+        white-space nowrap
+        text-overflow ellipsis
+
+        color $subtext-color
+
+  .vouchers
+    .voucher-num
+      text-align center
+      color $card-tip-bg-gray

@@ -1,11 +1,17 @@
-transition(:name="transition === true ? 'bounce' : transition || undefined")
-  div(:class="classes.modal", :id="id")
+transition(:name="transition === true ? 'bounce' : transition || undefined",
+@before-enter="el => beforeEnter && beforeEnter(el)",
+@after-enter="el => afterEnter && afterEnter(el)",
+@enter-cancelled="el => enterCancelled && enterCancelled(el)",
+@before-leave="el => beforeLeave && beforeLeave(el)",
+@after-leave="el => afterLeave && afterLeave(el)",
+@leave-cancelled="el => leaveCancelled && leaveCancelled(el)")
+  div(:class="[classes.modal, {[classes.full]: full}]", :id="id")
     .modal-dialog
       .modal-content
         // header
-        .modal-header(v-if="$slots.header")
+        .modal-header(v-if="$slots.header", :class="{['border-b']: border}")
           slot(name="header")
-        .modal-header(v-else-if="label")
+        .modal-header(v-else-if="label", :class="{['border-b']: border}")
           button.close(type="button", @click="closeModal")
             span(aria-hidden="true") ×
             span.sr-only 关闭
@@ -15,8 +21,8 @@ transition(:name="transition === true ? 'bounce' : transition || undefined")
         .modal-body(v-else)
           slot
         // footer
-        .modal-footer(v-if="$slots.footer")
+        .modal-footer(v-if="$slots.footer", :class="{['border-t']: border}")
           slot(name="footer")
-        .modal-footer(v-else-if="footer")
+        .modal-footer(v-else-if="footer", :class="{['border-t']: border}")
           .btn.btn-theme-default(@click="closeModal") {{ cancelText || "取消" }}
-          .btn.btn-theme-primary(@click="confirmModal") {{ confirmText || "确定" }}
+          .btn(:class="disabled ? 'btn-disabled-primary' : 'btn-theme-primary'", @click="confirmModal") {{ confirmText || "确定" }}

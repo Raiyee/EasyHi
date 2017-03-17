@@ -7,21 +7,14 @@ div(:class="classes.scheduleCalendar")
 
   .panel
     .panel-body(ref="calendar")
-      calendar(v-if="mode",
-      v-touch="{methods: true}",
+      calendar(v-touch="{methods: true, enable: mode}",
       :calendar="calendar",
       :activeIndex="activeIndex",
       :translateX="translateX",
       @toggleActiveDate="toggleActiveDate",
       @transitionend.native.self="onTransitionEnd")
 
-      calendar(v-else,
-      :calendar="calendar",
-      :activeIndex="activeIndex",
-      :translateX="translateX",
-      @toggleActiveDate="toggleActiveDate")
-
-  div(:class="classes.content",
+  .scroll(:class="classes.content",
   :style="contentStyle",
   ref="schedules",
   @scroll="onScroll")
@@ -35,7 +28,7 @@ div(:class="classes.scheduleCalendar")
       :date="date",
       :last="index === Object.keys(activeItems).length - 1",
       :itemsHeight="itemsHeight",
-      @toggleActiveSchedule="toggleActiveSchedule",
+      @activeSchedule="activeSchedule",
       :scheduleItems="scheduleItems")
 
       coach-item(v-if="subscribeType == 2",
@@ -44,6 +37,7 @@ div(:class="classes.scheduleCalendar")
       :key="keyPrefix + coachItem.coachId",
       :coachItem="coachItem",
       :activeCoachId="activeCoachId",
-      @toggleActiveCoach="toggleActiveCoach")
+      @toggleActiveCoach="toggleActiveCoach",
+      @subscribePrivate="subscribePrivate")
 
-    no-item(v-else, text="本周没有安排任何课程")
+    hi-empty(v-else, text="本周没有安排任何课程")

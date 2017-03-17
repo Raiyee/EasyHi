@@ -4,7 +4,8 @@ import axios, {interceptors} from 'axios'
 import store from 'store'
 import utils, {alert, login, on, warn} from 'utils'
 
-axios.defaults.headers['X-Requested-With'] = ['XMLHttpRequest']
+__MOCK__ || (axios.defaults.baseURL = BASE_URL)
+axios.defaults.headers['X-Requested-With'] = 'XMLHttpRequest'
 
 Vue.prototype.$http = axios
 
@@ -20,14 +21,29 @@ const setProgress = (config, progress) => config.noInterceptor || store.dispatch
 
 interceptors.request.use(config => setProgress(config, 50) && config)
 
+const PERMISSION_DENIED = () => alert('您没有该资源的访问权限!')
+
 const HANDLER = {
+  401: PERMISSION_DENIED,
   404() {
     alert('未找到匹配的 url 请求!')
   },
   406() {
     utils.router.history.updateRoute(utils.NOT_FOUND_ROUTE)
   },
-  419: login
+  418() {
+    const {router} = utils
+    router.replace({
+      path: '/login',
+      query: {from: router.currentRoute.fullPath}
+    })
+  },
+  419: login,
+  450: PERMISSION_DENIED,
+  451: PERMISSION_DENIED,
+  500() {
+    alert('系统异常，请稍后重试！')
+  }
 }
 
 interceptors.response.use(response => setProgress(response.config, 100) && response, error => {

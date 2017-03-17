@@ -1,10 +1,10 @@
 div(:class="[classes.container, active ?　classes.active : '']")
   button.theme-bg
     span(:class="[classes.content]", @click="toggleActive")
-      span.iconfont.icon-xiangxia1
+      span.iconfont.icon-to-up
   div(:class="classes.wrapper")
     ul.list-unstyled(:class="[classes.list]")
       li.theme-bg(@click="updateItem")
-        span.iconfont.icon-bianji
+        span.iconfont.icon-edit
       li.theme-bg(@click="deleteItem")
-        span.iconfont.icon-shanchu
+        span.iconfont.icon-trash

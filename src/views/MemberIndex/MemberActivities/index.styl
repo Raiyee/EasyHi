@@ -1,0 +1,75 @@
+.container
+  padding 0 10px
+  margin-bottom 30px
+
+.activity
+  relative()
+  margin-top 10px
+  box-shadow $bottom-shadow
+  overflow hidden
+  border-radius 10px
+
+.bg
+  height 178px
+  width 100%
+
+.state
+  right 0
+  font-size 10px
+
+  &:before
+    absolute()
+    transform rotate(45deg)
+    top 18px
+    right -38px
+    color $reverse-color
+    padding 0 40px
+    text-align center
+    line-height 23px
+
+.type-1:before
+  background $card-tip-bg-yellow
+  content '领券活动'
+
+.type-2:before
+  background $card-tip-bg-green
+  content '限时抢购'
+
+.type-3:before
+  background $card-tip-bg-orange
+  content '报名活动'
+
+.content
+  line-height 1
+  padding 0 12px 0 10px
+  background $reverse-color
+
+  > :first-child
+    width 3000px
+    color $stress-color
+
+    > :first-child
+      padding 11px 0 9px
+
+    > :last-child
+      scaleSize()
+      transform-origin left
+      padding-bottom 12px
+
+  > :last-child
+    vertical-align middle
+
+    > span
+      font-size 30px
+      color rgb(203, 203, 203)
+
+  > div
+    display table-cell
+
+.footer
+  margin 30px auto
+  text-align center
+  line-height 35px
+  width 150px
+  color $reverse-color
+  border-radius 20px

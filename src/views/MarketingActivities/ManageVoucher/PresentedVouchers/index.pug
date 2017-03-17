@@ -1,0 +1,22 @@
+div(:class="classes.content")
+  hi-dropdown(:selections="selections", :selected="selected", @toggleActive="toggleActive")
+  template(v-if="Object.keys(groupedVouchers).length")
+    template(v-for="(groupVouchers, date) of groupedVouchers")
+      div(:class="classes.date") {{ date | dateText }}
+      ol.list-unstyled.shadow-bottom
+        router-link.panel.panel-full(v-for="({voucherInstId, userName, userMobile, voucherName, voucherValue, voucherExpiredRange, miniConsume, voucherTimes}, index) of groupVouchers",
+        tag="li",
+        :to="`/presented-${miniConsume ? 'cash' : 'exp'}-voucher/${voucherInstId}`",
+        :key="voucherInstId",
+        :class="{['border-t']: index}")
+          .panel-heading.border-b
+            .theme-bd {{ userName }}
+              span.subtext-color  ({{ userMobile }})
+              .pull-right
+                span.iconfont.icon-arrow-right.remark-lighter-color
+          .panel-body.primary-color
+            | {{ voucherName }}
+            br
+            .smaller-size-left {{ miniConsume ? '面值' + voucherValue + '元 满' + miniConsume + '元可用' : '可体验' + voucherTimes + '次' }}
+            .small-size-left 有效期: {{ voucherExpiredRange | combineDuration }}
+  hi-empty(v-else, text="当前筛选条件下暂无内容")

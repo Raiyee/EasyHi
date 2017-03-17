@@ -17,6 +17,20 @@
   // https://github.com/twbs/bootstrap/pull/10951.
   outline 0
 
+  &.full
+    :global
+      .modal-content
+        border 0
+        border-radius 0
+        box-shadow none
+
+      .modal-header,
+      .modal-body
+        padding 0
+
+      .modal-body
+        overflow-y auto
+
   :global
     // Shell div to position the modal with bottom padding
     .modal-dialog
@@ -24,7 +38,7 @@
       width auto
       margin 0 auto
       pointer-events auto
-      // max-width 1024px
+      max-width 1024px
 
     // Actual modal
     .modal-content
@@ -41,12 +55,14 @@
     // Modal header
     // Top section of the modal w/ title and dismiss
     .modal-header
-      padding 15px
+      padding 10px
       border-bottom 1px solid $back-color
       clearfix()
 
     // Close icon
     .modal-header .close
+      relative()
+      z-index 10
       margin-top -2px
 
     // Title text within header
@@ -58,24 +74,17 @@
     // Where all modal content resides (sibling of .modal-header and .modal-footer)
     .modal-body
       relative()
-      padding 15px
+      padding 10px
 
     // Footer (for actions)
     .modal-footer
-      padding 15px
-      text-align right // right align buttons
-      border-top 1px solid $back-color
+      padding 10px
       clearfix() // clear it in case folks use .pull-* classes on buttons
+      display flex
 
-      // Properly space out buttons
-      .btn + .btn
-        margin-left 5px
-        margin-bottom 0 // account for input[type="submit"] which gets the bottom margin like all other inputs
+      .btn
+        flex 1
+        font-size 20px
 
-      // but override that for button groups
-      .btn-group .btn + .btn
-        margin-left -1px
-
-      // and override it for block buttons as well
-      .btn-block + .btn-block
-        margin-left 0
+        + .btn
+          margin-left 10px

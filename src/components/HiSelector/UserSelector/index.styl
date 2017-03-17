@@ -1,0 +1,46 @@
+.header
+  zoom 1
+  padding 15px 10px
+  line-height 1px
+  background-color $reverse-color
+  :global
+    .header-text
+      z-index 1
+      absolute()
+      transform translateX(-50%)
+      left 50%
+      padding 0 5px
+      line-height 32px
+      top 0
+      color $primary-color
+      background-color $reverse-color
+
+.content
+  zoom 1
+  :global
+    .category
+      padding-left 10px
+    .user-item
+      margin 0
+      padding 0 10px
+      .media-left
+        padding 15px 8px 15px 0
+        .member-img
+          width 60px
+          height 60px
+          background-size cover
+      .media-body
+        padding 15px 0
+        vertical-align middle
+        .name
+          span
+            padding-left 5px
+      .media-right
+        vertical-align middle
+        .btn
+          width 60px
+          text-align center
+          font-size $smaller-size
+      .icon-cash-voucher2, .icon-visitor
+        transform scale(2)
+        margin-left 4px

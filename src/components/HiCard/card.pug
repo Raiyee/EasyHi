@@ -1,0 +1,7 @@
+div(:class="[classes.container, {[classes.selected]: selected}, classes[`card-bg-${(unavailable || card.cardStyle === -1) ? 'unavailable' : card.cardStyle}`]]")
+  template(v-if="selectable && !unavailable")
+    div(:class="classes.selectable", v-if="!selected")
+    .theme-color.iconfont.icon-check(:class="classes.selectable", v-else)
+  slot(name="header")
+  slot
+  slot(name="footer")

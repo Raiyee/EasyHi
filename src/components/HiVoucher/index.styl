@@ -1,0 +1,179 @@
+$voucher-background-color = #fbfbfb
+$voucher-num-color = #f2cb44
+$voucher-border-color = #eee
+$voucher-unavailable-color = #7d7d7d
+$voucher-times-size = 30px
+
+.icon-arrow-right
+  transform none
+
+.cash-voucher-inst
+  display flex
+
+.cash-unavailable-bg
+  retina('assets/voucher/cash-unavailable-bg', 'png')
+
+.cash-available-bg
+  retina('assets/voucher/cash-available-bg', 'png')
+
+.cash-used
+  retina('assets/voucher/stamp-used', 'png')
+
+.cash-expired
+  retina('assets/voucher/stamp-expired', 'png')
+
+.cash-invisible
+  display none
+
+.unavailable
+  color $remark-color
+
+  h4, .expired-range
+    color $voucher-unavailable-color
+
+.left
+  display flex
+  flex-wrap wrap
+  overflow ellipsis
+  align-items center
+  background-size cover
+  justify-content center
+  color $back-light-color
+  font-size $smaller-size
+  flex 0 0 130 * $rem-base
+
+  div
+    text-align center
+
+    span
+      font-size $top-size
+
+.right
+  flex 1
+  padding 10px
+  background-color $back-light-color
+
+  h4
+    margin-top 0
+    text-align left
+    line-height 26px
+    margin-bottom 8px
+    font-weight normal
+    font-size $primary-size
+
+    div
+      absolute()
+      top 50%
+      right 7px
+      size 50px
+      background-size cover
+      transform translate3d(0, -50%, 0)
+
+.expired-range
+  margin-top 11px
+  white-space nowrap
+  color $subtext-color
+  display inline-block
+  scaleSize($smaller-size, , , left)
+
+.buy-card, .icon
+  absolute()
+
+.buy-card
+  right 10px
+  padding 2px 7px
+
+.icon
+  top 10px
+  right 10px
+
+.uncheck
+  color $remark-color
+
+.available-bg
+  retina('assets/voucher/available-bg', 'png')
+
+.exp-voucher-inst
+  width 100%
+  height 130px
+  padding 15px 10px
+  background-size 100% 100%
+  borderRadius($border-color, 8px)
+
+.available
+  color $voucher-num-color
+
+.name
+  font-size $stress-size
+
+.num
+  relative()
+  margin-bottom 10px
+  font-size $primary-size
+
+  span
+    vertical-align middle
+
+.total-num
+  padding 0 5px
+  font-size $voucher-times-size
+
+.go-subscribe-schedule
+  absolute(right, bottom)
+  padding 5px 10px
+  color $back-light-color
+  border-color $voucher-num-color
+  background-color $voucher-num-color
+
+  .button-text, .icon-arrow-right
+    vertical-align middle
+
+  &:focus
+    color $back-light-color
+
+  &:active:focus
+    outline 0
+
+.date
+  padding 7px 0
+  color $back-light-color
+
+.voucher-body
+  position relative
+
+.voucher-default, .voucher-value
+  display inline-block
+
+.voucher-default
+  padding-top 3px
+  font-size $small-size
+  color $voucher-num-color
+
+  span
+    margin-right 8px
+    font-size $top-size
+
+.voucher-value
+  position relative
+  color $list-line-color
+  font-size $smaller-size
+
+  span
+    font-size $stress-size
+
+  hr
+    position absolute
+    top -7px
+    width 100%
+    transform rotate(-10deg)
+    border-color $list-line-color
+
+.voucher-times
+  position absolute
+  bottom 0
+  right 30px
+  font-size $primary-size
+
+  span
+    font-size 50px
+    color $voucher-num-color

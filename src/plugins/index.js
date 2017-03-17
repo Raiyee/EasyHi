@@ -1,10 +1,13 @@
-// import './components'
+import './components'
 import './directives'
 import './filters'
 import './http'
 import './lazyload'
 import './validate'
 
-if (__MOCK__) require('./mock')
+if (__MOCK__) {
+  require('./mock')
+  __DEV__ || require('utils').warn('Notice: you are using mock server!')
+}
 
-if (!__DEV__) System.import('vconsole')
+if (__TEST__) import('vconsole')

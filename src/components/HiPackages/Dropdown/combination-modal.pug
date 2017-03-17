@@ -1,0 +1,18 @@
+modal-item(
+:class="classes.content",
+:full="true",
+:footer="hasFooter",
+:confirm="confirm",
+:close="close",
+:beforeEnter="beforeEnter",
+:afterEnter="afterEnter",
+:beforeLeave="beforeLeave",
+:afterLeave="afterLeave")
+  div(:class="classes.container")
+    ul.list-unstyled
+      li.border-b(v-for="{key,value} in originSelections", :key="key")
+        .selectorContent(@click="selectItem(key,value)",
+        :class="[{'theme-color':key === pValue},{'bg':key === pValue && hasSubSelections}]") {{value}}
+    ul.list-unstyled.subSelections.bg(v-if="hasSubSelections")
+      li.border-b(v-for="{key,value} in subSelections", :key="key")
+        .selectorContent(@click="selectSubItem(key,value)", :class="key === nValue ? 'theme-color':''") {{value}}

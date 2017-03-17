@@ -1,0 +1,40 @@
+div(:class="classes.container")
+  template(v-if="subscribes && subscribes.length > 0")
+    div(:class="classes.header")
+      div(:class="classes.headerContent", v-if="subscribes.length > 1")
+        hr
+        div
+          span “
+          span(:class="classes.maxWidth") {{ memberName }}
+          span ”要上的课
+        hr
+      div(v-else, :class="classes.success")
+        span.iconfont.icon-solid-circle-hook.theme-color
+        div
+          span {{memberName}}
+          span 签到成功
+
+  hi-empty(v-else, text="该用户今天没有要上的课")
+
+  div(:class="classes.body")
+    div(:class="classes.schedule", v-for="subscribe in subscribes",
+    :key="subscribe.subscribeId",
+    @click="goScheduleDetail(subscribe.scheduleId)")
+      .media-left {{ subscribe.scheduleStartTime | formatDate("HH:mm") }}
+      .media-body
+        div {{ subscribe.scheduleName }}
+        div 时长: {{ subscribe.scheduleDuration }}min
+        div
+          span
+            span {{ coachAlias }}:
+            span(:class="classes.maxWidth") {{ subscribe.coachName}}
+          span 签到: {{ subscribe.scheduleCheckedNum }}/{{ subscribe.scheduleBooked}}
+      .media-right
+        div {{ subscribe.courseTypeName }}
+        div(:class="subscribe.subscribeChecked ? classes.cancel : 'theme-color theme-bd'",
+        v-if="subscribes.length > 1",
+        @click.stop="toggleCheckin(subscribe)") {{ subscribe.subscribeChecked ? '取消' : ''}}签到
+
+  div(:class="classes.btn")
+    .theme-color.theme-bd(@click="goCheckinList") 回签到列表
+    .theme-bg(@click="goSingleCheckin") 继续扫码签到

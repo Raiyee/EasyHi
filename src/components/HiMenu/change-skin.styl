@@ -1,0 +1,113 @@
+.container
+  :global
+    h5
+      margin 20px 0
+
+    li
+      relative()
+      color $subtext-color
+
+      &:before
+        margin-bottom 5px
+
+      &:global(.active):after
+        absolute()
+        content '\e61c'
+        font-family 'iconfont'
+        top 25px
+        left 50%
+        transform translate3d(-50%, -50%, 0)
+        color $reverse-color
+
+    .modal-dialog
+      width 325px
+      middleCenter()
+
+      .modal-footer
+        :global
+          .btn + .btn
+            margin-left 0
+
+    .modal-body
+      padding 0
+      padding-bottom 25px
+
+    .modal-footer
+      display flex
+      padding 0
+
+      button
+        border-radius 0
+        background-color $back-light-color
+
+        &:first-child
+          border-bottom-left-radius 6px
+
+        &:last-child
+          border-bottom-right-radius 6px
+
+.square .themes li:before
+  border-radius 5px
+
+.themes
+  overflow-x auto
+  overflow-y hidden
+
+  ul
+    display flex
+    width 110%
+    text-align center
+    margin-left 5px
+
+    li
+      flex 1
+
+      &:before
+        content ''
+        display block
+        margin-left auto
+        margin-right auto
+        size 50px
+        border-radius 50%
+
+      &:nth-child(1):before
+        background-color $theme-red
+
+      &:nth-child(2):before
+        background-color $theme-blue
+
+      &:nth-child(3):before
+        background-color $theme-purple
+
+      &:nth-child(4):before
+        background-color $theme-green
+
+      &:nth-child(5):before
+        background-color $theme-navy
+
+ul.styles
+  width 120px
+  display flex
+  margin 0 auto
+  text-align center
+
+  li
+    flex 1
+
+    &:before
+      content ''
+      size 50px
+      display block
+
+    &:first-child:before
+      border-radius 50%
+
+    &:last-child:before
+      border-radius 5px
+
+    + li
+      margin-left 20px
+
+for key, value in $themes
+  .{key} .styles li:before
+    background-color value

@@ -1,0 +1,49 @@
+.content
+  borderRadius(, 20px)
+  padding 0 20px 12px
+  margin-bottom 10px
+  text-align left
+  color $primary-color
+
+  :global
+    .header
+      padding 12px 0
+      line-height 22px
+
+      &.error
+        .input-wrapper
+          borderRadius($highlight-color, 11px)
+          + div
+            color $highlight-color
+            scaleSize($smaller-size, , , right)
+
+      .input-wrapper
+        borderRadius(, 11px)
+        float right
+        padding 0 10px
+
+        &:after
+          content '人'
+          scaleSize($smaller-size)
+          display inline-block
+
+      input
+        display inline-block
+        width 40px
+        line-height 1
+        border 0
+        padding 0
+        outline 0
+        text-align center
+
+    .body
+      h5
+        font-weight normal
+
+      textarea
+        display block
+        width 100%
+        resize none
+        border 0
+        outline 0
+        padding 0

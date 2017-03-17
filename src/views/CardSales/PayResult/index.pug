@@ -1,0 +1,25 @@
+div(:class="classes.container")
+  div(v-if="!orderState || orderState === 3", :class="classes.pendingPay")
+    span.iconfont.icon-warning.theme-color(:class="classes.iconWarning")
+    div(:class="classes.payState") 支付未成功
+    div(:class="classes.btnArea")
+      .btn.btn-block.btn-hg.btn-theme-primary(@click="continuePay") 继续支付（还剩{{ expiredSeconds | timeLeft }}）
+      .btn.btn-block.btn-hg.btn-theme-default(:class="classes.orderDetail", @click="goOrderDetail") 查看订单
+  div(v-if="orderState === 1 || orderState === 2")
+    .border-b(:class="classes.success")
+      span.iconfont.icon-check.theme-color(:class="classes.iconCheck")
+      div(:class="classes.payState") 支付成功
+      div(:class="classes.text") 现在您可以去订课啦~
+      card-name(v-if="card", :card="card", :soldNumState="-1")
+      mbr-card(v-else, :card="mbrCard")
+    div(:class="classes.btnArea")
+      .btn.btn-block.btn-hg.btn-theme-primary(@click="goSubscribeSchedule") 去订课
+      qrious.hidden(v-if="!wxAttention", :value="attentionUrl", :size="200", ref="qrious")
+      .btn.btn-block.btn-hg.btn-theme-default(:class="classes.orderDetail", @click="goOrderList") 查看订单
+  div(v-if="card && orderState === 4", :class="classes.cancelTransaction")
+    hi-empty
+      | 支付超时订单已取消，
+      br
+      | 您可以点击按钮继续购买会员卡
+    div(:class="classes.btnArea")
+      .btn.btn-theme-primary.btn-block.btn-hg(@click="$util.resolveRoute($router, '/card-sales/customer')") 继续购买

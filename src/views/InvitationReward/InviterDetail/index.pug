@@ -1,0 +1,25 @@
+div(:class="classes.content")
+  header
+    div(:class="classes.imgWrapper", @click="gotoUserDetail(userId)")
+      div(v-lazy:background-image="$util.portraitPath(memberPortrait, memberGender)")
+    | {{ memberName }}
+    span.iconfont.active(:class="`icon-${ memberGender ? '' : 'fe' }male`")
+  .split-line.theme-before-bg
+    span(@click="filterInvitations")
+      span.theme-color {{ allFilterTexts[filterIndex] }}
+      span.iconfont.icon-arrow-down
+  main
+    ul.list-unstyled(v-if="allInvitations[filterIndex].length")
+      li.media(v-for="({userId, userName, userMobile, userGender, userPortrait, hasMbrCard, isVisitor, invitationState}, index) of allInvitations[filterIndex]",
+      :key="userId",
+      @click="gotoUserDetail(userId, isVisitor)")
+        .media-left
+          .media-object.img-circle(v-lazy:background-image="$util.portraitPath(userPortrait, userGender)")
+        .media-body(:class="{['border-t']: index}")
+          h5.media-heading {{ userName }}
+            hi-tooltip(v-if="invitationState", placement="right-bottom", :class="classes.tooltip")
+              span.iconfont.icon-gift(:class="invitationState === 1 ? 'theme-color' : 'remark-color'", slot="outlet")
+              template(slot="tooltip") {{ invitationState - 1 ? '已' : '可'}}用于兑奖
+          | {{ userMobile }}
+        .media-right(:class="{['border-t']: index, ['remark-color']: !hasMbrCard}") {{ hasMbrCard ? '已' : '未'}}办卡
+    hi-empty(v-else)

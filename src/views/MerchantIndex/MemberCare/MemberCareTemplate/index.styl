@@ -1,0 +1,49 @@
+.header
+  line-height 30px
+  display flex
+  vertical-align middle
+  background white
+  margin-bottom 10px
+  div
+    &:nth-child(1)
+      flex 1
+      margin 14px 10px
+      border1px-t()
+    &:nth-child(2)
+      white-space nowrap
+      text-align center
+    &:nth-child(3)
+      flex 1
+      margin 14px 10px
+      border1px-t()
+
+.container
+  :global
+    .template-list
+      padding 5px
+      display flex
+      flex-wrap wrap
+      .template-item
+        margin 5px
+        width calc(50% - 10px)
+        border-radius 4px
+        overflow hidden
+        .item-cover
+          background-size cover
+          height 172px
+          background-color white
+          img
+            width 100%
+            height 100%
+        .item-title
+          height 36px
+          background white
+          line-height 36px
+          text-align center
+          text-overflow ellipsis
+          overflow hidden
+          padding 0 20px
+          white-space nowrap
+
+
+

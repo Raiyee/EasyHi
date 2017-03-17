@@ -1,0 +1,81 @@
+.container
+    .header
+      height 40px
+      z-index 1000
+      position relative
+      width 100%
+      display flex
+      background white
+      :global
+        .header-item
+          flex 1
+          text-align center
+          line-height 40px
+          .iconfont
+            padding 0 5px
+            color $border-color
+          .header-item-name
+            white-space nowrap
+            text-overflow ellipsis
+            width 80px
+        .vertical-grabber
+          border1px-l($border-color)
+          width 1px
+          margin 10px 0
+    .cards-content
+      :global
+        .header
+          height 20px
+          padding 0 15px
+          text-align left
+        .sub-card
+          padding 12px
+          background white
+          .sub-card-header
+            border-left 5px solid
+            line-height(16px)
+            padding-left 10px
+            margin-bottom 11px
+            span:nth-child(1)
+              color $stress-color
+              font-size $primary-size
+            span:nth-child(2)
+              color $subtext-color
+              font-size $primary-size
+            .newMember
+              width 42px
+              color white
+              font-size $smaller-size
+              padding 1px 3px
+              border-radius 5px
+              text-align center
+          .media
+            line-height 40px
+            font-size $common-size
+            margin 0
+            padding-top 15px
+            .card-style
+              width 60px
+              height 42px
+              text-align center
+              border-radius 5px
+              color $reverse-color
+              overflow hidden
+            .media-body
+              height 21px
+              line-height 21px
+              font-size $common-size
+              color $primary-color
+              .remark-color
+                font-size $smaller-size
+        .split-line
+          border-bottom 1px solid $border-color
+          transform scaleY(.5)
+
+
+
+    .no-card
+      padding 20px
+      text-align center
+      color $remark-color
+

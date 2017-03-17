@@ -1,9 +1,14 @@
-import Vue, {prototype as vueProp} from 'vue'
+import {prototype as vueProp} from 'vue'
+import moment from 'moment'
 
-import {isObject, isString} from './base'
+import {isString} from './base'
+import {emptyArr} from './array'
 import {isNumber} from './number'
+import {leftPad} from './string'
 import {obj2Arr} from './common'
-import {PICKER_ID, REGION_PICKER_ID, TIP_ID} from './constants'
+import {jsonClone} from './json'
+import {IS_ANDROID_TBS, PICKER_ID, TIP_ID} from './constants'
+import {log} from './console'
 
 export const openModal = modal => vueProp.$modal.open(modal)
 export const closeModal = (id, destroy) => vueProp.$modal.close(id, destroy)
@@ -16,11 +21,14 @@ const DEFAULT_OPTIONS = {
 };
 
 // do not change the order of array because the index is used to the type of PromptModal!
-['toast', 'alert', 'confirm', 'prompt'].forEach((value, type) => {
+['toast', 'alert', 'confirm', 'prompt', 'illustrate'].forEach((value, type) => {
   module.exports[value] = props => vueProp.$modal.open({
     id: TIP_ID,
-    component: System.import('components/HiModal/TipModal'),
-    options: DEFAULT_OPTIONS,
+    component: import('components/HiModal/TipModal'),
+    options: type < 4 ? DEFAULT_OPTIONS : {
+      ...DEFAULT_OPTIONS,
+      backdrop: true
+    },
     props: {
       cancelText: '取消',
       confirmText: '确定',
@@ -36,44 +44,36 @@ const DEFAULT_OPTIONS = {
   })
 })
 
-export const picker = (props, options, id) => vueProp.$modal.open({
-  id: id || PICKER_ID,
-  component: System.import('components/HiModal/PickerModal'),
-  options: {
-    ...DEFAULT_OPTIONS,
-    ...options
-  },
+export const picker = (props, options, id = PICKER_ID) => vueProp.$modal.open({
+  id,
+  component: import('components/HiModal/PickerModal'),
+  options: Object.assign({}, DEFAULT_OPTIONS, options),
   props
 })
 
 export const regionPicker = (function () {
   const CODE = 'code'
   const TEXT = 'text'
-  const NOT_DESTROY = {destroy: false}
 
   const getRegionIndex = (regions, originRegions, defaultRegion) => {
-    if (!isObject(defaultRegion)) return 0
-
     let regionIndex = 0
 
-    const {defaultIndex, defaultCode, defaultText} = defaultRegion
-
-    if (isNumber(defaultIndex) && regions[defaultIndex]) {
-      regionIndex = defaultIndex
-    } else if (originRegions[defaultCode]) {
+    if (isNumber(defaultRegion) && regions[defaultRegion]) {
+      regionIndex = defaultRegion
+    } else if (originRegions[defaultRegion]) {
       // code in region object is key, so it is string, defaultCode could be a number or a string either
-      regionIndex = regions.findIndex(region => +region[CODE] === +defaultCode)
-    } else if (defaultText) {
-      regionIndex = regions.findIndex(region => region[TEXT] === defaultText)
+      regionIndex = regions.findIndex(region => +region[CODE] === +defaultRegion)
+    } else if (defaultRegion) {
+      regionIndex = regions.findIndex(region => region[TEXT] === defaultRegion)
     }
 
-    return regionIndex >= 0 ? regionIndex : 0
+    return regionIndex + 1 && regionIndex
   }
 
-  const modalIndex = () => vueProp.$modal.getModalIndex(REGION_PICKER_ID)
+  let timeout
 
-  return (props, defaults = []) => System.import('components/HiPicker/regions').then(regions => {
-    if (modalIndex() >= 0) return picker(undefined, NOT_DESTROY, REGION_PICKER_ID)
+  return (props, defaults = [], options) => import('components/HiPicker/regions-with-addon').then(regions => {
+    isString(defaults) && (defaults = defaults.split(' '))
 
     const origProvinces = regions[100000]
     const provinces = obj2Arr(origProvinces, CODE, TEXT)
@@ -114,9 +114,9 @@ export const regionPicker = (function () {
             originCities = regions[code]
             cities = obj2Arr(originCities, CODE, TEXT)
 
-            Vue.set(pickers, 1, {
-              valueKey: CODE,
-              values: cities
+            Object.assign(this.pickers[1], {
+              values: cities,
+              defaultIndex: 0
             })
 
             originDistricts = regions[cities[0][CODE]]
@@ -128,22 +128,182 @@ export const regionPicker = (function () {
 
         districts = obj2Arr(originDistricts, CODE, TEXT)
 
-        Vue.set(pickers, 2, {
-          valueKey: CODE,
-          values: districts
+        Object.assign(this.pickers[2], {
+          values: districts,
+          defaultIndex: 0
         })
-      },
-      confirm() {
-        this.changingIndex = null
-        props.confirm && props.confirm.apply(this, arguments)
+
+        if (!IS_ANDROID_TBS) return
+
+        clearTimeout(timeout)
+        timeout = setTimeout(() => {
+          log('hacking Android TBS!')
+          const regionModal = vueProp.$modal.getModalRef(PICKER_ID).$el
+          document.body.appendChild(regionModal)
+          document.getElementById('modal').appendChild(regionModal)
+        }, 0)
       }
-    }, NOT_DESTROY, REGION_PICKER_ID)
+    }, options)
   })
+}())
+
+export const datePicker = (function () {
+  const date = new Date()
+  const currYear = date.getFullYear()
+  const currMonth = date.getMonth() + 1
+  const currDate = date.getDate()
+
+  const years = emptyArr(101).map((val, index) => currYear - 50 + index)
+  const months = emptyArr(12).map((val, index) => leftPad(index + 1, 2, 0))
+
+  const lastDate = (year, month) => moment().year(year).month(month).endOf('month').date()
+
+  const generateDates = (year, month) =>
+    emptyArr(lastDate(year, month - 1)).map((val, index) => leftPad(index + 1, 2, 0))
+
+  const getDefaultIndex = (vals, def) => {
+    const defIndex = vals.findIndex(val => +val === +def)
+    return defIndex + 1 && defIndex
+  }
+
+  const getResult = ctx => [ctx.result[0][1], ctx.result[1][1], ctx.result[2][1]].join('-')
+
+  return (props, defaults = [], options) => {
+    defaults = defaults.length ? defaults : [currYear, currMonth, currDate]
+
+    if (isString(defaults) && defaults.length) (defaults = defaults.split('-'))
+
+    let year = defaults[0] || years[0]
+    let month = defaults[1] || months[0]
+    let dates = generateDates(year, month)
+
+    const pickers = [{
+      defaultIndex: getDefaultIndex(years, year),
+      values: years
+    }, {
+      defaultIndex: getDefaultIndex(months, month),
+      values: months
+    }, {
+      defaultIndex: getDefaultIndex(dates, defaults[2]),
+      values: dates
+    }]
+
+    const {confirm, pickerTabs} = props
+
+    let pickersIndex = 0
+    const results = []
+    let pickers2
+
+    if (props.confirm) {
+      props.confirm = function () {
+        results.length || results.push(getResult(this))
+        pickerTabs && results[0] && !results[1] && (results[1] = results[0])
+        this::confirm(...results, ...arguments)
+      }
+    }
+
+    return picker({
+      ...props,
+      pickers,
+      pickerMask: true,
+      pickerTabs: pickerTabs && {
+        items: ['起始时间', '结束时间']
+      },
+      pickerChanged(index, currIndex, value) {
+        const {pickerLists: pickers} = this
+
+        switch (index) {
+          case (0):
+            year = value
+            break
+          case (1):
+            month = value
+            break
+        }
+
+        pickers[index].defaultIndex = currIndex
+
+        if (index !== 2) {
+          dates = generateDates(year, month)
+
+          Object.assign(pickers[2], {
+            values: dates,
+            defaultIndex: Math.min(this.resulting[2][0], dates.length - 1)
+          })
+        }
+
+        results[pickersIndex] = getResult(this)
+      },
+      tabChanged(index) {
+        results[0] || (results[0] = getResult(this))
+        pickersIndex = index
+        this.pickerLists = index ? (pickers2 || (pickers2 = jsonClone(pickers))) : pickers
+      }
+    }, options)
+  }
+}())
+
+export const timePicker = (function () {
+  const hours = emptyArr(24).map((val, index) => leftPad(index, 2, 0))
+  const minutes = emptyArr(60).map((val, index) => leftPad(index, 2, 0))
+
+  const getResult = ctx => [ctx.result[0][1], ctx.result[1][1]].join(':')
+
+  return (props, defaults) => {
+    const pickers = [{
+      values: hours,
+      textAlign: 'center'
+    }, {
+      values: minutes,
+      textAlign: 'center'
+    }]
+
+    const {confirm, pickerTabs} = props
+
+    let pickersIndex = 0
+    const results = []
+    let pickers2
+
+    if (props.confirm) {
+      props.confirm = function () {
+        results.length || results.push(getResult(this))
+        pickerTabs && results[0] && !results[1] && (results[1] = results[0])
+        this::confirm(...results, ...arguments)
+      }
+    }
+
+    return picker({
+      ...props,
+      pickers,
+      pickerMask: true,
+      pickerTabs: pickerTabs && {
+        items: ['起始时间', '结束时间']
+      },
+      pickerChanged(index, currIndex, value) {
+        const {pickerLists: pickers} = this
+
+        pickers[index].defaultIndex = currIndex
+
+        if (index !== 1) {
+          Object.assign(pickers[1], {
+            defaultIndex: this.resulting[1][0]
+          })
+        }
+
+        results[pickersIndex] = getResult(this)
+      },
+      tabChanged(index) {
+        results[0] || (results[0] = getResult(this))
+        pickersIndex = index
+        this.pickerLists = index ? (pickers2 || (pickers2 = jsonClone(pickers))) : pickers
+      }
+    })
+  }
 }())
 
 export const login = props => vueProp.$modal.open({
   id: 'login',
-  component: System.import('components/HiModal/LoginModal'),
+  component: import('components/HiModal/LoginModal'),
   options: DEFAULT_OPTIONS,
   props
 })

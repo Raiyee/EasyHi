@@ -1,0 +1,32 @@
+div(:class="classes.container")
+  .shadow-bottom(:class="[classes.action, classes.header]", @click="toggleShow")
+    div
+      span(@click.stop="toggleSelect")
+        span.iconfont(v-if="editing", :class="[`icon-${selected ? '' : 'un'}check`, {'theme-color': selected}]")
+        | {{ detailName }}
+    div
+      div(@click.stop)
+        template(v-if="selected")
+          template(v-if="editing")
+            .input-wrapper(:class="{error: dirty && !num, 'remark-color': !isAllSame}")
+              input(v-money="num", @focus="dirty = false", @blur="dirty = true")
+          template(v-else) {{ isAllSame ? `扣${num}${detailType ? '元' : '次'}` : `不同${subscribeType === 1 ? '课程' : coachAlias}${detailType ? '价格' : '扣次'}不同` }}
+        template(v-else-if="isAdmin") 不适用
+        span.iconfont(:class="`icon-arrow-${show ? 'up' : 'down'}`", @click="toggleShow")
+  .shadow-bottom(:class="classes.body")
+    ul.list-unstyled(:style="{height}")
+      template(v-if="ruleItems.length")
+        rule-item.clearfix(:class="classes.action",
+        v-for="(ruleItem, index) of ruleItems",
+        :dirty="dirty",
+        :detailType="detailType",
+        :editing="editing",
+        :index="index",
+        :key="index",
+        v-bind="ruleItem",
+        @itemFocus="dirty = false",
+        @itemBlur="dirty = true",
+        @toggleItemSelect="toggleItemSelect",
+        @itemNumChanging="itemNumChanging")
+      li(v-else, :class="classes.empty") 暂无任何{{ subscribeType === 1 ? '课程' : '私教' }}
+        span.theme-color 前往添加 >

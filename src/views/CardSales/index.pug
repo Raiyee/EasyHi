@@ -1,0 +1,34 @@
+div(:class="{[classes.container]: auth}")
+  .theme-bg(v-if="auth", :class="classes.header")
+    h4 本月已售会员卡(张)
+    h1 {{ soldCardsNum }}
+    .text-right
+      router-link(to="/card-sales/sold-list")
+        span 查看已售卡详情
+          span.iconfont.icon-arrow-right
+  div(v-else, :class="classes.banner")
+
+  hi-tab(:items="items",
+  valueKey="cardTypeId",
+  textKey="cardTypeName",
+  @toggleTab="toggleTab")
+
+  div(v-if="currCards.length", :class="classes.cards")
+    card-name(v-for="card of currCards",
+    :card="card",
+    :soldNumState="+auth",
+    :key="card.cardId",
+    @click.native="$router.push(`/card-sales/${auth ? '' : 'customer-'}detail/${card.cardId}`)")
+
+  hi-empty(v-else)
+    template(v-if="auth") 暂时没有可售的卡哦，赶紧添加吧！
+    template(v-else-if="cardTypeId") 暂无相关会员卡
+    template(v-else)
+      | 暂时没有可以购买的会员卡哦，
+      br
+      | 需要购卡请联系客服吧~
+      br
+      | 客服电话：
+      a.theme-color(:href="`tel:${serviceMobile}`") {{ serviceMobile }}
+  .fixed-bottom.border-t(v-if="auth")
+    button.btn.btn-theme-primary(@click="addCards") 添加可售会员卡

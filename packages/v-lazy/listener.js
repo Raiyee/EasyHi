@@ -1,6 +1,6 @@
 import {loadImageAsync} from './util'
 
-let imageCache = {}
+const imageCache = {}
 
 export default class ReactiveListener {
   constructor({el, src, error, loading, bindType, $parent, options, elRenderer}) {

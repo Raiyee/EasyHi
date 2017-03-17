@@ -1,0 +1,20 @@
+export type REVIEW = {
+  reviewId: string,
+  userId: void | string,
+  userName: string,
+  userGender: boolean,
+  userPortrait: string,
+  courseRate: void | number,
+  coachRate: void | number,
+  reviewContent: string,
+  reviewTime: string,
+  reviewImgs: Array<string>,
+  reviewReply: string,
+  reviewVisible: boolean,
+  courseId: void | string,
+  courseName: void | string,
+  courseTypeName: void | string,
+  courseImg: void | string,
+  coachId: void | string,
+  scheduleTime: void | string
+}

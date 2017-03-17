@@ -1,0 +1,9 @@
+modal-item(:class="classes.modalItem")
+  .sections
+    .section(v-for="{key,value} in sections", :key="key")
+      .sectionContent(@click="selectItem(key,value)", :class="key === pCode ? 'theme-color':''") {{value}}
+      .split-line
+  .sections(v-if="hasSubSections")
+    .section(v-for="{key,value} in subSections", :key="key")
+      .sectionContent(@click="selectSubItem(key,value)", :class="key === nCode ? 'theme-color':''") {{value}}
+      .split-line

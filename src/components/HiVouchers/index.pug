@@ -1,0 +1,5 @@
+div(:class="[classes.container, {[classes.scroll]:!mode}]")
+  ul.clearfix(:class="classes.voucherList",
+  v-touch="{methods: true, enable: mode && touchEnable}",
+  :style="{width: vouchersWidth + 'px', transform}")
+    voucher(:voucher="voucher", v-for="(voucher, index) in vouchers", :key="index")

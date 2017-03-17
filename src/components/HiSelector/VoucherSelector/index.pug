@@ -1,0 +1,19 @@
+modal-item(:class="classes.couponModal", :full="true", :transition="true")
+  .modal-body(slot="body", :style="{height}")
+    .media.shadow-bottom(v-if="false", @click="addVoucher")
+      .media-left
+        span.iconfont.icon-jiahao.theme-color
+      .media-body 新增体验券
+      .media-right
+        span.iconfont.icon-arrow-right.remark-color
+
+    template(v-if="voucherList.length")
+      voucher-selection(v-for="voucher of voucherList",
+      :selects="selects",
+      :voucher="voucher",
+      :key="voucher.voucherId",
+      @toggleVoucher="toggleVoucher")
+    hi-empty(v-else, :text="`暂无任何体验券, 请${isAdmin ? '点击上方前往' : '联系馆主或店长'}添加`")
+  template(slot="footer")
+    button.btn.btn-theme-default(@click="$modal.close()") 取消
+    button.btn(:class="`btn-${selects.length ? 'theme' : 'disabled'}-primary`", @click="confirmSelector") 确定

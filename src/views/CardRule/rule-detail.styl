@@ -1,0 +1,91 @@
+$body-back = #f7f7ff
+$input-height = 22px
+
+.container
+  color $primary-color
+  margin-bottom 10px
+
+  .header
+    relative()
+    padding 15px 20px
+    background-color $reverse-color
+
+    > div
+      &:first-child
+        flex 4
+
+      &:last-child
+        flex 5
+
+        > div
+          display inline-block
+
+        :global(.iconfont)
+          padding-left 8px
+          color $remark-lighter-color
+
+  .body
+    background-color $body-back
+
+    ul
+      transition height .5s ease-out
+      overflow hidden
+      margin-bottom 0
+
+    li
+      padding 15px 35px
+      padding-right 42px
+
+  :global
+    .input-wrapper
+      relative()
+      display inline-block
+      size 90px $input-height
+      border 1px solid $border-color
+      border-radius ($input-height / 2)
+
+      &.error
+        border-color red
+
+      &:after
+        absolute()
+        content '元'
+        right 6px
+        top 50%
+        transform translate3d(0, -50%, 0) scale(12 / 14)
+
+      input
+        border 0
+        padding 0 8px
+        padding-right 20px
+        margin 0
+        outline 0
+        width 100%
+        text-align center
+        background-color transparent
+
+.action
+  display flex
+  line-height $input-height
+
+  > div
+    &:first-child
+      flex 3
+      overflow ellipsis
+
+      :global(.iconfont)
+        padding-right 8px
+
+      > span
+        display inline-block
+        vertical-align middle
+
+    &:last-child
+      flex 2
+      text-align right
+
+.empty
+  line-height $input-height
+
+  span
+    margin-left 15px

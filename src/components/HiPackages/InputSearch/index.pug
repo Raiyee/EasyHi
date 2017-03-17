@@ -1,0 +1,14 @@
+.input-search-group(:class="classes.inputSearchGroup")
+  .left(v-if="$slots.left")
+    slot(name="left")
+  .body
+    .search-content.remark-color(@click="onClick", :class="[{'active':active}]")
+      template(v-if="!active")
+        .iconfont.icon-search.smaller-size
+        span.smaller-size.text {{text}}
+      template(v-else)
+        .iconfont.icon-search.smaller-size
+        input(:placeholder="text", ref="input", @keyup.enter="onEnter")
+  .cancel.theme-color(v-if="active", @click="onCancel") 取消
+  .right(v-if="$slots.right")
+    slot(name="right")

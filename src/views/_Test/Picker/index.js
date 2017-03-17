@@ -1,5 +1,7 @@
 import HiPicker from 'components/HiPicker'
 
+import {log} from 'utils'
+
 export default require('./index.pug')({
   data() {
     return {
@@ -20,7 +22,7 @@ export default require('./index.pug')({
   },
   methods: {
     itemChanged(index, key, value) {
-      console.log(index, key, value)
+      log(index, key, value)
     }
   },
   components: {

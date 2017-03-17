@@ -1,0 +1,58 @@
+div(:class="$style.container")
+  .clearfix(:class="[$style.courseImg,{[$style.active] : show}]", v-lazy:background-image="$util.portraitPath(courseImg)")
+    div(:class="$style.dropArea", @click="showMaskContent")
+      div(:class="$style.dropMenu")
+        span.iconfont(:class="`icon-arrow-${show ? 'up' : 'down'}`")
+    div(:class="$style.mask")
+      ul(:class="$style.maskContent")
+        li(@click="goEdit")
+          span.iconfont.icon-edit
+          | 编辑
+        li(@click="checkCourse(true)")
+          span.iconfont.icon-trash
+          | 删除
+
+  .shadow-bottom(:class="$style.courseInfo")
+    .clearfix(:class="$style.courseHeader")
+      div(:class="$style.detailHeader")
+        span(:class="$style.courseRate") {{courseName}}
+        hi-rate(v-if="courseRate", :rate="courseRate", :scale="scale")
+        span(v-else, :class="$style.noRate") 暂无评价
+      div(:class="$style.detailBody")
+        span.theme-color.iconfont.icon-clock-duration(:class="$style.detailIcon")
+        span(:class="$style.courseDuration") 时长{{courseDuration}}min
+        span.theme-color.iconfont.icon-exclamation-mark(:class="$style.detailIcon")
+        span 上限{{maxLimitNum}}人
+
+    .clearfix.border-t(:class="$style.cardRule", @click="goCardRule")
+      span 扣次规则：{{cardRuleText}}
+      span.iconfont.icon-arrow-right(:class="$style.iconRight")
+
+  .shadow-bottom(:class="$style.courseInfo")
+    div(:class="$style.detailTitle") 课程详情
+    ul.theme-color.clearfix(:class="[$style.courseDetail, {[$style.open]: !close}]")
+      li
+        div(:class="$style.detailItem") 课程简介
+          div {{courseProfile ? courseProfile : '暂未填写'}}
+      li
+        div(:class="$style.detailItem") 课程功效
+          div {{courseEfficacy ? courseEfficacy : '暂未填写'}}
+      li
+        div(:class="$style.detailItem") 运动特点
+          div {{actionFeature ? actionFeature : '暂未填写'}}
+      li
+        div(:class="$style.detailItem") 适合人群
+          div {{applicableCrowd ? applicableCrowd : '暂未填写'}}
+      li
+        div(:class="$style.detailItem") 禁忌
+          div {{courseTaboo ? courseTaboo : '暂未填写'}}
+
+    .theme-color(:class="$style.openOrClose", @click="changeState")
+      span {{ close ? '展开' : '收起' }}
+      span.theme-color.iconfont(:class="[$style.iconArrow, `icon-arrow-${close ? 'down' : 'up'}`]")
+
+  div(:class="$style.courseReviews")
+    div(:class="$style.title") 会员评价(可见{{reviewVisibleNum}}/共{{reviewNum}})
+    template(v-if="courseReviews.length")
+      hi-review(:reviews="courseReviews")
+    div(v-else, :class="$style.emptyText") 暂无会员评价

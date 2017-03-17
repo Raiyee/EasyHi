@@ -1,0 +1,28 @@
+.media(:class="$style.content")
+  .media-left
+    .media-object.img-circle(v-lazy:background-image="$util.imgPath(review.userPortrait)")
+  .media-body
+    h5.media-heading {{ review.userName }}
+      small.pull-right {{ review.reviewTime | formatDate('YYYY.MM.DD') }}
+    span(v-if="review.courseRate", :class="$style.rate")
+      span 课程
+      hi-rate(:rate="review.courseRate", :scale="scale")
+    span(v-if="review.coachRate", :class="$style.rate")
+      span {{ coachAlias }}
+      hi-rate(:rate="review.coachRate", :scale="scale")
+  p(:class="{['theme-color']: review.reviewVisible && isStaffS}") {{ review.reviewContent }}
+  hi-image(v-if="review.reviewImgs.length", :imgs="review.reviewImgs")
+  p(v-if="review.reviewReply", :class="$style.reviewReply") 场馆回复: {{ review.reviewReply }}
+  .media(@click.stop="gotoDetail", v-if="review.courseId")
+    .media-left
+      .media-object(v-lazy:background-image="$util.imgPath(review.courseImg)")
+    .media-body.media-middle
+      h5.media-heading {{ review.courseName }}
+        small  ( {{ review.courseTypeName }} )
+      span {{ coachAlias }}: {{ review.coachName }}
+      .pull-right {{ review.scheduleTime | formatDate('YYYY.MM.DD HH:mm') }}
+  div(v-if="isStaffS", :class="$style.operator")
+    button.btn.btn-theme-default(v-if="!review.reviewReply", @click="replay")
+      span 回复
+    button.btn.btn-theme-default(@click="toggleVisibility")
+      span {{ review.reviewVisible ? '取消' : '置为' }}会员可见

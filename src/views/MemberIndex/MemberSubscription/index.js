@@ -14,7 +14,6 @@ export default require('./index.pug')({
   },
   methods: {
     toggleTab: function (index, value, text) {
-      console.log(index)
       this.text = text
     },
     toggleMenu() {

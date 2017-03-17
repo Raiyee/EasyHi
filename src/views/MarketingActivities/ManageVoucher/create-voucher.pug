@@ -1,0 +1,57 @@
+modal-item(:class="classes.content", :footer="true", :disabled="!confirmable", :confirmText="`生成${typeIndex ? '现金' : '体验'}券`", :full="true", :transition="true", :confirm="confirmModal")
+  .modal-body(slot="body", :style="{height}")
+    ul.list-unstyled
+      li(:class="{'has-error': $v.voucherName.$error}")
+        .input-group.input-group-primary
+          .input-group-addon.required {{ voucherTypeName }}名称
+          input.form-control(v-model="voucherName", placeholder="不超过8个字")
+        .form-control-static 请输入正确的券名称
+
+      li(:class="{'has-error': $v.voucherValue.$error}")
+        .input-group.input-group-primary
+          .input-group-addon.required {{ voucherTypeName }}面值
+          input.form-control(v-money="voucherValue", placeholder="不超过100000")
+          .input-group-addon 元
+        .form-control-static 请输入正确的券面值
+
+      li(v-if="typeIndex", :class="{'has-error': $v.miniConsume.$error}")
+        .input-group.input-group-primary
+          .input-group-addon.required 最低消费限制
+          input.form-control(v-money="miniConsume", placeholder="不超过100000")
+          .input-group-addon 元
+        .form-control-static 请输入正确的券消费限制
+
+      template(v-else)
+        li(:class="{'has-error': $v.voucherTimes.$error}")
+          .input-group.input-group-primary
+            .input-group-addon.required 体验券次数
+            input.form-control(v-model="voucherTimes", placeholder="1-100内的整数")
+            .input-group-addon 元
+          .form-control-static 请输入正确的体验券次数
+
+        li(:class="{'has-error': $v.voucherExpiredLimit.$error}")
+          .input-group.input-group-primary(:class="classes.expire")
+            div
+              .input-group-addon.required 适用课程
+            div
+              ul.list-unstyled(:class="classes.courses")
+                li
+                  button.btn(:class="`btn-theme-${activeAllCourses ? 'primary' : 'default'}`", @click="toggleAllCourses") 全部课程
+                li(v-for="{courseId, courseName} of courses")
+                  button.btn(:class="`btn-theme-${applicableCourses.includes(courseId) ? 'primary' : 'default'}`",
+                  @click="toggleActiveCourse(courseId)") {{ courseName }}
+          .form-control-static 券有效期应是1-100的整数
+
+      li(:class="{'has-error': $v.voucherExpiredLimit.$error}")
+        .input-group.input-group-primary(:class="classes.expire")
+          div
+            .input-group-addon.required 券有效期
+          div
+            span(v-if="voucherExpiredType", @click="(picking = true) && chooseExpiredDates()") {{ expiredRange }}
+            span(v-else)
+              | 有效期
+              input.border-b(v-model="voucherExpiredLimit", type="number")
+              | 天
+            span.pull-right(@click="changeExpired") {{ voucherExpiredType ? '指定有效期' : '从领券成功开始计算' }}
+              span.iconfont.icon-arrow-down.remark-color
+        .form-control-static 券有效期应是1-100的整数

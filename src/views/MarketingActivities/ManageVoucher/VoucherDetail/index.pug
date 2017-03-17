@@ -1,0 +1,23 @@
+div(:class="classes.container")
+  .voucher-detail
+    .voucher-name.stress-size.primary-color {{ (miniConsume ? '' : voucherValue + '元')+ voucherName }}
+    button.btn.btn-theme-default(v-if="miniConsume", @click="presentVoucher") 赠送
+    .detail-text.remark-color.smaller-size {{ miniConsume ? presentedNum ? '已赠送: ' + presentedNum + ' 张' : '未赠送' : '可用' + voucherTimes + '次'}}
+    .dashed-line
+    .media.remark-color
+      .media-left
+        .smaller-size {{ miniConsume ? '使用条件' : '适用课程' }}:
+      .media-body
+        p.smaller-size
+          template(v-if="miniConsume")
+            | 此券可用于购买场馆会员卡
+            br
+            | 购卡时消费满{{ miniConsume }}元方可使用本券
+          template(v-else) {{ applicableCourses.length ? applicableCourses.join('、') : '本馆所有课程' }}
+    .media.remark-color
+      .media-left
+        .smaller-size 使用须知:
+      .media-body
+        p.smaller-size {{ miniConsume ? '此现金券只适用于系统内购买场馆会员卡时使用; 会员购买会员卡时每次限用一张，若订单取消未支付，现金券将退还到会员的账户,' : '体验券限本人使用, 用于体验本馆部分课程;' }}
+          |  此券不兑换，不找零不可转赠，使用时最终解释权归{{ merchantName }}所有
+  .btn.btn-theme-primary(@click="deleteVoucher") 删除此券

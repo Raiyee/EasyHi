@@ -1,0 +1,155 @@
+$title-bg-color = #f8f8f9
+
+$success-size = 20px
+$hello-font-size = 24px
+$icon-check-size = 30px
+
+.blue
+  retina('./new-user-blue-bg')
+
+.green
+  retina('./new-user-green-bg')
+
+.red
+  retina('./new-user-red-bg')
+
+.purple
+  retina('./new-user-purple-bg')
+
+.header
+  padding 30px 0
+  text-align center
+  background-size cover
+
+.merchant-portrait
+  width 85px
+  height 85px
+  margin 0 auto
+
+.merchant-name
+  padding 10px
+  font-size $stress-size
+  color $back-light-color
+
+.body
+  padding 0 16px
+
+.member-name
+  padding 20px 20px 25px
+  text-align center
+
+  span
+    padding-left 5px
+    padding-right 5px
+
+.gift, .qr-code
+  position relative
+  border-top 1px dashed $dashed-line-color
+
+  .title
+    position absolute
+    left 50%
+    top -13px
+    padding 0 8px
+    white-space nowrap
+    font-size $primary-size
+    background-color $title-bg-color
+    transform translate3d(-50%, 0, 0)
+
+.gift
+  .title
+    span
+      vertical-align middle
+
+  .icon-gift
+    margin-right 5px
+
+.voucher
+  padding 23px 0
+  text-align center
+
+.qr-code
+  padding 23px
+  margin-top 27px
+
+.merchant-qr-code
+  width 98px
+  height 98px
+  margin 0 auto
+
+.old-user
+  text-align center
+  padding 35px 0
+
+.hello
+  padding 15px
+  color $primary-color
+  font-size $hello-font-size
+
+.already-user
+  color $primary-color
+
+.result, .result-merchant-info
+  background-color $back-light-color
+
+.result, .result-title-text, .result-merchant
+  text-align center
+
+.result
+  padding 20px
+  margin-bottom 10px
+  color $stress-color
+  font-size $success-size
+
+.result-icon-check
+  font-size 50px
+  margin-bottom 10px
+
+.result-title-text
+  color $subtext-color
+  padding 5px 10px 10px
+  font-size $common-size
+
+.result-merchant-qr-code, .result-merchant-portrait
+  margin 0 auto
+
+.result-merchant-info
+  padding 10px 20px
+
+.result-merchant-portrait
+  width 60px
+  margin-top 10px
+  margin-bottom 10px
+  height 60px
+  background-size cover
+
+.result-merchant
+  padding 10px
+  margin-top 18px
+  position relative
+  color $subtext-color
+  border-top 1px dashed $list-line-color
+
+  div
+    padding 5px 8px
+    white-space nowrap
+    font-size $common-size
+
+  .result-merchant-address
+    white-space normal
+    font-size $smaller-size
+
+.result-merchant-name
+  position absolute
+  left 50%
+  top -16px
+  white-space nowrap
+  font-size $primary-size
+  background-color $back-light-color
+  transform translate3d(-50%, 0, 0)
+
+.result-gift-bg
+  height 60px
+  margin 20px
+  background-size cover
+  retina('../../../assets/voucher/winning', 'png')

@@ -6,12 +6,24 @@ export default require('./modal-item.pug')({
   props: {
     id: [Number, String],
     header: [Boolean, String],
+    disabled: Boolean,
     footer: Boolean,
+    border: {
+      type: Boolean,
+      default: true
+    },
+    full: Boolean,
     transition: [Boolean, String],
     close: Function,
     confirm: Function,
     confirmText: String,
-    cancelText: String
+    cancelText: String,
+    beforeEnter: Function,
+    afterEnter: Function,
+    enterCancelled: Function,
+    beforeLeave: Function,
+    afterLeave: Function,
+    leaveCancelled: Function
   },
   data: () => ({classes}),
   computed: {
@@ -26,6 +38,7 @@ export default require('./modal-item.pug')({
         : this.$modal.close(this.id || warn('there is no modal id found, then the current modal will be close!'))
     },
     confirmModal() {
+      if (this.footer && this.disabled) return
       this.confirm ? this.confirm(...arguments)
         : error('you should handle the click event on the confirm btn by yourself!')
     }

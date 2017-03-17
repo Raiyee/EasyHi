@@ -1,0 +1,10 @@
+modal-item(:class="classes.content", :full="true", :transition="true", :afterEnter="afterEnter")
+  .modal-body(slot="body", :style="{height: winHeight + 'px'}")
+    ul.list-unstyled(:style="{width: appWidth * imgs.length + 'px', transform}",
+    v-touch="{methods: true}",
+    @tap="closeModal",
+    @dbltap="scale = !scale")
+      li(v-for="(img, index) of imgs",
+      :style="{transform: scale && index === currIndex ?  `scale(1.5)` : 'none'}")
+        div(v-lazy:background-image="$util.imgPath(img)",
+        lazy="loading")

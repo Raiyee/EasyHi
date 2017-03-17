@@ -1,16 +1,15 @@
-import Mock from 'mockjs'
+import {mock, Random} from 'mockjs'
 import moment from 'moment'
+import qs from 'qs'
 
-import {DATE_FORMAT, HOUR_FORMAT, firstDayOfWeek, omitObj, randomImg} from 'utils'
+import {DATE_FORMAT, HOUR_FORMAT, firstDayOfWeek, randomImg, randomId} from 'utils'
 
-const Random = Mock.Random
-Mock.mock(/\/subscribe-index$/, (() => {
+mock(/\/member-schedule\/get-subscriptions$/, (() => {
   const CACHE = {}
   let COURSE_TYPES
 
-  return req => {
-    const data = JSON.parse(req.body)
-    let courseTypeId = data.courseTypeId
+  return ({body}) => {
+    let {courseTypeId} = qs.parse(body)
 
     const cache = courseTypeId && CACHE[courseTypeId]
 
@@ -38,11 +37,12 @@ Mock.mock(/\/subscribe-index$/, (() => {
 
     if (courseType) {
       subscribeType = courseType.subscribeType
+      courseTypes = COURSE_TYPES
     } else {
       const length = Random.integer(2, 10)
       const activeIndex = Random.integer(0, length - 1)
       COURSE_TYPES = courseTypes = Random.range(0, length).map((value, index) => ({
-        courseTypeId: index === activeIndex && courseTypeId ? courseTypeId : Random.id(),
+        courseTypeId: index === activeIndex && courseTypeId ? courseTypeId : randomId(),
         courseTypeName: '@cword(2,5)课',
         subscribeType: Random.pick([1, 2])
       }))
@@ -52,13 +52,13 @@ Mock.mock(/\/subscribe-index$/, (() => {
     }
 
     const isPrivate = subscribeType === 2
-    let schedules = {}
-    let coaches = {}
+    const schedules = {}
+    const coaches = {}
     let startTime
     let endTime
 
     const getTimePeriod = time => {
-      let hour = time.get('H')
+      const hour = time.get('H')
       if (hour < 12) return 'morning'
       if (hour < 18) return 'afternoon'
       return 'evening'
@@ -80,10 +80,10 @@ Mock.mock(/\/subscribe-index$/, (() => {
             evening: []
           }))
 
-          let start = moment(startTime)
+          const start = moment(startTime)
 
           while (start.isBefore(endTime)) {
-            let timePeriod = getTimePeriod(start)
+            const timePeriod = getTimePeriod(start)
             min060[timePeriod].push(start.format(HOUR_FORMAT))
             // min120[timePeriod].push(moment(start).add(1, 'h').format(HOUR_FORMAT))
             start.add(20, 'm')
@@ -94,35 +94,54 @@ Mock.mock(/\/subscribe-index$/, (() => {
             coachGender: '@boolean',
             coachName: '@cname(2,5)',
             coachPortrait: picUrl,
-            min060,
-            min120
+            times: [
+              {
+                minute: 60,
+                data: min060
+              }, {
+                minute: 120,
+                data: min120
+              }
+            ]
           }
         }
 
         return {
-          coursePicUrl: picUrl,
-          scheduleBooked: '@integer(0,20)',
-          scheduleCoach: '@cname(2,5)',
+          coachId: randomId(),
+          courseId: randomId(),
+          courseImg: picUrl,
+          bookedNum: '@integer(0,20)',
+          coachName: '@cname(2,5)',
           scheduleId: '@id',
-          scheduleStartTime: +startTime.add(Random.integer(0, 120), 'm'),
-          scheduleEndTime: +startTime.add(Random.pick(60, 120), 'm'),
+          scheduleRange: [+startTime.add(Random.integer(0, 120), 'm'), +startTime.add(Random.pick(60, 120), 'm')],
           scheduleName: '@cword(5,12)课',
-          scheduleRemaining: calendar.find(calendarItem => calendarItem.date === scheduleDate).status === 2
+          remainingNum: calendar.find(calendarItem => calendarItem.date === scheduleDate).status === 2
             ? 0 : '@integer(0,20)'
         }
       })
     })
 
-    const schedulesData = Mock.mock({
+    const schedulesData = mock({
       calendar,
       coaches,
       courseTypes,
-      schedules,
-      subscribeType
+      schedules
     })
 
-    CACHE[courseTypeId] = omitObj(schedulesData, 'courseTypes')
+    CACHE[courseTypeId] = schedulesData
 
     return schedulesData
   }
 })())
+
+mock(/\/member-subscribe\/private-schedule\/validation\/\d+/, () => ({
+  code: Random.pick(0, 1, 2, 3),
+  desc: Random.ctitle(),
+  data: randomId()
+}))
+
+mock(/\/member-subscribe\/open-schedule\/validation\/\d+/, () => ({
+  code: Random.pick(0),
+  desc: Random.ctitle(),
+  data: randomId()
+}))

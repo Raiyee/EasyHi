@@ -1,9 +1,9 @@
 import Mock, {Random} from 'mockjs'
 import moment from 'moment'
 
-import {randomImg, randomMobile} from 'utils'
+import {randomImg, randomArr} from 'utils'
 
-Mock.mock(/\/member-index$/, () => {
+Mock.mock(/\/membercenter\/query-member-detail$/, () => {
   let recentCourse = Random.boolean()
 
   if (recentCourse) {
@@ -18,26 +18,30 @@ Mock.mock(/\/member-index$/, () => {
           'costName': '@cword(3,5)@pick(["卡","券"])'
         }
       ],
-      subscriptionId: '@id(11)'
+      subscribeId: '@id(11)'
     }
   }
 
   return Mock.mock({
-    memberGender: '@boolean',
-    memberPortrait: randomImg(60),
-    memberName: '@cname',
+    userGender: '@boolean',
+    userPortrait: randomImg(60),
+    userName: '@cname',
     messageCount: '@integer(0,15)',
-    showId: Random.boolean() && '@id',
+    sceneId: Random.boolean() && '@id',
     recentCourse,
     cardNum: '@integer(0,10)',
     voucherNum: '@integer(0,10)',
     hasNotice: '@boolean',
-    serverMobile: randomMobile(),
-    authorization: Random.range(0, 3).map(index => ({
-      authorized: '@boolean',
-      serverName: '@cname',
-      serverMobile: randomMobile(),
-      serverPortrait: randomImg(60, 60, 2 * index)
-    }))
+    newCashVouchers: randomArr(0, 5).map(() => Mock.mock({
+      voucherName: '@ctitle',
+      voucherValue: '@natural(0,7)',
+      miniConsume: Random.float(1000, 5000, 0, 2),
+      voucherExpiredRange: [Random.date(), new Date(moment().add(4, 'days'))]
+    })),
+    hasUnreadReply: '@boolean'
   })
 })
+
+Mock.mock(/\/membercenter\/update-read-times$/, () => true)
+
+Mock.mock(/\/membercenter\/update-read-times$/, () => true)

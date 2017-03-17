@@ -1,0 +1,13 @@
+modal-item(:class="classes.content", :full="true", :transition="true")
+  .modal-body(slot="body", :style="{height}")
+    div(:class="classes.textWrapper")
+      textarea.textarea(:placeholder="placeholder", v-model="reply")
+      span {{ reply.length }}/{{maxLength}}
+  template(slot="footer")
+    .border-tb(:class="classes.tip")
+      span.iconfont.icon-prompt
+      | 提交后就不能修改了哦
+
+    .border-t
+      button.btn.btn-theme-default(@click="$modal.close()") 取消
+      button.btn(:class="`btn-${reply ? 'theme' : 'disabled'}-primary`", @click="reply && confirm(reply)") 提交

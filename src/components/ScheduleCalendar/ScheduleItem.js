@@ -1,28 +1,37 @@
+import moment from 'moment'
+import {mapGetters} from 'vuex'
+
 import classes from './schedule-item.styl'
 
-import {REQUIRED_NUMBER, REQUIRED_STRING} from 'utils'
+import {REQUIRED_ARRAY, REQUIRED_NUMBER, REQUIRED_STRING} from 'utils'
 
 export default require('./schedule-item.pug')({
   name: 'schedule-item',
   props: {
     scheduleId: REQUIRED_STRING,
-    coursePicUrl: REQUIRED_STRING,
-    scheduleBooked: REQUIRED_NUMBER,
-    scheduleCoach: REQUIRED_STRING,
-    scheduleStartTime: REQUIRED_NUMBER,
-    scheduleEndTime: REQUIRED_NUMBER,
+    coachId: REQUIRED_STRING,
+    courseId: REQUIRED_STRING,
+    courseImg: REQUIRED_STRING,
+    bookedNum: REQUIRED_NUMBER,
+    coachName: REQUIRED_STRING,
+    scheduleRange: REQUIRED_ARRAY,
     scheduleName: REQUIRED_STRING,
-    scheduleRemaining: REQUIRED_NUMBER
+    remainingNum: REQUIRED_NUMBER
   },
   data: () => ({classes}),
   computed: {
+    ...mapGetters(['memberUrlPrefix', 'style']),
     scheduleDuration() {
-      return (this.scheduleEndTime - this.scheduleStartTime) / 1000 / 60
+      const {scheduleRange} = this
+      return (moment(scheduleRange[1]) - moment(scheduleRange[0])) / 1000 / 60
     }
   },
   methods: {
-    toggleActive: function (e) {
-      !this.scheduleRemaining || this.$emit('toggleActiveData', e, this.scheduleId)
+    activeSchedule() {
+      this.$emit('activeSchedule', this.scheduleId, this.remainingNum)
+    },
+    gotoDetail() {
+      this.$router.push({path: '/coach-course-detail', query: {coachId: this.coachId, courseId: this.courseId}})
     }
   }
 })

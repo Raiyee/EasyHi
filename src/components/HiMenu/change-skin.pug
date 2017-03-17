@@ -1,0 +1,16 @@
+modal-item(:class="[classes.container, classes[editingTheme], {[classes.square]: editingStyle}]", :border="false", :transition="true")
+  .modal-body.border-b(slot="body")
+    h5.text-center 点击选择主题色(共5色)
+    .border-b(:class="classes.themes")
+      ul.list-unstyled
+        li(v-for="(themeName, themeColor) of themes",
+        :class="{active: themeColor === editingTheme}",
+        @click="editingTheme = themeColor") {{ themeName }}
+    h5.text-center 点击选择元素风格
+    ul.list-unstyled(:class="classes.styles")
+      li(v-for="(text, index) of ['圆', '方']",
+      :class="{active: index === +editingStyle}",
+      @click="editingStyle = !!index") {{ text }}
+  template(slot="footer")
+    button.btn.border-r(@click="cancelEdit") 放弃
+    button.btn.theme-color(@click="confirmEdit") 保存

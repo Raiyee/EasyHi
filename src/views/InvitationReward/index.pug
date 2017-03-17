@@ -1,0 +1,60 @@
+div(:class="classes.content")
+  header
+  main
+    .dashed-line
+      span.theme-color 奖励规则
+    div(v-if="inviterReward.length || inviteeRewardContent.length", :class="classes.reward")
+      .media(v-if="inviterReward.length")
+        .media-left
+          span.iconfont.icon-radio.theme-color
+        .media-body
+          template(v-for="({rewardThreshold, rewardContent}) of inviterReward")
+            h5.media-heading 会员邀请的办卡成功好友满{{ rewardThreshold }}人，就能获得：
+            div(v-html="$util.normalizeLineBreaks(rewardContent)")
+          h5.media-heading 届时记得联系场馆兑换哦~
+      .media(v-if="inviteeRewardContent.length")
+        .media-left
+          span.iconfont.icon-radio.theme-color
+        .media-body
+          h5.media-heading 被邀请的新人登录成功后，就能获得:
+          div
+            template(v-if="inviteeRewardId") "{{ inviteeRewardContent }}" 体验券 1 张
+            template(v-else) {{ inviteeRewardContent }}
+    div(v-else, :class="classes.noReward") 馆主还没想好礼品，尽请期待哦~
+    .dashed-line
+      span.theme-color 邀请流程
+    div(:class="classes.process")
+    br
+    .dashed-line
+      span.theme-color {{ isStaffS ? '邀请情况' : `我已邀请${invitations.length}人` }}
+    router-link(v-if="isStaffS", tag="div", :class="classes.invitation", to="/invitation-reward/inviters")
+      div 共邀请 (人)
+        div {{ invitedNum }}
+      div 已办卡 (人)
+        div {{ invitedMembershipNum }}
+    div(v-else, :class="classes.invitations")
+      table.table
+        tr
+          td 手机号
+          td 姓名
+          td 是否办卡
+        template(v-if="invitations.length")
+          tr(v-for="{userMobile, userName, hasMbrCard, invitationState} of invitations")
+            td
+              hi-tooltip(v-if="invitationState", placement="right-bottom", :class="classes.tooltip")
+                span.iconfont.icon-gift(:class="invitationState === 1 ? 'theme-color' : 'remark-color'", slot="outlet")
+                template(slot="tooltip") {{ invitationState - 1 ? '已' : '可'}}用于兑奖
+              span(v-else)
+              | {{ userMobile }}
+            td {{ userName }}
+            td {{ hasMbrCard ? '是' : '否' }}
+        tr(v-else)
+          td.text-center.remark-color(colspan="3") 您还未邀请好友，行动起来吧~
+  .hide(v-if="!isStaffS", ref="qrious")
+    div(:class="classes.qrious")
+      h4 请好友扫描二维码
+      .dashed-line
+      qrious(:value="qrcodeUrl", :size="200")
+      div 好友登录成功后，刷新本页即可在邀请名单上看到 ta
+  .fixed-bottom.border-t
+    button.btn.btn-theme-primary(@click="isStaffS ? $router.push('/invitation-reward/setting') : showQrcode()") {{ isStaffS ? '设置奖励' : '我的邀请码' }}

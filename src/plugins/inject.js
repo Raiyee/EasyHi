@@ -1,7 +1,7 @@
 import Vue from 'vue'
 
 const combine = function (context, modules, key) {
-  modules[key.replace(/(^\.\/)|(\.js$)/g, '')] = context(key)
+  modules[key.replace(/(^\.\/)|(\.(js|vue)$)/g, '')] = context(key)
   return modules
 }
 

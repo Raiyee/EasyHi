@@ -1,6 +1,6 @@
 div(:class="classes.pickers")
   div(v-if="pickerTitle", :class="classes.pickersTitle") {{ pickerTitle }}
-  template(v-for="(pickerList, index) of pickers")
+  template(v-for="(pickerList, index) of pickerLists")
     picker-list(v-bind="pickerList",
     :index="index",
     :length="pickers.length",

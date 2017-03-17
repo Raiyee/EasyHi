@@ -1,0 +1,25 @@
+modal-item(:class="classes.followDynamicModal",
+:footer="true",
+:full="true",
+:transition="true",
+confirmText="提交",
+:confirm="confirmModal")
+  div(slot="body", :class="classes.body", :style="{height}")
+    div(:class="classes.item")
+      .theme-color.theme-bd(:class="classes.itemTitle") 请选择跟进类型
+      div(:class="classes.itemContent")
+        .border-b(:class="classes.followState", @click="checkBeInvited")
+          span(:class="{'theme-color' : followType}") 邀约
+          span.iconfont(:class="[classes.icon, classes.uncheck, {'theme-color' : followType}, `icon-${followType ? '' : 'un'}check`]")
+        div(:class="classes.followState", @click="checkEnterTheStore")
+          span(:class="{'theme-color' : !followType}") 到店
+          span.iconfont(:class="[classes.icon, classes.uncheck, {'theme-color' : !followType}, `icon-${followType ? 'un' : ''}check`]")
+    div(:class="classes.item")
+      .theme-color.theme-bd(:class="classes.itemTitle") 请填写跟进内容
+      div(:class="[classes.itemContent, classes.followContent]")
+        textarea(v-model="remark", maxlength="100", placeholder="如访客将何时到店、了解到的相关情况、办卡意 愿等")
+        div(:class="classes.fontNum") {{remark.length}}/100
+
+    .border-tb(:class="classes.prompt")
+      span.iconfont.icon-prompt(:class="classes.iconPrompt")
+      span 提交后就不能修改或删除了哦

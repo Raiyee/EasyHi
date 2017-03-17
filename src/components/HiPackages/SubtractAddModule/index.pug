@@ -1,4 +1,4 @@
 div(:class="classes.container")
-  span.iconfont.icon-jianhao(@click="canSubtract && clickEvent(-1)", :class="canSubtract ? 'theme-color' : 'disabled'")
+  span.iconfont.icon-jianhao.stress-size(@click="canSubtract && clickEvent(-1)", :class="canSubtract ? 'theme-color' : 'disabled'")
   span.curr {{currIns}}
-  span.iconfont.icon-jiahao(@click="canAdd && clickEvent(1)", :class="canAdd ? 'theme-color' : 'disabled'")
+  span.iconfont.icon-jiahao.stress-size(@click="canAdd && clickEvent(1)", :class="canAdd ? 'theme-color' : 'disabled'")
