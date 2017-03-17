@@ -159,8 +159,8 @@ const mutations = {
     state.style = style
     state.theme = theme
     state.oauthUrlTemplate = oauthUrlTemplate
-    state.oldServer = OLD_SERVER_PREFIX +
-      (isStatic ? 'dev/modules/index/html/' : `${isWechat ? 'oauth/' : ''}center/${state.tcode}/index/`)
+    state.oldServer = OLD_SERVER_PREFIX + (isStatic ? `${__DEV__ ? 'dev' : 'product/default'}/modules/index/html/`
+        : `${isWechat ? 'oauth/' : ''}center/${state.tcode}/index/`)
   },
   [TOGGLE_SUBSCRIBE_TYPE](state, subscribeType) {
     state.subscribeType = subscribeType

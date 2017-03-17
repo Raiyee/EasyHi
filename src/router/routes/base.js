@@ -1,4 +1,6 @@
-import utils from 'utils'
+import {getters} from 'store'
+
+// import utils from 'utils'
 
 export default [{
   path: '/',
@@ -27,7 +29,7 @@ export default [{
   name: '404',
   component: () => import('components/HiWidgets/NotFound'),
   beforeEnter() {
-    // location.href = getters.urlPrefix + getters.currRole + '/index'
-    utils.router.history.updateRoute(utils.NOT_FOUND_ROUTE)
+    location.href = getters.urlPrefix + getters.currRole + '/index'
+    // utils.router.history.updateRoute(utils.NOT_FOUND_ROUTE)
   }
 }]
