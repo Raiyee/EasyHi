@@ -50,7 +50,7 @@
     "lint"
   ],
   "dependencies": {
-    "axios": "^0.15.3",
+    "axios": "^0.16.0",
     "bootstrap-styl": "^5.0.8",
     "core-js": "^2.4.1",
     "echarts": "^3.5.1",
