@@ -48,7 +48,7 @@ const webpackConfig = {
 // ------------------------------------
 // Entry Points
 // ------------------------------------
-const APP_ENTRY_PATH = ['regenerator-runtime/runtime', paths.src('index.js')]
+const APP_ENTRY_PATH = ['babel-polyfill', paths.src('index.js')]
 
 webpackConfig.entry = {
   app: __DEV__
