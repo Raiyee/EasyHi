@@ -59,7 +59,7 @@
     "qs": "^6.4.0",
     "v-touch": "^1.1.1",
     "vue": "^2.2.6",
-    "vue-qrious": "^0.0.3",
+    "vue-qrious": "^0.1.0",
     "vue-router": "^2.3.1",
     "vuex": "^2.2.1",
     "weixin-js-sdk": "^1.2.0"
