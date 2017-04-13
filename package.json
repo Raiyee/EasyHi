@@ -147,7 +147,7 @@
     "vconsole": "^2.5.2",
     "vue-hot-reload-api": "^2.0.11",
     "vue-loader": "^11.3.4",
-    "vue-style-loader": "^2.0.5",
+    "vue-style-loader": "^3.0.0",
     "vue-template-compiler": "^2.2.6",
     "vue-template-es2015-loader": "^2.1.2",
     "webpack": "^2.3.3",
