@@ -50,6 +50,10 @@ acorn@^4.0.1, acorn@^4.0.3, acorn@^4.0.4, acorn@~4.0.2:
   version "4.0.11"
   resolved "http://registry.npm.taobao.org/acorn/download/acorn-4.0.11.tgz#edcda3bd937e7556410d42ed5860f67399c794c0"
 
+acorn@^5.0.0:
+  version "5.0.3"
+  resolved "http://registry.npm.taobao.org/acorn/download/acorn-5.0.3.tgz#c460df08491463f028ccb82eab3730bf01087b3d"
+
 after@0.8.2:
   version "0.8.2"
   resolved "http://registry.npm.taobao.org/after/download/after-0.8.2.tgz#fedb394f9f0e02aa9768e702bda23b505fae7e1f"
@@ -344,9 +348,9 @@ babel-core@7.0.0-alpha.7, babel-core@^7.0.0-alpha.7:
     slash "^1.0.0"
     source-map "^0.5.0"
 
-babel-eslint@^7.2.1:
-  version "7.2.1"
-  resolved "http://registry.npm.taobao.org/babel-eslint/download/babel-eslint-7.2.1.tgz#079422eb73ba811e3ca0865ce87af29327f8c52f"
+babel-eslint@^7.2.2:
+  version "7.2.2"
+  resolved "http://registry.npm.taobao.org/babel-eslint/download/babel-eslint-7.2.2.tgz#0da2cbe6554fd0fb069f19674f2db2f9c59270ff"
   dependencies:
     babel-code-frame "^6.22.0"
     babel-traverse "^6.23.1"
@@ -2559,11 +2563,11 @@ ecc-jsbn@~0.1.1:
   dependencies:
     jsbn "~0.1.0"
 
-echarts@^3.5.2:
-  version "3.5.2"
-  resolved "http://registry.npm.taobao.org/echarts/download/echarts-3.5.2.tgz#c5baf0157c257394b22d3e89937eb368a27bf6ac"
+echarts@^3.5.3:
+  version "3.5.3"
+  resolved "http://registry.npm.taobao.org/echarts/download/echarts-3.5.3.tgz#771e6752cc4c163e77ddbfeaeecf5985a9320847"
   dependencies:
-    zrender "^3.4.2"
+    zrender "^3.4.3"
 
 editorconfig@^0.13.2:
   version "0.13.2"
@@ -2797,9 +2801,9 @@ escope@^3.6.0:
     esrecurse "^4.1.0"
     estraverse "^4.1.1"
 
-eslint-config-standard@^10.2.0:
-  version "10.2.0"
-  resolved "http://registry.npm.taobao.org/eslint-config-standard/download/eslint-config-standard-10.2.0.tgz#9e5a495c32aae8aa8aeb580b703ef645a1765e9b"
+eslint-config-standard@^10.2.1:
+  version "10.2.1"
+  resolved "http://registry.npm.taobao.org/eslint-config-standard/download/eslint-config-standard-10.2.1.tgz#c061e4d066f379dc17cd562c64e819b4dd454591"
 
 eslint-friendly-formatter@^2.0.7:
   version "2.0.7"
@@ -4563,7 +4567,7 @@ json3@3.3.2, json3@^3.3.2:
   version "3.3.2"
   resolved "http://registry.npm.taobao.org/json3/download/json3-3.3.2.tgz#3c0434743df93e2f5c42aee7b19bcb483575f4e1"
 
-json5@^0.5.0:
+json5@^0.5.0, json5@^0.5.1:
   version "0.5.1"
   resolved "http://registry.npm.taobao.org/json5/download/json5-0.5.1.tgz#1eade7acc012034ad84e2396767ead9fa5495821"
 
@@ -7808,7 +7812,7 @@ sum-up@^1.0.1:
   dependencies:
     chalk "^1.0.0"
 
-supports-color@3.1.2, supports-color@^3.1.0, supports-color@^3.1.1:
+supports-color@3.1.2, supports-color@^3.1.1:
   version "3.1.2"
   resolved "http://registry.npm.taobao.org/supports-color/download/supports-color-3.1.2.tgz#72a262894d9d408b956ca05ff37b2ed8a6e2a2d5"
   dependencies:
@@ -7818,7 +7822,7 @@ supports-color@^2.0.0:
   version "2.0.0"
   resolved "http://registry.npm.taobao.org/supports-color/download/supports-color-2.0.0.tgz#535d045ce6b6363fa40117084629995e9df324c7"
 
-supports-color@^3.2.3:
+supports-color@^3.1.0, supports-color@^3.2.3:
   version "3.2.3"
   resolved "http://registry.npm.taobao.org/supports-color/download/supports-color-3.2.3.tgz#65ac0504b3954171d8a64946b2ae3cbb8a5f54f6"
   dependencies:
@@ -8467,17 +8471,26 @@ vue-loader@^11.3.4:
     vue-style-loader "^2.0.0"
     vue-template-es2015-compiler "^1.2.2"
 
-vue-qrious@^0.1.1:
-  version "0.1.1"
-  resolved "http://registry.npm.taobao.org/vue-qrious/download/vue-qrious-0.1.1.tgz#b7675b0e46b8f67b8f243e5a56139b1085ac0a56"
+vue-qrious@^0.2.0:
+  version "0.2.0"
+  resolved "http://registry.npm.taobao.org/vue-qrious/download/vue-qrious-0.2.0.tgz#b376a5e74320c15f59a2d0ad7ceb3b50664f57db"
+  dependencies:
+    qrious "^2.2.0"
 
 vue-router@^2.4.0:
   version "2.4.0"
   resolved "http://registry.npm.taobao.org/vue-router/download/vue-router-2.4.0.tgz#56a635e1434a1966ac095f2a485bebdcfc36cec5"
 
-vue-style-loader@^2.0.0, vue-style-loader@^2.0.5:
+vue-style-loader@^2.0.0:
   version "2.0.5"
   resolved "http://registry.npm.taobao.org/vue-style-loader/download/vue-style-loader-2.0.5.tgz#f0efac992febe3f12e493e334edb13cd235a3d22"
+  dependencies:
+    hash-sum "^1.0.2"
+    loader-utils "^1.0.2"
+
+vue-style-loader@^3.0.0:
+  version "3.0.0"
+  resolved "http://registry.npm.taobao.org/vue-style-loader/download/vue-style-loader-3.0.0.tgz#edeaee3b529d5796ef0b01bb7142a8a7e0025353"
   dependencies:
     hash-sum "^1.0.2"
     loader-utils "^1.0.2"
@@ -8505,9 +8518,9 @@ vue@^2.2.6:
   version "2.2.6"
   resolved "http://registry.npm.taobao.org/vue/download/vue-2.2.6.tgz#451714b394dd6d4eae7b773c40c2034a59621aed"
 
-vuex@^2.2.1:
-  version "2.2.1"
-  resolved "http://registry.npm.taobao.org/vuex/download/vuex-2.2.1.tgz#a42d0ce18cb0e0359258f84bfd76835ed468c185"
+vuex@^2.3.0:
+  version "2.3.0"
+  resolved "http://registry.npm.taobao.org/vuex/download/vuex-2.3.0.tgz#600048bef1682d657a6f3b7b1ffb44898703f2b4"
 
 ware@^1.2.0:
   version "1.3.0"
@@ -8589,11 +8602,11 @@ webpack-sources@^0.2.3:
     source-list-map "^1.1.1"
     source-map "~0.5.3"
 
-webpack@^2.3.3:
-  version "2.3.3"
-  resolved "http://registry.npm.taobao.org/webpack/download/webpack-2.3.3.tgz#eecc083c18fb7bf958ea4f40b57a6640c5a0cc78"
+webpack@^2.4.1:
+  version "2.4.1"
+  resolved "http://registry.npm.taobao.org/webpack/download/webpack-2.4.1.tgz#15a91dbe34966d8a4b99c7d656efd92a2e5a6f6a"
   dependencies:
-    acorn "^4.0.4"
+    acorn "^5.0.0"
     acorn-dynamic-import "^2.0.0"
     ajv "^4.7.0"
     ajv-keywords "^1.1.1"
@@ -8601,6 +8614,7 @@ webpack@^2.3.3:
     enhanced-resolve "^3.0.0"
     interpret "^1.0.0"
     json-loader "^0.5.4"
+    json5 "^0.5.1"
     loader-runner "^2.3.0"
     loader-utils "^0.2.16"
     memory-fs "~0.4.1"
@@ -8835,9 +8849,9 @@ yargs@^6.0.0:
     y18n "^3.2.1"
     yargs-parser "^4.2.0"
 
-yargs@^7.0.2:
-  version "7.0.2"
-  resolved "http://registry.npm.taobao.org/yargs/download/yargs-7.0.2.tgz#115b97df1321823e8b8648e8968c782521221f67"
+yargs@^7.1.0:
+  version "7.1.0"
+  resolved "http://registry.npm.taobao.org/yargs/download/yargs-7.1.0.tgz#6ba318eb16961727f5d284f8ea003e8d6154d0c8"
   dependencies:
     camelcase "^3.0.0"
     cliui "^3.2.0"
@@ -8872,6 +8886,6 @@ yeast@0.1.2:
   version "0.1.2"
   resolved "http://registry.npm.taobao.org/yeast/download/yeast-0.1.2.tgz#008e06d8094320c372dbc2f8ed76a0ca6c8ac419"
 
-zrender@^3.4.2:
-  version "3.4.2"
-  resolved "http://registry.npm.taobao.org/zrender/download/zrender-3.4.2.tgz#7286ef00e640d9686b63892eb2087bcffd1b7ea1"
+zrender@^3.4.3:
+  version "3.4.3"
+  resolved "http://registry.npm.taobao.org/zrender/download/zrender-3.4.3.tgz#acb9561cefa98fa8f919232ba0d95585cb51aa2e"

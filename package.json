@@ -52,7 +52,7 @@
   "dependencies": {
     "axios": "^0.16.1",
     "bootstrap-styl": "^5.0.8",
-    "echarts": "^3.5.2",
+    "echarts": "^3.5.3",
     "fonts.css": "^1.5.0",
     "moment": "^2.18.1",
     "qrious": "^2.2.0",
@@ -61,12 +61,12 @@
     "vue": "^2.2.6",
     "vue-qrious": "^0.2.0",
     "vue-router": "^2.4.0",
-    "vuex": "^2.2.1",
+    "vuex": "^2.3.0",
     "weixin-js-sdk": "^1.2.0"
   },
   "devDependencies": {
     "babel-core": "^7.0.0-alpha.7",
-    "babel-eslint": "^7.2.1",
+    "babel-eslint": "^7.2.2",
     "babel-helper-vue-jsx-merge-props": "^2.0.2",
     "babel-loader": "^7.0.0-beta.1",
     "babel-plugin-__coverage__": "^11.0.0",
@@ -89,7 +89,7 @@
     "debug": "^2.6.3",
     "del": "^2.2.2",
     "eslint": "^3.19.0",
-    "eslint-config-standard": "^10.2.0",
+    "eslint-config-standard": "^10.2.1",
     "eslint-friendly-formatter": "^2.0.7",
     "eslint-loader": "^1.7.1",
     "eslint-plugin-babel": "^4.1.1",
@@ -150,10 +150,10 @@
     "vue-style-loader": "^3.0.0",
     "vue-template-compiler": "^2.2.6",
     "vue-template-es2015-loader": "^2.1.2",
-    "webpack": "^2.3.3",
+    "webpack": "^2.4.1",
     "webpack-dev-middleware": "^1.10.1",
     "webpack-dev-server": "^2.4.2",
     "webpack-hot-middleware": "^2.18.0",
-    "yargs": "^7.0.2"
+    "yargs": "^7.1.0"
   }
 }

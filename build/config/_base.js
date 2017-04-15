@@ -64,9 +64,9 @@ const __MOCK__ = !!argv.mock
 
 const __DEV__ = NODE_ENV === 'development'
 
-let NON_INDEX_REGEX = /^(?!.*[/\\](index)\.js).*\.(js|vue)$/.toString()
+const NON_INDEX_REGEX = /^(?!.*[/\\](index)\.js).*\.(js|vue)$/.toString()
 
-__DEV__ || (NON_INDEX_REGEX = NON_INDEX_REGEX.replace('index', 'index|test'))
+// __DEV__ || (NON_INDEX_REGEX = NON_INDEX_REGEX.replace('index', 'index|test'))
 
 config.globals = {
   'process.env.NODE_ENV': JSON.stringify(NODE_ENV),
