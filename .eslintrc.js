@@ -43,6 +43,7 @@ module.exports = {
     'babel/object-curly-spacing': 2,
     'computed-property-spacing': 2,
     'eol-last': 2,
+    'flowtype/no-types-missing-file-annotation': 0,
     'generator-star-spacing': 2,
     'max-depth': 2,
     'max-len': [
