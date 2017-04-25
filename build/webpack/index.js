@@ -155,7 +155,7 @@ webpackConfig.plugins = [
     minimize: __PROD__,
     stylus: {
       default: {
-        import: [paths.src('styles/_variables.styl')],
+        import: paths.src('styles/_variables.styl'),
         paths: 'node_modules/bootstrap-styl',
         preferPathResolver: 'webpack'
       }
