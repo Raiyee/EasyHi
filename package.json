@@ -71,7 +71,7 @@
     "babel-plugin-__coverage__": "^11.0.0",
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-dynamic-import-webpack": "^1.0.1",
-    "babel-plugin-flow-runtime": "^0.10.0",
+    "babel-plugin-flow-runtime": "^0.11.0",
     "babel-plugin-syntax-flow": "^7.0.0-alpha.9",
     "babel-plugin-syntax-jsx": "^7.0.0-alpha.9",
     "babel-plugin-transform-flow-strip-types": "^7.0.0-alpha.9",
