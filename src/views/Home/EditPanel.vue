@@ -60,8 +60,11 @@
         this.editingImgIndex = index
       },
       previewFile(e) {
-        resizeImgFile(e.target.files[0],
-          result => this.$emit('toggleImg', this.editingImgIndex, (this.result = result)))
+        const input = e.target
+        resizeImgFile(input.files[0], result => {
+          this.$emit('toggleImg', this.editingImgIndex, (this.result = result))
+          input.value = null
+        })
       },
       selectImg() {
         this.$refs.img.click()
@@ -161,8 +164,8 @@
     border-radius 50%
 
   .pic1
-    retina('../home-01', 'jpg')
+    retina('./home-01')
 
   .pic2
-    retina('../home-02', 'jpg')
+    retina('./home-02')
 </style>

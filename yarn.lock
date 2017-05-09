@@ -4770,9 +4770,9 @@ karma-webpack@^2.0.3:
     source-map "^0.1.41"
     webpack-dev-middleware "^1.0.11"
 
-karma@^1.6.0:
-  version "1.6.0"
-  resolved "http://registry.npm.taobao.org/karma/download/karma-1.6.0.tgz#0e871d4527d5eac56c41d181f03c5c0a7e6dbf3e"
+karma@^1.7.0:
+  version "1.7.0"
+  resolved "http://registry.npm.taobao.org/karma/download/karma-1.7.0.tgz#6f7a1a406446fa2e187ec95398698f4cee476269"
   dependencies:
     bluebird "^3.3.0"
     body-parser "^1.16.1"
@@ -6344,9 +6344,9 @@ postcss-load-plugins@^2.3.0:
     cosmiconfig "^2.1.1"
     object-assign "^4.1.0"
 
-postcss-loader@^2.0.0:
-  version "2.0.2"
-  resolved "http://registry.npm.taobao.org/postcss-loader/download/postcss-loader-2.0.2.tgz#031d6de5f0d0204c90acd2a3027c68d5f7e5243f"
+postcss-loader@^2.0.3:
+  version "2.0.3"
+  resolved "http://registry.npm.taobao.org/postcss-loader/download/postcss-loader-2.0.3.tgz#1aac19ef0ce78866f204c0f6299a386556c555a0"
   dependencies:
     loader-utils "^1.x"
     postcss "^6.x"
@@ -8005,7 +8005,7 @@ sum-up@^1.0.1:
   dependencies:
     chalk "^1.0.0"
 
-supports-color@3.1.2, supports-color@^3.1.0, supports-color@^3.1.1:
+supports-color@3.1.2, supports-color@^3.1.1:
   version "3.1.2"
   resolved "http://registry.npm.taobao.org/supports-color/download/supports-color-3.1.2.tgz#72a262894d9d408b956ca05ff37b2ed8a6e2a2d5"
   dependencies:
@@ -8015,7 +8015,7 @@ supports-color@^2.0.0:
   version "2.0.0"
   resolved "http://registry.npm.taobao.org/supports-color/download/supports-color-2.0.0.tgz#535d045ce6b6363fa40117084629995e9df324c7"
 
-supports-color@^3.2.3:
+supports-color@^3.1.0, supports-color@^3.2.3:
   version "3.2.3"
   resolved "http://registry.npm.taobao.org/supports-color/download/supports-color-3.2.3.tgz#65ac0504b3954171d8a64946b2ae3cbb8a5f54f6"
   dependencies:
@@ -8665,9 +8665,9 @@ vue-loader@^12.0.3:
     vue-style-loader "^3.0.0"
     vue-template-es2015-compiler "^1.2.2"
 
-vue-qrious@^0.2.0:
-  version "0.2.0"
-  resolved "http://registry.npm.taobao.org/vue-qrious/download/vue-qrious-0.2.0.tgz#b376a5e74320c15f59a2d0ad7ceb3b50664f57db"
+vue-qrious@^0.2.1:
+  version "0.2.1"
+  resolved "http://registry.npm.taobao.org/vue-qrious/download/vue-qrious-0.2.1.tgz#6193fba1560d63041ea3caf22d64b0975c11cd4c"
   dependencies:
     qrious "^2.2.0"
 
@@ -8789,9 +8789,9 @@ webpack-sources@^0.2.3:
     source-list-map "^1.1.1"
     source-map "~0.5.3"
 
-webpack@^2.4.1:
-  version "2.4.1"
-  resolved "http://registry.npm.taobao.org/webpack/download/webpack-2.4.1.tgz#15a91dbe34966d8a4b99c7d656efd92a2e5a6f6a"
+webpack@^2.5.1:
+  version "2.5.1"
+  resolved "http://registry.npm.taobao.org/webpack/download/webpack-2.5.1.tgz#61742f0cf8af555b87460a9cd8bba2f1e3ee2fce"
   dependencies:
     acorn "^5.0.0"
     acorn-dynamic-import "^2.0.0"

@@ -107,7 +107,6 @@ export default require('./index.pug')({
       } else {
         this.editingImg1 = this.img1
       }
-      this.$forceUpdate()
     },
     toggleColor() {
       this.editingColor = !this.editingColor
