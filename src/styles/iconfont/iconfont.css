@@ -1,10 +1,10 @@
 
 @font-face {font-family: "iconfont";
-  src: url('iconfont.eot?t=1489382226862'); /* IE9*/
-  src: url('iconfont.eot?t=1489382226862#iefix') format('embedded-opentype'), /* IE6-IE8 */
-  url('iconfont.woff?t=1489382226862') format('woff'), /* chrome, firefox */
-  url('iconfont.ttf?t=1489382226862') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
-  url('iconfont.svg?t=1489382226862#iconfont') format('svg'); /* iOS 4.1- */
+  src: url('iconfont.eot?t=1490592230483'); /* IE9*/
+  src: url('iconfont.eot?t=1490592230483#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('iconfont.woff?t=1490592230483') format('woff'), /* chrome, firefox */
+  url('iconfont.ttf?t=1490592230483') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('iconfont.svg?t=1490592230483#iconfont') format('svg'); /* iOS 4.1- */
 }
 
 .iconfont {
@@ -14,6 +14,8 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+.icon-setting:before { content: "\e664"; }
 
 .icon-edit:before { content: "\e630"; }
 
@@ -95,6 +97,12 @@
 
 .icon-prize:before { content: "\e638"; }
 
+.icon-camera:before { content: "\e63e"; }
+
+.icon-correct:before { content: "\e63f"; }
+
+.icon-error:before { content: "\e640"; }
+
 .icon-circle-coach:before { content: "\e6ef"; }
 
 .icon-circle-staff:before { content: "\e6f0"; }
@@ -129,6 +137,8 @@
 
 .icon-female:before { content: "\e605"; }
 
+.icon-phone:before { content: "\e687"; }
+
 .icon-jia:before { content: "\e60a"; }
 
 .icon-circle-checkin:before { content: "\e74f"; }
@@ -153,7 +163,19 @@
 
 .icon-clock-duration:before { content: "\e7d1"; }
 
+.icon-img-reverse:before { content: "\e7d3"; }
+
 .icon-solid-circle-hook:before { content: "\e7d7"; }
+
+.icon-black:before { content: "\e7d8"; }
+
+.icon-white:before { content: "\e7d9"; }
+
+.icon-img2:before { content: "\e7da"; }
+
+.icon-img1:before { content: "\e7db"; }
+
+.icon-unchecked:before { content: "\e7dc"; }
 
 .icon-card:before { content: "\e7df"; }
 
@@ -208,3 +230,5 @@
 .icon-exp-voucher-circle:before { content: "\e837"; }
 
 .icon-visitor:before { content: "\e839"; }
+
+.icon-hand:before { content: "\e843"; }

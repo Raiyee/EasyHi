@@ -25,7 +25,7 @@
     "compile:test-mock": "cross-env NODE_ENV=test DEBUG=hi* node build/bin/compile --mock",
     "compile:test-pages": "cross-env NODE_ENV=test DEBUG=hi* node build/bin/compile --pages",
     "debug": "npm run dev -- --debug",
-    "dev": "cross-env DEBUG=hi* PORT=3001 nodemon build/bin/start --mock",
+    "dev": "cross-env DEBUG=hi* PORT=3000 nodemon build/bin/start --mock",
     "eslint": "eslint --max-warnings 10 --ext .js,.vue .",
     "lint": "npm run eslint && npm run stylelint && npm run puglint",
     "lint:fix": "npm run eslint -- --fix && npm run stylelint && npm run puglint",
