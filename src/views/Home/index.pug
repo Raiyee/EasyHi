@@ -1,16 +1,53 @@
 div(:class="classes.content")
-  each val in [1,2]
-    div(:class="[classes.pic, classes.pic" + val + "]")
+  div(:class="classes.edit", v-if="isStaffS && !editing", @click="editPanel") 编辑本页
+  div(:class="classes.tips", v-if="isStaffS && editing")
+    span 背景图格式为.jpg/.jpeg/.png
+  template
+    div(:class="[classes.pic, classes.ani1]", v-lazy:background-image="$util.imgPath((editing && editingImg1) ? editingImg1 : img1)", v-if="resultImg1")
+    div(:class="[classes.pic, classes.ani1, classes.pic1]", v-else)
+    div(:class="[classes.pic, classes.ani2]", v-lazy:background-image="$util.imgPath((editing && editingImg2) ? editingImg2 : img2)", v-if="resultImg2")
+    div(:class="[classes.pic, classes.ani2, classes.pic2]", v-else)
   div(:class="classes.slogan")
-    div(:class="classes.sloganHeader")
-      input(title="请输入标题", value="遇见瑜伽", readonly)
+    div(:class="[classes.sloganHeader, editing ? classes['editing'] : '']")
+      input(:class="classes['slogan-title']", :style="{color: (editing ? editingColor : color) ? 'white' : 'black'}", :value="sloganTitle", readonly, v-if="!editing")
+      input(:class="classes['slogan-title']", :style="{color: (editing ? editingColor : color) ? 'white' : 'black'}",
+      title="请输入标题",
+      maxlength="12",
+      v-model="editingSloganTitle",
+      ref="sloganTitle",
+      @focus="togglePanel(false)",
+      @blur="togglePanel(true)", v-else)
       div(:class="classes.line")
-    .center-block(:class="classes['slogan-body']")
-      textarea(title="请输入内容", readonly) 当心得到控制，平静下来时，剩下的便是灵魂
+    .center-block(:class="[classes['slogan-body'], editing ? classes['editing'] : '']")
+      textarea(:class="classes['slogan-text']", :style="{color: (editing ? editingColor : color) ? 'white' : 'black'}", readonly, v-if="!editing", :value="sloganContent")
+      textarea(:class="[classes['slogan-text'], classes['slogan-title']]", :style="{color: (editing ? editingColor : color) ? 'white' : 'black'}",
+      title="请输入内容",
+      v-model="editingSloganContent",
+      ref="sloganContent",
+      @focus="togglePanel(false)",
+      @blur="togglePanel(true)",
+      maxlength="80",
+      rows="3",
+      :placeholder="`描述一下贵馆的瑜伽理念等，最多40个汉字`",
+      v-else)
+
+  div(:class="classes.mask", v-if="editing ? editingMask : mask")
+
   div(:class="classes.memberMenu")
-    each val, index in [{pull:'left',link:'/subscribe-index',icon:'icon-book',menu:'预订课程'}, {pull:'right',link:'/member-index',icon:'icon-person',menu:'个人中心'}]
+    each val, index in [{pull:'left', icon:'icon-book',menu:'预订课程'}, {pull:'right', icon:'icon-person',menu:'个人中心'}]
       div(:class="classes.outsideCircle", class="pull-" + val.pull + " animated", ref="circle" + index)
-        router-link(:class="classes.insideCircle", to=val.link, tag="div")
+        div(:class="classes.insideCircle", @click="goto("+ index + ")")
           span(:class="classes.menuIcon", class="iconfont " + val.icon)
           span(:class="classes.menuText") #{val.menu}
         div(:class="classes.insideCircleReplace")
+
+  edit-panel(v-if="isStaffS && editing && show",
+  :close="close",
+  :confirm="confirm",
+  :editingColor="editingColor",
+  :editingMask="editingMask",
+  @togglePanel="togglePanel",
+  @toggleImg="toggleImg",
+  @reInitImg="reInitImg",
+  @toggleColor="toggleColor",
+  @toggleMask="toggleMask")

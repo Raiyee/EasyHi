@@ -55,6 +55,6 @@ module.exports = {
   validateDivTags: true,
   validateExtensions: true,
   validateIndentation: 2,
-  validateLineBreaks: 'LF',
+  // validateLineBreaks: 'LF',
   validateSelfClosingTags: true
 }

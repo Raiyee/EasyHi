@@ -8,21 +8,32 @@ $btn-color = #dfd28a
   height 100%
   overflow hidden
 
-.pic
+// @stylint off
+.pic, .mask
   absolute(top left)
   size 100%
   overflow hidden
-  background-size cover
+  background-size cover !important
   background-position center center
   background-repeat no-repeat
 
+// @stylint on
+.ani1
+  animation pic1 6s linear infinite
+
+.ani2
+  animation pic2 6s linear infinite
+
 .pic1
   image("../Home/home-01.jpg")
-  animation pic1 6s linear infinite
 
 .pic2
   image("../Home/home-02.jpg")
   animation pic2 6s linear infinite
+
+.mask
+  z-index 19
+  background linear-gradient(to top, rgba(0, 0, 0, .2), rgba(0, 0, 0, 0))
 
 .slogan
   absolute()
@@ -30,26 +41,26 @@ $btn-color = #dfd28a
   top 30%
   transform translate3d(-50%, 0, 0)
   text-align center
-  z-index 3
+  z-index 30
 
 .slogan-header
   display inline-block
   overflow hidden
 
-  input
-    font-size $top-size
-    transform translate3d(0, 100%, 0)
-    animation sloganTitle .6s forwards 2.6s
-    max-height (20 / 14) * $top-size
-    width 288px
-    border 0
-    background none
-    text-align center
-    padding 0
-    resize none
-    outline 0
-    overflow hidden
-    font-kai()
+.slogan-title
+  font-size $top-size
+  transform translate3d(0, 120%, 0)
+  animation sloganTitle .6s forwards 2.6s
+  width 288px
+  border 0
+  background none
+  text-align center
+  padding 0
+  resize none
+  outline 0
+  overflow hidden
+  margin-bottom 5px
+  font-kai()
 
 .line
   border-bottom 1px solid $stress-color
@@ -59,27 +70,29 @@ $btn-color = #dfd28a
   margin-right auto
 
 .slogan-body
-  width 160px * (14 / 12)
+  width 288px
   overflow hidden
   transform translate3d(-100%, 0, 0)
   animation sloganBody 1s forwards 3.3s
   font-song()
 
   textarea
-    padding 0
     width 100%
+    margin 1px
+    padding 4px 0
     text-align center
-    background none
+    font-size 12px
+    background 0 0
     resize none
     border 0
     outline 0
-    scaleSize($smaller-size, , translate3d(100%, 0, 0))
+    transform translate3d(100%, 0, 0)
     animation sloganText 1s forwards 3.3s
 
 .member-menu
   absolute()
   bottom 30%
-  z-index 3
+  z-index 30
   left 50%
   transform translate3d(-50%, 0, 0)
   width 250px
@@ -113,6 +126,33 @@ $btn-color = #dfd28a
 
 .menu-text
   font-size 15px
+
+.edit
+  absolute()
+  padding 6px 20px
+  z-index 20
+  top 20px
+  right 10px
+  border-radius 32px
+  background-color rgb(98, 98, 98)
+  color $reverse-color
+
+.editing
+  .slogan-title
+    border 1px dashed $reverse-color
+
+.tips
+  absolute()
+  padding 10px 20px
+  top 20px
+  left 50%
+  transform translate3d(-50%, 0, 0)
+  z-index 20
+  color $reverse-color
+  background-color rgba(0, 0, 0, .2)
+  white-space nowrap
+  border-radius 20px
+
 
 @keyframes pic1
   from
@@ -168,6 +208,7 @@ $btn-color = #dfd28a
 
 @keyframes sloganTitle
   from
+    border 0
     transform translate3d(0, 100%, 0)
 
   to
@@ -182,10 +223,10 @@ $btn-color = #dfd28a
 
 @keyframes sloganText
   from
-    scaleSize($smaller-size, , translate3d(100%, 0, 0))
+    transform translate3d(100%, 0, 0)
 
   to
-    scaleSize($smaller-size, , translate3d(0, 0, 0))
+    transform translate3d(0, 0, 0)
 
 @keyframes line
   from
