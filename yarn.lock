@@ -1685,6 +1685,10 @@ coa@~1.0.1:
   dependencies:
     q "^1.1.2"
 
+coalescy@1.0.0:
+  version "1.0.0"
+  resolved "http://registry.npm.taobao.org/coalescy/download/coalescy-1.0.0.tgz#4b065846b836361ada6c4b4a4abf4bc1cac31bf1"
+
 code-point-at@^1.0.0:
   version "1.1.0"
   resolved "http://registry.npm.taobao.org/code-point-at/download/code-point-at-1.1.0.tgz#0d070b4d043a5bea33a2f1a40e2edb3d9a4ccf77"
@@ -2016,9 +2020,9 @@ create-hmac@^1.1.0, create-hmac@^1.1.2:
     create-hash "^1.1.0"
     inherits "^2.0.1"
 
-cross-env@^5.0.0-beta.0:
-  version "5.0.0-beta.0"
-  resolved "http://registry.npm.taobao.org/cross-env/download/cross-env-5.0.0-beta.0.tgz#9ab98526d6b9a466e6016afd6cc59a9ff6eed9e6"
+cross-env@^5.0.0:
+  version "5.0.0"
+  resolved "http://registry.npm.taobao.org/cross-env/download/cross-env-5.0.0.tgz#565ccae4d09676441a5087f406fe7661a29c931b"
   dependencies:
     cross-spawn "^5.1.0"
     is-windows "^1.0.0"
@@ -2897,11 +2901,12 @@ eslint-config-standard@^10.2.1:
   version "10.2.1"
   resolved "http://registry.npm.taobao.org/eslint-config-standard/download/eslint-config-standard-10.2.1.tgz#c061e4d066f379dc17cd562c64e819b4dd454591"
 
-eslint-friendly-formatter@^2.0.7:
-  version "2.0.7"
-  resolved "http://registry.npm.taobao.org/eslint-friendly-formatter/download/eslint-friendly-formatter-2.0.7.tgz#657f95a19af4989636afebb1cc9de6cebbd088ee"
+eslint-friendly-formatter@^3.0.0:
+  version "3.0.0"
+  resolved "http://registry.npm.taobao.org/eslint-friendly-formatter/download/eslint-friendly-formatter-3.0.0.tgz#278874435a6c46ec1d94fa0b1ff494e30ef04290"
   dependencies:
     chalk "^1.0.0"
+    coalescy "1.0.0"
     extend "^3.0.0"
     minimist "^1.2.0"
     text-table "^0.2.0"
@@ -6344,9 +6349,9 @@ postcss-load-plugins@^2.3.0:
     cosmiconfig "^2.1.1"
     object-assign "^4.1.0"
 
-postcss-loader@^2.0.3:
-  version "2.0.3"
-  resolved "http://registry.npm.taobao.org/postcss-loader/download/postcss-loader-2.0.3.tgz#1aac19ef0ce78866f204c0f6299a386556c555a0"
+postcss-loader@^2.0.5:
+  version "2.0.5"
+  resolved "http://registry.npm.taobao.org/postcss-loader/download/postcss-loader-2.0.5.tgz#c19d3e8b83eb1ac316f5621ef4c0ef5b3d1b8b3a"
   dependencies:
     loader-utils "^1.x"
     postcss "^6.x"
@@ -7976,9 +7981,9 @@ stylus-loader@^3.0.1:
     lodash.clonedeep "^4.5.0"
     when "~3.6.x"
 
-stylus-pxtorem@^1.0.11:
-  version "1.0.11"
-  resolved "http://registry.npm.taobao.org/stylus-pxtorem/download/stylus-pxtorem-1.0.11.tgz#090b664b5f19646bf1f2eabdeb649d9fe54da8d0"
+stylus-pxtorem@^1.0.14:
+  version "1.0.14"
+  resolved "http://registry.npm.taobao.org/stylus-pxtorem/download/stylus-pxtorem-1.0.14.tgz#e064726dead85f1af902a28f380d0fad95d34e45"
   dependencies:
     stylus "^0.54.2"
 
@@ -8005,7 +8010,7 @@ sum-up@^1.0.1:
   dependencies:
     chalk "^1.0.0"
 
-supports-color@3.1.2, supports-color@^3.1.1:
+supports-color@3.1.2, supports-color@^3.1.0, supports-color@^3.1.1:
   version "3.1.2"
   resolved "http://registry.npm.taobao.org/supports-color/download/supports-color-3.1.2.tgz#72a262894d9d408b956ca05ff37b2ed8a6e2a2d5"
   dependencies:
@@ -8015,7 +8020,7 @@ supports-color@^2.0.0:
   version "2.0.0"
   resolved "http://registry.npm.taobao.org/supports-color/download/supports-color-2.0.0.tgz#535d045ce6b6363fa40117084629995e9df324c7"
 
-supports-color@^3.1.0, supports-color@^3.2.3:
+supports-color@^3.2.3:
   version "3.2.3"
   resolved "http://registry.npm.taobao.org/supports-color/download/supports-color-3.2.3.tgz#65ac0504b3954171d8a64946b2ae3cbb8a5f54f6"
   dependencies:
@@ -8682,9 +8687,9 @@ vue-style-loader@^3.0.0, vue-style-loader@^3.0.1:
     hash-sum "^1.0.2"
     loader-utils "^1.0.2"
 
-vue-template-compiler@^2.3.2:
-  version "2.3.2"
-  resolved "http://registry.npm.taobao.org/vue-template-compiler/download/vue-template-compiler-2.3.2.tgz#d48a7f53df5f497033827182ceb4f0d340803017"
+vue-template-compiler@^2.3.3:
+  version "2.3.3"
+  resolved "http://registry.npm.taobao.org/vue-template-compiler/download/vue-template-compiler-2.3.3.tgz#b5bab9ec57309c906b82a78c81a02179dbc2f470"
   dependencies:
     de-indent "^1.0.2"
     he "^1.1.0"
@@ -8701,9 +8706,9 @@ vue-template-es2015-loader@^2.1.2:
     loader-utils "^1.0.2"
     vue-template-es2015-compiler "^1.4.0"
 
-vue@^2.3.2:
-  version "2.3.2"
-  resolved "http://registry.npm.taobao.org/vue/download/vue-2.3.2.tgz#9e52aae3593480be235ff227557837e69f98203a"
+vue@^2.3.3:
+  version "2.3.3"
+  resolved "http://registry.npm.taobao.org/vue/download/vue-2.3.3.tgz#d1eaa8fde5240735a4563e74f2c7fead9cbb064c"
 
 vuex@^2.3.1:
   version "2.3.1"
