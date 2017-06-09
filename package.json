@@ -86,7 +86,7 @@
     "cross-env": "^5.0.0",
     "css-loader": "^0.28.4",
     "debug": "^2.6.8",
-    "del": "^2.2.2",
+    "del": "^3.0.0",
     "eslint": "^3.19.0",
     "eslint-config-standard": "^10.2.1",
     "eslint-friendly-formatter": "^3.0.0",
