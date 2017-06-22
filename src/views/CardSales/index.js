@@ -49,10 +49,10 @@ export default require('./index.pug')({
     },
     addCards() {
       return this.offSalesCards ? this.chooseCards() : this.$http.get('/card-sales/get-cards/unSellCard')
-          .then(({data: {cards}}) => {
-            this.offSalesCards = cards
-            this.chooseCards()
-          })
+        .then(({data: {cards}}) => {
+          this.offSalesCards = cards
+          this.chooseCards()
+        })
     },
     chooseCards() {
       const {cards, offSalesCards} = this

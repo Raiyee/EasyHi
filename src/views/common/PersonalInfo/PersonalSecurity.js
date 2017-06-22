@@ -56,7 +56,7 @@ export default require('./personal-security.pug')({
     logout() {
       confirm({
         tipText: '确定退出登录?',
-        confirm: async() => {
+        confirm: async () => {
           const {data: {code, desc}} = await this.$http.post('/membercenter/log-out')
           if (+code) return toast(desc)
           this.resetRole()

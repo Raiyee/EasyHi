@@ -18,9 +18,9 @@ export default require('./actual-modal.pug')({
     ModalItem
   },
   methods: {
-//      close() {
-//        this.$modal.close(modalId)
-//      },
+    // close() {
+    //   this.$modal.close(modalId)
+    // },
     confirm() {
       modalId = this.$modal.open({
         id: modalId,

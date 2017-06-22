@@ -47,9 +47,9 @@ export default require('./index.pug')({
       const {inviterReward} = this.$refs
 
       return !inviterReward || (inviterReward
-          .find(({rewardThreshold, rewardContent}) => !+rewardThreshold || !rewardContent)
-          ? !alert('请填写完已有奖励阶梯再添加')
-          : isAllUnique(inviterReward, 'rewardThreshold') || !alert('奖励阶梯的人数请勿重复'))
+        .find(({rewardThreshold, rewardContent}) => !+rewardThreshold || !rewardContent)
+        ? !alert('请填写完已有奖励阶梯再添加')
+        : isAllUnique(inviterReward, 'rewardThreshold') || !alert('奖励阶梯的人数请勿重复'))
     },
     addInviterReward() {
       if (!this.isInviterRewardValid()) return

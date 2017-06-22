@@ -23,9 +23,9 @@ export default require('./index.pug')({
       }
 
       const url = activityForm === 1 ? 'expvoucher/activity-detail/'
-              : activityForm === 2 ? 'expvoucher/activity-direct-detail/'
-              : goodsType === 2 ? 'storedvaluecard/detail/'
-              : goodsType === 1 ? 'sellcard/detail/'
+        : activityForm === 2 ? 'expvoucher/activity-direct-detail/'
+          : goodsType === 2 ? 'storedvaluecard/detail/'
+            : goodsType === 1 ? 'sellcard/detail/'
               : 'experience/activity-detail/'
 
       location.href = this.memberUrlPrefix + url + activityId

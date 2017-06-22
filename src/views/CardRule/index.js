@@ -53,10 +53,10 @@ export default require('./index.pug')({
               .map(ruleItem => pick(ruleItem, 'itemId', 'itemNum'))
           }))
           .filter(ruleDetail => ruleDetail.ruleItems.length)).then(() => {
-            this.$route.meta.data.ruleDetails = this.storedRuleDetails = jsonClone(this.ruleDetails)
-            this.editing = false
-            this.effective = true
-          })
+        this.$route.meta.data.ruleDetails = this.storedRuleDetails = jsonClone(this.ruleDetails)
+        this.editing = false
+        this.effective = true
+      })
     }
   },
   components: {

@@ -35,7 +35,7 @@ export default require('./index.pug')({
       const type = TYPES[index]
       if (!this.allVouchers[index]) {
         this.allVouchers[index] = (await this.$http.get(index ? '/cash-coupon/coupon-data' : '/experience/exp-data',
-            {type})).data.vouchers || []
+          {type})).data.vouchers || []
       }
       this.typeIndex = index
       replaceRoute(`/${type}-voucher`)

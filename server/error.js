@@ -3,7 +3,7 @@ import {STATUS_CODES} from 'http'
 
 export default () => {
   // const debug = _debug('hi:tools:error')
-  return async(ctx, next) => {
+  return async (ctx, next) => {
     try {
       await next()
     } catch (err) {

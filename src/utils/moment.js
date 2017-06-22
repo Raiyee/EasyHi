@@ -45,7 +45,7 @@ export const lastDayOfWeek = (date, format) => dayOfWeek(date, 7, format)
  * @returns {string}  周几
  */
 export const getWeekday = (date, getDateText) => getDateText && dateText(date, false) ||
-isoWeekdays[moment(date).isoWeekday() - 1]
+  isoWeekdays[moment(date).isoWeekday() - 1]
 
 /**
  * 获取对应格式的日期数据
@@ -79,12 +79,12 @@ export const commonMonths = date => [{
   monthIndex: 0,
   monthText: '本月'
 }, ...emptyArr(3).map((val, index) => {
-  const monthIndex = -index - 1
-  return {
-    monthIndex,
-    monthText: monthText(date, monthIndex)
-  }
-}), {
+    const monthIndex = -index - 1
+    return {
+      monthIndex,
+      monthText: monthText(date, monthIndex)
+    }
+  }), {
   monthIndex: -4,
   monthText: '三个月前'
 }]
@@ -115,7 +115,7 @@ export const timeLeft = seconds => {
 }
 
 export const combineDuration = (duration = [], format = DATE_FORMAT2, hyphen = '-') =>
-moment(duration[0]).format(format) + hyphen + moment(duration[1]).format(format)
+  moment(duration[0]).format(format) + hyphen + moment(duration[1]).format(format)
 
 const utils = {}
 

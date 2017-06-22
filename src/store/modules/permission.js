@@ -143,9 +143,9 @@ const mutations = {
     state.authorized = !!(state.mobile = mobile)
   },
   [INITIALIZE](state, {
-                 checkIn, coachAlias, isEnterprise, isOnlinePayment, merchantLogo, merchantName, merchantAddress,
-                 sceneUrlPrefix, serviceMobile, style, theme, oauthUrlTemplate
-               }) {
+    checkIn, coachAlias, isEnterprise, isOnlinePayment, merchantLogo, merchantName, merchantAddress,
+    sceneUrlPrefix, serviceMobile, style, theme, oauthUrlTemplate
+  }) {
     coachAlias && (ROLE_NAMES[COACH] = coachAlias) && (state.coachAlias = coachAlias)
     state.checkIn = checkIn
     state.initialized = true
@@ -160,7 +160,7 @@ const mutations = {
     state.theme = theme
     state.oauthUrlTemplate = oauthUrlTemplate
     state.oldServer = OLD_SERVER_PREFIX + (isStatic ? `${__DEV__ ? 'dev' : 'product/default'}/modules/index/html/`
-        : `${isWechat ? 'oauth/' : ''}center/${state.tcode}/index/`)
+      : `${isWechat ? 'oauth/' : ''}center/${state.tcode}/index/`)
   },
   [TOGGLE_SUBSCRIBE_TYPE](state, subscribeType) {
     state.subscribeType = subscribeType

@@ -18,7 +18,7 @@ export default {
             break
           default:
             if (apiName !== 'WECHAT_JSAPI') return alert('支付接口不支持')
-            payByWechat(orderPayString, async() => {
+            payByWechat(orderPayString, async () => {
               await this.$http.post(`/qr-pay/paySuccess/${orderId}`)
               this.afterPay(orderId)
             }, result => toast({

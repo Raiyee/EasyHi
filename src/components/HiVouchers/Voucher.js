@@ -16,7 +16,7 @@ export default require('./voucher.pug')({
 
       return state === 'noStocks' ? 'used-up-bg'
         : state === 'expired' ? 'unavailableBg'
-        : 'availableBg'
+          : 'availableBg'
     }
   },
   methods: {

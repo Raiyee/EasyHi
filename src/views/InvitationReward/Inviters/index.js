@@ -15,7 +15,7 @@ export default require('./index.pug')({
     filteredMembers() {
       const {members, searchText} = this
       return searchText ? members.filter(({memberName, memberMobile}) =>
-          [memberName, memberMobile].find(text => text.includes(searchText))) : members
+        [memberName, memberMobile].find(text => text.includes(searchText))) : members
     }
   },
   methods: {

@@ -18,8 +18,8 @@ export default require('./mch-card.pug')({
 
     const state = card.forbidden ? 'forbidden'
       : card.transferred ? 'transferred'
-      : card.expired ? 'expired'
-      : card.state ? '' : 'inactive'
+        : card.expired ? 'expired'
+          : card.state ? '' : 'inactive'
     return {
       classes,
       cardState: state && `${require(`assets/card/${state}.png`)}`
@@ -29,9 +29,9 @@ export default require('./mch-card.pug')({
     cardTimes() {
       const {card: {isValueCard, cardLimit, cardTimes}} = this
       return `${isValueCard
-      ? '金额:' + cardTimes + '元 ' : cardLimit
-      ? '消费上限:' + cardLimit
-      : '次数：' + (cardTimes === -1 ? '无限' : cardTimes) + '次'}`
+        ? '金额:' + cardTimes + '元 ' : cardLimit
+          ? '消费上限:' + cardLimit
+          : '次数：' + (cardTimes === -1 ? '无限' : cardTimes) + '次'}`
     },
     availTimes() {
       const {card: {isValueCard, cardLimit, availTimes}} = this

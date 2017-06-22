@@ -47,7 +47,7 @@ export default require('./mbr-card.pug')({
       const {card: {isValueCard, availTimes, cardDiscount}, benchmark} = this
       return `${(!benchmark || benchmark * (isValueCard ? cardDiscount / 10 : 1) <= availTimes)
         ? '' : isValueCard
-        ? '余额不足' : '次数不足'}`
+          ? '余额不足' : '次数不足'}`
     },
     cardTimes() {
       const {card} = this
@@ -66,7 +66,7 @@ export default require('./mbr-card.pug')({
     },
     renewable() {
       const {card: {availTimes, isValueCard, cardLimit, cardExpired, state, transferred, cardExpiredRange},
-              usable} = this
+        usable} = this
 
       if (!state) return false
 
@@ -85,7 +85,7 @@ export default require('./mbr-card.pug')({
   methods: {
     showSlot() {
       alert('本卡限制以下时断使用:<br/>' + this.card.applicablePeriods
-          .map(({startTime, endTime}) => startTime + '-' + endTime).join(',<br/>'))
+        .map(({startTime, endTime}) => startTime + '-' + endTime).join(',<br/>'))
     },
     memberCardDetail() {
       location.href = this.memberUrlPrefix + 'member-center/member-card-consume-detail/' + this.card.mbrCardId

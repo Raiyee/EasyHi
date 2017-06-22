@@ -109,18 +109,18 @@ export const initWxJs = (jsApiList = ALL_JS_API_LIST, force) => {
         qs.stringify({
           url: location.href.split('#')[0]
         })).then(({data}) => {
-          wx.config({
-            ...data,
-            jsApiList
-          })
+        wx.config({
+          ...data,
+          jsApiList
+        })
 
-          vueProp.$wx = wx
+        vueProp.$wx = wx
 
-          return new Promise((resolve, reject) => {
-            wx.ready(resolve)
-            wx.error(reject)
-          })
-        }))
+        return new Promise((resolve, reject) => {
+          wx.ready(resolve)
+          wx.error(reject)
+        })
+      }))
 }
 
 export const payByAliOrUnipay = (orderPayString, customTransferPath) => {
@@ -141,9 +141,9 @@ export const payByWechat = (orderPayString, success, fail, jsApiList, force) => 
   if (typeof WeixinJSBridge === 'undefined') return alert('请在微信中使用！')
 
   vueProp.$wx ? wechatPay(payInfo, success, fail, jsApiList, force) : window.WeixinJSBridge.invoke(
-      'getBrandWCPayRequest',
-      payInfo,
-      result => result.err_msg === 'get_brand_wcpay_request:ok'
-        ? success && success(result) : fail && fail(result)
-    )
+    'getBrandWCPayRequest',
+    payInfo,
+    result => result.err_msg === 'get_brand_wcpay_request:ok'
+      ? success && success(result) : fail && fail(result)
+  )
 }

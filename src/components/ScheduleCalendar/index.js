@@ -61,7 +61,7 @@ export default require('./index.pug')({
       const activeDate = formatDate(this.activeDate)
       const lastDay = this.mode ? lastDayOfWeek(activeDate) : this.calendar.slice(-1)[0].date
       return this.calendar.findIndex(({date, status}) =>
-      date >= activeDate && date <= lastDay && [1, 2].includes(status) && (this.activeDate = date))
+        date >= activeDate && date <= lastDay && [1, 2].includes(status) && (this.activeDate = date))
     },
     activeItems() {
       const items = this.subscribeType - 1 ? this.coaches : this.schedules
