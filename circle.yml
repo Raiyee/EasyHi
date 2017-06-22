@@ -5,10 +5,12 @@ general:
 
 machine:
   node:
-    version: 7.10.0
+    version: stable
 
 dependencies:
   pre:
+    - apt-get update
+    - apt-get install libcairo2-dev libjpeg-dev libpango1.0-dev libgif-dev build-essential g++
     - npm i -g npm
   override:
     - npm i

@@ -1,5 +1,5 @@
 language: node_js
-node_js: 7.10.0
+node_js: stable
 
 sudo: false
 
@@ -17,6 +17,8 @@ before_install:
 - cp .travis/ssh_config ~/.ssh/config
 - git config --global user.name 'JounQin'
 - git config --global user.email 'liujiaren1992@vip.qq.com'
+- apt-get update
+- apt-get install libcairo2-dev libjpeg-dev libpango1.0-dev libgif-dev build-essential g++
 - npm i -g npm
 
 install:
