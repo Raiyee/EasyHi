@@ -1,5 +1,5 @@
 language: node_js
-node_js: stable
+node_js: 7.10.0
 
 sudo: false
 
@@ -17,7 +17,7 @@ before_install:
 - cp .travis/ssh_config ~/.ssh/config
 - git config --global user.name 'JounQin'
 - git config --global user.email 'liujiaren1992@vip.qq.com'
-- npm i -g npm node-gyp
+- npm i -g npm
 
 install:
 - npm i

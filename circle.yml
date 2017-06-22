@@ -5,11 +5,11 @@ general:
 
 machine:
   node:
-    version: stable
+    version: 7.10.0
 
 dependencies:
   pre:
-    - npm i -g npm node-gyp
+    - npm i -g npm
   override:
     - npm i
 
