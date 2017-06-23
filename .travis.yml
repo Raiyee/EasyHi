@@ -8,7 +8,6 @@ branches:
   - master
 
 before_install:
-- set -e
 - openssl aes-256-cbc -K $encrypted_dcf72c291a03_key -iv $encrypted_dcf72c291a03_iv
   -in .travis/id_rsa.enc -out ~/.ssh/id_rsa -d
 - chmod 600 ~/.ssh/id_rsa
