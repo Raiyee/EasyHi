@@ -132,7 +132,7 @@
     "sinon-chai": "^2.11.0",
     "style-loader": "^0.18.2",
     "stylelint": "^8.0.0",
-    "stylelint-config-standard": "^16.0.0",
+    "stylelint-config-standard": "^17.0.0",
     "stylint": "^1.5.9",
     "stylint-stylish": "^1.4.0",
     "stylus": "^0.54.5",
