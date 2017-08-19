@@ -80,7 +80,8 @@ let appLoader, bootstrapLoader
 
 const extracting = __TEST__ || __PROD__
 
-const IMG_LOADER = __DEV__ ? '' : '!img-loader?minimize&progressive=true'
+// const IMG_LOADER = __DEV__ ? '' : '!img-loader?minimize&progressive=true'
+const IMG_LOADER = ''
 
 webpackConfig.module.rules = [
   ...commonCssLoaders({
