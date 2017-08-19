@@ -54,7 +54,7 @@ webpackConfig.entry = {
   app: __DEV__
     ? [...APP_ENTRY_PATH, 'webpack-hot-middleware/client']
     : APP_ENTRY_PATH,
-  vendor: config.compiler_vendor
+  vendors: config.compiler_vendors
 }
 
 // ------------------------------------
@@ -182,7 +182,10 @@ webpackConfig.plugins = [
 
 // Don't split bundles during testing, since we only want import one bundle
 if (!__TESTING__) {
-  webpackConfig.plugins.push(new webpack.optimize.CommonsChunkPlugin('vendor'))
+  webpackConfig.plugins.push(
+    new webpack.optimize.CommonsChunkPlugin('vendors'),
+    new webpack.optimize.CommonsChunkPlugin('manifest')
+  )
 }
 
 if (__DEV__) {
@@ -195,6 +198,7 @@ if (__DEV__) {
   debug(`Enable plugins for ${NODE_ENV} (OccurenceOrder, Dedupe & UglifyJS).`)
   debug(`Extract styles of app and bootstrap for ${NODE_ENV}.`)
   webpackConfig.plugins.push(
+    new webpack.optimize.ModuleConcatenationPlugin(),
     new webpack.optimize.UglifyJsPlugin({
       mangle: !sourceMap,
       compress: {

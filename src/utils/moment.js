@@ -79,12 +79,12 @@ export const commonMonths = date => [{
   monthIndex: 0,
   monthText: '本月'
 }, ...emptyArr(3).map((val, index) => {
-    const monthIndex = -index - 1
-    return {
-      monthIndex,
-      monthText: monthText(date, monthIndex)
-    }
-  }), {
+  const monthIndex = -index - 1
+  return {
+    monthIndex,
+    monthText: monthText(date, monthIndex)
+  }
+}), {
   monthIndex: -4,
   monthText: '三个月前'
 }]

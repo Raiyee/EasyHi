@@ -7,6 +7,8 @@ branches:
   only:
   - master
 
+cache: yarn
+
 before_install:
 - openssl aes-256-cbc -K $encrypted_dcf72c291a03_key -iv $encrypted_dcf72c291a03_iv
   -in .travis/id_rsa.enc -out ~/.ssh/id_rsa -d
@@ -17,13 +19,14 @@ before_install:
 - git config --global user.name 'JounQin'
 - git config --global user.email 'liujiaren1992@vip.qq.com'
 - sudo apt-get update
-- sudo apt-get install libcairo2-dev libjpeg-dev libpango1.0-dev libgif-dev build-essential g++
-- npm i -g npm
+- sudo apt-get install libcairo2-dev libjpeg8-dev libpango1.0-dev libgif-dev build-essential g++
+- yarn global add greenkeeper-lockfile
 
-install:
-- npm i
+before_script: greenkeeper-lockfile-update
 
 script:
-- npm run build:mock
+- yarn build:mock
 - git push --force --quiet git@git.coding.net:Raiyee/EasyHi.git master:master
-- npm run sync
+- yarn sync
+
+after_script: greenkeeper-lockfile-upload

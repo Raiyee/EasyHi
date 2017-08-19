@@ -46,7 +46,7 @@ const config = {
   compiler_alias: {
     vue: 'vue/dist/vue.common'
   },
-  compiler_vendor: [
+  compiler_vendors: [
     'axios',
     'moment',
     'qs',
@@ -95,7 +95,7 @@ config.globals = {
 // ------------------------------------
 // Validate Vendor Dependencies
 // ------------------------------------
-config.compiler_vendor = config.compiler_vendor
+config.compiler_vendors = config.compiler_vendors
   .filter(dep => ({...config.pkg.dependencies, ...config.compiler_alias}.hasOwnProperty(dep) ? true : debug(
     'Package "' + dep + '" was not found as an npm dependency in package.json; ' +
     'it won\'t be included in the webpack vendor bundle.\n' +
