@@ -93,7 +93,7 @@
     "eslint-plugin-flowtype": "^2.35.1",
     "eslint-plugin-html": "^3.2.2",
     "extract-text-webpack-plugin": "^3.0.0",
-    "file-loader": "^0.11.2",
+    "file-loader": "^1.1.0",
     "flow-runtime": "^0.14.0",
     "html-rewrite-webpack-plugin": "^0.0.1",
     "html-webpack-plugin": "^2.30.1",
