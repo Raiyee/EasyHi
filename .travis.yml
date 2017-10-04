@@ -23,7 +23,6 @@ before_script: greenkeeper-lockfile-update
 
 script:
 - yarn build:mock
-- echo $TRAVIS_BRANCH
-- 'if [ $TRAVIS_BRANCH = "master"  && "$TRAVIS_PULL_REQUEST" = "false" ]; then git push --force --quiet git@git.coding.net:Raiyee/EasyHi.git master:master; yarn sync; fi'
+- 'if [[ $TRAVIS_BRANCH = "master" && "$TRAVIS_PULL_REQUEST" = "false" ]]; then git push --force --quiet git@git.coding.net:Raiyee/EasyHi.git master:master; yarn sync; fi'
 
 after_script: greenkeeper-lockfile-upload
