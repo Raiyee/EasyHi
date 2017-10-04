@@ -80,8 +80,14 @@ let appLoader, bootstrapLoader
 
 const extracting = __TEST__ || __PROD__
 
-// const IMG_LOADER = __DEV__ ? '' : '!img-loader?minimize&progressive=true'
-const IMG_LOADER = ''
+// const IMG_LOADER = __DEV__ ? [] : [{
+//   loader: 'img-loader',
+//   options: {
+//     minimize: true,
+//     progressive: true
+//   }
+// }]
+const IMG_LOADER = []
 
 webpackConfig.module.rules = [
   ...commonCssLoaders({
@@ -131,12 +137,20 @@ webpackConfig.module.rules = [
     exclude: nodeModules
   }, {
     test: /\.(png|jpe?g|gif)$/,
-    loader: `url-loader?limit=10000&name=${prodEmpty('[name].')}[hash].[ext]${IMG_LOADER}`
+    use: [{
+      loader: `url-loader`,
+      options: {
+        limit: 10000,
+        name: `${prodEmpty('[name].')}[hash].[ext]`
+      }
+    },
+    ...IMG_LOADER
+    ]
   },
   {
     test: /\.(svg|woff2?|eot|ttf)$/,
     loader: 'url-loader',
-    query: {
+    options: {
       limit: 10000,
       name: `${prodEmpty('[name].')}[hash].[ext]`
     }
