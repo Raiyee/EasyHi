@@ -134,7 +134,7 @@
     "stylus-pxtorem": "^1.0.14",
     "sw-precache-webpack-plugin": "^0.11.4",
     "template-file-loader": "^0.0.2",
-    "url-loader": "^0.5.9",
+    "url-loader": "^0.6.1",
     "vconsole": "^3.0.0",
     "vue-hot-reload-api": "^2.1.0",
     "vue-loader": "^13.0.5",
