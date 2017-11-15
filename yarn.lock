@@ -2697,18 +2697,18 @@ eslint-plugin-flowtype@^2.37.0:
   dependencies:
     lodash "^4.15.0"
 
-eslint-plugin-html@4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-html/-/eslint-plugin-html-4.0.0.tgz#bd50533bc75e0112a55f174dbe9f7b3d2650e323"
-  dependencies:
-    htmlparser2 "^3.8.2"
-
 eslint-plugin-html@^3.0.0:
   version "3.2.2"
   resolved "https://registry.yarnpkg.com/eslint-plugin-html/-/eslint-plugin-html-3.2.2.tgz#ef7093621d3a93de3206fd1f92f347ea9a1a4dfa"
   dependencies:
     htmlparser2 "^3.8.2"
     semver "^5.4.1"
+
+eslint-plugin-html@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-html/-/eslint-plugin-html-4.0.0.tgz#bd50533bc75e0112a55f174dbe9f7b3d2650e323"
+  dependencies:
+    htmlparser2 "^3.8.2"
 
 eslint-plugin-import@^2.6.0:
   version "2.7.0"
@@ -3150,9 +3150,9 @@ flow-config-parser@^0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/flow-config-parser/-/flow-config-parser-0.3.0.tgz#704916efba88cd2518ab4d8f933079571276138f"
 
-flow-runtime@^0.14.0:
-  version "0.14.0"
-  resolved "https://registry.yarnpkg.com/flow-runtime/-/flow-runtime-0.14.0.tgz#bbbcb700b19a0a299ab403e807d69912ef077c16"
+flow-runtime@0.15.0:
+  version "0.15.0"
+  resolved "https://registry.yarnpkg.com/flow-runtime/-/flow-runtime-0.15.0.tgz#3c1fc84a84e3c19c46ca9d06458527e7273d2a05"
 
 follow-redirects@^1.2.3:
   version "1.2.4"
