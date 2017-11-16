@@ -571,7 +571,7 @@ babel-plugin-dynamic-import-webpack@^1.0.1:
     babel-plugin-syntax-dynamic-import "^6.18.0"
     babel-template "^6.16.0"
 
-babel-plugin-flow-runtime@0.15.0:
+babel-plugin-flow-runtime@^0.15.0:
   version "0.15.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-flow-runtime/-/babel-plugin-flow-runtime-0.15.0.tgz#fb2b427a75c1ba1cef7f0ee52111fdb8c265b992"
   dependencies:
@@ -3150,9 +3150,9 @@ flow-config-parser@^0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/flow-config-parser/-/flow-config-parser-0.3.0.tgz#704916efba88cd2518ab4d8f933079571276138f"
 
-flow-runtime@0.15.0:
-  version "0.15.0"
-  resolved "https://registry.yarnpkg.com/flow-runtime/-/flow-runtime-0.15.0.tgz#3c1fc84a84e3c19c46ca9d06458527e7273d2a05"
+flow-runtime@0.16.0:
+  version "0.16.0"
+  resolved "https://registry.yarnpkg.com/flow-runtime/-/flow-runtime-0.16.0.tgz#6da4aac36b8e26ea2dc80b38395ebecbfcb5a535"
 
 follow-redirects@^1.2.3:
   version "1.2.4"
