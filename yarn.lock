@@ -2659,11 +2659,11 @@ ecc-jsbn@~0.1.1:
   dependencies:
     jsbn "~0.1.0"
 
-echarts@^3.7.2:
-  version "3.7.2"
-  resolved "https://registry.yarnpkg.com/echarts/-/echarts-3.7.2.tgz#3b37764d8bc0c8ab49cbea16bc0b55726451caaa"
+echarts@4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/echarts/-/echarts-4.0.0.tgz#74340ff3fc88b67aee9839a80b1cb72faacd911a"
   dependencies:
-    zrender "^3.6.2"
+    zrender "4.0.0"
 
 ee-first@1.1.1:
   version "1.1.1"
@@ -4731,7 +4731,7 @@ karma-webpack@^2.0.4:
     source-map "^0.1.41"
     webpack-dev-middleware "^1.0.11"
 
-karma@2.0.0:
+karma@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/karma/-/karma-2.0.0.tgz#a02698dd7f0f05ff5eb66ab8f65582490b512e58"
   dependencies:
@@ -9140,6 +9140,6 @@ yeast@0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/yeast/-/yeast-0.1.2.tgz#008e06d8094320c372dbc2f8ed76a0ca6c8ac419"
 
-zrender@^3.6.2:
-  version "3.6.3"
-  resolved "https://registry.yarnpkg.com/zrender/-/zrender-3.6.3.tgz#e3a06ba105cc45eb36492a818e7b7ae879a7b15b"
+zrender@4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/zrender/-/zrender-4.0.0.tgz#908935151329fa95145a333d186edd4011cf86c5"
