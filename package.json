@@ -88,7 +88,7 @@
     "debug": "^3.1.0",
     "del": "^3.0.0",
     "eslint": "^4.8.0",
-    "eslint-config-1stg": "1.0.1",
+    "eslint-config-1stg": "2.0.0",
     "eslint-friendly-formatter": "^3.0.0",
     "eslint-plugin-flowtype": "^2.37.0",
     "eslint-plugin-html": "^4.0.0",
