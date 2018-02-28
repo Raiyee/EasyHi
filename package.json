@@ -96,7 +96,7 @@
     "file-loader": "^1.1.0",
     "flow-runtime": "^0.17.0",
     "html-rewrite-webpack-plugin": "^0.0.1",
-    "html-webpack-plugin": "^2.30.1",
+    "html-webpack-plugin": "^3.0.0",
     "karma": "^2.0.0",
     "karma-coverage": "^1.1.1",
     "karma-es6-shim": "^1.0.0",
