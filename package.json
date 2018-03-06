@@ -123,7 +123,7 @@
     "pug-lint": "^2.5.0",
     "selenium-server": "^3.6.0",
     "sinon": "^4.0.1",
-    "sinon-chai": "^2.14.0",
+    "sinon-chai": "^3.0.0",
     "style-loader": "^0.20.1",
     "stylelint": "^9.0.0",
     "stylelint-config-standard": "^18.0.0",
