@@ -53,7 +53,7 @@
     "axios": "^0.18.0",
     "bootstrap-styl": "^5.0.8",
     "echarts": "^4.0.0",
-    "fonts.css": "^1.5.0",
+    "fonts.css": "^2.0.0",
     "moment": "^2.18.1",
     "qs": "^6.5.1",
     "v-touch": "^1.5.0",
