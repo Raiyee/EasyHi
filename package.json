@@ -104,7 +104,7 @@
     "karma-mocha-reporter": "^2.2.4",
     "karma-phantomjs-launcher": "^1.0.4",
     "karma-sourcemap-loader": "^0.3.7",
-    "karma-webpack": "^2.0.4",
+    "karma-webpack": "^3.0.0",
     "koa": "^2.3.0",
     "koa-compress": "^2.0.0",
     "koa-logger": "^3.1.0",
